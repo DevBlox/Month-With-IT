@@ -1,5 +1,6 @@
 package com.tieto.it2014.ui;
 
+import com.tieto.it2014.dao.user.AllUsersQueryDaoMem;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import java.util.List;
@@ -9,7 +10,7 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 
 public class HomePage extends WebPage {
   private static final long serialVersionUID = 1L;
-  private final AllUsersQuery allUsersQuery = new AllUsersQuery();
+  private final AllUsersQuery allUsersQuery = new AllUsersQuery(new AllUsersQueryDaoMem());
 
   @Override
   protected void onInitialize() {

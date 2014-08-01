@@ -17,6 +17,7 @@
   </properties>
 
   <modules>
+    <module>it2014-dao</module>
     <module>it2014-domain</module>
     <module>it2014-ui</module>
   </modules>

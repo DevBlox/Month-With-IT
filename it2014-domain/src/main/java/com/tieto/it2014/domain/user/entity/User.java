@@ -1,4 +1,4 @@
-package com.tieto.it2014.ui;
+package com.tieto.it2014.domain.user.entity;
 
 import java.io.Serializable;
 

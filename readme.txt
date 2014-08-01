@@ -2,19 +2,13 @@
 
     UI 
     ------------------------------------------------------------------
-    * uses Wicket Model's to display data
-    * introduced user-count label and add-users button
-    * button click handler introduced
+    * introduced Wicket Panel: UserListPanel and UserListItemPanel
 
     Domain
     ------------------------------------------------------------------
-    We already had AllUsersQuery.
-    * introduced SaveUserCommand 
+    * introduced DeleteUserCommand
 
     DAO
     ------------------------------------------------------------------
-    We already had AllUsersQueryDaoMem.
-    * introduced SaveUserCommandDaoMem
-    * introduced SaveUserCommandDaoMemTest
-    * introduced GetUserByIdQueryDaoMem used only in SaveUserCommandDaoMemTest
+    * introduced DeleteCommandDaoMem with Test
     

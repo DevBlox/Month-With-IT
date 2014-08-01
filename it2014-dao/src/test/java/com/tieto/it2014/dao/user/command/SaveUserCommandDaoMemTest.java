@@ -1,5 +1,6 @@
-package com.tieto.it2014.dao.user;
+package com.tieto.it2014.dao.user.command;
 
+import com.tieto.it2014.dao.user.query.GetUserByIdQueryDaoMem;
 import com.tieto.it2014.domain.user.entity.User;
 import org.junit.Assert;
 import static org.junit.Assert.assertNotNull;

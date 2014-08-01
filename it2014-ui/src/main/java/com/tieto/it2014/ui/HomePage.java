@@ -1,10 +1,11 @@
 package com.tieto.it2014.ui;
 
-import com.tieto.it2014.dao.user.AllUsersQueryDaoMem;
-import com.tieto.it2014.dao.user.SaveUserCommandDaoMem;
+import com.tieto.it2014.dao.user.command.SaveUserCommandDaoMem;
+import com.tieto.it2014.dao.user.query.AllUsersQueryDaoMem;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
+import com.tieto.it2014.ui.user.UserListPanel;
 import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
@@ -25,7 +26,7 @@ public class HomePage extends WebPage {
   protected void onInitialize() {
     super.onInitialize();
     IModel<List<User>> usersModel = initUserListModel();
-    add(initUserList("users", usersModel));
+    add(new UserListPanel("users", usersModel));
     add(initUserCountLabel("userCount", usersModel));
     add(initAddUsersButton("add"));
   }

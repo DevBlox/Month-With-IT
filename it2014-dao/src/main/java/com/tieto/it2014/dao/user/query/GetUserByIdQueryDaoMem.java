@@ -1,4 +1,4 @@
-package com.tieto.it2014.dao.user;
+package com.tieto.it2014.dao.user.query;
 
 import com.tieto.it2014.dao.DatabaseInMemory;
 import com.tieto.it2014.domain.user.entity.User;

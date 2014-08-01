@@ -1,16 +1,19 @@
 package com.tieto.it2014.domain.user.entity;
 
-import java.io.Serializable;
+import com.tieto.it2014.domain.user.Entity;
 
-public class User implements Serializable {
+public class User extends Entity {
   private static final long serialVersionUID = 1L;
-  public final Long id;
-  public final String name;
-  public final int yearOfBirth;
+  public String name;
+  public int yearOfBirth;
 
   public User(Long id, String name, int yearOfBirth) {
-    this.id = id;
+    super(id);
     this.name = name;
     this.yearOfBirth = yearOfBirth;
+  }
+
+  public User createCopy() {
+    return new User(id, name, yearOfBirth);
   }
 }

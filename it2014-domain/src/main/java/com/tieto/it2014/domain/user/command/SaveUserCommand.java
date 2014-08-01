@@ -1,22 +1,21 @@
-package com.tieto.it2014.domain.user.query;
+package com.tieto.it2014.domain.user.command;
 
 import com.tieto.it2014.domain.user.entity.User;
 import java.io.Serializable;
-import java.util.List;
 
-public class AllUsersQuery implements Serializable {
+public class SaveUserCommand implements Serializable {
   private static final long serialVersionUID = 1L;
   private final Dao dao;
 
   public interface Dao extends Serializable {
-    List<User> result();
+    void execute(User user);
   }
 
-  public AllUsersQuery(Dao dao) {
+  public SaveUserCommand(Dao dao) {
     this.dao = dao;
   }
 
-  public List<User> result() {
-    return dao.result();
+  public void execute(User user) {
+    dao.execute(user);
   }
 }

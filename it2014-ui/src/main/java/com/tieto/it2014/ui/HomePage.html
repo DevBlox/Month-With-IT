@@ -2,12 +2,16 @@
 <html xmlns:wicket="http://wicket.apache.org">
   <head>
     <meta charset="utf-8" />
-    <title>Namučiai</title>
+    <title>Antikvarai</title>
   </head>
   <body>
-    <h1>Sistemos naudotojai</h1>
-    <ol>
-      <li wicket:id="users"></li>
-    </ol>
+    <h1>Senienų klubo nariai</h1>
+    <ul>
+      <li wicket:id="users">
+        <span wicket:id="user"></span>
+      </li>
+    </ul>
+    <p>Iš viso narių: <span wicket:id="userCount"></span></p>
+    <input wicket:id="add" type="submit" value="Add users" />
   </body>
 </html>

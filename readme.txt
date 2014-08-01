@@ -2,13 +2,17 @@
 
     UI 
     ------------------------------------------------------------------
-    * introduced Wicket Panel: UserListPanel and UserListItemPanel
+    * Bootstrap
+    * Page mounting on URL's
+    * Page navigation using setResponsePage()
+    * Form handling
 
     Domain
     ------------------------------------------------------------------
-    * introduced DeleteUserCommand
+    * added GetUserByIdQuery
+    * added CreateUserCommand which does not need DAO
 
     DAO
     ------------------------------------------------------------------
-    * introduced DeleteCommandDaoMem with Test
+    * GetUserByIdQueryDaoMem now implements GetUserByIdQuery.Dao
     

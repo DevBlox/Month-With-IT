@@ -26,6 +26,7 @@ public class UserListItemPanel extends Panel {
     add(new Label("name", new PropertyModel(user, "name")));
     add(new Label("yearOfBirth", new PropertyModel(user, "yearOfBirth")));
     add(initDeleteLink("delete"));
+    add(initEditLink("edit"));
   }
 
   private Component initDeleteLink(String wicketId) {
@@ -35,6 +36,17 @@ public class UserListItemPanel extends Panel {
       @Override
       public void onClick() {
         deleteUser.execute(user);
+      }
+    };
+  }
+
+  private Component initEditLink(String wicketId) {
+    return new Link(wicketId) {
+      private static final long serialVersionUID = 1L;
+
+      @Override
+      public void onClick() {
+        setResponsePage(EditUserPage.class, EditUserPage.parametersWith(user.id));
       }
     };
   }

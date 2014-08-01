@@ -1,18 +1,15 @@
 package com.tieto.it2014.ui;
 
-import com.tieto.it2014.dao.user.command.SaveUserCommandDaoMem;
 import com.tieto.it2014.dao.user.query.AllUsersQueryDaoMem;
-import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
+import com.tieto.it2014.ui.user.NewUserPage;
 import com.tieto.it2014.ui.user.UserListPanel;
 import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -20,7 +17,6 @@ import org.apache.wicket.model.Model;
 public class HomePage extends WebPage {
   private static final long serialVersionUID = 1L;
   private final AllUsersQuery allUsersQuery = new AllUsersQuery(new AllUsersQueryDaoMem());
-  private final SaveUserCommand saveUserCommand = new SaveUserCommand(new SaveUserCommandDaoMem());
 
   @Override
   protected void onInitialize() {
@@ -28,7 +24,7 @@ public class HomePage extends WebPage {
     IModel<List<User>> usersModel = initUserListModel();
     add(new UserListPanel("users", usersModel));
     add(initUserCountLabel("userCount", usersModel));
-    add(initAddUsersButton("add"));
+    add(initAddMemberButton("add"));
   }
 
   private IModel<List<User>> initUserListModel() {
@@ -42,32 +38,15 @@ public class HomePage extends WebPage {
     };
   }
 
-  private ListView<User> initUserList(String wicketId, final IModel<List<User>> usersModel) {
-    return new ListView<User>(wicketId, usersModel) {
-      private static final long serialVersionUID = 1L;
-
-      @Override
-      protected void populateItem(ListItem<User> item) {
-        User user = item.getModelObject();
-        item.add(new Label("user", user.name + " (" + user.yearOfBirth + ")"));
-      }
-    };
-  }
-
-  private Link initAddUsersButton(String wicketId) {
+  private Link initAddMemberButton(String wicketId) {
     return new Link(wicketId) {
       private static final long serialVersionUID = 1L;
 
       @Override
       public void onClick() {
-        addUsers();
+        setResponsePage(NewUserPage.class);
       }
     };
-  }
-
-  private void addUsers() {
-    saveUserCommand.execute(new User(null, "Ona", 1993));
-    saveUserCommand.execute(new User(null, "Gerimantas", 1988));
   }
 
   private Component initUserCountLabel(String wicketId, final IModel<List<User>> listModel) {

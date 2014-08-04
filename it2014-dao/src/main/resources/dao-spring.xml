@@ -10,4 +10,17 @@
     <context:annotation-config />
     <context:component-scan base-package="com.tieto.it2014.dao" />
 
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:mem:tcp://localhost:9092/tcpTest;MODE=Oracle;DB_CLOSE_DELAY=-1" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+    </bean>
+
+    <bean class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog" value="classpath:/dao-changelog.xml" />
+        <property name="shouldRun" value="true" />
+    </bean>
+
 </beans>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="mantas.miliukas@tieto.com">
+        <createTable tableName="USERS">
+            <column name="ID" type="NUMBER(4,0)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ID_PK" />
+            </column>
+            <column name="NAME" type="VARCHAR(64)">
+                <constraints nullable="false" />
+            </column>
+            <column name="YEAR_OF_BIRTH" type="NUMBER(4,0)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <createSequence sequenceName="USERS_SEQ" />
+    </changeSet>
+
+    <changeSet id="2" author="mantas.miliukas@tieto.com">
+        <insert tableName="USERS">
+            <column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
+            <column name="NAME" value="Simas" />
+            <column name="YEAR_OF_BIRTH" valueNumeric="1992" />
+        </insert>
+        <insert tableName="USERS">
+            <column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
+            <column name="NAME" value="Živilė" />
+            <column name="YEAR_OF_BIRTH" valueNumeric="1994" />
+        </insert>
+        <insert tableName="USERS">
+            <column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
+            <column name="NAME" value="Tomas" />
+            <column name="YEAR_OF_BIRTH" valueNumeric="1993" />
+        </insert>
+        <insert tableName="USERS">
+            <column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
+            <column name="NAME" value="Jolanta" />
+            <column name="YEAR_OF_BIRTH" valueNumeric="1997" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

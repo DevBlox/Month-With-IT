@@ -7,9 +7,10 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <bean class="com.tieto.it2014.ui.WicketApplication" />
-
     <import resource="classpath:/dao-spring.xml" />
     <import resource="classpath:/domain-spring.xml" />
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.tieto.it2014.ui"/>
 
 </beans>

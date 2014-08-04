@@ -1,6 +1,5 @@
 package com.tieto.it2014.ui.user;
 
-import com.tieto.it2014.dao.user.command.SaveUserCommandDaoMem;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.ui.HomePage;
@@ -16,7 +15,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 public class EditUserPanel extends Panel {
+
     private static final long serialVersionUID = 1L;
+
     private final User user;
 
     @SpringBean

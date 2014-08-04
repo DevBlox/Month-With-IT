@@ -1,6 +1,5 @@
 package com.tieto.it2014.ui.user;
 
-import com.tieto.it2014.dao.user.command.DeleteCommandDaoMem;
 import com.tieto.it2014.domain.user.command.DeleteUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import org.apache.wicket.Component;
@@ -11,6 +10,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class UserListItemPanel extends Panel {
+
     private static final long serialVersionUID = 1L;
 
     @SpringBean

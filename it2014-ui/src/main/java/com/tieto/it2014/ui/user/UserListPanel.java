@@ -8,29 +8,32 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
 public class UserListPanel extends Panel {
-  private static final long serialVersionUID = 1L;
-  private final IModel<List<User>> usersModel;
 
-  public UserListPanel(String id, IModel<List<User>> usersModel) {
-    super(id);
-    this.usersModel = usersModel;
-  }
+    private static final long serialVersionUID = 1L;
 
-  @Override
-  protected void onInitialize() {
-    super.onInitialize();
-    add(initUserList("users", usersModel));
-  }
+    private final IModel<List<User>> usersModel;
 
-  private ListView<User> initUserList(String wicketId, IModel<List<User>> usersModel) {
-    return new ListView<User>(wicketId, usersModel) {
-      private static final long serialVersionUID = 1L;
+    public UserListPanel(String id, IModel<List<User>> usersModel) {
+        super(id);
+        this.usersModel = usersModel;
+    }
 
-      @Override
-      protected void populateItem(ListItem<User> item) {
-        User user = item.getModelObject();
-        item.add(new UserListItemPanel("user", user));
-      }
-    };
-  }
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(initUserList("users", usersModel));
+    }
+
+    private ListView<User> initUserList(String wicketId, IModel<List<User>> usersModel) {
+        return new ListView<User>(wicketId, usersModel) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(ListItem<User> item) {
+                User user = item.getModelObject();
+                item.add(new UserListItemPanel("user", user));
+            }
+        };
+    }
+
 }

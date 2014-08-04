@@ -8,46 +8,49 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class UserListItemPanel extends Panel {
-  private static final long serialVersionUID = 1L;
-  private static final DeleteUserCommand deleteUser
-      = new DeleteUserCommand(new DeleteCommandDaoMem());
-  private final User user;
+    private static final long serialVersionUID = 1L;
 
-  public UserListItemPanel(String id, User user) {
-    super(id);
-    this.user = user;
-  }
+    @SpringBean
+    private DeleteUserCommand deleteUser;
 
-  @Override
-  protected void onInitialize() {
-    super.onInitialize();
-    add(new Label("name", new PropertyModel(user, "name")));
-    add(new Label("yearOfBirth", new PropertyModel(user, "yearOfBirth")));
-    add(initDeleteLink("delete"));
-    add(initEditLink("edit"));
-  }
+    private final User user;
 
-  private Component initDeleteLink(String wicketId) {
-    return new Link(wicketId) {
-      private static final long serialVersionUID = 1L;
+    public UserListItemPanel(String id, User user) {
+        super(id);
+        this.user = user;
+    }
 
-      @Override
-      public void onClick() {
-        deleteUser.execute(user);
-      }
-    };
-  }
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new Label("name", new PropertyModel(user, "name")));
+        add(new Label("yearOfBirth", new PropertyModel(user, "yearOfBirth")));
+        add(initDeleteLink("delete"));
+        add(initEditLink("edit"));
+    }
 
-  private Component initEditLink(String wicketId) {
-    return new Link(wicketId) {
-      private static final long serialVersionUID = 1L;
+    private Component initDeleteLink(String wicketId) {
+        return new Link(wicketId) {
+            private static final long serialVersionUID = 1L;
 
-      @Override
-      public void onClick() {
-        setResponsePage(EditUserPage.class, EditUserPage.parametersWith(user.id));
-      }
-    };
-  }
+            @Override
+            public void onClick() {
+                deleteUser.execute(user);
+            }
+        };
+    }
+
+    private Component initEditLink(String wicketId) {
+        return new Link(wicketId) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onClick() {
+                setResponsePage(EditUserPage.class, EditUserPage.parametersWith(user.id));
+            }
+        };
+    }
 }

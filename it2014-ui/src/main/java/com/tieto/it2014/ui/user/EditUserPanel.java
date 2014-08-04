@@ -12,52 +12,55 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 public class EditUserPanel extends Panel {
-  private static final long serialVersionUID = 1L;
-  private final User user;
-  private final SaveUserCommand saveUser = new SaveUserCommand(new SaveUserCommandDaoMem());
+    private static final long serialVersionUID = 1L;
+    private final User user;
 
-  public EditUserPanel(String id, User user) {
-    super(id);
-    this.user = user;
-  }
+    @SpringBean
+    private SaveUserCommand saveUser;
 
-  @Override
-  protected void onInitialize() {
-    super.onInitialize();
-    Form form = new Form("form");
-    form.add(new FeedbackPanel("feedback"));
-    form.add(new TextField("inputName", new PropertyModel(user, "name"))
-        .setRequired(true));
-    form.add(new TextField("inputYearOfBirth", new PropertyModel(user, "yearOfBirth"))
-        .add(new RangeValidator(1900, 2100)));
-    form.add(initSaveButton("save"));
-    form.add(initCancelButton("cancel"));
-    add(form);
-  }
+    public EditUserPanel(String id, User user) {
+        super(id);
+        this.user = user;
+    }
 
-  private Component initSaveButton(String wicketId) {
-    return new Button(wicketId) {
-      private static final long serialVersionUID = 1L;
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        Form form = new Form("form");
+        form.add(new FeedbackPanel("feedback"));
+        form.add(new TextField("inputName", new PropertyModel(user, "name"))
+                .setRequired(true));
+        form.add(new TextField("inputYearOfBirth", new PropertyModel(user, "yearOfBirth"))
+                .add(new RangeValidator(1900, 2100)));
+        form.add(initSaveButton("save"));
+        form.add(initCancelButton("cancel"));
+        add(form);
+    }
 
-      @Override
-      public void onSubmit() {
-        saveUser.execute(user);
-        setResponsePage(HomePage.class);
-      }
-    };
-  }
+    private Component initSaveButton(String wicketId) {
+        return new Button(wicketId) {
+            private static final long serialVersionUID = 1L;
 
-  private Component initCancelButton(String wicketId) {
-    return new Link(wicketId) {
-      private static final long serialVersionUID = 1L;
+            @Override
+            public void onSubmit() {
+                saveUser.execute(user);
+                setResponsePage(HomePage.class);
+            }
+        };
+    }
 
-      @Override
-      public void onClick() {
-        setResponsePage(HomePage.class);
-      }
-    };
-  }
+    private Component initCancelButton(String wicketId) {
+        return new Link(wicketId) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onClick() {
+                setResponsePage(HomePage.class);
+            }
+        };
+    }
 }

@@ -2,17 +2,12 @@
 
     UI 
     ------------------------------------------------------------------
-    * Bootstrap
-    * Page mounting on URL's
-    * Page navigation using setResponsePage()
-    * Form handling
+    * Added spring support
 
     Domain
     ------------------------------------------------------------------
-    * added GetUserByIdQuery
-    * added CreateUserCommand which does not need DAO
+    * Added spring support
 
     DAO
     ------------------------------------------------------------------
-    * GetUserByIdQueryDaoMem now implements GetUserByIdQuery.Dao
-    
+    * Added spring support

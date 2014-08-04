@@ -9,6 +9,10 @@ public class User extends Entity {
     public String name;
     public Integer yearOfBirth;
 
+    public User(String name, Integer yearOfBirth) {
+        this(null, name, yearOfBirth);
+    }
+
     public User(Long id, String name, Integer yearOfBirth) {
         super(id);
         this.name = name;

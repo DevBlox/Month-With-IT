@@ -17,9 +17,9 @@ public class H2LiquibaseTest extends BaseDaoTest {
         ResultSet results = dataSource
                 .getConnection()
                 .createStatement()
-                .executeQuery("SELECT COUNT(*) AS COUNT FROM USERS");
+                .executeQuery("SELECT COUNT(*) AS COUNT FROM DATABASECHANGELOG");
         results.next();
-        Assert.assertEquals(4, results.getInt("COUNT"));
+        Assert.assertTrue(results.getInt("COUNT") > 0);
     }
 
 }

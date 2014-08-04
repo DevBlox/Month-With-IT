@@ -15,7 +15,7 @@ public class SaveUserCommand implements Serializable {
     private Dao dao;
 
     public interface Dao extends Serializable {
-        void execute(User user);
+        Long execute(User user);
     }
 
     public void execute(User user) {

@@ -12,6 +12,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/dao-spring.xml")
+@TestExecutionListeners(listeners = {
+        DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class})
 public abstract class BaseDaoTest {
 
     @Before

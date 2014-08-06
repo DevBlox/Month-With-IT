@@ -7,4 +7,4 @@
     -------------
 
     * Updated HomePage
-    * Mock domain side
+    * New workout fragment

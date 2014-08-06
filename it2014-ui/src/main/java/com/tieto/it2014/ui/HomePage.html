@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns:wicket="http://wicket.apache.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>Antikvarai</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <body class="container">
+    <h1>Senienų klubo nariai</h1>
+    <div wicket:id="users"></div>
+    <br />
+    <div class="row">
+      <span class="span2">
+        <input wicket:id="add" type="submit" value="Pridėti narį" class="btn btn-small btn-primary" />
+      </span>
+      <small class="span1">Narių:  <span wicket:id="userCount"></span></small>
+    </div>
+  </body>
+</html>

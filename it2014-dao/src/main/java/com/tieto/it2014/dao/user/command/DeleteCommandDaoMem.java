@@ -18,7 +18,8 @@ public class DeleteCommandDaoMem implements DeleteUserCommand.Dao {
     @Override
     @Transactional
     public void execute(User user) {
-        repository.delete(user.id);
+//        repository.delete(user.id);
+        
     }
 
 }

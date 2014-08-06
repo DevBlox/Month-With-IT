@@ -49,7 +49,7 @@ public class UserListItemPanel extends Panel {
 
             @Override
             public void onClick() {
-                setResponsePage(EditUserPage.class, EditUserPage.parametersWith(user.id));
+//                setResponsePage(EditUserPage.class, EditUserPage.parametersWith(user.imei));
             }
         };
     }

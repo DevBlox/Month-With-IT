@@ -6,21 +6,23 @@ public class User extends Entity {
 
     private static final long serialVersionUID = 1L;
 
-    public String name;
-    public Integer yearOfBirth;
+    public String username;
+    public String password;
+    public String email;
 
-    public User(String name, Integer yearOfBirth) {
-        this(null, name, yearOfBirth);
+    public User(String username, String password, String email) {
+        this(null, username, password, email);
     }
 
-    public User(Long id, String name, Integer yearOfBirth) {
-        super(id);
-        this.name = name;
-        this.yearOfBirth = yearOfBirth;
+    public User(String imei, String username, String password, String email) {
+        super(imei);
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     public User createCopy() {
-        return new User(id, name, yearOfBirth);
+        return new User(imei, username, password, email);
     }
 
 }

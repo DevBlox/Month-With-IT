@@ -19,7 +19,7 @@ public class SaveUserCommandDaoMem implements SaveUserCommand.Dao {
     @Override
     @Transactional
     public Long execute(User user) {
-        return repository.merge(new UserEntity(user)).getId();
+        return null;
     }
 
 }

@@ -5,35 +5,39 @@ import com.tieto.it2014.domain.user.entity.User;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "USER")
 public class UserEntity {
 
+    @Column(name = "IMEI")
     @Id
-    @Column(name = "ID")
-    @GeneratedValue
-    private Long id;
+    private String imei;
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "EMAIL")
+    private String email;
 
-    @Column(name = "YEAR_OF_BIRTH")
-    private Integer yearOfBirth;
+    @Column(name = "USERNAME")
+    private String username;
+    
+    @Column(name = "PASSWORD")
+    private String password;
 
     public UserEntity() {
     }
 
     public UserEntity(User user) {
-        this.id = user.id;
-        this.name = user.name;
-        this.yearOfBirth = user.yearOfBirth;
+        this.imei = user.imei;
+        this.email = user.email;
+        this.username = user.username;
+        this.password = user.password;
     }
 
-    public Long getId() { return id; }
-    public String getName() { return name; }
-    public Integer getYearOfBirth() { return yearOfBirth; }
+    public String getImei() { return imei; }
+    public String getEmail() { return email; }
+    public String getUsername() { return username; }
+    public String getPassword() { return password; }
 
     public User toUser() {
-        return new User(this.id, this.name, this.yearOfBirth);
+        return new User(this.imei, this.email, this.username, this.password);
     }
 
 }

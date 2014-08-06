@@ -1,0 +1,11 @@
+{
+    "attributes": {},
+    "elements": {
+        "wicket:panel": {
+            "attributes": {
+                "xmlns:wicket": {}
+            }
+        },
+        "wicket:container": {}
+    }
+}

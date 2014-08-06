@@ -1,5 +1,7 @@
 package com.tieto.it2014.ui;
 
+import com.tieto.it2014.ui.workout.Workout;
+import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -10,43 +12,18 @@ import org.apache.wicket.model.LoadableDetachableModel;
 
 
 
+
 public class HomePage extends WebPage {
 
     private static final long serialVersionUID = 1L;
-    
-    public class Workout {
-            
-            // EMEI
-            // Start
-            // Finish
-            // Duration
-            // Distance
-            
-            String imei = null;
-            Date start = null;
-            Date finish = null;
-            double duration = 0;
-            double distance = 0;
-            
-            Workout(String imei,
-                    Date start,
-                    Date finish,
-                    double duration,
-                    double distance) {
-                this.imei = imei;
-                this.start = start;
-                this.finish = finish;
-                this.duration = duration;
-                this.distance = distance;
-            }
-        }
-
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
         
         IModel<List<Workout>> workoutModel = initWorkoutListModel();
+        
+        add(new WorkoutTopListPanel("workout", workoutModel));
         
     }
     
@@ -61,12 +38,12 @@ public class HomePage extends WebPage {
                                                     new Date(79456), 
                                                     new Date(98751), 
                                                     0.63,
-                                                    9756984),
+                                                    9756984.0),
                                       new Workout("97663",
                                                     new Date(98796),
                                                     new Date(3210688),
                                                     97564.0,
-                                                    32196847)
+                                                    32196847.0)
                                        )
                 );
             }

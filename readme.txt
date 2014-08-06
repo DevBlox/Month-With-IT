@@ -1,3 +1,0 @@
-
-
-    * Wicket "Hello world :)"

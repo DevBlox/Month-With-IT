@@ -7,3 +7,4 @@
     -------------
 
     * Updated HomePage
+    * Mock domain side

@@ -18,17 +18,17 @@ import org.apache.wicket.model.IModel;
  */
 public class WorkoutTopListPanel extends Panel {
     
-    private final IModel<List<Workout>> workoutModel; //!!! Users turi but Workout
+    private final IModel<List<Workout>> workoutModel; 
 
     public WorkoutTopListPanel(String id, IModel<List<Workout>> workoutModel) {
         super(id);
-        this.workoutModel = workoutModel;    ///!!! Users turi but Workout
+        this.workoutModel = workoutModel;   
     }
     
      @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(initWorkoutList("topList", workoutModel)); ///!!! Users turi but Workout
+        add(initWorkoutList("topList", workoutModel)); 
         
         
 
@@ -40,7 +40,7 @@ public class WorkoutTopListPanel extends Panel {
 
             @Override
             protected void populateItem(ListItem<Workout> item) {
-                Workout workout = item.getModelObject();    // pakeisti tipa i Workout
+                Workout workout = item.getModelObject();   
                 item.add(new WorkoutListItemPanel("oneWorkout", workout));
             }
         };

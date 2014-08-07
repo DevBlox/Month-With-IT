@@ -1,6 +1,7 @@
 package com.tieto.it2014.ui.register;
 
 import com.tieto.it2014.domain.user.command.CreateUserCommand;
+import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.ui.HomePage;
 import org.apache.wicket.Component;
@@ -21,16 +22,19 @@ public class RegisterPanel extends Panel {
         super(wicketid);
     }
     
-    private User user ;
+    private User user;
 
     @SpringBean
     private CreateUserCommand createUser;
+    
+    @SpringBean
+    private SaveUserCommand saveUser;
 
     @Override
     protected void onInitialize() {
         
         super.onInitialize();
-        user = new User();
+        user = createUser.getUser();
         Form form = new Form("loginForm");
 //        form.add(new FeedbackPanel("loginFeedback"));
         form.add(new TextField("inputUserName", new PropertyModel(user, "username"))
@@ -49,7 +53,8 @@ public class RegisterPanel extends Panel {
 
             @Override
             public void onSubmit() {
-                createUser.execute(user);
+                createUser.verify();
+                saveUser.execute(user);
                 setResponsePage(HomePage.class);
             }
         };

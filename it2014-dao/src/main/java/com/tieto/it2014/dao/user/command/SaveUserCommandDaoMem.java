@@ -19,6 +19,7 @@ public class SaveUserCommandDaoMem implements SaveUserCommand.Dao {
     @Override
     @Transactional
     public Long execute(User user) {
+        repository.create(new UserEntity(user));
         return null;
     }
 

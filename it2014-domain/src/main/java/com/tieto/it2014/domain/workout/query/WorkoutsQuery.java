@@ -1,6 +1,6 @@
 package com.tieto.it2014.domain.workout.query;
 
-import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.user.entity.UserLoc;
 import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ public class WorkoutsQuery implements Serializable {
     private Dao dao;
 
     public interface Dao extends Serializable {
-        List<Workout> result();
+        List<UserLoc> result();
     }
 
-    public List<Workout> result() {
+    public List<UserLoc> result() {
         return dao.result();
     }
 

@@ -1,7 +1,6 @@
 package com.tieto.it2014.dao.workout;
 
-import com.tieto.it2014.domain.user.entity.Workout;
-import org.hibernate.annotations.Type;
+import com.tieto.it2014.domain.user.entity.UserLoc;
 
 import javax.persistence.*;
 
@@ -28,11 +27,11 @@ public class WorkoutEntity {
     public WorkoutEntity() {
     }
 
-    public WorkoutEntity(Workout workout) {
-        this.phoneNumber = workout.id;
-        this.timeStamp = workout.timeStamp;
-        this.Latitude = workout.Latitude;
-        this.Longtitude = workout.Longtitude;
+    public WorkoutEntity(UserLoc userLoc) {
+        this.phoneNumber = userLoc.id;
+        this.timeStamp = userLoc.timeStamp;
+        this.Latitude = userLoc.Latitude;
+        this.Longtitude = userLoc.Longtitude;
     }
 
     public String getPhoneNumber() { return phoneNumber; }
@@ -40,8 +39,8 @@ public class WorkoutEntity {
     public Double getLatitude() { return Latitude; }
     public Double getLongtitude() { return Longtitude; }
 
-    public Workout toWorkout() {
-        return new Workout(this.phoneNumber, this.timeStamp, this.Latitude, this.Longtitude);
+    public UserLoc toWorkout() {
+        return new UserLoc(this.phoneNumber, this.timeStamp, this.Latitude, this.Longtitude);
     }
 
 }

@@ -1,7 +1,5 @@
 package com.tieto.it2014.dao.workout;
 
-import com.tieto.it2014.dao.user.*;
-import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.entity.Workout;
 
 import javax.persistence.*;

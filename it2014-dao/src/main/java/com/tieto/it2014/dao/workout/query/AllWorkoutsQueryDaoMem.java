@@ -1,12 +1,8 @@
 package com.tieto.it2014.dao.workout.query;
 
-import com.tieto.it2014.dao.user.UserEntity;
-import com.tieto.it2014.dao.user.UserEntityRepository;
 import com.tieto.it2014.dao.workout.WorkoutEntity;
 import com.tieto.it2014.dao.workout.WorkoutEntityRepository;
-import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.entity.Workout;
-import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import java.util.ArrayList;
 import java.util.List;

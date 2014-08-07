@@ -30,7 +30,7 @@ class WorkoutListItemPanel extends Panel {
         add(new Label("imei", new PropertyModel(workout, "timeStamp")));
         add(new Label("start", new PropertyModel(workout, "Longtitude")));
         add(new Label("finish", new PropertyModel(workout, "Latitude")));
-        add(new Label("distance", new PropertyModel(workout, "phoneNumber")));
+        add(new Label("distance", new PropertyModel(workout, "id")));
 //        add(new Label("duration", new PropertyModel(workout, "duration")));
     }
     

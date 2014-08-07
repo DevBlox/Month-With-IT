@@ -6,8 +6,6 @@ public class Workout extends Entity {
 
     private static final long serialVersionUID = 1L;
 
-    public String phoneNumber;
-
     public Long timeStamp;
 
     public Double Latitude;

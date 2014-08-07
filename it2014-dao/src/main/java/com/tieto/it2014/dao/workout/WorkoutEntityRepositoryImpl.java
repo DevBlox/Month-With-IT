@@ -17,7 +17,8 @@ public class WorkoutEntityRepositoryImpl implements WorkoutEntityRepository {
     @Override
     public List<WorkoutEntity> all() {
         TypedQuery<WorkoutEntity> query = entityManager.createQuery("SELECT u FROM WorkoutEntity u", WorkoutEntity.class);
-        return (List<WorkoutEntity>)query.getResultList();
+        List<WorkoutEntity> lst = (List<WorkoutEntity>)query.getResultList();
+        return lst;
     }
 
     @Override

@@ -1,15 +1,16 @@
 package com.tieto.it2014.dao.workout;
 
 import com.tieto.it2014.domain.user.entity.Workout;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "workout")
+@Table(name = "Workout")
 public class WorkoutEntity {
 
-    @Column(name = "PhoneNumber")
     @Id
+    @Column(name = "imei")
     private String phoneNumber;
 
     @Column(name = "timeStamp")
@@ -22,10 +23,11 @@ public class WorkoutEntity {
     private Double Longtitude;
 
     public WorkoutEntity() {
+        System.out.println(phoneNumber);
     }
 
     public WorkoutEntity(Workout workout) {
-        this.phoneNumber = workout.phoneNumber;
+        this.phoneNumber = workout.id;
         this.timeStamp = workout.timeStamp;
         this.Latitude = workout.Latitude;
         this.Longtitude = workout.Longtitude;

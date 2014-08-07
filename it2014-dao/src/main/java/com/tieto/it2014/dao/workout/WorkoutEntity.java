@@ -6,10 +6,13 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Workout")
+@Table(name = "UserLoc")
 public class WorkoutEntity {
 
     @Id
+    @Column(name = "Id")
+    private String Id;
+
     @Column(name = "imei")
     private String phoneNumber;
 
@@ -23,7 +26,6 @@ public class WorkoutEntity {
     private Double Longtitude;
 
     public WorkoutEntity() {
-        System.out.println(phoneNumber);
     }
 
     public WorkoutEntity(Workout workout) {

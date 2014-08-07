@@ -16,9 +16,13 @@ public class WorkoutEntityRepositoryImpl implements WorkoutEntityRepository {
 
     @Override
     public List<WorkoutEntity> all() {
-        TypedQuery<WorkoutEntity> query = entityManager.createQuery("SELECT u FROM WorkoutEntity u", WorkoutEntity.class);
+        TypedQuery<WorkoutEntity> query = entityManager.createQuery("SELECT u FROM WorkoutEntity u ORDER BY u.timeStamp", WorkoutEntity.class);
         List<WorkoutEntity> lst = (List<WorkoutEntity>)query.getResultList();
-        return lst;
+        int c = 0;
+        for (WorkoutEntity we : lst) {
+            System.out.println(we.getTimeStamp() + " -  " + we.getPhoneNumber() + " : " + ++c);
+        }
+        return (List<WorkoutEntity>)query.getResultList();
     }
 
     @Override

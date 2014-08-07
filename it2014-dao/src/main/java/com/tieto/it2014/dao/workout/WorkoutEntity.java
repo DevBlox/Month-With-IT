@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "workout")
 public class WorkoutEntity {
 
-    @Column(name = "PhoneNumeber")
+    @Column(name = "PhoneNumber")
     @Id
     private String phoneNumber;
 
@@ -33,7 +33,7 @@ public class WorkoutEntity {
         this.Longtitude = workout.Longtitude;
     }
 
-    public String getPhoneNumeber() { return phoneNumber; }
+    public String getPhoneNumber() { return phoneNumber; }
     public Long getTimeStamp() { return timeStamp; }
     public Double getLatitude() { return Latitude; }
     public Double getLongtitude() { return Longtitude; }

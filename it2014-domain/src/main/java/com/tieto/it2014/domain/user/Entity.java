@@ -9,9 +9,9 @@ public abstract class Entity implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long id;
+    public String id;
 
-    public Entity(Long id) {
+    public Entity(String id) {
         this.id = id;
     }
 

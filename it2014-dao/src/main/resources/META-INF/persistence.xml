@@ -9,7 +9,7 @@
     <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>com.tieto.it2014.dao.user.UserEntity</class>
-        <class>com.tieto.it2014.dao.user.WorkoutEntity</class>
+        <class>com.tieto.it2014.dao.workout.WorkoutEntity</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
         </properties>

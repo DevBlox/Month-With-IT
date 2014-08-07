@@ -20,7 +20,7 @@ public class Workout extends Entity {
     }
 
     public Workout(String phoneNumber, Long timeStamp, Double Latitude, Double Longtitude) {
-        super(Long.parseLong(phoneNumber));
+        super(phoneNumber);
         this.timeStamp = timeStamp;
         this.Latitude = Latitude;
         this.Longtitude = Longtitude;

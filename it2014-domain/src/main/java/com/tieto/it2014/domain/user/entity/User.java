@@ -9,17 +9,17 @@ public class User extends Entity {
     public String username;
     public String password;
     public String email;
+    public String imei;
 
-    public User(String username, String password, String email) {
-        this(null, username, password, email);
+    public User() {
+        super(null);
     }
-
+   
     public User(String imei, String username, String password, String email) {
         super(imei);
         this.username = username;
         this.password = password;
         this.email = email;
+        this.imei = imei;
     }
-
-
 }

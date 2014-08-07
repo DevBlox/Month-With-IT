@@ -14,6 +14,5 @@ public class NewUserPage extends WebPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new EditUserPanel("editUser", createUser.execute()));
     }
 }

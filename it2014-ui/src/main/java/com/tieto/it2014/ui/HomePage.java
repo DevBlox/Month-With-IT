@@ -6,6 +6,7 @@ import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import java.util.List;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -27,7 +28,14 @@ public class HomePage extends WebPage {
         IModel<List<Workout>> workoutModel = initWorkoutListModel();
         
         add(new WorkoutTopListPanel("workout", workoutModel));
-        
+        add(new Link("registerPage") {
+
+            @Override
+            public void onClick() {
+                System.out.print("paspaustas");
+                setResponsePage(RegisterPage.class);
+            }
+        });
     }
     
     private IModel<List<Workout>> initWorkoutListModel() {

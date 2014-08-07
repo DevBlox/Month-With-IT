@@ -1,0 +1,20 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+    <form wicket:id="loginForm" class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label">User Name:</label>
+          <div class="controls"> 
+            <input wicket:id="inputUserName" type="text" autofocus />
+           </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Email:</label>
+            <div>
+                <input wicket:id="inputEmail"  type="text" />
+            </div>
+        </div>
+            <span class="control-label">Password: </span><input wicket:id="inputPassword" type="text" />
+            <span class="control-label">IMEI: </span><input wicket:id="imei" type="text" />
+        </div>
+    <button wicket:id="registerButton" type="submit">Login</button>
+  </form>
+</wicket:panel>

@@ -1,6 +1,7 @@
 package com.tieto.it2014.dao.workout;
 
-import com.tieto.it2014.domain.user.entity.UserLoc;
+import com.tieto.it2014.domain.user.entity.Workout;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 

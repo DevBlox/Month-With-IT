@@ -1,7 +1,5 @@
 package com.tieto.it2014.ui;
 
-import com.tieto.it2014.ui.user.EditUserPage;
-import com.tieto.it2014.ui.user.NewUserPage;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
@@ -26,8 +24,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, this.context, true));
         getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
-        mountPage("user/new", NewUserPage.class);
-        mountPage("user/edit/${userId}", EditUserPage.class);
+        mountPage("register", RegisterPage.class);
     }
 
     @Override

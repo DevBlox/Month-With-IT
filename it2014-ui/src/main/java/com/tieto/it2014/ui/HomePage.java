@@ -36,7 +36,7 @@ public class HomePage extends WebPage {
                  List<Workout> array = new ArrayList<>();
                  
                  for (int i = 0; i < 100; i++) {
-                     array.add(new Workout("4128", 
+                     array.add(new Workout(Integer.toString(i), 
                                                     new Date(79456), 
                                                     new Date(98751), 
                                                     0.63,

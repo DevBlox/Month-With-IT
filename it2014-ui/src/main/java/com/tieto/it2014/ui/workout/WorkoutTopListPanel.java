@@ -7,7 +7,7 @@
 package com.tieto.it2014.ui.workout;
 
 import com.tieto.it2014.domain.user.entity.UserLoc;
-
+import com.tieto.it2014.domain.user.entity.Workout;
 import java.util.List;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -20,9 +20,9 @@ import org.apache.wicket.model.IModel;
  */
 public class WorkoutTopListPanel extends Panel {
     
-    private final IModel<List<UserLoc>> workoutModel;
+    private final IModel<List<Workout>> workoutModel;
 
-    public WorkoutTopListPanel(String id, IModel<List<UserLoc>> workoutModel) {
+    public WorkoutTopListPanel(String id, IModel<List<Workout>> workoutModel) {
         super(id);
         this.workoutModel = workoutModel;   
     }
@@ -36,13 +36,13 @@ public class WorkoutTopListPanel extends Panel {
 
     }
 
-    private ListView<UserLoc> initWorkoutList(String wicketId, IModel<List<UserLoc>> workoutModel) {
-         return new ListView<UserLoc>(wicketId, workoutModel) {
+    private ListView<Workout> initWorkoutList(String wicketId, IModel<List<Workout>> workoutModel) {
+         return new ListView<Workout>(wicketId, workoutModel) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(ListItem<UserLoc> item) {
-                UserLoc userLoc = item.getModelObject();
+            protected void populateItem(ListItem<Workout> item) {
+                Workout userLoc = item.getModelObject();
                 item.add(new WorkoutListItemPanel("oneWorkout", userLoc));
             }
         };

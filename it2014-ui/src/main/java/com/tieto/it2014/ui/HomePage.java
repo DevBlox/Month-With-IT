@@ -1,6 +1,7 @@
 package com.tieto.it2014.ui;
 
 import com.tieto.it2014.domain.user.entity.UserLoc;
+import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import java.util.List;
@@ -23,18 +24,18 @@ public class HomePage extends WebPage {
     protected void onInitialize() {
         super.onInitialize();
         
-        IModel<List<UserLoc>> workoutModel = initWorkoutListModel();
+        IModel<List<Workout>> workoutModel = initWorkoutListModel();
         
         add(new WorkoutTopListPanel("workout", workoutModel));
         
     }
     
-    private IModel<List<UserLoc>> initWorkoutListModel() {
-        return new LoadableDetachableModel<List<UserLoc>>() {
+    private IModel<List<Workout>> initWorkoutListModel() {
+        return new LoadableDetachableModel<List<Workout>>() {
             private static final long serialVersionUID = 1L;
             
             @Override
-            protected List<UserLoc> load() {
+            protected List<Workout> load() {
                  return workoutQuery.result();
             }
         };

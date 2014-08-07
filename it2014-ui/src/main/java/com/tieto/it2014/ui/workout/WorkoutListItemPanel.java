@@ -7,6 +7,7 @@
 package com.tieto.it2014.ui.workout;
 
 import com.tieto.it2014.domain.user.entity.UserLoc;
+import com.tieto.it2014.domain.user.entity.Workout;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
@@ -17,9 +18,9 @@ import org.apache.wicket.model.PropertyModel;
  */
 class WorkoutListItemPanel extends Panel {
 
-    private final UserLoc userLoc;
+    private final Workout userLoc;
 
-    public WorkoutListItemPanel(String id, UserLoc userLoc) {
+    public WorkoutListItemPanel(String id, Workout userLoc) {
         super(id);
         this.userLoc = userLoc;
     }
@@ -27,11 +28,11 @@ class WorkoutListItemPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new Label("imei", new PropertyModel(userLoc, "timeStamp")));
-        add(new Label("start", new PropertyModel(userLoc, "Longtitude")));
-        add(new Label("finish", new PropertyModel(userLoc, "Latitude")));
-        add(new Label("distance", new PropertyModel(userLoc, "id")));
-//        add(new Label("duration", new PropertyModel(workout, "duration")));
+//        add(new Label("imei", new PropertyModel(userLoc, "timeStamp")));
+//        add(new Label("start", new PropertyModel(userLoc, "Longtitude")));
+//        add(new Label("finish", new PropertyModel(userLoc, "Latitude")));
+//        add(new Label("distance", new PropertyModel(userLoc, "id")));
+//        add(new Label("duration", new PropertyModel(userLoc, "duration")));
     }
     
     

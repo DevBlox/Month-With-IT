@@ -44,7 +44,7 @@ public class AllWorkoutsQueryDaoMem implements WorkoutsQuery.Dao {
                 totalSec += sec;
                 k++;
             } else {
-                start = lc1.getTimeStamp();
+                start = lc2.getTimeStamp();
                 st = true;
                 System.out.println("Total time: " + totalSec + ", WorkoutID: " + ++workoutId + " " + start + " " + end);
                 totalSec = 0;

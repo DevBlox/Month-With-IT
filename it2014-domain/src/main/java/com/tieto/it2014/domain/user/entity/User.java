@@ -14,15 +14,12 @@ public class User extends Entity {
         this(null, username, password, email);
     }
 
-    public User(String imei, String username, String password, String email) {
+    public User(Long imei, String username, String password, String email) {
         super(imei);
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public User createCopy() {
-        return new User(imei, username, password, email);
-    }
 
 }

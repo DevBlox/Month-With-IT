@@ -1,19 +1,33 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
     <form wicket:id="loginForm" class="form-horizontal">
         <div class="control-group">
-            <label class="control-label">User Name:</label>
-            <div class="controls"> 
-                <input wicket:id="inputUserName" type="text" autofocus />
+          <label class="control-label">User Name:</label>
+          <div class="controls">
+            <input wicket:id="inputUserName" type="text" />
+           </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Email: </label>
+            <div class="controls">
+                <input wicket:id="inputEmail" type="text" />
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label">Email:</label>
-            <div>
-                <input wicket:id="inputEmail"  type="text" />
+          <label class="control-label">Password: </label>
+          <div class="controls">
+            <input wicket:id="inputPassword" type="text" />
+          </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">IMEI: </label>
+            <div class="controls">
+                <input wicket:id="imei" type="text" />
             </div>
         </div>
-        <span class="control-label">Password: </span><input wicket:id="inputPassword" type="text" />
-        <span class="control-label">IMEI: </span><input wicket:id="imei" type="text" />
-        <button wicket:id="registerButton" type="submit">Login</button>
-    </form>
+        <div class="control-group">
+           <div class="controls">
+             <button wicket:id="registerButton" type="submit" class="btn-primary">Login</button>
+           </div>
+        </div>
+  </form>
 </wicket:panel>

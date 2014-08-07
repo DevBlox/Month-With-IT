@@ -25,7 +25,7 @@ public class UserEntity {
     }
 
     public UserEntity(User user) {
-        this.imei = String.valueOf(user.id);
+        this.imei = user.imei;
         this.email = user.email;
         this.username = user.username;
         this.password = user.password;

@@ -23,6 +23,8 @@ public class AllWorkoutsQueryDaoMem implements WorkoutsQuery.Dao {
     Long start;
     Long end;
     Boolean st = true;
+    WorkoutEntity lc1;
+    WorkoutEntity lc2;
 
     @Autowired
     private WorkoutEntityRepository repository;
@@ -32,19 +34,19 @@ public class AllWorkoutsQueryDaoMem implements WorkoutsQuery.Dao {
     public List<Workout> result() {
         List<Workout> users = new ArrayList<>();
         List<WorkoutEntity> we = repository.all();
-        for (int i = 0; i < we.size()-2 ; i++) {
-            WorkoutEntity lc1 = we.get(i);
-            WorkoutEntity lc2 = we.get(i+1);
+        for (int i = 0; i <= we.size()-2 ; i++) {
+            lc1 = we.get(i);
+            lc2 = we.get(i+1);
             if (st) {
                 end = lc1.getTimeStamp();
                 st = false;
             }
             sec = (int)Util.calculateDuration(lc2.getTimeStamp(), lc1.getTimeStamp());
-            if (sec < 300 && lc2.getPhoneNumber().equals(lc1.getPhoneNumber()) && !lc2.equals(we.get(we.size()-1))) {
+            if (sec < 5*60 && lc2.getPhoneNumber().equals(lc1.getPhoneNumber()) && !lc2.equals(we.get(we.size()-1))) {
                 totalSec += sec;
                 k++;
             } else {
-                start = lc2.getTimeStamp();
+                start = lc1.getTimeStamp();
                 st = true;
                 System.out.println("Total time: " + totalSec + ", WorkoutID: " + ++workoutId + " " + start + " " + end);
                 totalSec = 0;

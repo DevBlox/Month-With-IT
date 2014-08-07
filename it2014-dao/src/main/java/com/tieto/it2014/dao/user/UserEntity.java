@@ -25,7 +25,7 @@ public class UserEntity {
     }
 
     public UserEntity(User user) {
-        this.imei = user.imei;
+        this.imei = String.valueOf(user.id);
         this.email = user.email;
         this.username = user.username;
         this.password = user.password;
@@ -37,7 +37,7 @@ public class UserEntity {
     public String getPassword() { return password; }
 
     public User toUser() {
-        return new User(this.imei, this.email, this.username, this.password);
+        return new User(Long.parseLong(this.imei), this.email, this.username, this.password);
     }
 
 }

@@ -33,19 +33,16 @@ public class HomePage extends WebPage {
             
             @Override
             protected List<Workout> load() {
-                return new ArrayList<>(
-                        Arrays.asList(new Workout("4128", 
+                 List<Workout> array = new ArrayList<>();
+                 
+                 for (int i = 0; i < 100; i++) {
+                     array.add(new Workout("4128", 
                                                     new Date(79456), 
                                                     new Date(98751), 
                                                     0.63,
-                                                    9756984.0),
-                                      new Workout("97663",
-                                                    new Date(98796),
-                                                    new Date(3210688),
-                                                    97564.0,
-                                                    32196847.0)
-                                       )
-                );
+                                                    9756984.0));                     
+                 }
+                 return array;
             }
         };
     }

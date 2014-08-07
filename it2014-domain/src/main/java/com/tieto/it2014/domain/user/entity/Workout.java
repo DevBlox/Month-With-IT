@@ -1,9 +1,8 @@
 package com.tieto.it2014.domain.user.entity;
 
-import com.tieto.it2014.domain.user.Entity;
+import java.io.Serializable;
 
-public class Workout {
-
+public class Workout implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;

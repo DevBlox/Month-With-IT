@@ -6,7 +6,7 @@
 
 package com.tieto.it2014.ui.workout;
 
-import com.tieto.it2014.ui.workout.Workout;
+import com.tieto.it2014.domain.user.entity.Workout;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;

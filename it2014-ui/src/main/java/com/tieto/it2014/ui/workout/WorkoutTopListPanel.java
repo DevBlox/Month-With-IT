@@ -6,6 +6,7 @@
 
 package com.tieto.it2014.ui.workout;
 
+import com.tieto.it2014.domain.user.entity.Workout;
 import java.util.List;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;

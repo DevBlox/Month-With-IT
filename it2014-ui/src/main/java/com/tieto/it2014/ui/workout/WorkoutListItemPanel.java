@@ -28,11 +28,13 @@ class WorkoutListItemPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-//        add(new Label("imei", new PropertyModel(userLoc, "timeStamp")));
-//        add(new Label("start", new PropertyModel(userLoc, "Longtitude")));
-//        add(new Label("finish", new PropertyModel(userLoc, "Latitude")));
-//        add(new Label("distance", new PropertyModel(userLoc, "id")));
-//        add(new Label("duration", new PropertyModel(userLoc, "duration")));
+        add(new Label("no", new PropertyModel(userLoc, "id")));
+        add(new Label("imei", new PropertyModel(userLoc, "imei")));
+        add(new Label("start", new PropertyModel(userLoc, "startTime")));
+        add(new Label("finish", new PropertyModel(userLoc, "finishTime")));
+        add(new Label("distance", new PropertyModel(userLoc, "distance")));
+        add(new Label("duration", new PropertyModel(userLoc, "duration")));
+//        add(new Label("name", new PropertyModel(userLoc, "username")));
     }
     
     

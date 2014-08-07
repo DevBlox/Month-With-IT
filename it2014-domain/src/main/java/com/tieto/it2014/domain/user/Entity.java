@@ -9,10 +9,10 @@ public abstract class Entity implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
-    public String imei;
+    public Long id;
 
-    public Entity(String imei) {
-        this.imei = imei;
+    public Entity(Long id) {
+        this.id = id;
     }
 
     @Override

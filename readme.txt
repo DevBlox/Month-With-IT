@@ -1,7 +1,10 @@
 
 
-    DEVELOPMENT BRANCH
-    ------------------
+    DAO
+    ------------------------------------------------------------------
+    * Added JPA + Hibernate support.
+	
+    TODO add readme
 
     US001 UI Side
     -------------

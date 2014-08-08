@@ -8,9 +8,12 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.EmailAddressValidator;
+import org.apache.wicket.validation.validator.StringValidator;
 
 public class RegisterPanel extends Panel {
 
@@ -35,13 +38,20 @@ public class RegisterPanel extends Panel {
         
         super.onInitialize();
         user = createUser.getUser();
-        Form form = new Form("loginForm");
-//        form.add(new FeedbackPanel("loginFeedback"));
+        Form form = new Form("registerForm");
+        form.add(new FeedbackPanel("registerFeedback"));
         form.add(new TextField("inputUserName", new PropertyModel(user, "username"))
-                .setRequired(true));
+                .setRequired(true)
+                .add(new StringValidator(3, 30))
+        );
         form.add(new TextField("inputPassword", new PropertyModel(user, "password"))
-                .setRequired(true));
-        form.add(new TextField("inputEmail", new PropertyModel(user, "email")));
+                .setRequired(true)
+                .add(new StringValidator(3, 30))
+        );
+        form.add(new TextField("inputEmail", new PropertyModel(user, "email"))
+                .setRequired(true)
+                .add(EmailAddressValidator.getInstance())
+        );
         form.add(new TextField("imei", new PropertyModel(user, "imei")));
         form.add(initRegisterButton("registerButton"));
         add(form);
@@ -53,7 +63,6 @@ public class RegisterPanel extends Panel {
 
             @Override
             public void onSubmit() {
-                createUser.verify();
                 saveUser.execute(user);
                 setResponsePage(HomePage.class);
             }

@@ -34,7 +34,6 @@ public class HomePage extends WebPage {
 
             @Override
             public void onClick() {
-                System.out.print("paspaustas");
                 setResponsePage(RegisterPage.class);
             }
         });

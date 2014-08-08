@@ -13,6 +13,9 @@ public class WorkoutEntity {
     @Column(name = "Id")
     private String Id;
 
+    @Column(name = "USERNAME")
+    private String uName;
+
     @Column(name = "imei")
     private String phoneNumber;
 
@@ -41,7 +44,7 @@ public class WorkoutEntity {
     public Double getLongtitude() { return Longtitude; }
 
     public UserLoc toUserLock() {
-        return new UserLoc(this.phoneNumber, this.timeStamp, this.Latitude, this.Longtitude);
+        return new UserLoc(this.phoneNumber, this.uName, this.timeStamp, this.Latitude, this.Longtitude);
     }
 
 }

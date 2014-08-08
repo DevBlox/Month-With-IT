@@ -24,7 +24,6 @@ public class Util {
 
     public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, int maxWorkoutNumber) {
         List<Workout> wo = new ArrayList<>();
-        wo.add(new Workout(0, "Uber IMEI", "Tomorrow", "Yesterday", 65.0D, "0.02 (00:00:52)", "User"));
         for (int i = 0; i <= userLocs.size()-2 ; i++) {
             lc1 = userLocs.get(i);
             lc2 = userLocs.get(i+1);
@@ -46,7 +45,7 @@ public class Util {
                     start = lc2.timeStamp;
                 }
                 st = true;
-                if (totalSec != 0 && workoutId < maxWorkoutNumber) wo.add(new Workout(++workoutId, imei1, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(start), new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(end), dist, Util.getDurationString(totalSec), "User"));
+                if (totalSec != 0 && workoutId < maxWorkoutNumber) wo.add(new Workout(++workoutId, imei1, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(start), new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(end), dist, Util.getDurationString(totalSec), lc1.uName));
                 totalSec = 0;
                 k = 0;
                 dist = 0D;

@@ -6,16 +6,16 @@
 
     <changeSet id="1" author="juste.noreikaite@tieto.com">
         <createTable tableName="USER">
-            <column name="IMEI" type="VARCHAR(15)">
+            <column name="IMEI" type="CHAR(15)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="IMEI_PK" />
             </column>
             <column name="EMAIL" type="VARCHAR(64)">
                 <constraints nullable="false" />
             </column>
-            <column name="USERNAME" type="VARCHAR(32)">
+            <column name="USERNAME" type="VARCHAR(30)">
                 <constraints nullable="false" />
             </column>
-            <column name="PASSWORD" type="VARCHAR(32)">
+            <column name="PASSWORD" type="VARCHAR(30)">
                 <constraints nullable="false" />
             </column>
         </createTable>

@@ -34,7 +34,7 @@ class WorkoutListItemPanel extends Panel {
         add(new Label("finish", new PropertyModel(userLoc, "finishTime")));
         add(new Label("distance", new PropertyModel(userLoc, "distance")));
         add(new Label("duration", new PropertyModel(userLoc, "duration")));
-//        add(new Label("name", new PropertyModel(userLoc, "username")));
+        add(new Label("name", new PropertyModel(userLoc, "username")));
     }
     
     

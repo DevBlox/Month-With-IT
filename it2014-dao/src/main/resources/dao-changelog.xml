@@ -24,10 +24,7 @@
     <changeSet id="View-1" author="mantas.jonytis@tietocamp.eu" >
 
         <createView viewName="UserLoc">
-            SELECT  Places.Id, PhoneNumber as imei, timeStamp, Latitude, Longtitude
-            FROM Places
-            LEFT JOIN (Users) ON (Places.UserId=Users.Id)
-            ORDER BY timeStamp DESC, imei
+            SELECT  Places.Id, PhoneNumber as imei, timeStamp, Latitude, Longtitude, USERNAME FROM Places LEFT JOIN (Users) ON (Places.UserId=Users.Id) LEFT JOIN (USER) on (USER.IMEI=Users.PhoneNumber) ORDER BY timeStamp DESC, imei
         </createView>
 
     </changeSet>

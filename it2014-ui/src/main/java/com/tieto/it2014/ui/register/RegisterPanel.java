@@ -7,6 +7,7 @@ import com.tieto.it2014.ui.HomePage;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -44,7 +45,7 @@ public class RegisterPanel extends Panel {
                 .setRequired(true)
                 .add(new StringValidator(3, 30))
         );
-        form.add(new TextField("inputPassword", new PropertyModel(user, "password"))
+        form.add(new PasswordTextField("inputPassword", new PropertyModel(user, "password"))
                 .setRequired(true)
                 .add(new StringValidator(5, 30))
         );

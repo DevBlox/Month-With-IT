@@ -46,3 +46,7 @@ ul.topList li span.id {
     text-align: center;
     font: 16px Arial, sans-serif;
 }
+
+span.column {
+    min-width: 300px;
+}

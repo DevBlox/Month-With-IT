@@ -46,17 +46,18 @@ public class RegisterPanel extends Panel {
         );
         form.add(new TextField("inputPassword", new PropertyModel(user, "password"))
                 .setRequired(true)
-                .add(new StringValidator(3, 30))
+                .add(new StringValidator(5, 30))
         );
         form.add(new TextField("inputEmail", new PropertyModel(user, "email"))
                 .setRequired(true)
                 .add(EmailAddressValidator.getInstance())
         );
-        form.add(new TextField("imei", new PropertyModel(user, "imei")));
+        form.add(new TextField("imei", new PropertyModel(user, "imei"))
+            .setRequired(true));
         form.add(initRegisterButton("registerButton"));
         add(form);
     }
-//
+    
     private Component initRegisterButton(String wicketId) {
         return new Button(wicketId) {
             private static final long serialVersionUID = 1L;
@@ -68,15 +69,4 @@ public class RegisterPanel extends Panel {
             }
         };
     }
-//
-//    private Component initCancelButton(String wicketId) {
-//        return new Link(wicketId) {
-//            private static final long serialVersionUID = 1L;
-//
-//            @Override
-//            public void onClick() {
-//                setResponsePage(HomePage.class);
-//            }
-//        };
-//    }
 }

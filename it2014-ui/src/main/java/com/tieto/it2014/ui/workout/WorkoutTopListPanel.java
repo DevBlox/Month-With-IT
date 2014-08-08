@@ -6,12 +6,18 @@
 
 package com.tieto.it2014.ui.workout;
 
+import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import java.util.List;
+
+import org.apache.wicket.Component;
+import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 
 /**
@@ -27,28 +33,14 @@ public class WorkoutTopListPanel extends Panel {
         this.workoutModel = workoutModel;   
     }
     
-     @Override
+    @Override
     protected void onInitialize() {
-        super.onInitialize();
-        add(initWorkoutList("topList", workoutModel)); 
-        
-        
-
+         super.onInitialize();
+         RepeatingView view = new RepeatingView("oneWorkout");
+         for (Workout wk : workoutModel.getObject()) {
+            view.add(new WorkoutListItemPanel(view.newChildId(), wk));
+         }
+         add(view);
     }
-
-    private ListView<Workout> initWorkoutList(String wicketId, IModel<List<Workout>> workoutModel) {
-         return new ListView<Workout>(wicketId, workoutModel) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            protected void populateItem(ListItem<Workout> item) {
-                Workout userLoc = item.getModelObject();
-                item.add(new WorkoutListItemPanel("oneWorkout", userLoc));
-            }
-        };
-        
-       
-    }
-    
     
 }

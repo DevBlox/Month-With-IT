@@ -6,6 +6,7 @@ import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import java.util.List;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -26,8 +27,9 @@ public class HomePage extends WebPage {
         super.onInitialize();
         
         IModel<List<Workout>> workoutModel = initWorkoutListModel();
-        
-        add(new WorkoutTopListPanel("workout", workoutModel));
+
+        add(new Label("Heading", "Recent workouts"));
+        add(new WorkoutTopListPanel("topList", workoutModel));
         add(new Link("registerPage") {
 
             @Override

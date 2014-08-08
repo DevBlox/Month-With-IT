@@ -5,15 +5,15 @@ import java.io.Serializable;
 public class Workout implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private int id;
     private String imei;
-    private Long startTime;
-    private Long finishTime;
-    private Long distance;
-    private Long duration;
+    private String startTime;
+    private String finishTime;
+    private Double distance;
+    private String duration;
     private String username;
 
-    public Workout(Long id, String imei, Long startTime, Long finishTime, Long distance, Long duration, String username) {
+    public Workout(int id, String imei, String startTime, String finishTime, Double distance, String duration, String username) {
         this.id = id;
         this.imei = imei;
         this.startTime = startTime;
@@ -23,7 +23,7 @@ public class Workout implements Serializable {
         this.username = username;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
     
@@ -31,19 +31,19 @@ public class Workout implements Serializable {
         return imei;
     }
     
-    public Long getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
     
-    public Long getFinishTime() {
+    public String getFinishTime() {
         return finishTime;
     }
     
-    public Long getDistance() {
+    public Double getDistance() {
         return distance;
     }
     
-    public Long getDuration() {
+    public String getDuration() {
         return duration;
     }
     
@@ -51,7 +51,7 @@ public class Workout implements Serializable {
         return username;
     }
     
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
     
@@ -59,19 +59,19 @@ public class Workout implements Serializable {
         this.imei = imei;
     }
     
-    public void setStartTime(Long startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
     
-    public void setFinishTime(Long finishTime) {
+    public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
     
-    public void setDistance(Long distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
     }
     
-    public void setDuration(Long duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
     

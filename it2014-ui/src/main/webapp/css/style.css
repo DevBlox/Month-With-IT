@@ -1,0 +1,48 @@
+ul.topList {
+	margin:0 auto;
+	width:850;
+	position:relative;
+	border: 1px dashed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	background-color: #CCFFD9;
+}
+
+ul.topList li {
+	background-color:#F9F9F9;
+	border:1px solid #EEEEEE;
+	list-style:none;
+	margin:6px;
+	padding:6px 9px;
+	position:relative;
+
+	/* CSS3 text shadow and rounded corners: */
+
+	text-shadow:1px 1px 0 white;
+
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+ul.topList li:hover {
+	border-color:#9be0f9;
+
+	/* CSS3 glow effect: */
+	-moz-box-shadow:0 0 5px #A6E5FD;
+	-webkit-box-shadow:0 0 5px #A6E5FD;
+	box-shadow:0 0 5px #A6E5FD;
+}
+
+ul.topList li span.id {
+    border-radius: 50%;
+    width: 19px;
+    height: 19px;
+    padding: 4px;
+    background: #fff;
+    border: 2px solid #666;
+    color: #666;
+    text-align: center;
+    font: 16px Arial, sans-serif;
+}

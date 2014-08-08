@@ -40,7 +40,7 @@ public class WorkoutEntity {
     public Double getLatitude() { return Latitude; }
     public Double getLongtitude() { return Longtitude; }
 
-    public UserLoc toWorkout() {
+    public UserLoc toUserLock() {
         return new UserLoc(this.phoneNumber, this.timeStamp, this.Latitude, this.Longtitude);
     }
 

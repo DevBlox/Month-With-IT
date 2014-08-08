@@ -49,40 +49,4 @@ public class HomePage extends WebPage {
             }
         };
     }
-
-    /*
-    
-    private IModel<List<User>> initUserListModel() {
-        return new LoadableDetachableModel<List<User>>() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            protected List<User> load() {
-                return allUsersQuery.result();
-            }
-        };
-    }
-
-    private Link initAddMemberButton(String wicketId) {
-        return new Link(wicketId) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void onClick() {
-                setResponsePage(NewUserPage.class);
-            }
-        };
-    }
-
-    private Component initUserCountLabel(String wicketId, final IModel<List<User>> listModel) {
-        return new Label(wicketId, new Model<Integer>() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public Integer getObject() {
-                return listModel.getObject().size();
-            }
-        });
-    }
-    */
 }

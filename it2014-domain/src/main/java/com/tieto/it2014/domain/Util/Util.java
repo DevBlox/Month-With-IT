@@ -45,7 +45,7 @@ public class Util {
                     start = lc2.timeStamp;
                 }
                 st = true;
-                if (totalSec != 0 && workoutId < maxWorkoutNumber) wo.add(new Workout(++workoutId, imei1, new SimpleDateFormat("yyyy/dd/MM HH:mm:ss").format(start), new SimpleDateFormat("yyyy/dd/MM HH:mm:ss").format(end), dist, Util.getDurationString(totalSec), "User"));
+                if (totalSec != 0 && workoutId < maxWorkoutNumber) wo.add(new Workout(++workoutId, imei1, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(start), new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(end), dist, Util.getDurationString(totalSec), "User"));
                 totalSec = 0;
                 k = 0;
                 dist = 0D;

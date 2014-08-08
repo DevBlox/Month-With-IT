@@ -50,3 +50,25 @@ ul.topList li span.id {
 span.column {
     min-width: 300px;
 }
+
+[class*="span"].centred {
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+html, body{height:100%; margin:0;padding:0}
+ 
+.container-fluid{
+  height:100%;
+  display:table;
+  width: 100%;
+  padding: 0;
+}
+ 
+.row-fluid {height: 100%; display:table-cell; vertical-align: middle;}
+ 
+.centering {
+  float:none;
+  margin:0 auto;
+}

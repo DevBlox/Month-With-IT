@@ -24,6 +24,7 @@ public class Util {
 
     public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, int maxWorkoutNumber) {
         List<Workout> wo = new ArrayList<>();
+        wo.add(new Workout(0, "Uber IMEI", "Tomorrow", "Yesterday", 65.0D, "0.02 (00:00:52)", "User"));
         for (int i = 0; i <= userLocs.size()-2 ; i++) {
             lc1 = userLocs.get(i);
             lc2 = userLocs.get(i+1);
@@ -74,11 +75,12 @@ public class Util {
 
     public static String getDurationString(int seconds) {
 
+        Double hrs = (double) seconds / 3600;
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         seconds = seconds % 60;
 
-        return twoDigitString(hours) + " : " + twoDigitString(minutes) + " : " + twoDigitString(seconds);
+        return round(hrs, 2) + " (" + twoDigitString(hours) + ":" + twoDigitString(minutes) + ":" + twoDigitString(seconds) + ")";
     }
 
     private static String twoDigitString(int number) {
@@ -92,5 +94,14 @@ public class Util {
         }
 
         return String.valueOf(number);
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 }

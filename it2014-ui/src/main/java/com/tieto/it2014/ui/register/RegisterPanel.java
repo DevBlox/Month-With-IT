@@ -65,6 +65,7 @@ public class RegisterPanel extends Panel {
             .setRequired(true));
         form.add(initRegisterButton("registerButton"));
         form.add(new EqualPasswordInputValidator(password, repeatPassword));
+        //form.add(new ExistingUserValidator());
         add(form);
     }
     

@@ -21,23 +21,15 @@
         </createTable>
     </changeSet>
 
-<!--    <changeSet id="2" author="juste.noreikaite@tieto.com">
-        <insert tableName="USER">
-            <column name="NAME" value="Simas" />
-            <column name="YEAR_OF_BIRTH" valueNumeric="1992" />
-        </insert>
-        <insert tableName="USERS">
-            <column name="NAME" value="Živilė" />
-            <column name="YEAR_OF_BIRTH" valueNumeric="1994" />
-        </insert>
-        <insert tableName="USERS">
-            <column name="NAME" value="Tomas" />
-            <column name="YEAR_OF_BIRTH" valueNumeric="1993" />
-        </insert>
-        <insert tableName="USERS">
-            <column name="NAME" value="Jolanta" />
-            <column name="YEAR_OF_BIRTH" valueNumeric="1997" />
-        </insert>
-    </changeSet>-->
+    <changeSet id="View-1" author="mantas.jonytis@tietocamp.eu" >
+
+        <createView viewName="UserLoc">
+            SELECT  Places.Id, PhoneNumber as imei, timeStamp, Latitude, Longtitude
+            FROM Places
+            LEFT JOIN (Users) ON (Places.UserId=Users.Id)
+            ORDER BY timeStamp DESC, imei
+        </createView>
+
+    </changeSet>
 
 </databaseChangeLog>

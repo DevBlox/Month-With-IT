@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
@@ -40,12 +41,19 @@ public class RegisterPanel extends Panel {
         super.onInitialize();
         user = createUser.getUser();
         Form form = new Form("registerForm");
+        PasswordTextField password = new PasswordTextField("inputPassword", new PropertyModel(user, "password"));
+        PasswordTextField repeatPassword = new PasswordTextField("repeatPassword", new PropertyModel(user, "password"));
+        
         form.add(new FeedbackPanel("registerFeedback"));
         form.add(new TextField("inputUserName", new PropertyModel(user, "username"))
                 .setRequired(true)
                 .add(new StringValidator(3, 30))
         );
-        form.add(new PasswordTextField("inputPassword", new PropertyModel(user, "password"))
+        form.add(password
+                .setRequired(true)
+                .add(new StringValidator(5, 30))
+        );
+        form.add(repeatPassword
                 .setRequired(true)
                 .add(new StringValidator(5, 30))
         );
@@ -56,6 +64,7 @@ public class RegisterPanel extends Panel {
         form.add(new TextField("imei", new PropertyModel(user, "imei"))
             .setRequired(true));
         form.add(initRegisterButton("registerButton"));
+        form.add(new EqualPasswordInputValidator(password, repeatPassword));
         add(form);
     }
     

@@ -4,7 +4,6 @@ import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.workout.WorkoutListPanel;
-import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import java.util.List;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -20,7 +19,7 @@ public class UserWorkoutsPage extends WebPage {
 
     @SpringBean
     private WorkoutsQuery workoutQuery;
-    
+
     private final String userId;
 
     @SpringBean
@@ -37,20 +36,20 @@ public class UserWorkoutsPage extends WebPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        
+
         IModel<List<Workout>> userWorkoutsModel = initUserWorkoutsListModel();
-        
+
         add(new Label("Heading", "User workouts"));
         add(new WorkoutListPanel("workoutsList", userWorkoutsModel));
     }
-    
+
     private IModel<List<Workout>> initUserWorkoutsListModel() {
         return new LoadableDetachableModel<List<Workout>>() {
             private static final long serialVersionUID = 1L;
-            
+
             @Override
             protected List<Workout> load() {
-                 return workoutQuery.result(userId, null);
+                return workoutQuery.result(userId, null);
             }
         };
     }

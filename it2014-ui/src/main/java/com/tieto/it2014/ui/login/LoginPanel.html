@@ -1,12 +1,12 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
     <h2 class="center_text">Log In</h2>
-    <form wicket:id="registerForm" class="form-horizontal"
+    <form wicket:id="loginForm" class="form-horizontal"
           style="position: static; top: 50%; left: 50%">
-        
-        <div wicket:id="registerFeedback" />
-        
+
+        <div wicket:id="loginFeedback" />
+
         <div class="control-group">
-          <label class="control-label">Email: </label>
+            <label class="control-label">Email: </label>
             <div class="controls">
                 <input wicket:id="inputEmail" type="text" />
             </div>
@@ -18,9 +18,10 @@
             </div>
         </div>
         <div class="control-group">
-           <div class="controls">
-             <button wicket:id="loginButton" type="submit" class="btn-primary">Register</button>
-           </div>
+            <div class="controls">
+                <button wicket:id="loginButton" type="submit" class="btn-primary">Login</button>
+                <button wicket:id="logoutButton" type="button" class="btn-primary">Logout</button>
+            </div>
         </div>
-  </form>
+    </form>
 </wicket:panel>

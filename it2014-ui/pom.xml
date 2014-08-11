@@ -11,8 +11,13 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>it2014-ui</artifactId>
+    <artifactId>IRun</artifactId>
+    <name>IRun</name>
     <packaging>war</packaging>
+
+    <description>
+        Mėnuo su IT project - IRun
+    </description>
 
     <properties>
         <war.warName>it2014</war.warName>
@@ -79,6 +84,7 @@
     </dependencies>
 
     <build>
+        <finalName>IRun</finalName>
         <resources>
             <resource>
                 <filtering>false</filtering>

@@ -60,7 +60,7 @@ public class Util {
                     if (lc1.id.compareTo(lc2.id) == 0) {
                         totalDist += calculateDistance(lc1.latitude, lc1.longtitude, lc1.altitude, lc2.latitude, lc2.longtitude, lc2.altitude);
                         totalSec += sec;
-                        if (totalSec != 0 && !(fullList = workoutId > maxWorkoutNumber)) {
+                        if (totalSec != 0 && !(workoutId > maxWorkoutNumber)) {
                             woList.add(new Workout(++workoutId,
                                 lc1.id,
                                 new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime),

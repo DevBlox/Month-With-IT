@@ -6,6 +6,7 @@ import java.util.List;
 public interface WorkoutEntityRepository {
 
     List<WorkoutEntity> all();
+    List<WorkoutEntity> byUser(String imei);
     WorkoutEntity create(WorkoutEntity workout);
     WorkoutEntity update(WorkoutEntity workout);
     WorkoutEntity merge(WorkoutEntity workout);

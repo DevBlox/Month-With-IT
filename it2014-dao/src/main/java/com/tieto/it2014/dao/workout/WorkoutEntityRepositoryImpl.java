@@ -19,6 +19,12 @@ public class WorkoutEntityRepositoryImpl implements WorkoutEntityRepository {
         TypedQuery<WorkoutEntity> query = entityManager.createQuery("SELECT u FROM WorkoutEntity u", WorkoutEntity.class);
         return (List<WorkoutEntity>)query.getResultList();
     }
+    
+    public List<WorkoutEntity> byUser(String imei) {
+        TypedQuery<WorkoutEntity> query = entityManager.createQuery(
+                "SELECT u FROM WorkoutEntity u WHERE u.imei = :imei", WorkoutEntity.class).setParameter("imei", imei);
+        return (List<WorkoutEntity>)query.getResultList();
+    }
 
     @Override
     public WorkoutEntity create(WorkoutEntity workout) {

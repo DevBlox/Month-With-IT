@@ -49,7 +49,7 @@ public class UserWorkoutsPage extends WebPage {
             
             @Override
             protected List<Workout> load() {
-                 return workoutQuery.result();
+                 return workoutQuery.result("354436056007105");
             }
         };
     }

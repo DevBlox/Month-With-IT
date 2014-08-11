@@ -16,12 +16,14 @@ public class WorkoutsQuery implements Serializable {
     @Autowired
     private Dao dao;
 
+    private Long imei;
+    
     public interface Dao extends Serializable {
-        List<Workout> result();
+        List<Workout> result(String imei);
     }
 
-    public List<Workout> result() {
-        return dao.result();
+    public List<Workout> result(String imei) {
+        return dao.result(imei);
     }
 
 }

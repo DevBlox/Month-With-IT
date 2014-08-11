@@ -45,7 +45,7 @@ public class HomePage extends WebPage {
             
             @Override
             protected List<Workout> load() {
-                 return workoutQuery.result();
+                 return workoutQuery.result(null);
             }
         };
     }

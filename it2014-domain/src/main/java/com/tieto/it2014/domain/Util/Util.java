@@ -3,6 +3,7 @@ package com.tieto.it2014.domain.Util;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,8 @@ public class Util {
 
         List<Workout> woList = new ArrayList<>();
         for (int i = 0; i <= userLocs.size()-2 ; i++) {
-            if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty() || (userLocs.get(i).id.length() != 15 && !isInteger(userLocs.get(i).id))) continue;
-            
+            if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty()) continue;
+
             UserLoc lc1 = userLocs.get(i);
             if (started) {
                 started = false;
@@ -64,9 +65,8 @@ public class Util {
                                 lc1.id,
                                 new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime),
                                 new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime),
-                                totalDist,
-                                totalSec,
-                                lc1.uName)
+                                format(totalDist),
+                                totalSec)
                             );
                             woList = swapIfLonger(woList, woList.get(woList.size() - 2), woList.get(woList.size() - 1));
                         }
@@ -81,10 +81,9 @@ public class Util {
                     woList.add(new Workout(++workoutId, 
                         lc1.id, 
                         new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime), 
-                        new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime), 
-                        totalDist, 
-                        totalSec, 
-                        lc1.uName)
+                        new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime),
+                        format(totalDist),
+                        totalSec)
                     );
 
                     if (woList.size() > 1) {
@@ -98,7 +97,7 @@ public class Util {
 
                 } else if (fullList) {
                     break;
-                }  
+                }
 
                 totalSec = 0;
                 totalDist = 0.0;
@@ -153,9 +152,9 @@ public class Util {
         Double hrs = (double) seconds / 3600;
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
-        seconds = seconds % 60;
+        if (seconds % 60 > 0) minutes++;
 
-        return twoDigitString(hours) + ":" + twoDigitString(minutes) + ":" + twoDigitString(seconds);
+        return twoDigitString(hours) + " h. " + twoDigitString(minutes) + " min.";
     }
 
     private static String twoDigitString(int number) {
@@ -171,23 +170,8 @@ public class Util {
         return String.valueOf(number);
     }
 
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
-
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch(NumberFormatException e) {
-            return false;
-        }
-        // only got here if we didn't return false
-        return true;
+    private static String format(Double doub) {
+        return new DecimalFormat("0.000").format(doub);
     }
 
 }

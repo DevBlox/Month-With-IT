@@ -10,18 +10,16 @@ public class Workout implements Serializable {
     private String imei;
     private String startTime;
     private String finishTime;
-    private Double distance;
+    private String distance;
     public int duration;
-    private String username;
 
-    public Workout(int id, String imei, String startTime, String finishTime, Double distance, int duration, String username) {
+    public Workout(int id, String imei, String startTime, String finishTime, String distance, int duration) {
         this.id = id;
         this.imei = imei;
         this.startTime = startTime;
         this.finishTime = finishTime;
         this.distance = distance;
         this.duration = duration;
-        this.username = username;
     }
 
     public int getId() {
@@ -40,16 +38,12 @@ public class Workout implements Serializable {
         return finishTime;
     }
     
-    public Double getDistance() {
+    public String getDistance() {
         return distance;
     }
     
     public String getDuration() {
         return Util.getDurationString(duration);
-    }
-    
-    public String getUsername() {
-        return username;
     }
     
     public void setId(int id) {
@@ -68,12 +62,8 @@ public class Workout implements Serializable {
         this.finishTime = finishTime;
     }
     
-    public void setDistance(Double distance) {
+    public void setDistance(String distance) {
         this.distance = distance;
-    }
-    
-    public void setUsername(String username) {
-        this.username = username;
     }
 
 }

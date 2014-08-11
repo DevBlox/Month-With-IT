@@ -27,7 +27,7 @@ public class Util {
 
         List<Workout> woList = new ArrayList<>();
         for (int i = 0; i <= userLocs.size()-2 ; i++) {
-            if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty()) continue;
+            if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty() || (userLocs.get(i).id.length() != 15 && !isInteger(userLocs.get(i).id))) continue;
             
             UserLoc lc1 = userLocs.get(i);
             if (started) {
@@ -179,4 +179,15 @@ public class Util {
         long tmp = Math.round(value);
         return (double) tmp / factor;
     }
+
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
+    }
+
 }

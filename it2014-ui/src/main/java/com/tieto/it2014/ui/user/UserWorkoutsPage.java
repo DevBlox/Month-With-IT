@@ -25,7 +25,7 @@ public class UserWorkoutsPage extends WebPage {
     @SpringBean
     private GetUserByIdQuery getUserByIdQuery;
 
-    public static PageParameters parametersWith(Long userId) {
+    public static PageParameters parametersWith(String userId) {
         return new PageParameters().add(USER_ID, userId);
     }
 

@@ -85,7 +85,8 @@ public class LoginPanel extends Panel {
         try {
             loggedInUser = loggedInUserQuery.result(email, password);
             UserSession.get().setUser(loggedInUser);
-            setResponsePage(UserWorkoutsPage.class);
+            setResponsePage(UserWorkoutsPage.class,
+                    UserWorkoutsPage.parametersWith(loggedInUser.imei));
         } catch (DomainException ex) {
             form.error(ex.getMessage());
         }

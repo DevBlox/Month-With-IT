@@ -29,7 +29,6 @@ public class LoginPanel extends Panel {
     private String email;
     private String password;
     private Form form;
-    private User user;
 
     private User loggedInUser;
 

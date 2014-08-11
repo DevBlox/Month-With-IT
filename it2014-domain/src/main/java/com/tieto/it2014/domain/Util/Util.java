@@ -40,7 +40,7 @@ public class Util {
 
             sec = calculateDuration(lc2.timeStamp, lc1.timeStamp);
 
-            if (sec < 5*60 && (EOFLine = !lc2.equals(userLocs.get(userLocs.size()-1)))) {
+            if (sec < 5*60 && lc1.id.compareTo(lc2.id) == 0 && (EOFLine = !lc2.equals(userLocs.get(userLocs.size()-1)))) {
 
                 totalDist += calculateDistance(lc1.latitude, lc1.longtitude, lc1.altitude, lc2.latitude, lc2.longtitude, lc2.altitude);
                 totalSec += sec;
@@ -110,6 +110,8 @@ public class Util {
         if (w1.getFinishTime().compareTo(w2.getFinishTime()) == 0 && w1.duration < w2.duration) {
             int i1 = woList.indexOf(w1);
             int i2 = woList.indexOf(w2);
+            w1.setId(i2+1);
+            w2.setId(i1+1);
             woList.set(i1, w2);
             woList.set(i2, w1);
         }
@@ -149,7 +151,6 @@ public class Util {
 
     public static String getDurationString(int seconds) {
 
-        Double hrs = (double) seconds / 3600;
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         if (seconds % 60 > 0) minutes++;

@@ -28,6 +28,7 @@ public class HomePage extends WebPage {
         
         IModel<List<Workout>> workoutModel = initWorkoutListModel();
 
+        add(new Label("title", "IRun"));
         add(new Label("Heading", "Recent workouts"));
         add(new WorkoutTopListPanel("topList", workoutModel));
         add(new Link("registerPage") {

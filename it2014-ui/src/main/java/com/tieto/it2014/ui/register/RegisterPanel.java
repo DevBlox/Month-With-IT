@@ -6,8 +6,9 @@ import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.ui.HomePage;
-import com.tieto.it2014.ui.validation.ExistingUserValidator;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
+import com.tieto.it2014.ui.validation.ExistingUserValidator;
+import com.tieto.it2014.ui.validation.IMEIValidation;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -71,7 +72,8 @@ public class RegisterPanel extends Panel {
         );
         form.add(new TextField("imei", new PropertyModel(user, "imei"))
                 .setRequired(true)
-                .add(new StringValidator(0, 15))
+                .add(new StringValidator(15, 15))
+                .add(new IMEIValidation())
                 );
         form.add(initRegisterButton("registerButton"));
         form.add(new EqualPasswordInputValidator(password, repeatPassword));

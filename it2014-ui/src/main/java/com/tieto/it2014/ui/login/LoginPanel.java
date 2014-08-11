@@ -1,8 +1,9 @@
 package com.tieto.it2014.ui.login;
 
+import com.tieto.it2014.domain.DomainException;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
-import com.tieto.it2014.domain.user.query.GetUserByUsernameQuery;
+import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.Component;
@@ -32,13 +33,11 @@ public class LoginPanel extends Panel {
 
     private User loggedInUser;
 
-//    @SpringBean
-//    private LoggedInUserQuery loggedInUserQuery;
     @SpringBean
-    private AllUsersQuery allUsersQuery;
+    private LoggedInUserQuery loggedInUserQuery;
 
     @SpringBean
-    private GetUserByUsernameQuery getUserByUsernameQuery;
+    private AllUsersQuery allUsersQuery;
 
     @Override
     protected void onInitialize() {
@@ -83,12 +82,14 @@ public class LoginPanel extends Panel {
     }
 
     private void buttonAction() {
-//        try {
-//            loggedInUser = loggedInUserQuery.result(email, password);
-//            UserSession.get().setUser(user);
-//        } catch (DomainException ex) {
-//            form.error(ex.getMessage());
-//        }
+        try {
+            loggedInUser = loggedInUserQuery.result(email, password);
+            UserSession.get().setUser(loggedInUser);
+            System.err.println("Paspaustas mygtukas! " + loggedInUser.email);
+
+        } catch (DomainException ex) {
+            form.error(ex.getMessage());
+        }
     }
 
 }

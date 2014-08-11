@@ -10,16 +10,19 @@ public class UserLoc extends Entity {
 
     public String uName;
 
-    public Double Latitude;
+    public Double latitude;
     
-    public Double Longtitude;
+    public Double longtitude;
 
-    public UserLoc(String phoneNumber, String uName, Long timeStamp, Double Latitude, Double Longtitude) {
+    public Double altitude;
+
+    public UserLoc(String phoneNumber, String uName, Long timeStamp, Double latitude, Double longtitude, Double altitude) {
         super(phoneNumber);
         this.uName = uName;
         this.timeStamp = timeStamp;
-        this.Latitude = Latitude;
-        this.Longtitude = Longtitude;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+        this.altitude = altitude;
     }
 
 

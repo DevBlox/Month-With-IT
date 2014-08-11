@@ -23,10 +23,13 @@ public class WorkoutEntity {
     private Long timeStamp;
 
     @Column(name = "Latitude")
-    private Double Latitude;
+    private Double latitude;
     
     @Column(name = "Longtitude")
-    private Double Longtitude;
+    private Double longtitude;
+
+    @Column(name = "Altitutde")
+    private Double altitude;
 
     public WorkoutEntity() {
     }
@@ -34,17 +37,19 @@ public class WorkoutEntity {
     public WorkoutEntity(UserLoc userLoc) {
         this.phoneNumber = userLoc.id;
         this.timeStamp = userLoc.timeStamp;
-        this.Latitude = userLoc.Latitude;
-        this.Longtitude = userLoc.Longtitude;
+        this.latitude = userLoc.latitude;
+        this.longtitude = userLoc.longtitude;
+        this.altitude = userLoc.altitude;
     }
 
     public String getPhoneNumber() { return phoneNumber; }
     public Long getTimeStamp() { return timeStamp; }
-    public Double getLatitude() { return Latitude; }
-    public Double getLongtitude() { return Longtitude; }
+    public Double getLatitude() { return latitude; }
+    public Double getLongtitude() { return longtitude; }
+    public Double getAltitude() { return altitude; }
 
     public UserLoc toUserLock() {
-        return new UserLoc(this.phoneNumber, this.uName, this.timeStamp, this.Latitude, this.Longtitude);
+        return new UserLoc(this.phoneNumber, this.uName, this.timeStamp, this.latitude, this.longtitude, this.altitude);
     }
 
 }

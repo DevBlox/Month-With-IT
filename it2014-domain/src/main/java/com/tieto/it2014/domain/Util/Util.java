@@ -10,58 +10,129 @@ import java.util.concurrent.TimeUnit;
 
 public class Util {
 
-    public final static double AVERAGE_RADIUS_OF_EARTH = 6371;
-    static int workoutId = 0;
-    static int sec = 0;
-    static int totalSec = 0;
-    static int k = 0;
-    static Long start;
-    static Long end;
-    static Boolean st = true;
-    static UserLoc lc1;
-    static UserLoc lc2;
-    static Double dist = 0.0;
+    private final static double AVERAGE_RADIUS_OF_EARTH = 6371;
 
     public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, int maxWorkoutNumber) {
-        List<Workout> wo = new ArrayList<>();
+        Boolean started = true;
+        Boolean EOFLine = false;
+        Boolean fullList = false;
+        Boolean ret = false;
+        int workoutId = 0;
+        Long startTime = 0L;
+        Long endTime = 0L;
+        int sec = 0;
+        int totalSec = 0;
+        Double totalDist = 0.0;
+        int lastIter = 0;
+
+        List<Workout> woList = new ArrayList<>();
         for (int i = 0; i <= userLocs.size()-2 ; i++) {
-            lc1 = userLocs.get(i);
-            lc2 = userLocs.get(i+1);
-            String imei1 = lc1.id == null || lc1.id.compareTo("") == 0 ? "(IMEI is not provided)" : lc1.id;
-            String imei2 = lc2.id == null || lc2.id.compareTo("") == 0 ? "(IMEI is not provided)" : lc2.id;
-            if (st) {
-                end = lc1.timeStamp;
-                st = false;
+            if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty()) continue;
+            
+            UserLoc lc1 = userLocs.get(i);
+            if (started) {
+                started = false;
+                endTime = lc1.timeStamp;
             }
-            sec = (int)Util.calculateDuration(lc2.timeStamp, lc1.timeStamp);
-            if (sec < 5*60 && imei1.compareTo(imei2) == 0 && !lc2.equals(userLocs.get(userLocs.size()-1))) {
-                dist += Util.calculateDistance(lc1.Latitude, lc1.Longtitude, lc2.Latitude, lc2.Longtitude);
+
+            UserLoc lc2 = findNext(userLocs, lc1);
+
+            sec = calculateDuration(lc2.timeStamp, lc1.timeStamp);
+
+            if (sec < 5*60 && (EOFLine = !lc2.equals(userLocs.get(userLocs.size()-1)))) {
+
+                totalDist += calculateDistance(lc1.latitude, lc1.longtitude, lc1.altitude, lc2.latitude, lc2.longtitude, lc2.altitude);
                 totalSec += sec;
-                k++;
-            } else {
-                if (!lc2.equals(userLocs.get(userLocs.size()-1))) {
-                    start = lc1.timeStamp;
-                } else {
-                    start = lc2.timeStamp;
+
+                if (userLocs.indexOf(lc2)-userLocs.indexOf(lc1) > 1 && !ret) {
+                    ret = true;
+                    lastIter = userLocs.indexOf(lc1);
+                    i = userLocs.indexOf(lc2)-1;
                 }
-                st = true;
-                if (totalSec != 0 && workoutId < maxWorkoutNumber) wo.add(new Workout(++workoutId, imei1, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(start), new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(end), dist, Util.getDurationString(totalSec), lc1.uName));
+            
+            } else {
+
+                if (EOFLine) {
+                    startTime = lc1.timeStamp;
+                } else {
+                    startTime = lc2.timeStamp;
+                    if (lc1.id.compareTo(lc2.id) == 0) {
+                        totalDist += calculateDistance(lc1.latitude, lc1.longtitude, lc1.altitude, lc2.latitude, lc2.longtitude, lc2.altitude);
+                        totalSec += sec;
+                        woList.add(new Workout(++workoutId, 
+                            lc1.id, 
+                            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime), 
+                            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime), 
+                            totalDist, 
+                            totalSec, 
+                            lc1.uName)
+                        );
+                        woList = swapIfLonger(woList, woList.get(woList.size()-2), woList.get(woList.size()-1));
+                        break;
+                    }
+                }
+
+                started = true;
+
+                if (totalSec != 0 && !(fullList = workoutId > maxWorkoutNumber)) {
+                    
+                    woList.add(new Workout(++workoutId, 
+                        lc1.id, 
+                        new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime), 
+                        new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime), 
+                        totalDist, 
+                        totalSec, 
+                        lc1.uName)
+                    );
+
+                    if (woList.size() > 1) {
+                        woList = swapIfLonger(woList, woList.get(woList.size()-2), woList.get(woList.size()-1));
+                    }
+
+                    if(ret) {
+                        i = lastIter;
+                        ret = false;
+                    }
+
+                } else if (fullList) {
+                    break;
+                }  
+
                 totalSec = 0;
-                k = 0;
-                dist = 0D;
+                totalDist = 0.0;
             }
         }
-        workoutId=0;
-        return wo;
+        return woList;
     }
 
-    public static long calculateDuration(Long start, Long end) {
-        return TimeUnit.MILLISECONDS.toSeconds(end-start);
+    public static List<Workout> swapIfLonger(List<Workout> woList, Workout w1, Workout w2) {
+        if (w1.getFinishTime().compareTo(w2.getFinishTime()) == 0 && w1.duration < w2.duration) {
+            int i1 = woList.indexOf(w1);
+            int i2 = woList.indexOf(w2);
+            woList.set(i1, w2);
+            woList.set(i2, w1);
+        }
+        return woList;
     }
 
-    public static double calculateDistance(double userLat, double userLng, double venueLat, double venueLng) {
+    public static int calculateDuration(Long start, Long end) {
+        return (int)TimeUnit.MILLISECONDS.toSeconds(end-start);
+    }
+
+    public static UserLoc findNext(List<UserLoc> userLocs, UserLoc loc) {
+        for (int i = userLocs.indexOf(loc)+1; i < userLocs.size() && calculateDuration(userLocs.get(i).timeStamp, loc.timeStamp) < 300; i++) {
+            if (userLocs.get(i).id.compareTo(loc.id) == 0) {
+                return userLocs.get(i);
+            }
+        }
+        return userLocs.get(userLocs.indexOf(loc)+1);
+    }
+
+    public static double calculateDistance(double userLat, double userLng, double userAlt, double venueLat, double venueLng, double venueAlt) {
         double latDistance = Math.toRadians(userLat - venueLat);
         double lngDistance = Math.toRadians(userLng - venueLng);
+        double height = userAlt - venueAlt;
+        double distance;
 
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
                 + Math.cos(Math.toRadians(userLat)) * Math.cos(Math.toRadians(venueLat))
@@ -69,7 +140,10 @@ public class Util {
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return (double) Math.round((AVERAGE_RADIUS_OF_EARTH * c) * 100) / 100;
+        distance = AVERAGE_RADIUS_OF_EARTH * c;
+        distance = Math.sqrt(Math.pow(distance * 1000, 2) + Math.pow(height, 2));
+        
+        return (double) Math.round(distance * 100) / 100000;
     }
 
     public static String getDurationString(int seconds) {
@@ -79,7 +153,7 @@ public class Util {
         int minutes = (seconds % 3600) / 60;
         seconds = seconds % 60;
 
-        return round(hrs, 2) + " (" + twoDigitString(hours) + ":" + twoDigitString(minutes) + ":" + twoDigitString(seconds) + ")";
+        return twoDigitString(hours) + ":" + twoDigitString(minutes) + ":" + twoDigitString(seconds);
     }
 
     private static String twoDigitString(int number) {

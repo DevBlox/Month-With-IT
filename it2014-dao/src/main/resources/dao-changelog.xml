@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="juste.noreikaite@tieto.com">
         <createTable tableName="USER">
-            <column name="IMEI" type="CHAR(15)">
+            <column name="IMEI" type="VARCHAR(15)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="IMEI_PK" />
             </column>
             <column name="EMAIL" type="VARCHAR(64)">
@@ -24,7 +24,11 @@
     <changeSet id="View-1" author="mantas.jonytis@tietocamp.eu" >
 
         <createView viewName="UserLoc">
-            SELECT  Places.Id, PhoneNumber as imei, timeStamp, Latitude, Longtitude, USERNAME FROM Places LEFT JOIN (Users) ON (Places.UserId=Users.Id) LEFT JOIN (USER) on (USER.IMEI=Users.PhoneNumber) ORDER BY timeStamp DESC, imei
+            SELECT Places.Id, PhoneNumber as imei, timeStamp, Latitude, Longtitude, Altitutde, USERNAME 
+            FROM Places 
+            LEFT JOIN (Users) ON (Places.UserId=Users.Id) 
+            LEFT JOIN (USER) ON (USER.IMEI=Users.PhoneNumber) 
+            ORDER BY timeStamp DESC, imei
         </createView>
 
     </changeSet>

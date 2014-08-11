@@ -1,6 +1,7 @@
 package com.tieto.it2014.domain.user.entity;
 
 import java.io.Serializable;
+import com.tieto.it2014.domain.Util.Util;
 
 public class Workout implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -10,10 +11,10 @@ public class Workout implements Serializable {
     private String startTime;
     private String finishTime;
     private Double distance;
-    private String duration;
+    public int duration;
     private String username;
 
-    public Workout(int id, String imei, String startTime, String finishTime, Double distance, String duration, String username) {
+    public Workout(int id, String imei, String startTime, String finishTime, Double distance, int duration, String username) {
         this.id = id;
         this.imei = imei;
         this.startTime = startTime;
@@ -44,7 +45,7 @@ public class Workout implements Serializable {
     }
     
     public String getDuration() {
-        return duration;
+        return Util.getDurationString(duration);
     }
     
     public String getUsername() {
@@ -69,10 +70,6 @@ public class Workout implements Serializable {
     
     public void setDistance(Double distance) {
         this.distance = distance;
-    }
-    
-    public void setDuration(String duration) {
-        this.duration = duration;
     }
     
     public void setUsername(String username) {

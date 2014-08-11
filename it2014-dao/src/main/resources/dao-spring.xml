@@ -14,12 +14,12 @@
     <context:component-scan base-package="com.tieto.it2014.dao" />
 
     <!-- H2 in memory database -->
-<!--    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.h2.Driver" />
         <property name="url" value="jdbc:h2:mem:tcp://localhost:9092/tcpTest;MODE=MYSQL;DB_CLOSE_DELAY=-1" />
         <property name="username" value="sa" />
         <property name="password" value="" />
-    </bean>-->
+    </bean> -->
 
     <!-- MySQL support -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -29,12 +29,12 @@
         <property name="password" value="menuo" />
     </bean>
 
-    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">-->
-        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
-        <!--<property name="url" value="jdbc:mysql://localhost:3306/menuo" />-->
-        <!--<property name="username" value="root" />-->
-        <!--<property name="password" value="mantas" />-->
-    <!--</bean>-->
+    <!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/menuo" />
+        <property name="username" value="root" />
+        <property name="password" value="mantas" />
+    </bean> -->
 
     <bean class="liquibase.integration.spring.SpringLiquibase">
         <property name="dataSource" ref="dataSource" />

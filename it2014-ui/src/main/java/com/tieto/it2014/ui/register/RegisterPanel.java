@@ -1,12 +1,13 @@
 package com.tieto.it2014.ui.register;
 
+import com.tieto.it2014.domain.Util.Hash;
 import com.tieto.it2014.domain.user.command.CreateUserCommand;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.ui.HomePage;
-import java.util.List;
-import java.util.Objects;
+import com.tieto.it2014.ui.validation.ExistingUserValidator;
+import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -53,6 +54,7 @@ public class RegisterPanel extends Panel {
         form.add(new TextField("inputUserName", new PropertyModel(user, "username"))
                 .setRequired(true)
                 .add(new StringValidator(3, 30))
+                .add(new ExistingUserValidator(allUsersQuery))
         );
         form.add(password
                 .setRequired(true)
@@ -65,9 +67,12 @@ public class RegisterPanel extends Panel {
         form.add(new TextField("inputEmail", new PropertyModel(user, "email"))
                 .setRequired(true)
                 .add(EmailAddressValidator.getInstance())
+                .add(new ExistingEmailValidator(allUsersQuery))
         );
         form.add(new TextField("imei", new PropertyModel(user, "imei"))
-                .setRequired(true));
+                .setRequired(true)
+                .add(new StringValidator(0, 15))
+                );
         form.add(initRegisterButton("registerButton"));
         form.add(new EqualPasswordInputValidator(password, repeatPassword));
         add(form);
@@ -86,15 +91,9 @@ public class RegisterPanel extends Panel {
     }
 
     private void actionRegisterUser() {
-        List<User> userList = allUsersQuery.result();
-        for (User usr : userList) {
-            if (Objects.equals(usr.imei, user.imei)) {
-                form.error("This imei is already in use!");
-            }
-        }
-        if (!form.hasErrorMessage()) {
-            saveUser.execute(user);
-            setResponsePage(HomePage.class);
-        }
+        user.password = Hash.sha256(user.password);
+        saveUser.execute(user);
+        createUser.deleteUser();
+        setResponsePage(HomePage.class);
     }
 }

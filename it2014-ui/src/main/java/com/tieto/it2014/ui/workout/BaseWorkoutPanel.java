@@ -24,20 +24,18 @@ import org.apache.wicket.model.IModel;
  *
  * @author pc4
  */
-public class WorkoutTopListPanel extends BaseWorkoutPanel {
+public class BaseWorkoutPanel extends Panel {
     
-    public WorkoutTopListPanel(String id, IModel<List<Workout>> workoutModel) {
-        super(id, workoutModel);   
+    protected final IModel<List<Workout>> workoutModel;
+
+    public BaseWorkoutPanel(String id, IModel<List<Workout>> workoutModel) {
+        super(id);
+        this.workoutModel = workoutModel;   
     }
     
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        RepeatingView view = new RepeatingView("oneWorkout");
-        for (Workout wk : workoutModel.getObject()) {
-            view.add(new WorkoutListItemPanel(view.newChildId(), wk));
-        }
-        add(view);
     }
     
 }

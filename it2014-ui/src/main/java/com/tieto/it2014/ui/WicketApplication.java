@@ -1,8 +1,12 @@
 package com.tieto.it2014.ui;
 
 import com.tieto.it2014.ui.user.UserWorkoutsPage;
+import com.tieto.it2014.ui.session.UserSession;
+import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.Request;
+import org.apache.wicket.request.Response;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -33,5 +37,12 @@ public class WicketApplication extends WebApplication implements ApplicationCont
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
     }
+
+    @Override
+    public Session newSession(Request request, Response response) {
+        return new UserSession(request); 
+    }
+    
+    
 
 }

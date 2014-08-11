@@ -21,7 +21,23 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="View-1" author="mantas.jonytis@tietocamp.eu" >
+    <changeSet id="1" author="mantas.jonytis@tietocamp.eu">
+        <insert tableName="USER">
+            <column name="IMEI" value="357099042486556" />
+            <column name="EMAIL" value="haliucinas@gmail.com" />
+            <column name="USERNAME" value="Haliucinas" />
+            <column name="PASSWORD" value="32d0548634b42334327cace242d9eb19393595f2a7c8b273d28abba90b7551df" />
+        </insert>
+
+        <insert tableName="USER">
+            <column name="IMEI" value="355687056232346" />
+            <column name="EMAIL" value="lukas.praninskas@tietocamp.eu" />
+            <column name="USERNAME" value="Lukas Praninskas" />
+            <column name="PASSWORD" value="70f65910d6ec86d7a89c843041d3abf7155db9d87f5d3053d14ffeaa5da4e7dc" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="mantas.jonytis@tietocamp.eu" >
 
         <createView viewName="UserLoc">
             SELECT Places.Id, PhoneNumber as imei, timeStamp, Latitude, Longtitude, Altitutde, USERNAME 
@@ -30,6 +46,27 @@
             LEFT JOIN (USER) ON (USER.IMEI=Users.PhoneNumber) 
             ORDER BY timeStamp DESC, imei
         </createView>
+
+    </changeSet>
+
+    <changeSet id="3" author="mantas.jonytis@tietocamp.eu">
+        <createTable tableName="FRIENDS">
+            <column name="UserID" type="VARCHAR(15)">
+                <constraints foreignKeyName="userId_fk" references="USER(IMEI)" nullable="false" />
+            </column>
+            <column name="FriendID" type="VARCHAR(15)">
+                <constraints foreignKeyName="friendId_fk" references="USER(IMEI)" nullable="false" />
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="4" author="mantas.jonytis@tietocamp.eu">
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="357099042486556" />
+            <column name="FriendID" value="355687056232346" />
+        </insert>
 
     </changeSet>
 

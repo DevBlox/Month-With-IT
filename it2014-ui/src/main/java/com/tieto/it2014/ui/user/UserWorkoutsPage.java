@@ -3,6 +3,7 @@ package com.tieto.it2014.ui.user;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
+import com.tieto.it2014.ui.workout.WorkoutListPanel;
 import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import java.util.List;
 import org.apache.wicket.markup.html.WebPage;
@@ -20,7 +21,7 @@ public class UserWorkoutsPage extends WebPage {
     @SpringBean
     private WorkoutsQuery workoutQuery;
     
-    private final Long userId;
+    private final String userId;
 
     @SpringBean
     private GetUserByIdQuery getUserByIdQuery;
@@ -30,7 +31,7 @@ public class UserWorkoutsPage extends WebPage {
     }
 
     public UserWorkoutsPage(PageParameters params) {
-        userId = params.get(USER_ID).toLong();
+        userId = params.get(USER_ID).toString();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class UserWorkoutsPage extends WebPage {
         IModel<List<Workout>> userWorkoutsModel = initUserWorkoutsListModel();
         
         add(new Label("Heading", "User workouts"));
-        add(new WorkoutTopListPanel("workoutsList", userWorkoutsModel));
+        add(new WorkoutListPanel("workoutsList", userWorkoutsModel));
     }
     
     private IModel<List<Workout>> initUserWorkoutsListModel() {
@@ -49,7 +50,7 @@ public class UserWorkoutsPage extends WebPage {
             
             @Override
             protected List<Workout> load() {
-                 return workoutQuery.result("354436056007105");
+                 return workoutQuery.result(userId, null);
             }
         };
     }

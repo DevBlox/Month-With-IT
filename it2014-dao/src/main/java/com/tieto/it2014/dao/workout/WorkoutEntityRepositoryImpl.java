@@ -22,7 +22,7 @@ public class WorkoutEntityRepositoryImpl implements WorkoutEntityRepository {
     
     public List<WorkoutEntity> byUser(String imei) {
         TypedQuery<WorkoutEntity> query = entityManager.createQuery(
-                "SELECT u FROM WorkoutEntity u WHERE u.imei = :imei", WorkoutEntity.class).setParameter("imei", imei);
+                "SELECT u FROM WorkoutEntity u WHERE u.phoneNumber = :imei", WorkoutEntity.class).setParameter("imei", imei);
         return (List<WorkoutEntity>)query.getResultList();
     }
 

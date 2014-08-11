@@ -15,15 +15,13 @@ public class WorkoutsQuery implements Serializable {
 
     @Autowired
     private Dao dao;
-
-    private Long imei;
     
     public interface Dao extends Serializable {
-        List<Workout> result(String imei);
+        List<Workout> result(String imei, Integer limit);
     }
 
-    public List<Workout> result(String imei) {
-        return dao.result(imei);
+    public List<Workout> result(String imei, Integer limit) {
+        return dao.result(imei, limit);
     }
 
 }

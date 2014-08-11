@@ -24,7 +24,7 @@ public class AllWorkoutsQueryDaoMem implements WorkoutsQuery.Dao {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Workout> result(String imei) {
+    public List<Workout> result(String imei, Integer limit) {
         List<UserLoc> users = new ArrayList<>();
         
         if (null == imei) {
@@ -35,7 +35,9 @@ public class AllWorkoutsQueryDaoMem implements WorkoutsQuery.Dao {
             for(WorkoutEntity wel : repository.byUser(imei)) users.add(wel.toUserLock());
         }
         
-        return Util.getRecentWorkouts(users, 100);
+        
+        return Util.getRecentWorkouts(users, limit);
+        
     }
 
 }

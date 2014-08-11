@@ -16,19 +16,23 @@ import org.apache.wicket.model.PropertyModel;
  *
  * @author pc4
  */
-class WorkoutListItemPanel extends BasicWorkoutListItemPanel {
+class BasicWorkoutListItemPanel extends Panel {
 
     private final Workout userLoc;
 
-    public WorkoutListItemPanel(String id, Workout userLoc) {
-        super(id, userLoc);
+    public BasicWorkoutListItemPanel(String id, Workout userLoc) {
+        super(id);
         this.userLoc = userLoc;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new Label("imei", new PropertyModel(userLoc, "imei")));
+        add(new Label("no", new PropertyModel(userLoc, "id")));
+        add(new Label("start", new PropertyModel(userLoc, "startTime")));
+        add(new Label("finish", new PropertyModel(userLoc, "finishTime")));
+        add(new Label("distance", new PropertyModel(userLoc, "distance")));
+        add(new Label("duration", new PropertyModel(userLoc, "duration")));
     }
     
     

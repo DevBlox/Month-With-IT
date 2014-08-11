@@ -1,16 +1,26 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+    <h2 class="center_text">Log In</h2>
+    <form wicket:id="registerForm" class="form-horizontal"
+          style="position: static; top: 50%; left: 50%">
+        
+        <div wicket:id="registerFeedback" />
+        
+        <div class="control-group">
+          <label class="control-label">Email: </label>
+            <div class="controls">
+                <input wicket:id="inputEmail" type="text" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Password: </label>
+            <div class="controls">
+                <input wicket:id="inputPassword" type="password" />
+            </div>
+        </div>
+        <div class="control-group">
+           <div class="controls">
+             <button wicket:id="loginButton" type="submit" class="btn-primary">Register</button>
+           </div>
+        </div>
+  </form>
+</wicket:panel>

@@ -59,15 +59,17 @@ public class Util {
                     if (lc1.id.compareTo(lc2.id) == 0) {
                         totalDist += calculateDistance(lc1.latitude, lc1.longtitude, lc1.altitude, lc2.latitude, lc2.longtitude, lc2.altitude);
                         totalSec += sec;
-                        woList.add(new Workout(++workoutId, 
-                            lc1.id, 
-                            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime), 
-                            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime), 
-                            totalDist, 
-                            totalSec, 
-                            lc1.uName)
-                        );
-                        woList = swapIfLonger(woList, woList.get(woList.size()-2), woList.get(woList.size()-1));
+                        if (totalSec != 0 && !(fullList = workoutId > maxWorkoutNumber)) {
+                            woList.add(new Workout(++workoutId,
+                                lc1.id,
+                                new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime),
+                                new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime),
+                                totalDist,
+                                totalSec,
+                                lc1.uName)
+                            );
+                            woList = swapIfLonger(woList, woList.get(woList.size() - 2), woList.get(woList.size() - 1));
+                        }
                         break;
                     }
                 }
@@ -105,7 +107,7 @@ public class Util {
         return woList;
     }
 
-    public static List<Workout> swapIfLonger(List<Workout> woList, Workout w1, Workout w2) {
+    private static List<Workout> swapIfLonger(List<Workout> woList, Workout w1, Workout w2) {
         if (w1.getFinishTime().compareTo(w2.getFinishTime()) == 0 && w1.duration < w2.duration) {
             int i1 = woList.indexOf(w1);
             int i2 = woList.indexOf(w2);

@@ -25,6 +25,10 @@ public class LoggedInUserQuery implements Serializable {
     public User result(String email, String password) {
         user = dao.result(email);
 
+        if (user == null) {
+            throw new DomainException("User not found!");
+        }
+
         password = Hash.sha256(password);
 
         if (user.password.equals(password)) {

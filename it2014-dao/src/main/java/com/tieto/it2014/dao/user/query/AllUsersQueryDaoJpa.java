@@ -23,7 +23,7 @@ public class AllUsersQueryDaoJpa implements AllUsersQuery.Dao {
     @Transactional(readOnly = true)
     public List<User> result() {
         TypedQuery<UserJpa> query = em.createQuery(
-                "SELECT u FROM UserEntity u", UserJpa.class);
+                "SELECT u FROM UserJpa u", UserJpa.class);
         return JpaUtils.toDomainList(query.getResultList());
     }
 

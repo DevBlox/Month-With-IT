@@ -13,7 +13,7 @@ public class Util {
 
     private final static double AVERAGE_RADIUS_OF_EARTH = 6371;
 
-    public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, int maxWorkoutNumber) {
+    public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, Integer maxWorkoutNumber) {
         Boolean started = true;
         Boolean EOFLine = false;
         Boolean fullList = false;
@@ -27,6 +27,7 @@ public class Util {
         int lastIter = 0;
 
         List<Workout> woList = new ArrayList<>();
+        maxWorkoutNumber = maxWorkoutNumber == null ? 100 : maxWorkoutNumber;
         for (int i = 0; i <= userLocs.size()-2 ; i++) {
             if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty()) continue;
 

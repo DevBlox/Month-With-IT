@@ -6,6 +6,7 @@ import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.user.UserWorkoutsPage;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -29,7 +30,6 @@ public class LoginPanel extends Panel {
     private String email;
     private String password;
     private Form form;
-    private User user;
 
     private User loggedInUser;
 
@@ -85,8 +85,8 @@ public class LoginPanel extends Panel {
         try {
             loggedInUser = loggedInUserQuery.result(email, password);
             UserSession.get().setUser(loggedInUser);
-            System.err.println("Paspaustas mygtukas! " + loggedInUser.email);
-
+            setResponsePage(UserWorkoutsPage.class,
+                    UserWorkoutsPage.parametersWith(loggedInUser.imei));
         } catch (DomainException ex) {
             form.error(ex.getMessage());
         }

@@ -1,5 +1,6 @@
 package com.tieto.it2014.ui;
 
+import com.tieto.it2014.ui.user.UserWorkoutsPage;
 import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
@@ -29,6 +30,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
         mountPage("register", RegisterPage.class);
+        mountPage("user/${userId}/workouts", UserWorkoutsPage.class);
     }
 
     @Override

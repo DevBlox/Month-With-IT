@@ -1,26 +1,26 @@
 package com.tieto.it2014.dao.user.query;
 
-import com.tieto.it2014.dao.user.UserEntityRepository;
-import com.tieto.it2014.dao.user.UserEntity;
+import static com.tieto.it2014.dao.JpaUtils.toDomainEntity;
+import com.tieto.it2014.dao.user.UserJpa;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class GetUserByIdQueryDaoMem implements GetUserByIdQuery.Dao {
+public class GetUserByIdQueryDaoJpa implements GetUserByIdQuery.Dao {
 
     private static final long serialVersionUID = 1L;
 
-    @Autowired
-    private UserEntityRepository repository;
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     @Transactional(readOnly = true)
     public User resultOrNull(Long id) {
-        UserEntity entity = repository.find(id);
-        return entity != null ? entity.toUser() : null;
+        return toDomainEntity(em.find(UserJpa.class, id));
     }
 
 }

@@ -14,24 +14,22 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-
-
-
 public class HomePage extends WebPage {
 
     private static final long serialVersionUID = 1L;
-    
+
     @SpringBean
     private WorkoutsQuery workoutQuery;
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        
+
         IModel<List<Workout>> workoutModel = initWorkoutListModel();
 
         add(new Label("Heading", "Recent workouts"));
-        add(new Label("loginStatus", new Model<String>(){
+        add(new Label("loginStatus", new Model<String>() {
+            private static final long serialVersionUID = 1L;
 
             @Override
             public String getObject() {
@@ -39,10 +37,11 @@ public class HomePage extends WebPage {
                         ? UserSession.get().getUser().email
                         : "-";
             }
-            
+
         }));
         add(new WorkoutTopListPanel("topList", workoutModel));
         add(new Link("registerPage") {
+            private static final long serialVersionUID = 1L;
 
             @Override
             public void onClick() {
@@ -51,14 +50,14 @@ public class HomePage extends WebPage {
         });
         add(new LoginPanel("loginPanel"));
     }
-    
+
     private IModel<List<Workout>> initWorkoutListModel() {
         return new LoadableDetachableModel<List<Workout>>() {
             private static final long serialVersionUID = 1L;
-            
+
             @Override
             protected List<Workout> load() {
-                 return workoutQuery.result();
+                return workoutQuery.result();
             }
         };
     }

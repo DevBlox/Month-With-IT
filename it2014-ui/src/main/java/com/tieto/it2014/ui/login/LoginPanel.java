@@ -1,6 +1,5 @@
 package com.tieto.it2014.ui.login;
 
-import com.tieto.it2014.domain.Util.Hash;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.user.query.GetUserByUsernameQuery;
@@ -31,6 +30,10 @@ public class LoginPanel extends Panel {
     private Form form;
     private User user;
 
+    private User loggedInUser;
+
+//    @SpringBean
+//    private LoggedInUserQuery loggedInUserQuery;
     @SpringBean
     private AllUsersQuery allUsersQuery;
 
@@ -80,14 +83,12 @@ public class LoginPanel extends Panel {
     }
 
     private void buttonAction() {
-
-        user = getUserByUsernameQuery.result(email);
-
-        password = Hash.sha256(password);
-
-        if (user.password.equals(password)) {
-            UserSession.get().setUser(user);
-        }
+//        try {
+//            loggedInUser = loggedInUserQuery.result(email, password);
+//            UserSession.get().setUser(user);
+//        } catch (DomainException ex) {
+//            form.error(ex.getMessage());
+//        }
     }
 
 }

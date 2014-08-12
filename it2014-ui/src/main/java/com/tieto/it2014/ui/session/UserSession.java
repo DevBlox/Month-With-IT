@@ -27,10 +27,6 @@ public class UserSession extends WebSession {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public boolean isLoggedIn() {
-        return !user.equals(null);
-    }
     
     
     

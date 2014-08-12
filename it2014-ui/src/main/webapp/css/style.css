@@ -1,8 +1,8 @@
 ul.topList {
-	margin:0 auto;
-	width:850;
-	position:relative;
-	background-color: #CCFFD9;
+    margin:0 auto;
+    width:850;
+    position:relative;
+    background-color: #CCFFD9;
 }
 
 .center_panel {
@@ -20,4 +20,41 @@ ul.topList {
 
 .tableHeader {
     font-weight: bold;
+}
+
+.left {
+    float : left;
+    width: 20%;
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: visible;
+    height: 100%;
+}
+
+.right {
+    float: left;
+    width: 100%;
+    position: relative;
+    margin-left: 20%;
+}
+
+.clearer {
+    clear: both;
+}
+
+.friendListItem {
+    padding: 5px;
+}
+
+.panel {
+    overflow-y: auto;
+    height: 100%;
+}
+
+#left {
+    height: 100%;
+}
+
+body, html {
+    height: 100%;
 }

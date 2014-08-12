@@ -2,6 +2,7 @@ package com.tieto.it2014.ui;
 
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
+import com.tieto.it2014.ui.friend.FriendPanel;
 import com.tieto.it2014.ui.login.LoginPanel;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
@@ -26,6 +27,8 @@ public class HomePage extends WebPage {
         super.onInitialize();
 
         IModel<List<Workout>> workoutModel = initWorkoutListModel();
+
+        add(new FriendPanel("friendPanel"));
 
         add(new Label("Heading", "Recent workouts"));
         add(new Label("loginStatus", new Model<String>() {
@@ -57,7 +60,7 @@ public class HomePage extends WebPage {
 
             @Override
             protected List<Workout> load() {
-                 return workoutQuery.result(null, 100);
+                return workoutQuery.result(null, 100);
             }
         };
     }

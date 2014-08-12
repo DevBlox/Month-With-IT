@@ -112,7 +112,7 @@
     <changeSet id="5" author="mantas.jonytis@tietocamp.eu" >
 
         <createView viewName="UserFriends">
-            SELECT ID,USERNAME
+            SELECT UserID, ID, USERNAME
             FROM FRIENDS
             INNER JOIN USER WHERE FriendID = IMEI
             ORDER BY USERNAME;

@@ -25,10 +25,12 @@ public class UserFriendsPage extends WebPage {
         super.onInitialize();
         add(new Label("name", userId));
         IModel<List<User>> userFriendsModel = initUserFriendsListModel();
+
         RepeatingView view = new RepeatingView("item");
-        for (Object wk : userFriendsModel.getObject()) {
-            System.out.println(wk);
+        for (User u : userFriendsModel.getObject()) {
+            view.add(new Label(view.newChildId(), u.username));
         }
+        add(view);
     }
 
     public UserFriendsPage(PageParameters params) {
@@ -41,7 +43,7 @@ public class UserFriendsPage extends WebPage {
 
             @Override
             protected List<User> load() {
-                return allFriendsQuery.result();
+                return allFriendsQuery.result(userId);
             }
         };
     }

@@ -15,10 +15,10 @@ public class AllFriendsQuery implements Serializable {
     private Dao dao;
 
     public interface Dao extends Serializable {
-        List<User> result();
+        List<User> result(String id);
     }
 
-    public List<User> result() {
-        return dao.result();
+    public List<User> result(String id) {
+        return dao.result(id);
     }
 }

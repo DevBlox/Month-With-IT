@@ -8,13 +8,14 @@ import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
-import com.tieto.it2014.ui.validation.IMEIValidation;
 import org.apache.wicket.Component;
+import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
@@ -48,11 +49,16 @@ public class RegisterPanel extends Panel {
         super.onInitialize();
         user = createUser.getUser();
         form = new Form("registerForm");
-        PasswordTextField password = new PasswordTextField("inputPassword", new PropertyModel(user, "password"));
-        PasswordTextField repeatPassword = new PasswordTextField("repeatPassword", new PropertyModel(user, "password"));
+        PasswordTextField password = new PasswordTextField("inputPassword",
+                new PropertyModel(user, "password"));
+        PasswordTextField repeatPassword = new PasswordTextField("repeatPassword",
+                new PropertyModel(user, "password"));
 
-        form.add(new FeedbackPanel("registerFeedback"));
-        form.add(new TextField("inputUserName", new PropertyModel(user, "username"))
+        form.add(new FeedbackPanel("registerFeedback",
+                new ComponentFeedbackMessageFilter(form)));
+
+        form.add(new TextField("inputUserName",
+                new PropertyModel(user, "username"))
                 .setRequired(true)
                 .add(new StringValidator(1, 30))
         );
@@ -73,8 +79,21 @@ public class RegisterPanel extends Panel {
                 .setRequired(true)
         );
         form.add(initRegisterButton("registerButton"));
+        form.add(initCancelButton("cancelButton"));
         form.add(new EqualPasswordInputValidator(password, repeatPassword));
         add(form);
+    }
+
+    private Link initCancelButton(String id) {
+        return new Link(id) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onClick() {
+                setResponsePage(HomePage.class);
+            }
+
+        };
     }
 
     private Component initRegisterButton(String wicketId) {
@@ -96,6 +115,7 @@ public class RegisterPanel extends Panel {
         // Klausti PO ar tinka po registravimo iskarto priloginamas useris!!!
         UserSession.get().setUser(user);
 
+        // Kad kitakart register langeliuose nebeliktu registravimosi duomenu!!
         createUser.deleteUser();
         setResponsePage(HomePage.class);
     }

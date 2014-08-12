@@ -20,16 +20,22 @@ import org.apache.wicket.validation.IValidator;
  */
 public class ExistingEmailValidator implements IValidator<String> {
 
-    private final List<User> users;
+    private static final long serialVersionUID = 1L;
+
+    private final AllUsersQuery allUsersQuery;
+
+    private List<User> users;
     private String email;
     private boolean found = false;
 
     public ExistingEmailValidator(AllUsersQuery query) {
-        users = query.result();
+        allUsersQuery = query;
     }
 
     @Override
     public void validate(IValidatable<String> validatable) {
+        users = allUsersQuery.result();
+
         email = validatable.getValue();
 
         for (User user : users) {
@@ -39,6 +45,8 @@ public class ExistingEmailValidator implements IValidator<String> {
         }
         if (found) {
             validatable.error(new IValidationError() {
+                private static final long serialVersionUID = 1L;
+
                 @Override
                 public Serializable getErrorMessage(IErrorMessageSource messageSource) {
                     return "Email is already in use!";

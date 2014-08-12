@@ -16,6 +16,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
@@ -29,6 +30,10 @@ public class LoginPanel extends Panel {
     private Form form;
     private Link logoutButton;
     private Button loginButton;
+    private PasswordTextField passwordTextField;
+    private TextField textField;
+    private Label loggedUserLabel;
+    private Model<String> labelModel;
 
     private User loggedInUser;
 
@@ -47,18 +52,27 @@ public class LoginPanel extends Panel {
 
         super.onInitialize();
         form = new Form("loginForm");
-        form.add(new TextField("inputEmail", new PropertyModel(this, "email"))
-                .setRequired(true));
+
+        passwordTextField = new PasswordTextField("inputPassword", new PropertyModel(this, "password"));
+        passwordTextField.setRequired(true);
+        passwordTextField.add(new StringValidator(5, 30));
+
+        textField = new TextField("inputEmail", new PropertyModel(this, "email"));
+        textField.setRequired(true);
+
+        labelModel = new Model("");
+
+        loggedUserLabel = new Label("loggedUserLabel", labelModel);
+        form.add(loggedUserLabel);
+
+        form.add(textField);
         form.add(new FeedbackPanel("loginFeedback"));
-        form.add(new PasswordTextField("inputPassword", new PropertyModel(this, "password"))
-                .setRequired(true)
-                .add(new StringValidator(5, 30))
-        );
-        
+        form.add(passwordTextField);
+
         loginButton = (Button) initLoginButton("loginButton");
         loginButton.setOutputMarkupId(true);
         form.add(loginButton);
-        
+
         logoutButton = (Link) initLogoutButton("logoutButton");
         logoutButton.setOutputMarkupId(true);
         form.add(logoutButton);
@@ -67,12 +81,21 @@ public class LoginPanel extends Panel {
 
     @Override
     protected void onConfigure() {
-        super.onConfigure(); 
+        super.onConfigure();
         logoutButton.setVisible(UserSession.get().hasUser());
         loginButton.setVisible(!UserSession.get().hasUser());
+        passwordTextField.setVisible(!UserSession.get().hasUser());
+        textField.setVisible(!UserSession.get().hasUser());
+        loggedUserLabel.setVisible(UserSession.get().hasUser());
+
+        if (UserSession.get().hasUser()) {
+            String userNameAndEmail = ""
+                    + UserSession.get().getUser().username
+                    + " (" + UserSession.get().getUser().email + ")";
+            labelModel.setObject(userNameAndEmail);
+        }
+
     }
-    
-    
 
     private Component initLoginButton(String wicketId) {
         return new Button(wicketId) {

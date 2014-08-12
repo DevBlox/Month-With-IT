@@ -3,6 +3,7 @@ package com.tieto.it2014.ui.user;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
+import com.tieto.it2014.ui.header.HeaderPanel;
 import com.tieto.it2014.ui.workout.WorkoutListPanel;
 import java.util.List;
 import org.apache.wicket.Component;
@@ -44,9 +45,11 @@ public class UserWorkoutsPage extends WebPage {
         String username = userById.resultOrNull(userId).username;
         showMoreLink.setOutputMarkupId(true);
         workoutPanel.setOutputMarkupId(true);
+        add(new HeaderPanel("headerPanel"));
         add(workoutPanel);
         add(showMoreLink);
         add(new Label("Heading", username + " workouts"));
+
     }
 
     private class WorkoutsModel extends LoadableDetachableModel<List<Workout>> {

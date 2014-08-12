@@ -15,10 +15,10 @@ public class GetUserByIdQuery implements Serializable {
     private Dao dao;
 
     public interface Dao extends Serializable {
-        User resultOrNull(Long id);
+        User resultOrNull(String id);
     }
 
-    public User resultOrNull(Long id) {
+    public User resultOrNull(String id) {
         return dao.resultOrNull(id);
     }
 

@@ -9,7 +9,7 @@ import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import org.apache.wicket.Component;
-import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
+import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -54,9 +54,6 @@ public class RegisterPanel extends Panel {
         PasswordTextField repeatPassword = new PasswordTextField("repeatPassword",
                 new PropertyModel(user, "password"));
 
-        form.add(new FeedbackPanel("registerFeedback",
-                new ComponentFeedbackMessageFilter(form)));
-
         form.add(new TextField("inputUserName",
                 new PropertyModel(user, "username"))
                 .setRequired(true)
@@ -81,6 +78,10 @@ public class RegisterPanel extends Panel {
         form.add(initRegisterButton("registerButton"));
         form.add(initCancelButton("cancelButton"));
         form.add(new EqualPasswordInputValidator(password, repeatPassword));
+
+        form.add(new FeedbackPanel("registerFeedback",
+                new ContainerFeedbackMessageFilter(form)));
+
         add(form);
     }
 

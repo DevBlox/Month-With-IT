@@ -47,7 +47,7 @@
             <column name="IMEI" value="355866055632819" />
             <column name="EMAIL" value="norjuste@gmail.com" />
             <column name="USERNAME" value="norjuste" />
-            <column name="PASSWORD" value="fbeb6cfabc5d5a5a490c641bdc142d9c9b3ee9b755b9efd04a77d2cf503c4b76" />
+            <column name="PASSWORD" value="37c991c90a014af3ddcf52db8d92ce846b74eb040c8242cb207a3d3666cc6b87" />
         </insert>
 
         <insert tableName="USER">

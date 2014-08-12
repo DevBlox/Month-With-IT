@@ -7,8 +7,7 @@ import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.UserWorkoutsPage;
-import org.apache.wicket.Component;
-import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
+import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -20,7 +19,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.validation.validator.StringValidator;
 
 public class LoginPanel extends Panel {
 
@@ -53,11 +51,12 @@ public class LoginPanel extends Panel {
         super.onInitialize();
         form = new Form("loginForm");
 
-        passwordTextField = new PasswordTextField("inputPassword", new PropertyModel(this, "password"));
+        passwordTextField = new PasswordTextField("inputPassword",
+                new PropertyModel(this, "password"));
         passwordTextField.setRequired(true);
-        passwordTextField.add(new StringValidator(5, 30));
 
-        textField = new TextField("inputEmail", new PropertyModel(this, "email"));
+        textField = new TextField("inputEmail",
+                new PropertyModel(this, "email"));
         textField.setRequired(true);
 
         labelModel = new Model("");
@@ -68,16 +67,16 @@ public class LoginPanel extends Panel {
         form.add(passwordTextField);
         form.add(textField);
 
-        loginButton = (Button) initLoginButton("loginButton");
+        loginButton = initLoginButton("loginButton");
         loginButton.setOutputMarkupId(true);
         form.add(loginButton);
 
-        logoutButton = (Link) initLogoutButton("logoutButton");
+        logoutButton = initLogoutButton("logoutButton");
         logoutButton.setOutputMarkupId(true);
         form.add(logoutButton);
 
         form.add(new FeedbackPanel("loginFeedback",
-                new ComponentFeedbackMessageFilter(form)));
+                new ContainerFeedbackMessageFilter(form)));
 
         add(form);
     }
@@ -100,7 +99,7 @@ public class LoginPanel extends Panel {
 
     }
 
-    private Component initLoginButton(String wicketId) {
+    private Button initLoginButton(String wicketId) {
         return new Button(wicketId) {
             private static final long serialVersionUID = 1L;
 
@@ -112,7 +111,7 @@ public class LoginPanel extends Panel {
         };
     }
 
-    private Component initLogoutButton(String wicketId) {
+    private Link initLogoutButton(String wicketId) {
         return new Link(wicketId) {
             private static final long serialVersionUID = 1L;
 

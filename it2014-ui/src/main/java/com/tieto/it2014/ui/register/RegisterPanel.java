@@ -6,6 +6,7 @@ import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.ui.HomePage;
+import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import com.tieto.it2014.ui.validation.ExistingUserValidator;
 import com.tieto.it2014.ui.validation.IMEIValidation;
@@ -74,7 +75,7 @@ public class RegisterPanel extends Panel {
                 .setRequired(true)
                 .add(new StringValidator(15, 15))
                 .add(new IMEIValidation())
-                );
+        );
         form.add(initRegisterButton("registerButton"));
         form.add(new EqualPasswordInputValidator(password, repeatPassword));
         add(form);
@@ -95,6 +96,10 @@ public class RegisterPanel extends Panel {
     private void actionRegisterUser() {
         user.password = Hash.sha256(user.password);
         saveUser.execute(user);
+
+        // Klausti PO ar tinka po registravimo iskarto priloginamas useris!!!
+        UserSession.get().setUser(user);
+
         createUser.deleteUser();
         setResponsePage(HomePage.class);
     }

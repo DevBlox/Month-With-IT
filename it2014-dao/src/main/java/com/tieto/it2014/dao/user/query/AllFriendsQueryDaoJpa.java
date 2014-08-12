@@ -31,7 +31,7 @@ public class AllFriendsQueryDaoJpa implements AllFriendsQuery.Dao {
         List<User> lst = new ArrayList<User>();
         TypedQuery<FriendJpa> query = em.createQuery(
                 "SELECT u FROM FriendJpa u where u.userId = :id", FriendJpa.class);
-        query.setParameter("email", id);
+        query.setParameter("id", id);
         for (FriendJpa ob : query.getResultList()) {
             lst.add(getUserById.resultOrNull(ob.getFriendId()));
         }

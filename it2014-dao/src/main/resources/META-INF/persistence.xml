@@ -4,6 +4,7 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>com.tieto.it2014.dao.workout.WorkoutJpa</class>
     <class>com.tieto.it2014.dao.user.UserJpa</class>
+    <class>com.tieto.it2014.dao.user.FriendJpa</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
     </properties>

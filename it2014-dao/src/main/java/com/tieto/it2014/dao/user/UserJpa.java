@@ -11,8 +11,8 @@ import javax.persistence.Table;
 @Table(name = "USER")
 public class UserJpa implements JpaEntity<User> {
 
-    @Column(name = "IMEI")
     @Id
+    @Column(name = "IMEI")
     private String imei;
 
     @Column(name = "EMAIL")

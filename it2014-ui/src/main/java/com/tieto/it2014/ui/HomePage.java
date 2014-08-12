@@ -3,28 +3,27 @@ package com.tieto.it2014.ui;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.friend.FriendPanel;
-import com.tieto.it2014.ui.login.LoginPanel;
+import com.tieto.it2014.ui.header.HeaderPanel;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import java.util.List;
-import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class HomePage extends WebPage {
 
     private static final long serialVersionUID = 1L;
-    
-    private Link registerButton;
 
     @SpringBean
     private WorkoutsQuery workoutQuery;
+
+    private FriendPanel friendPanel;
+    private WorkoutTopListPanel workoutTopListPanel;
+    private HeaderPanel headerPanel;
+    private Label label;
 
     @Override
     protected void onInitialize() {
@@ -32,45 +31,21 @@ public class HomePage extends WebPage {
 
         IModel<List<Workout>> workoutModel = initWorkoutListModel();
 
-        add(new FriendPanel("friendPanel"));
-
-        add(new Label("Heading", "Recent workouts"));
-        add(new Label("loginStatus", new Model<String>() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getObject() {
-                return UserSession.get().hasUser()
-                        ? UserSession.get().getUser().email
-                        : "-";
-            }
-
-        }));
-        add(new WorkoutTopListPanel("topList", workoutModel));
-        
-        
-        
-        registerButton = (Link) initRegisterButton("registerPage");
-        registerButton.setOutputMarkupId(true);
-        add(registerButton);
-//        add(new Link("registerPage") {
-//            private static final long serialVersionUID = 1L;
-//
-//            @Override
-//            public void onClick() {
-//                setResponsePage(RegisterPage.class);
-//            }
-//        });
-        add(new LoginPanel("loginPanel"));
+        friendPanel = new FriendPanel("friendPanel");
+        workoutTopListPanel = new WorkoutTopListPanel("topList", workoutModel);
+        label = new Label("Heading", "Recent workouts");
+        add(friendPanel);
+        add(label);
+        add(workoutTopListPanel);
+        add(new HeaderPanel("headerPanel"));
     }
 
     @Override
     protected void onConfigure() {
-        registerButton.setVisible(!UserSession.get().hasUser());
-        super.onConfigure();
+        friendPanel.setVisible(UserSession.get().hasUser());
+        workoutTopListPanel.setVisible(!UserSession.get().hasUser());
+        label.setVisible(!UserSession.get().hasUser());
     }
-    
-    
 
     private IModel<List<Workout>> initWorkoutListModel() {
         return new LoadableDetachableModel<List<Workout>>() {
@@ -80,18 +55,6 @@ public class HomePage extends WebPage {
             protected List<Workout> load() {
                 return workoutQuery.result(null, 100);
             }
-        };
-    }
-    
-     private Component initRegisterButton(String wicketId) {
-        return new Link(wicketId) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void onClick() {
-                setResponsePage(RegisterPage.class);
-            }
-
         };
     }
 }

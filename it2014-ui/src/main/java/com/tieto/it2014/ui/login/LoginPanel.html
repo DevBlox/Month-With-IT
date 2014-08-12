@@ -1,27 +1,15 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
-    <h2 class="center_text">Log In</h2>
-    <form wicket:id="loginForm" class="form-horizontal"
-          style="position: static; top: 50%; left: 50%">
-
-        <div wicket:id="loginFeedback" />
-
-        <div class="control-group">
-            <label class="control-label">Email: </label>
-            <div class="controls">
-                <input wicket:id="inputEmail" type="text" />
-            </div>
+    <form wicket:id="loginForm" style="margin-bottom: 0px;" >
+        <div wicket:id="loginFeedback"></div>
+        <div style="display: inline-block;">
+            <input wicket:id="inputEmail" type="text"  style="width: 200px; margin-bottom: 0px;" placeholder="Enter email">
+          </div>
+        <div style="display: inline-block;">
+            <input wicket:id="inputPassword" type="password" style="width: 200px; margin-bottom: 0px;" placeholder="Enter password">
         </div>
-        <div class="control-group">
-            <label class="control-label">Password: </label>
-            <div class="controls">
-                <input wicket:id="inputPassword" type="password" />
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <button wicket:id="loginButton" type="submit" class="btn-primary">Login</button>
-                <button wicket:id="logoutButton" type="button" class="btn-primary">Logout</button>
-            </div>
+        <div style="display: inline-block;">
+            <button wicket:id="loginButton" type="submit" class="btn btn-default">Login</button>
+            <button wicket:id="logoutButton" type="button" class="btn btn-default">Logout</button>
         </div>
     </form>
 </wicket:panel>

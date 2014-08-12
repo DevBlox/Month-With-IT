@@ -5,21 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Component
-public class GetUserByIdQuery implements Serializable {
-
+public class AllFriendsQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Autowired
     private Dao dao;
 
     public interface Dao extends Serializable {
-        User resultOrNull(String id);
+        List<User> result(String id);
     }
 
-    public User resultOrNull(String id) {
-        return dao.resultOrNull(id);
+    public List<User> result(String id) {
+        return dao.result(id);
     }
-
 }

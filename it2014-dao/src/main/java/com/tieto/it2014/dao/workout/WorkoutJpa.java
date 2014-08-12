@@ -1,5 +1,6 @@
 package com.tieto.it2014.dao.workout;
 
+import com.tieto.it2014.dao.JpaEntity;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "UserLoc")
-public class WorkoutEntity {
+public class WorkoutJpa implements JpaEntity<UserLoc> {
 
     @Id
     @Column(name = "Id")
@@ -31,10 +32,10 @@ public class WorkoutEntity {
     @Column(name = "Altitutde")
     private Double altitude;
 
-    public WorkoutEntity() {
+    public WorkoutJpa() {
     }
 
-    public WorkoutEntity(UserLoc userLoc) {
+    public WorkoutJpa(UserLoc userLoc) {
         this.phoneNumber = userLoc.id;
         this.timeStamp = userLoc.timeStamp;
         this.latitude = userLoc.latitude;
@@ -48,8 +49,8 @@ public class WorkoutEntity {
     public Double getLongtitude() { return longtitude; }
     public Double getAltitude() { return altitude; }
 
-    public UserLoc toUserLock() {
+    @Override
+    public UserLoc toDomain() {
         return new UserLoc(this.phoneNumber, this.uName, this.timeStamp, this.latitude, this.longtitude, this.altitude);
     }
-
 }

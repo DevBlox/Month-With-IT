@@ -1,13 +1,14 @@
 package com.tieto.it2014.ui.user;
 
 import com.tieto.it2014.domain.user.entity.Workout;
-import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.workout.WorkoutListPanel;
 import java.util.List;
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -16,14 +17,11 @@ public class UserWorkoutsPage extends WebPage {
 
     private static final long serialVersionUID = 1L;
     public static final String USER_ID = "userId";
+    private final String userId;
+    private WorkoutsModel workoutsModel;
 
     @SpringBean
     private WorkoutsQuery workoutQuery;
-
-    private final String userId;
-
-    @SpringBean
-    private GetUserByIdQuery getUserByIdQuery;
 
     public static PageParameters parametersWith(String userId) {
         return new PageParameters().add(USER_ID, userId);
@@ -36,20 +34,67 @@ public class UserWorkoutsPage extends WebPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
-        IModel<List<Workout>> userWorkoutsModel = initUserWorkoutsListModel();
-
+        workoutsModel = new WorkoutsModel();
+        WorkoutListPanel workoutPanel = new WorkoutListPanel("workoutsList", workoutsModel);
+        Component showMoreLink = initShowMoreLink(workoutPanel);
+        showMoreLink.setOutputMarkupId(true);
+        workoutPanel.setOutputMarkupId(true);
+        add(workoutPanel);
+        add(showMoreLink);
         add(new Label("Heading", "User workouts"));
-        add(new WorkoutListPanel("workoutsList", userWorkoutsModel));
     }
 
-    private IModel<List<Workout>> initUserWorkoutsListModel() {
-        return new LoadableDetachableModel<List<Workout>>() {
+    private class WorkoutsModel extends LoadableDetachableModel<List<Workout>> {
+
+        private static final long serialVersionUID = 1L;
+        private final Integer ALL_WORKOUTS = null;
+        private boolean hasMoreWorkouts = false;
+        private Integer workoutsToShow = 2;
+
+        @Override
+        protected List<Workout> load() {
+            if (workoutsToShow == ALL_WORKOUTS) {
+                hasMoreWorkouts = false;
+                return workoutQuery.result(userId, ALL_WORKOUTS);
+            }
+            List<Workout> list = workoutQuery.result(userId, workoutsToShow + 1);
+            hasMoreWorkouts = (list.size() > workoutsToShow);
+            if (hasMoreWorkouts) {
+                list = list.subList(0, workoutsToShow);
+            }
+            return list;
+        }
+
+        boolean hasMoreWorkouts() {
+            getObject();
+            return hasMoreWorkouts;
+        }
+
+        void showAllWorkouts() {
+            workoutsToShow = ALL_WORKOUTS;
+        }
+
+        void showMoreWorkouts() {
+            workoutsToShow += workoutsToShow;
+        }
+    }
+
+    private AjaxLink initShowMoreLink(final WorkoutListPanel workoutPanel) {
+        return new AjaxLink("link") {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected List<Workout> load() {
-                return workoutQuery.result(userId, null);
+            public void onClick(AjaxRequestTarget target) {
+                //workoutsModel.showAllWorkouts();
+                workoutsModel.showMoreWorkouts();
+                target.add(workoutPanel);
+                target.add(this);
+            }
+
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                setVisible(workoutsModel.hasMoreWorkouts());
             }
         };
     }

@@ -31,6 +31,9 @@ public class HeaderPanel extends Panel {
     protected void onConfigure() {
         super.onConfigure();
         registerButton.setVisible(!UserSession.get().hasUser());
+        if (registerButton.getPage().getClass() == RegisterPage.class) {
+            registerButton.setVisible(false);
+        }
     }
 
     private Link initRegisterButton(String wicketId) {

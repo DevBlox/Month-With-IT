@@ -8,6 +8,7 @@ import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.UserWorkoutsPage;
 import org.apache.wicket.Component;
+import org.apache.wicket.feedback.ComponentFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -34,7 +35,6 @@ public class LoginPanel extends Panel {
     private TextField textField;
     private Label loggedUserLabel;
     private Model<String> labelModel;
-
     private User loggedInUser;
 
     @SpringBean
@@ -65,9 +65,8 @@ public class LoginPanel extends Panel {
         loggedUserLabel = new Label("loggedUserLabel", labelModel);
         form.add(loggedUserLabel);
 
-        form.add(textField);
-        form.add(new FeedbackPanel("loginFeedback"));
         form.add(passwordTextField);
+        form.add(textField);
 
         loginButton = (Button) initLoginButton("loginButton");
         loginButton.setOutputMarkupId(true);
@@ -76,6 +75,10 @@ public class LoginPanel extends Panel {
         logoutButton = (Link) initLogoutButton("logoutButton");
         logoutButton.setOutputMarkupId(true);
         form.add(logoutButton);
+
+        form.add(new FeedbackPanel("loginFeedback",
+                new ComponentFeedbackMessageFilter(form)));
+
         add(form);
     }
 

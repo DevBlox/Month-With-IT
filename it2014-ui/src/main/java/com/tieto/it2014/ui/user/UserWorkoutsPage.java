@@ -1,6 +1,7 @@
 package com.tieto.it2014.ui.user;
 
 import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.workout.WorkoutListPanel;
 import java.util.List;
@@ -23,6 +24,9 @@ public class UserWorkoutsPage extends WebPage {
     @SpringBean
     private WorkoutsQuery workoutQuery;
 
+    @SpringBean
+    private GetUserByIdQuery userById;
+
     public static PageParameters parametersWith(String userId) {
         return new PageParameters().add(USER_ID, userId);
     }
@@ -37,11 +41,12 @@ public class UserWorkoutsPage extends WebPage {
         workoutsModel = new WorkoutsModel();
         WorkoutListPanel workoutPanel = new WorkoutListPanel("workoutsList", workoutsModel);
         Component showMoreLink = initShowMoreLink(workoutPanel);
+        String username = userById.resultOrNull(userId).username;
         showMoreLink.setOutputMarkupId(true);
         workoutPanel.setOutputMarkupId(true);
         add(workoutPanel);
         add(showMoreLink);
-        add(new Label("Heading", "User workouts"));
+        add(new Label("Heading", username + " workouts"));
     }
 
     private class WorkoutsModel extends LoadableDetachableModel<List<Workout>> {

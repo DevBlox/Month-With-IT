@@ -5,6 +5,8 @@ import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.workout.WorkoutListPanel;
 import java.util.List;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
@@ -39,18 +41,37 @@ public class UserWorkoutsPage extends WebPage {
 
         IModel<List<Workout>> userWorkoutsModel = initUserWorkoutsListModel();
 
+        final WorkoutListPanel workoutPanel = new WorkoutListPanel("workoutsList", userWorkoutsModel);
+
+        workoutPanel.setOutputMarkupId(true);
+
+        add(new AjaxLink("link") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                if (target != null) {
+                    // target is only available in an Ajax request
+                    target.add(workoutPanel);
+
+                }
+            }
+        });
+
+        add(workoutPanel);
+
         add(new Label("Heading", "User workouts"));
-        add(new WorkoutListPanel("workoutsList", userWorkoutsModel));
     }
 
     private IModel<List<Workout>> initUserWorkoutsListModel() {
         return new LoadableDetachableModel<List<Workout>>() {
             private static final long serialVersionUID = 1L;
 
+            private int counter = 0;
+
             @Override
             protected List<Workout> load() {
-                return workoutQuery.result(userId, null);
+                return workoutQuery.result(userId, counter++);
             }
+
         };
     }
 }

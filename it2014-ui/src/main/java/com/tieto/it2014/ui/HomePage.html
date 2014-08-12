@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:wicket="http://wicket.apache.org">
+<html xmlns:wicket="http://wicket.apache.org" lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Workouts</title>
@@ -9,16 +9,26 @@
     <script src="js/bootstrap.min.js"></script>
   </head>
   <body>
+      <div style="width: 100%; padding-top: 10px; background-color:#E0EEEE; height: 50px;">
+          <div id="logo" style="float:left; padding-left: 50px;; font-size: medium; background-color:#E0EEEE;">
+              <strong>IRun</strong>
+          </div>
+          <div style="float:right; padding-right: 20px;">
+              <a wicket:id="registerPage">
+                <button class="btn btn-success">Register</button>
+              </a>
+          </div>
+          <div style="float: right; padding-right: 30px; background-color:#E0EEEE;">
+              <div wicket:id="loginPanel"></div>
+          </div>
+      </div>
       
-      <a wicket:id="registerPage">
-          <button style="margin: 10px; left: 0%">Register</button>
-      </a>
       
-      <div id="wrapper" style="margin-left: auto; margin-right: auto; padding-top: 10px; width: 900px">
+      <div id="wrapper" style="margin-left: auto; margin-right: auto; margin-top: 50px; width: 900px">
           <h1 wicket:id="Heading">[heading]</h1>
           <ul wicket:id="topList" class="topList"></ul>
       </div>
       <label wicket:id="loginStatus"></label>
-      <div wicket:id="loginPanel"></div>
+      
   </body>
 </html>

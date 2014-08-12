@@ -8,6 +8,7 @@ import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.UserWorkoutsPage;
 import org.apache.wicket.Component;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -23,13 +24,11 @@ public class LoginPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    public LoginPanel(String wicketid) {
-        super(wicketid);
-    }
-
     private String email;
     private String password;
     private Form form;
+    private Link logoutButton;
+    private Button loginButton;
 
     private User loggedInUser;
 
@@ -38,6 +37,10 @@ public class LoginPanel extends Panel {
 
     @SpringBean
     private AllUsersQuery allUsersQuery;
+
+    public LoginPanel(String wicketid) {
+        super(wicketid);
+    }
 
     @Override
     protected void onInitialize() {
@@ -51,10 +54,25 @@ public class LoginPanel extends Panel {
                 .setRequired(true)
                 .add(new StringValidator(5, 30))
         );
-        form.add(initLoginButton("loginButton"));
-        form.add(initLogoutButton("logoutButton"));
+        
+        loginButton = (Button) initLoginButton("loginButton");
+        loginButton.setOutputMarkupId(true);
+        form.add(loginButton);
+        
+        logoutButton = (Link) initLogoutButton("logoutButton");
+        logoutButton.setOutputMarkupId(true);
+        form.add(logoutButton);
         add(form);
     }
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure(); 
+        logoutButton.setVisible(UserSession.get().hasUser());
+        loginButton.setVisible(!UserSession.get().hasUser());
+    }
+    
+    
 
     private Component initLoginButton(String wicketId) {
         return new Button(wicketId) {
@@ -85,6 +103,7 @@ public class LoginPanel extends Panel {
         try {
             loggedInUser = loggedInUserQuery.result(email, password);
             UserSession.get().setUser(loggedInUser);
+            logoutButton.setVisible(true);
             setResponsePage(UserWorkoutsPage.class,
                     UserWorkoutsPage.parametersWith(loggedInUser.imei));
         } catch (DomainException ex) {

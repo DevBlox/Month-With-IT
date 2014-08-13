@@ -21,7 +21,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <spring.version>3.2.10.RELEASE</spring.version>
-    <it2014.devEnv>remote-dev</it2014.devEnv>
+    <it2014.devEnv>local</it2014.devEnv>
     <it2014.devEnv.dir>../dev-env/${it2014.devEnv}</it2014.devEnv.dir>
   </properties>
 
@@ -36,6 +36,12 @@
           <exists>../dev-env/custom</exists>
         </file>
       </activation>
+    </profile>
+    <profile>
+      <id>remote-dev</id>
+      <properties>
+        <it2014.devEnv>remote-dev</it2014.devEnv>
+      </properties>
     </profile>
     <profile>
       <id>remote-qa</id>

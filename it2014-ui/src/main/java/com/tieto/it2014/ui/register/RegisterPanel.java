@@ -120,6 +120,6 @@ public class RegisterPanel extends Panel {
         // Kad kitakart register langeliuose nebeliktu registravimosi duomenu!!
         createUser.deleteUser();
 
-        setResponsePage(UserWorkoutsPage.class, UserWorkoutsPage.parametersWith(user.imei));
+        setResponsePage(HomePage.class);
     }
 }

@@ -5,8 +5,10 @@ import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class FriendItemPanel extends Panel {
@@ -26,8 +28,16 @@ public class FriendItemPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new Label("friendLabel", friend.username));
-        add(initDeleteButton("friendDelete"));
+
+        PageParameters p = new PageParameters();
+        p.add("friend_imei", friend.imei);
+
+        BookmarkablePageLink l = new BookmarkablePageLink("friendLink", HomePage.class, p);
+
+        l.add(new Label("friendLabel", friend.username));
+        l.add(initDeleteButton("friendDelete"));
+
+        add(l);
     }
 
     private Link initDeleteButton(String wicketId) {

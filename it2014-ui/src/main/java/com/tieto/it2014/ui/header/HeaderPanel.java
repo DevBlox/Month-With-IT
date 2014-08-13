@@ -1,6 +1,7 @@
 package com.tieto.it2014.ui.header;
 
 import com.tieto.it2014.dao.env.EnvironmentDao;
+import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.RegisterPage;
 import com.tieto.it2014.ui.login.LoginPanel;
 import com.tieto.it2014.ui.session.UserSession;
@@ -26,6 +27,11 @@ public class HeaderPanel extends Panel {
         add(registerButton);
         add(new LoginPanel("loginPanel"));
         add(new Label("environmentComment", EnvironmentDao.getComment()));
+        add(new Link("logoLink") {
+            public void onClick() {
+                setResponsePage(HomePage.class);
+            }
+        });
     }
 
     @Override

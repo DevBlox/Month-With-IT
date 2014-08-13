@@ -96,3 +96,21 @@ ul.topList {
 .glyphicon {
     display: inline-block;
 }
+
+.leftCol {
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+.rightCol {
+    width: 80%;
+    height: 80%;
+    float: right;
+}
+
+.rightColFull {
+    width: 100%;
+    height: 100%;
+    float: right;
+}

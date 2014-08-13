@@ -24,6 +24,17 @@ public class FriendJpa implements JpaEntity<User> {
     public String getFriendId() {
         return this.friendId;
     }
+    
+    public FriendJpa () {
+        
+    }
+    
+    public FriendJpa (String userId, String friendId) {
+        this.userId = userId;
+        this.friendId = friendId;
+    }
+    
+    
 
     @Override
     public User toDomain() {

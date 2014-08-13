@@ -1,3 +1,14 @@
+body, html {
+    height: 100%;
+}
+
+header {
+    width: 100%;
+    padding-top: 10px;
+    background-color:#E0EEEE;
+    height: 40px;
+}
+
 ul.topList {
     margin:0 auto;
     width:850;
@@ -28,7 +39,7 @@ ul.topList {
     position: absolute;
     overflow-y: auto;
     overflow-x: visible;
-    height: 800px;
+    height: 600px;
 }
 
 .right {
@@ -50,20 +61,22 @@ ul.topList {
     height: 100%;
 }
 
-body, html {
-    height: 100%;
-}
-
-.header {
-    width: 100%; 
-    padding-top: 10px; 
-    background-color:#E0EEEE; 
-    height: 5%;
-}
-
 .logo {
     float:left; 
     padding-left: 50px; 
     font-size: medium; 
     background-color: #E0EEEE;
+}
+
+.loginPanel {
+    margin-bottom: 0px;
+}
+
+.loginPanel .field {
+    display: inline-block;
+}
+
+.loginPanel .field input {
+    width: 200px;
+    margin-bottom: 0px;
 }

@@ -14,13 +14,21 @@ public class BasePage extends WebPage {
     protected void onInitialize() {
         super.onInitialize();
         add(new Label("title", new PropertyModel<String>(this, "title")));
-        
+
         if (get("header") == null) {
             this.setHeader("header");
+        }
+
+        if (get("content") == null) {
+            this.setContent("content");
         }
     }
 
     protected void setHeader(String componentName){
+        add(new HeaderPanel(componentName));
+    }
+
+    private void setContent(String componentName) {
         add(new HeaderPanel(componentName));
     }
 

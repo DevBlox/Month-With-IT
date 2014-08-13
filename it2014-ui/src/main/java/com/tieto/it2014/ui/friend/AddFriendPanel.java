@@ -7,7 +7,9 @@ import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.PropertyModel;
 
 public class AddFriendPanel extends Panel {
 
@@ -25,15 +27,13 @@ public class AddFriendPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
+        
         // Create the modal window.
         final ModalWindow modal;
         add(modal = new ModalWindow("modal"));
         modal.setCookieName("modal-1");
 
         modal.setPageCreator(new ModalWindow.PageCreator() {
-            private static final long serialVersionUID = 1L;
-
             public Page createPage() {
                 // Use this constructor to pass a reference of this page.
                 return new AddFriendModalPage(pageReference,
@@ -41,8 +41,6 @@ public class AddFriendPanel extends Panel {
             }
         });
         modal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void onClose(AjaxRequestTarget target) {
                 // The variable passValue might be changed by the modal window.
@@ -50,8 +48,6 @@ public class AddFriendPanel extends Panel {
             }
         });
         modal.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
-            private static final long serialVersionUID = 1L;
-
             public boolean onCloseButtonClicked(AjaxRequestTarget target) {
                 // Change the passValue variable when modal window is closed.
 
@@ -61,8 +57,6 @@ public class AddFriendPanel extends Panel {
 
         // Add the link that opens the modal window.
         add(new AjaxLink<Void>("showModalLink") {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void onClick(AjaxRequestTarget target) {
                 modal.show(target);

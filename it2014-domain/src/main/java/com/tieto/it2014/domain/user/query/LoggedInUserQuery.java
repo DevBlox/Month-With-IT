@@ -26,7 +26,7 @@ public class LoggedInUserQuery implements Serializable {
         user = dao.result(email);
 
         if (user == null) {
-            throw new DomainException("User not found!");
+            throw new DomainException("Incorrect User Name/Password");
         }
 
         password = Hash.sha256(password);
@@ -34,7 +34,7 @@ public class LoggedInUserQuery implements Serializable {
         if (user.password.equals(password)) {
             return user;
         } else {
-            throw new DomainException("Incorrect password!");
+            throw new DomainException("Incorrect User Name/Password");
         }
     }
 

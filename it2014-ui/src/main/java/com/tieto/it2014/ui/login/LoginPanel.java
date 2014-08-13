@@ -54,11 +54,9 @@ public class LoginPanel extends Panel {
 
         passwordTextField = new PasswordTextField("inputPassword",
                 new PropertyModel(this, "password"));
-        passwordTextField.setRequired(true);
 
         textField = new TextField("inputEmail",
                 new PropertyModel(this, "email"));
-        textField.setRequired(true);
 
         labelModel = new Model("");
 
@@ -134,7 +132,7 @@ public class LoginPanel extends Panel {
 //                    UserWorkoutsPage.parametersWith(loggedInUser.imei));
             setResponsePage(BasePage.class);
         } catch (DomainException ex) {
-            form.error(ex.getMessage());
+            form.error("Incorrect User Name/Password");
         }
     }
 

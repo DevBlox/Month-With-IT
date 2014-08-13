@@ -54,7 +54,7 @@ ul.topList {
 }
 
 .friendListItem {
-    padding: 5px;
+    padding: 2px;
 }
 
 #left {
@@ -83,8 +83,15 @@ ul.topList {
 
 .friendLabel {
     width: 80%;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .verticalLine {
     border-left: solid thick #333333;
+    display: inline-block;
+}
+
+.glyphicon {
+    display: inline-block;
 }

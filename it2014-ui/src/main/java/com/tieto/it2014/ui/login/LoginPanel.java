@@ -4,6 +4,7 @@ import com.tieto.it2014.domain.DomainException;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
+import com.tieto.it2014.ui.BasePage;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.UserWorkoutsPage;
@@ -118,7 +119,7 @@ public class LoginPanel extends Panel {
             @Override
             public void onClick() {
                 UserSession.get().invalidate();
-                setResponsePage(HomePage.class);
+                setResponsePage(BasePage.class);
             }
 
         };
@@ -129,8 +130,9 @@ public class LoginPanel extends Panel {
             loggedInUser = loggedInUserQuery.result(email, password);
             UserSession.get().setUser(loggedInUser);
             logoutButton.setVisible(true);
-            setResponsePage(UserWorkoutsPage.class,
-                    UserWorkoutsPage.parametersWith(loggedInUser.imei));
+//            setResponsePage(UserWorkoutsPage.class,
+//                    UserWorkoutsPage.parametersWith(loggedInUser.imei));
+            setResponsePage(BasePage.class);
         } catch (DomainException ex) {
             form.error(ex.getMessage());
         }

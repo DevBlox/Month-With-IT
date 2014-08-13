@@ -1,11 +1,14 @@
 package com.tieto.it2014.ui.friend;
 
+import com.tieto.it2014.domain.user.entity.User;
+import com.tieto.it2014.domain.user.query.AllFriendsQuery;
+import com.tieto.it2014.ui.session.UserSession;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class FriendPanel extends Panel {
 
@@ -15,16 +18,25 @@ public class FriendPanel extends Panel {
         super(id);
     }
 
-    private ListView<List<String>> labels;
-    private List<String> array;
+    private ListView<User> labels;
+    private List<User> array;
+
+    @SpringBean
+    private AllFriendsQuery allFriendsQuery;
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        array = new ArrayList();
-        for (int i = 0; i < 200; i++) {
-            array.add("Friend " + i);
+        if (UserSession.get().hasUser()) {
+            array = allFriendsQuery.result(UserSession.get().getUser().imei);
+
+        } else {
+            array = new ArrayList<>();
+        }
+
+        if (array.isEmpty()) {
+            array.add(new User(" ", "You have no friends", " ", " "));
         }
 
         labels = new ListView("friendListItem", array) {
@@ -32,8 +44,8 @@ public class FriendPanel extends Panel {
 
             @Override
             protected void populateItem(ListItem item) {
-                String label = item.getModelObject().toString();
-                item.add(new Label("labelItem", label));
+                User friend = (User) item.getModelObject();
+                item.add(new FriendItemPanel("friendItem", friend));
             }
         };
         add(labels);

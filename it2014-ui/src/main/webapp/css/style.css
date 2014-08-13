@@ -85,6 +85,7 @@ ul.topList {
     width: 80%;
     display: inline-block;
     vertical-align: middle;
+    position: relative;
 }
 
 .verticalLine {
@@ -94,4 +95,8 @@ ul.topList {
 
 .glyphicon {
     display: inline-block;
+}
+
+.panel-default.smaller {
+    padding: 8px;
 }

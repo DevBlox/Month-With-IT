@@ -105,8 +105,6 @@ public class FriendPanel extends Panel {
               loggedUser = UserSession.get().getUser();
               if ((addedFriend != null) && (loggedUser !=null)) {
                   addFriend.execute(loggedUser.id, addedFriend.id);
-                  System.out.println("Friends ID: " + addedFriend.id);
-                  System.out.println("My ID: " + loggedUser.id);
               } else {
                   addFriendForm.error("Friend not found");
               }

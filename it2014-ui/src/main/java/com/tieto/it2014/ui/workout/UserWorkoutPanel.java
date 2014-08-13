@@ -3,6 +3,7 @@ package com.tieto.it2014.ui.workout;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
+import com.tieto.it2014.ui.friend.AddFriendPanel;
 import com.tieto.it2014.ui.session.UserSession;
 import java.util.List;
 import org.apache.wicket.Component;
@@ -37,6 +38,7 @@ public class UserWorkoutPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
         workoutsModel = new WorkoutsModel();
+        AddFriendPanel addFriendPanel = new AddFriendPanel("addFriendPanel", null, null);
         WorkoutListPanel workoutPanel = new WorkoutListPanel("workoutsList", (IModel<List<Workout>>) workoutsModel);
         Component showMoreLink = initShowMoreLink(workoutPanel);
 
@@ -50,6 +52,7 @@ public class UserWorkoutPanel extends Panel {
 
         showMoreLink.setOutputMarkupId(true);
         workoutPanel.setOutputMarkupId(true);
+        add(addFriendPanel);
         add(workoutPanel);
         add(showMoreLink);
         add(new Label("Heading", username + " workouts"));

@@ -6,9 +6,9 @@
 package com.tieto.it2014.ui.validation;
 
 import com.tieto.it2014.domain.user.entity.User;
-import com.tieto.it2014.domain.user.query.AllUsersQuery;
+import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import java.io.Serializable;
-import java.util.List;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IErrorMessageSource;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidationError;
@@ -22,28 +22,23 @@ public class ExistingEmailValidator implements IValidator<String> {
 
     private static final long serialVersionUID = 1L;
 
-    private final AllUsersQuery allUsersQuery;
+    @SpringBean
+    private final GetUserByEmailQuery getUserByEmailQuery;
 
-    private List<User> users;
+    private User user;
     private String email;
-    private boolean found = false;
 
-    public ExistingEmailValidator(AllUsersQuery query) {
-        allUsersQuery = query;
+    public ExistingEmailValidator(GetUserByEmailQuery query) {
+        getUserByEmailQuery = query;
     }
 
     @Override
     public void validate(IValidatable<String> validatable) {
-        users = allUsersQuery.result();
 
         email = validatable.getValue();
+        user = getUserByEmailQuery.result(email);
 
-        for (User user : users) {
-            if (user.email.equals(email)) {
-                found = true;
-            }
-        }
-        if (found) {
+        if (user != null) {
             validatable.error(new IValidationError() {
                 private static final long serialVersionUID = 1L;
 

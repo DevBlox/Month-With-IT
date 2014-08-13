@@ -42,6 +42,6 @@ public class HomePage extends BasePage {
 
     @Override
     protected Component initSidebar(String wicketId) {
-        return UserSession.get().getUser() == null ? new EmptyPanel(wicketId).setVisible(false) : new FriendPanel(wicketId).add(new AttributeAppender("class", new Model("leftCol")));
+        return UserSession.get().getUser() == null ? new EmptyPanel(wicketId).setVisible(false) : new FriendPanel(wicketId).add(new AttributeAppender("class", new Model("leftCol"), " "));
     }
 }

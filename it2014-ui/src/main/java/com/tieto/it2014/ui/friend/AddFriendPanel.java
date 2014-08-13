@@ -7,9 +7,7 @@ import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.PropertyModel;
 
 public class AddFriendPanel extends Panel {
 
@@ -29,10 +27,6 @@ public class AddFriendPanel extends Panel {
         super.onInitialize();
         // Display the current content of the passValue variable. The
         // PropertyModel must be used, as the value can be changed.
-        final Label passValueLabel;
-        add(passValueLabel = new Label("passValueLabel",
-                new PropertyModel<String>(this, "passValue")));
-        passValueLabel.setOutputMarkupId(true);
 
         // Create the modal window.
         final ModalWindow modal;
@@ -51,7 +45,7 @@ public class AddFriendPanel extends Panel {
             public void onClose(AjaxRequestTarget target) {
                 // The variable passValue might be changed by the modal window.
                 // We need this to update the view of this page.
-                target.add(passValueLabel);
+                //target.add(passValueLabel);
             }
         });
         modal.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {

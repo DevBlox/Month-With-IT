@@ -9,6 +9,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 
 public class HomePage extends BasePage {
 
@@ -29,6 +30,7 @@ public class HomePage extends BasePage {
     protected void onConfigure() {
         super.onConfigure();
         initContent(CONTENT_ID);
+        initSidebar(SIDEBAR_ID);
 //        friendPanel.setVisible(UserSession.get().hasUser());
 //        workoutTopListPanel.setVisible(!UserSession.get().hasUser());
 //        label.setVisible(!UserSession.get().hasUser());
@@ -37,5 +39,10 @@ public class HomePage extends BasePage {
     @Override
     protected Component initContent(String wicketId) {
         return UserSession.get().getUser() == null ? new WorkoutTopListPanel(wicketId) : new UserWorkoutPanel(wicketId, UserSession.get().getUser().imei);
+    }
+
+    @Override
+    protected Component initSidebar(String wicketId) {
+        return UserSession.get().getUser() == null ? new EmptyPanel(wicketId) : new FriendPanel(wicketId);
     }
 }

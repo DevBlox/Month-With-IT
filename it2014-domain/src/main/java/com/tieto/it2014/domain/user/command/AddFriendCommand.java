@@ -1,6 +1,5 @@
 package com.tieto.it2014.domain.user.command;
 
-import com.tieto.it2014.domain.user.entity.User;
 import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class DeleteCommandDaoJpa implements DeleteUserCommand.Dao {
+public class DeleteUserCommandDaoJpa implements DeleteUserCommand.Dao {
 
     private static final long serialVersionUID = 1L;
 

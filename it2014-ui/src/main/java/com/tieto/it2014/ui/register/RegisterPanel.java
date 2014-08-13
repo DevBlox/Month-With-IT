@@ -1,13 +1,11 @@
 package com.tieto.it2014.ui.register;
 
 import com.tieto.it2014.domain.Util.Hash;
-import com.tieto.it2014.domain.user.command.CreateUserCommand;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
-import com.tieto.it2014.ui.user.UserWorkoutsPage;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
@@ -36,9 +34,6 @@ public class RegisterPanel extends Panel {
     private Form form;
 
     @SpringBean
-    private CreateUserCommand createUser;
-
-    @SpringBean
     private SaveUserCommand saveUser;
 
     @SpringBean
@@ -48,7 +43,7 @@ public class RegisterPanel extends Panel {
     protected void onInitialize() {
 
         super.onInitialize();
-        user = createUser.getUser();
+        user = new User();
         form = new Form("registerForm");
         PasswordTextField password = new PasswordTextField("inputPassword",
                 new PropertyModel(user, "password"));
@@ -113,13 +108,12 @@ public class RegisterPanel extends Panel {
     private void actionRegisterUser() {
         user.password = Hash.sha256(user.password);
         saveUser.execute(user);
-
-        // Klausti PO ar tinka po registravimo iskarto priloginamas useris!!!
         UserSession.get().setUser(user);
 
         // Kad kitakart register langeliuose nebeliktu registravimosi duomenu!!
-        createUser.deleteUser();
+        user = null;
+        user = new User();
 
-        setResponsePage(UserWorkoutsPage.class, UserWorkoutsPage.parametersWith(user.imei));
+        setResponsePage(HomePage.class);
     }
 }

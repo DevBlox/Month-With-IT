@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class LoggedInUserQueryDaoJpa1 implements LoggedInUserQuery.Dao {
+public class LoggedInUserQueryDaoJpa implements LoggedInUserQuery.Dao {
 
     private static final long serialVersionUID = 1L;
 

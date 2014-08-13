@@ -80,3 +80,11 @@ ul.topList {
     width: 200px;
     margin-bottom: 0px;
 }
+
+.friendLabel {
+    width: 80%;
+}
+
+.verticalLine {
+    border-left: solid thick #333333;
+}

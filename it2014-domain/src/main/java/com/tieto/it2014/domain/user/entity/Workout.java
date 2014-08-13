@@ -1,69 +1,77 @@
 package com.tieto.it2014.domain.user.entity;
 
-import java.io.Serializable;
+import com.google.common.collect.Lists;
 import com.tieto.it2014.domain.Util.Util;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class Workout implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    private int id;
-    private String imei;
-    private String startTime;
-    private String finishTime;
-    private String distance;
-    public int duration;
+    private List<UserLoc> locs;
 
-    public Workout(int id, String imei, String startTime, String finishTime, String distance, int duration) {
-        this.id = id;
-        this.imei = imei;
-        this.startTime = startTime;
-        this.finishTime = finishTime;
-        this.distance = distance;
-        this.duration = duration;
+    public Workout(UserLoc loc) {
+        this.locs = Lists.newArrayList(loc);
+    }
+
+    public void addLoc(UserLoc loc) {
+        locs.add(loc);
     }
 
     public int getId() {
-        return id;
+        return locs.size();
     }
-    
+
+    public UserLoc getLastLoc() {
+        return locs.get(locs.size() - 1);
+    }
+
     public String getImei() {
-        return imei;
+        return locs.get(0).id;
     }
-    
+
     public String getStartTime() {
-        return startTime;
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(0).timeStamp);
     }
-    
+
     public String getFinishTime() {
-        return finishTime;
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(locs.size() - 1).timeStamp);
     }
-    
+
     public String getDistance() {
-        return distance;
+        double d = 0;
+        if (locs.size() > 1) {
+            UserLoc previous = null;
+            for (UserLoc l : locs) {
+                if (previous != null) {
+                    d += Util.calculateDistance(
+                            previous.latitude,
+                            previous.longtitude,
+                            previous.altitude,
+                            l.latitude,
+                            l.longtitude,
+                            l.altitude);
+                }
+                previous = l;
+            }
+        }
+        return Util.format(d);
     }
-    
+
     public String getDuration() {
-        return Util.getDurationString(duration);
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    public void setImei(String imei) {
-        this.imei = imei;
-    }
-    
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-    
-    public void setFinishTime(String finishTime) {
-        this.finishTime = finishTime;
-    }
-    
-    public void setDistance(String distance) {
-        this.distance = distance;
+        int d = 0;
+        if (locs.size() > 1) {
+            UserLoc previous = null;
+            for (UserLoc l : locs) {
+                if (previous != null) {
+                    d += Util.calculateDuration(previous.timeStamp, l.timeStamp);
+                }
+                previous = l;
+            }
+        }
+        return Util.getDurationString(d);
     }
 
 }

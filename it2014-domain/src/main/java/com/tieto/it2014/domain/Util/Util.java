@@ -1,138 +1,94 @@
 package com.tieto.it2014.domain.Util;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
-
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.apache.commons.lang3.StringUtils;
 
 public class Util {
 
     private final static double AVERAGE_RADIUS_OF_EARTH = 6371;
 
-    public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, Integer maxWorkoutNumber) {
-        Boolean started = true;
-        Boolean EOFLine = false;
-        Boolean fullList = false;
-        Boolean ret = false;
-        int workoutId = 0;
-        Long startTime = 0L;
-        Long endTime = 0L;
-        int sec = 0;
-        int totalSec = 0;
-        Double totalDist = 0.0;
-        int lastIter = 0;
-        long currentTimestamp = new Timestamp(new java.util.Date().getTime()).getTime();
+    public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, Integer workoutLimit) {
+        List<Workout> workouts = Lists.newArrayList();
+        final long now = new Timestamp(new Date().getTime()).getTime();
 
-        List<Workout> woList = new ArrayList<>();
-        maxWorkoutNumber = maxWorkoutNumber == null ? 100 : maxWorkoutNumber;
-        for (int i = 0; i <= userLocs.size()-2 ; i++) {
-
-            if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty() || userLocs.get(i).timeStamp > currentTimestamp) continue;
-
-            UserLoc lc1 = userLocs.get(i);
-            if (started) {
-                started = false;
-                endTime = lc1.timeStamp;
+        // 1. Filter only valid user locs.
+        List<UserLoc> filteredUserLocs = Lists.newArrayList(Collections2.filter(userLocs, new Predicate<UserLoc>() {
+            @Override
+            public boolean apply(UserLoc t) {
+                return StringUtils.isNotBlank(t.id) && t.timeStamp <= now;
             }
+        }));
 
-            UserLoc lc2 = findNext(userLocs, lc1);
+        // 2. Reversing locks (from oldest, to newest).
+        Collections.reverse(filteredUserLocs);
 
-            sec = calculateDuration(lc2.timeStamp, lc1.timeStamp);
-
-            if (sec < 5*60 && lc1.id.compareTo(lc2.id) == 0 && (EOFLine = !lc2.equals(userLocs.get(userLocs.size()-1)))) {
-
-                totalDist += calculateDistance(lc1.latitude, lc1.longtitude, lc1.altitude, lc2.latitude, lc2.longtitude, lc2.altitude);
-                totalSec += sec;
-
-                if (userLocs.indexOf(lc2)-userLocs.indexOf(lc1) > 1 && !ret) {
-                    ret = true;
-                    lastIter = userLocs.indexOf(lc1);
-                    i = userLocs.indexOf(lc2)-1;
-                }
-            
-            } else {
-
-                if (EOFLine) {
-                    startTime = lc1.timeStamp;
-                } else {
-                    startTime = lc2.timeStamp;
-                    if (lc1.id.compareTo(lc2.id) == 0) {
-                        totalDist += calculateDistance(lc1.latitude, lc1.longtitude, lc1.altitude, lc2.latitude, lc2.longtitude, lc2.altitude);
-                        totalSec += sec;
-                        if (totalSec != 0 && !(workoutId > maxWorkoutNumber)) {
-                            woList.add(new Workout(++workoutId,
-                                lc1.id,
-                                new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime),
-                                new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime),
-                                format(totalDist),
-                                totalSec)
-                            );
-                            woList = swapIfLonger(woList, woList.get(woList.size() - 2), woList.get(woList.size() - 1));
+        for (final UserLoc loc : filteredUserLocs) {
+            Optional<Workout> out = Iterables.tryFind(workouts, new Predicate<Workout>() {
+                @Override
+                public boolean apply(Workout t) {
+                    if (t.getImei().equals(loc.id)) {
+                        if (Math.abs(loc.timeStamp - t.getLastLoc().timeStamp) < 300000) {
+                            return true;
                         }
-                        break;
+                        return false;
                     }
+                    return false;
                 }
-
-                started = true;
-
-                if (totalSec != 0 && !(fullList = workoutId > maxWorkoutNumber)) {
-                    
-                    woList.add(new Workout(++workoutId, 
-                        lc1.id, 
-                        new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(startTime), 
-                        new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(endTime),
-                        format(totalDist),
-                        totalSec)
-                    );
-
-                    if (woList.size() > 1) {
-                        woList = swapIfLonger(woList, woList.get(woList.size()-2), woList.get(woList.size()-1));
-                    }
-
-                    if(ret) {
-                        i = lastIter;
-                        ret = false;
-                    }
-
-                } else if (fullList) {
-                    break;
-                }
-
-                totalSec = 0;
-                totalDist = 0.0;
+            });
+            if (out.isPresent()) {
+                out.get().addLoc(loc);
+            } else {
+                workouts.add(new Workout(loc));
             }
         }
-        return woList;
-    }
 
-    private static List<Workout> swapIfLonger(List<Workout> woList, Workout w1, Workout w2) {
-        if (w1.getFinishTime().compareTo(w2.getFinishTime()) == 0 && w1.duration < w2.duration) {
-            int i1 = woList.indexOf(w1);
-            int i2 = woList.indexOf(w2);
-            w1.setId(i2+1);
-            w2.setId(i1+1);
-            woList.set(i1, w2);
-            woList.set(i2, w1);
-        }
-        return woList;
+        // 3. Sort result on finish time + distance.
+        Collections.sort(workouts, new Comparator<Workout>() {
+            @Override
+            public int compare(Workout o1, Workout o2) {
+                if (o1.getFinishTime() == o2.getFinishTime()) {
+                    return o2.getDistance().compareTo(o1.getDistance());
+                }
+                return o2.getFinishTime().compareTo(o1.getFinishTime());
+            }
+        });
+
+        // 4. Removing bad results (like 0 duration workouts).
+        workouts = Lists.newArrayList(Collections2.filter(workouts, new Predicate<Workout>() {
+            @Override
+            public boolean apply(Workout t) {
+                return !StringUtils.trim(t.getDuration()).equalsIgnoreCase("00 h. 00 min.");
+            }
+        }));
+
+        // 5. Limiting the size of the result items.
+        return Lists.newArrayList(Iterables.limit(workouts, workoutLimit));
     }
 
     public static int calculateDuration(Long start, Long end) {
-        return (int)TimeUnit.MILLISECONDS.toSeconds(end-start);
+        return (int) TimeUnit.MILLISECONDS.toSeconds(end - start);
     }
 
     public static UserLoc findNext(List<UserLoc> userLocs, UserLoc loc) {
-        for (int i = userLocs.indexOf(loc)+1; i < userLocs.size() && calculateDuration(userLocs.get(i).timeStamp, loc.timeStamp) < 300; i++) {
+        for (int i = userLocs.indexOf(loc) + 1; i < userLocs.size() && calculateDuration(userLocs.get(i).timeStamp, loc.timeStamp) < 300; i++) {
             if (userLocs.get(i).id.compareTo(loc.id) == 0) {
                 return userLocs.get(i);
             }
         }
-        return userLocs.get(userLocs.indexOf(loc)+1);
+        return userLocs.get(userLocs.indexOf(loc) + 1);
     }
 
     public static double calculateDistance(double userLat, double userLng, double userAlt, double venueLat, double venueLng, double venueAlt) {
@@ -149,7 +105,7 @@ public class Util {
 
         distance = AVERAGE_RADIUS_OF_EARTH * c;
         distance = Math.sqrt(Math.pow(distance * 1000, 2) + Math.pow(height, 2));
-        
+
         return (double) Math.round(distance * 100) / 100000;
     }
 
@@ -157,7 +113,9 @@ public class Util {
 
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
-        if (seconds % 60 > 0) minutes++;
+        if (seconds % 60 > 0) {
+            minutes++;
+        }
 
         return twoDigitString(hours) + " h. " + twoDigitString(minutes) + " min.";
     }
@@ -175,7 +133,7 @@ public class Util {
         return String.valueOf(number);
     }
 
-    private static String format(Double doub) {
+    public static String format(Double doub) {
         return new DecimalFormat("0.000").format(doub);
     }
 

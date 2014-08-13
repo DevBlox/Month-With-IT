@@ -116,6 +116,10 @@ public class Util {
         if (seconds % 60 > 0) {
             minutes++;
         }
+        if (minutes % 60 > 0) {
+            minutes = 0;
+            hours++;
+        }
 
         return twoDigitString(hours) + " h. " + twoDigitString(minutes) + " min.";
     }

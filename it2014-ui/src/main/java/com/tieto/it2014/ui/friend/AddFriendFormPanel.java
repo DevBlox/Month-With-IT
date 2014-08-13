@@ -97,7 +97,7 @@ public class AddFriendFormPanel extends Panel {
                     addFriend.execute(loggedUser.id, addedFriend.id);
                     addFriendForm.error("Friend has been added");
                       //  setResponsePage(HomePage.class);
-                    window.close(null);
+                    //window.close(null);
                     }
                 } else {
                     addFriendForm.error("Friend not found");

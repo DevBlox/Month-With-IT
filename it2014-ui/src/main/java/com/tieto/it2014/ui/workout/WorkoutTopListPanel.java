@@ -2,9 +2,8 @@ package com.tieto.it2014.ui.workout;
 
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
-import java.util.List;
-
 import com.tieto.it2014.ui.session.UserSession;
+import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -25,7 +24,7 @@ public class WorkoutTopListPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new Label("Heading", "100 Recent Workouts"));
+        add(new Label("Heading", "RECENT WORKOUTS"));
         RepeatingView view = new RepeatingView("oneWorkout");
         for (Workout wk : workoutModel.getObject()) {
             view.add(new WorkoutListItemPanel(view.newChildId(), wk));

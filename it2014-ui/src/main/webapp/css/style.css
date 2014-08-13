@@ -1,3 +1,4 @@
+/*
 body, html {
     height: 100%;
 }
@@ -17,12 +18,15 @@ ul.topList {
 }
 
 .center_panel {
-    width: 50%;
-    height: 50%;
+    width: 450px;
+    height: 320px;
     overflow: auto;
     margin: auto;
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    left: 0; 
+    right: 0;
+    padding-top: 15px;
+    border-radius: 10px;
 }
 
 .center_text {
@@ -107,6 +111,7 @@ ul.topList {
     width: 80%;
     height: 80%;
     float: right;
+    padding: 0% 5%;
 }
 
 .rightColFull {
@@ -114,3 +119,33 @@ ul.topList {
     height: 100%;
     float: right;
 }
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    height: 30px;
+}
+
+.center_wrapper {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.workouts_table {
+    background: #D3EDE1;
+}
+
+.registration_form {
+    background: #d3ede1;
+}
+
+.center_text {
+    text-align: center;
+}
+*/
+/*.register_feedback {
+    height: 115px;
+}*/
+
+/*.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: red;
+}*/

@@ -1,8 +1,6 @@
 package com.tieto.it2014.ui.friend;
 
-import com.tieto.it2014.domain.DomainException;
 import com.tieto.it2014.domain.user.command.AddFriendCommand;
-import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
@@ -17,7 +15,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 public class FriendPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
-    
+
     public FriendPanel(String id) {
         super(id);
     }
@@ -27,10 +25,10 @@ public class FriendPanel extends Panel {
 
     @SpringBean
     private AllFriendsQuery allFriendsQuery;
-    
+
     @SpringBean
     private GetUserByEmailQuery getUserByEmailQuery;
-    
+
     @SpringBean
     private AddFriendCommand addFriend;
 
@@ -59,8 +57,9 @@ public class FriendPanel extends Panel {
             }
         };
         add(labels);
-        
+
+        AddFriendPanel addFriendPanel = new AddFriendPanel("addFriendPanel", null, null);
+        add(addFriendPanel);
     }
-    
 
 }

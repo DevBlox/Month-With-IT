@@ -5,10 +5,8 @@
  */
 package com.tieto.it2014.ui;
 
-import com.tieto.it2014.ui.header.HeaderPanel;
 import com.tieto.it2014.ui.register.RegisterPanel;
 import org.apache.wicket.Component;
-import org.apache.wicket.markup.html.WebPage;
 
 /**
  *
@@ -19,13 +17,7 @@ public class RegisterPage extends BasePage {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void onInitialize() {
-        super.onInitialize();
-        initContent(CONTENT_ID);
-    }
-
-    @Override
-    protected Component initContent(String wicketId) {
+    protected Component initFullContent(String wicketId) {
         return new RegisterPanel(wicketId);
     }
 }

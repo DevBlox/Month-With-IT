@@ -7,13 +7,17 @@ import org.apache.wicket.request.Request;
 public class UserSession extends WebSession {
 
     private User user;
-    
+
     public UserSession(Request request) {
         super(request);
     }
-    
+
     public static UserSession get() {
         return (UserSession) WebSession.get();
+    }
+
+    public boolean isLoggedIn() {
+        return hasUser();
     }
 
     public boolean hasUser() {
@@ -27,9 +31,5 @@ public class UserSession extends WebSession {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
-    
-    
-    
+
 }

@@ -13,27 +13,31 @@ public abstract class BasePage extends WebPage {
     protected static final String HEADER_ID = "header";
     protected static final String SIDEBAR_ID = "sidebar";
     protected static final String CONTENT_ID = "content";
-
+    protected static final String CONTENT_FULL_ID = "content-full";
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
         add(new Label("title", new PropertyModel<String>(this, "title")));
-        add(initHeader(HEADER_ID));
+        add(new HeaderPanel(HEADER_ID));
         add(initSidebar(SIDEBAR_ID));
         add(initContent(CONTENT_ID));
-    }
-
-    protected Component initHeader(String wicketId) {
-        return new HeaderPanel(wicketId);
-    }
-
-    protected Component initSidebar(String wicketId) {
-        return new Label(wicketId);
+        add(initFullContent(CONTENT_FULL_ID));
     }
 
     protected Component initContent(String wicketId) {
-        return new Label(wicketId);
+        return empty(wicketId);
     }
 
+    protected Component initFullContent(String wicketId) {
+        return empty(wicketId);
+    }
+
+    protected Component initSidebar(String wicketId) {
+        return empty(wicketId);
+    }
+
+    protected Component empty(String id) {
+        return new Label(id);
+    }
 }

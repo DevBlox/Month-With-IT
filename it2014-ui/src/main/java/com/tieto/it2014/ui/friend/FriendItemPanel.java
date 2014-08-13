@@ -1,15 +1,22 @@
 package com.tieto.it2014.ui.friend;
 
+import com.tieto.it2014.domain.user.command.DeleteFriendCommand;
 import com.tieto.it2014.domain.user.entity.User;
+import com.tieto.it2014.ui.HomePage;
+import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class FriendItemPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
     private final User friend;
+
+    @SpringBean
+    private DeleteFriendCommand deleteFriendCommand;
 
     public FriendItemPanel(String id, User friend) {
         super(id);
@@ -29,7 +36,10 @@ public class FriendItemPanel extends Panel {
 
             @Override
             public void onClick() {
-                System.out.println(friend.imei + " " + friend.username);
+                deleteFriendCommand.execute(UserSession.get().getUser().imei,
+                        friend.imei);
+
+                setResponsePage(HomePage.class);
             }
 
         };

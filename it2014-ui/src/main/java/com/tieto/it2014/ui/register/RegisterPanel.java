@@ -7,6 +7,7 @@ import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.user.UserWorkoutsPage;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
@@ -118,6 +119,7 @@ public class RegisterPanel extends Panel {
 
         // Kad kitakart register langeliuose nebeliktu registravimosi duomenu!!
         createUser.deleteUser();
-        setResponsePage(HomePage.class);
+
+        setResponsePage(UserWorkoutsPage.class, UserWorkoutsPage.parametersWith(user.imei));
     }
 }

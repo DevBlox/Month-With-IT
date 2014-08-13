@@ -1,8 +1,10 @@
 package com.tieto.it2014.ui.header;
 
+import com.tieto.it2014.dao.env.EnvironmentDao;
 import com.tieto.it2014.ui.RegisterPage;
 import com.tieto.it2014.ui.login.LoginPanel;
 import com.tieto.it2014.ui.session.UserSession;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 
@@ -23,6 +25,7 @@ public class HeaderPanel extends Panel {
         registerButton.setOutputMarkupId(true);
         add(registerButton);
         add(new LoginPanel("loginPanel"));
+        add(new Label("environmentComment", EnvironmentDao.getComment()));
     }
 
     @Override

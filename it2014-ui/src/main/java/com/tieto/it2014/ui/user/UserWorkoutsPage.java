@@ -25,4 +25,5 @@ public class UserWorkoutsPage extends WebPage {
         add(new UserWorkoutPanel("workoutPanel", this.userId));
         add(new HeaderPanel("headerPanel"));
     }
+
 }

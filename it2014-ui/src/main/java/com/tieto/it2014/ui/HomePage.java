@@ -5,7 +5,9 @@ import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.workout.UserWorkoutPanel;
 import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import org.apache.wicket.Component;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
+import org.apache.wicket.model.Model;
 
 public class HomePage extends BasePage {
 
@@ -33,11 +35,13 @@ public class HomePage extends BasePage {
 
     @Override
     protected Component initContent(String wicketId) {
-        return UserSession.get().getUser() == null ? new WorkoutTopListPanel(wicketId) : new UserWorkoutPanel(wicketId, UserSession.get().getUser().imei);
+        return UserSession.get().getUser() == null ?
+                new WorkoutTopListPanel(wicketId).add(new AttributeAppender("class", new Model("rightColFUll"))) :
+                new UserWorkoutPanel(wicketId, UserSession.get().getUser().imei).add(new AttributeAppender("class", new Model("rightCol")));
     }
 
     @Override
     protected Component initSidebar(String wicketId) {
-        return UserSession.get().getUser() == null ? new EmptyPanel(wicketId) : new FriendPanel(wicketId);
+        return UserSession.get().getUser() == null ? new EmptyPanel(wicketId).setVisible(false) : new FriendPanel(wicketId).add(new AttributeAppender("class", new Model("leftCol"), " "));
     }
 }

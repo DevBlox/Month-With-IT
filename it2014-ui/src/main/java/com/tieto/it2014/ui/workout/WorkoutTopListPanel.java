@@ -1,35 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.tieto.it2014.ui.workout;
 
-import com.tieto.it2014.domain.user.entity.User;
-import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import java.util.List;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.markup.ComponentTag;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
+import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
-/**
- *
- * @author pc4
- */
-public class WorkoutTopListPanel extends BaseWorkoutPanel {
-    
-    public WorkoutTopListPanel(String id, IModel<List<Workout>> workoutModel) {
-        super(id, workoutModel);   
+public class WorkoutTopListPanel extends Panel {
+
+    @SpringBean
+    private WorkoutsQuery workoutQuery;
+    IModel<List<Workout>> workoutModel = initWorkoutListModel();
+
+    public WorkoutTopListPanel(String id) {
+        super(id);
     }
-    
+
     @Override
     protected void onInitialize() {
         super.onInitialize();
@@ -39,5 +30,22 @@ public class WorkoutTopListPanel extends BaseWorkoutPanel {
         }
         add(view);
     }
-    
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        this.setVisible(!UserSession.get().hasUser());
+    }
+
+    private IModel<List<Workout>> initWorkoutListModel() {
+        return new LoadableDetachableModel<List<Workout>>() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected List<Workout> load() {
+                return workoutQuery.result(null, 100);
+            }
+        };
+    }
+
 }

@@ -117,7 +117,7 @@ public class LoginPanel extends Panel {
             @Override
             public void onClick() {
                 UserSession.get().invalidate();
-                setResponsePage(BasePage.class);
+                setResponsePage(HomePage.class);
             }
 
         };
@@ -130,7 +130,7 @@ public class LoginPanel extends Panel {
             logoutButton.setVisible(true);
 //            setResponsePage(UserWorkoutsPage.class,
 //                    UserWorkoutsPage.parametersWith(loggedInUser.imei));
-            setResponsePage(BasePage.class);
+            setResponsePage(HomePage.class);
         } catch (DomainException ex) {
             form.error("Incorrect User Name/Password");
         }

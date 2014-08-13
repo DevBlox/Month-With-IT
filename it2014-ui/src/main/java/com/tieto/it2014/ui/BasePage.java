@@ -19,9 +19,9 @@ public class BasePage extends WebPage {
             this.setHeader("header");
         }
 
-        if (get("content") == null) {
-            this.setContent("content");
-        }
+//        if (get("content") == null) {
+//            this.setContent("content");
+//        }
     }
 
     protected void setHeader(String componentName){

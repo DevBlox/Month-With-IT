@@ -29,7 +29,7 @@ public class FriendItemPanel extends Panel {
 
             @Override
             public void onClick() {
-                System.out.println("Friend " + friend.username + " deleted.");
+                System.out.println(friend.imei + " " + friend.username);
             }
 
         };

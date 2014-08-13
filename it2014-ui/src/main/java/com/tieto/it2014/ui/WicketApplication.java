@@ -30,10 +30,6 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, this.context, true));
         getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
-        mountPage("register", RegisterPage.class);
-        mountPage("user/${userId}/workouts", UserWorkoutsPage.class);
-        mountPage("user/${userId}/friends", UserFriendsPage.class);
-        mountPage("main", BasePage.class);
         // http://apache-wicket.1842946.n4.nabble.com/How-Runtime-Exception-Handling-td1888907.html
         //getApplicationSettings().setPageExpiredErrorPage(PageExpiredErrorPage.class);
         //getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);

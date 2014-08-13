@@ -35,9 +35,16 @@ public class HomePage extends BasePage {
 
     @Override
     protected Component initContent(String wicketId) {
-        return UserSession.get().getUser() == null ?
-                new WorkoutTopListPanel(wicketId).add(new AttributeAppender("class", new Model("rightColFUll"))) :
-                new UserWorkoutPanel(wicketId, UserSession.get().getUser().imei).add(new AttributeAppender("class", new Model("rightCol")));
+        return !UserSession.get().isLoggedIn()
+                ? super.initContent(wicketId)
+                : new UserWorkoutPanel(wicketId, UserSession.get().getUser().imei).add(new AttributeAppender("class", new Model("rightCol")));
+    }
+
+    @Override
+    protected Component initFullContent(String wicketId) {
+        return UserSession.get().isLoggedIn()
+                ? super.initFullContent(wicketId)
+                : new WorkoutTopListPanel(wicketId).add(new AttributeAppender("class", new Model("rightColFUll")));
     }
 
     @Override

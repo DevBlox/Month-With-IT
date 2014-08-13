@@ -3,12 +3,18 @@ package com.tieto.it2014.ui.friend;
 import com.tieto.it2014.domain.DomainException;
 import com.tieto.it2014.domain.user.command.AddFriendCommand;
 import com.tieto.it2014.domain.user.entity.User;
+import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
+import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
+import static java.awt.SystemColor.window;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
@@ -24,12 +30,17 @@ public class AddFriendFormPanel extends Panel {
     private TextField addFriendField;
     private Button addFriendButton;
     private User addedFriend;
+    private List<User> array;
+    
     
     @SpringBean
     private GetUserByEmailQuery getUserByEmailQuery;
     
     @SpringBean
     private AddFriendCommand addFriend;
+    
+    @SpringBean
+    private AllFriendsQuery allFriendsQuery;
 
     public AddFriendFormPanel(String id) {
         super(id);
@@ -41,8 +52,9 @@ public class AddFriendFormPanel extends Panel {
         super.onInitialize();
     
         addFriendForm = new Form("addFriendForm");
-        addFriendField = new TextField("inputFriendEmail",
-                new PropertyModel(this, "friendEmail"));
+        addFriendField = (TextField) new TextField("inputFriendEmail",
+                new PropertyModel(this, "friendEmail"))
+                .setRequired(true);
         
         addFriendButton = initaddFriendButton("addFriendButton");
         addFriendForm.add(addFriendField);
@@ -66,17 +78,46 @@ public class AddFriendFormPanel extends Panel {
     
     private void addFriendAction() {
         try {
-              addedFriend = getUserByEmailQuery.result(friendEmail);
-              loggedUser = UserSession.get().getUser();
-              if ((addedFriend != null) && (loggedUser !=null)) {
-                  addFriend.execute(loggedUser.id, addedFriend.id);
+              if (friendIsInList(friendEmail)) {
+                  addFriendForm.error("Friend is already in List");
               } else {
-                  addFriendForm.error("Friend not found");
+                addedFriend = getUserByEmailQuery.result(friendEmail);
+                loggedUser = UserSession.get().getUser();
+                if ((addedFriend != null) && (loggedUser !=null)) {
+                    addFriend.execute(loggedUser.id, addedFriend.id);
+                } else {
+                    addFriendForm.error("Friend not found");
+                }
               }
+              
         } catch (DomainException ex) {
             addFriendForm.error("Error");
         }
     }
+
+    private Boolean friendIsInList(String friendEmail) {
+        
+        Boolean friendExist = false;
+        
+        if (UserSession.get().hasUser()) {
+            array = allFriendsQuery.result(UserSession.get().getUser().imei);
+        } else {
+            array = new ArrayList<>();
+        }
+        if (array.isEmpty()) {
+            addFriendForm.error("Friend not found");
+        } else {
+            for (int i = 0; i < array.size(); i++) {
+                if (friendEmail.equals(array.get(i).email)) {
+                    friendExist = true;
+                    break;
+                }
+	    }
+        }
+        return friendExist;
+    }
+    
+    
     
 }
 

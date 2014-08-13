@@ -2,7 +2,6 @@ package com.tieto.it2014.dao.user;
 
 import com.tieto.it2014.dao.JpaEntity;
 import com.tieto.it2014.domain.user.entity.User;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,9 +10,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "FRIENDS")
 public class FriendJpa implements JpaEntity<User> {
+
     @Id
     @Column(name = "ID")
-    private long id;
+    private Integer id;
 
     @Column(name = "UserID")
     private String userId;
@@ -24,17 +24,19 @@ public class FriendJpa implements JpaEntity<User> {
     public String getFriendId() {
         return this.friendId;
     }
-    
-    public FriendJpa () {
-        
+
+    public Integer getId() {
+        return this.id;
     }
-    
-    public FriendJpa (String userId, String friendId) {
+
+    public FriendJpa() {
+
+    }
+
+    public FriendJpa(String userId, String friendId) {
         this.userId = userId;
         this.friendId = friendId;
     }
-    
-    
 
     @Override
     public User toDomain() {

@@ -17,6 +17,7 @@ public class AddFriendPanel extends Panel {
 
     private final User friend;
     private PageReference pageReference;
+    private ModalWindow modal;
 
     public AddFriendPanel(String id, User friend, PageReference pageReference) {
         super(id);
@@ -29,7 +30,6 @@ public class AddFriendPanel extends Panel {
         super.onInitialize();
         
         // Create the modal window.
-        final ModalWindow modal;
         add(modal = new ModalWindow("modal"));
         modal.setCookieName("modal-1");
 
@@ -50,7 +50,7 @@ public class AddFriendPanel extends Panel {
         modal.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
             public boolean onCloseButtonClicked(AjaxRequestTarget target) {
                 // Change the passValue variable when modal window is closed.
-
+                    modal.close(target);
                 return true;
             }
         });

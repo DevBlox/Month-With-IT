@@ -4,7 +4,7 @@ import com.tieto.it2014.domain.Util.Hash;
 import com.tieto.it2014.domain.user.command.CreateUserCommand;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
-import com.tieto.it2014.domain.user.query.AllUsersQuery;
+import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.UserWorkoutsPage;
@@ -42,7 +42,7 @@ public class RegisterPanel extends Panel {
     private SaveUserCommand saveUser;
 
     @SpringBean
-    private AllUsersQuery allUsersQuery;
+    private GetUserByEmailQuery getUserByEmailQuery;
 
     @Override
     protected void onInitialize() {
@@ -71,7 +71,7 @@ public class RegisterPanel extends Panel {
         form.add(new TextField("inputEmail", new PropertyModel(user, "email"))
                 .setRequired(true)
                 .add(EmailAddressValidator.getInstance())
-                .add(new ExistingEmailValidator(allUsersQuery))
+                .add(new ExistingEmailValidator(getUserByEmailQuery))
         );
         form.add(new TextField("imei", new PropertyModel(user, "imei"))
                 .setRequired(true)

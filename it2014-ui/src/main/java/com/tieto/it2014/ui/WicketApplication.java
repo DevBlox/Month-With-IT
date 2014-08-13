@@ -1,8 +1,8 @@
 package com.tieto.it2014.ui;
 
+import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.UserFriendsPage;
 import com.tieto.it2014.ui.user.UserWorkoutsPage;
-import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
@@ -43,9 +43,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
 
     @Override
     public Session newSession(Request request, Response response) {
-        return new UserSession(request); 
+        return new UserSession(request);
     }
-    
-    
 
 }

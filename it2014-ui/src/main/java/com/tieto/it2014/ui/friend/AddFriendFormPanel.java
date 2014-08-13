@@ -10,9 +10,11 @@ import com.tieto.it2014.ui.session.UserSession;
 import static java.awt.SystemColor.window;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.wicket.Component;
 import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.Button;
@@ -32,10 +34,12 @@ public class AddFriendFormPanel extends Panel {
     private User loggedUser;
     private String friendEmail;
     private TextField addFriendField;
-    private Button addFriendButton;
+    private Component addFriendButton;
     private User addedFriend;
     private List<User> array;
     final ModalWindow window;
+    private AjaxRequestTarget target;
+    
    
 
     @SpringBean
@@ -67,27 +71,51 @@ public class AddFriendFormPanel extends Panel {
         addFriendForm.add(addFriendButton);
         addFriendForm.add(new FeedbackPanel("addFriendFeedback",
                 new ContainerFeedbackMessageFilter(addFriendForm)));
+        addFriendForm.setOutputMarkupId(true);
         add(addFriendForm);
     }
 
-    private Button initaddFriendButton(String wicketId) {
-        return new Button(wicketId) {
-            private static final long serialVersionUID = 1L;
+    private Component initaddFriendButton(String wicketId) {
+        AjaxSubmitLink button = new AjaxSubmitLink(wicketId) {
 
             @Override
-            public void onSubmit() {
-                addFriendAction();
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                String p = ((TextField)form.get("inputFriendEmail")).getValue();
+                if (addFriendAction(p)) {
+                    //window.close(target);
+                    window.close(target);
+                    String javascript = "window.top.location = '/';";
+                    target.appendJavaScript(javascript);
+                 } else {
+                    target.add(addFriendForm);
+                }
+                
+                //target.addChildren(getPage(), FeedbackPanel.class);
+                //setResponsePage(HomePage.class);
             }
-
+            
+            
+            
         };
+        
+        return button;
+//        return new Button(wicketId) {
+//            private static final long serialVersionUID = 1L;
+//
+//            @Override
+//            public void onSubmit() {
+//                addFriendAction();
+//            }
+//
+//        };
     }
 
-    private void addFriendAction() {
+    private boolean addFriendAction(String xxx) {
         try {
-            if (friendIsInList(friendEmail)) {
+            if (friendIsInList(xxx)) {
                 addFriendForm.error("Friend is already in List");
             } else {
-                addedFriend = getUserByEmailQuery.result(friendEmail);
+                addedFriend = getUserByEmailQuery.result(xxx);
                 loggedUser = UserSession.get().getUser();
 
                 if ((addedFriend != null) && (loggedUser != null)) {
@@ -98,6 +126,7 @@ public class AddFriendFormPanel extends Panel {
                     addFriendForm.error("Friend has been added");
                       //  setResponsePage(HomePage.class);
                     //window.close(null);
+                    return true;
                     }
                 } else {
                     addFriendForm.error("Friend not found");
@@ -107,6 +136,7 @@ public class AddFriendFormPanel extends Panel {
         } catch (DomainException ex) {
             addFriendForm.error("Error");
         }
+        return false;
     }
 
     private Boolean friendIsInList(String friendEmail) {

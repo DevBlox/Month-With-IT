@@ -13,10 +13,12 @@ public class AddFriendModalPage extends WebPage {
 
     Button btn;
     final ModalWindow window;
+    final PageReference modalWindowPage;
     
     public AddFriendModalPage(final PageReference modalWindowPage,
             final ModalWindow window) {
         this.window = window;
+        this.modalWindowPage = modalWindowPage;
     }
 
     @Override

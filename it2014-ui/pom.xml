@@ -11,17 +11,14 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>IRun</artifactId>
+  <artifactId>it2014-ui</artifactId>
   <packaging>war</packaging>
-
-  <description>
-    Mėnuo su IT project - IRun
-  </description>
 
   <properties>
     <war.warName>it2014</war.warName>
     <wicket.version>6.16.0</wicket.version>
     <jetty.version>7.6.13.v20130916</jetty.version>
+    <war.warName>IRun</war.warName>
   </properties>
 
   <dependencies>

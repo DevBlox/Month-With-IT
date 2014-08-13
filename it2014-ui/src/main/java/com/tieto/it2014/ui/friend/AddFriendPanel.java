@@ -7,7 +7,9 @@ import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 
@@ -17,6 +19,7 @@ public class AddFriendPanel extends Panel {
 
     private final User friend;
     private PageReference pageReference;
+    private ModalWindow modal;
 
     public AddFriendPanel(String id, User friend, PageReference pageReference) {
         super(id);
@@ -29,8 +32,14 @@ public class AddFriendPanel extends Panel {
         super.onInitialize();
         
         // Create the modal window.
-        final ModalWindow modal;
-        add(modal = new ModalWindow("modal"));
+        add(modal = new ModalWindow("modal") {
+//
+//            @Override
+//            public void renderHead(HtmlHeaderContainer container) {
+//                super.renderHead(container); //To change body of generated methods, choose Tools | Templates.
+//                container.renderH("Wicket.Window.unloadConfirmation = false;");
+//            }
+        });
         modal.setCookieName("modal-1");
 
         modal.setPageCreator(new ModalWindow.PageCreator() {
@@ -50,7 +59,7 @@ public class AddFriendPanel extends Panel {
         modal.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
             public boolean onCloseButtonClicked(AjaxRequestTarget target) {
                 // Change the passValue variable when modal window is closed.
-
+                    modal.close(target);
                 return true;
             }
         });
@@ -59,6 +68,7 @@ public class AddFriendPanel extends Panel {
         add(new AjaxLink<Void>("showModalLink") {
             @Override
             public void onClick(AjaxRequestTarget target) {
+                target.appendJavaScript("Wicket.Window.unloadConfirmation = false;");
                 modal.show(target);
             }
         });

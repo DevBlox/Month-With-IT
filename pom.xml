@@ -9,19 +9,49 @@
   <artifactId>it2014</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
-    <spring.version>3.2.10.RELEASE</spring.version>
-  </properties>
-
+  
   <modules>
     <module>it2014-dao</module>
     <module>it2014-domain</module>
     <module>it2014-ui</module>
   </modules>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <spring.version>3.2.10.RELEASE</spring.version>
+    <it2014.devEnv>remote-dev</it2014.devEnv>
+    <it2014.devEnv.dir>../dev-env/${it2014.devEnv}</it2014.devEnv.dir>
+  </properties>
+
+  <profiles>
+    <profile>
+      <id>custom</id>
+      <properties>
+        <it2014.devEnv>custom</it2014.devEnv>
+      </properties>
+      <activation>
+        <file>
+          <exists>../dev-env/custom</exists>
+        </file>
+      </activation>
+    </profile>
+    <profile>
+      <id>remote-qa</id>
+      <properties>
+        <it2014.devEnv>remote-qa</it2014.devEnv>
+      </properties>
+    </profile>
+    <profile>
+      <id>remote-demo</id>
+      <properties>
+        <it2014.devEnv>remote-demo</it2014.devEnv>
+      </properties>
+    </profile>
+  </profiles>
+
+  
 
   <dependencyManagement>
     <dependencies>

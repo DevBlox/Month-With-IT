@@ -3,6 +3,7 @@ package com.tieto.it2014.domain.Util;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,11 +26,13 @@ public class Util {
         int totalSec = 0;
         Double totalDist = 0.0;
         int lastIter = 0;
+        long currentTimestamp = new Timestamp(new java.util.Date().getTime()).getTime();
 
         List<Workout> woList = new ArrayList<>();
         maxWorkoutNumber = maxWorkoutNumber == null ? 100 : maxWorkoutNumber;
         for (int i = 0; i <= userLocs.size()-2 ; i++) {
-            if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty()) continue;
+
+            if(userLocs.get(i).id == null || userLocs.get(i).id.isEmpty() || userLocs.get(i).timeStamp > currentTimestamp) continue;
 
             UserLoc lc1 = userLocs.get(i);
             if (started) {

@@ -1,6 +1,7 @@
 package com.tieto.it2014.ui.workout;
 
 import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.user.query.GetFriendByImeiQuery;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.session.UserSession;
@@ -24,6 +25,9 @@ public class UserWorkoutPanel extends Panel {
 
     @SpringBean
     private WorkoutsQuery workoutQuery;
+
+    @SpringBean
+    private GetFriendByImeiQuery a;
 
     @SpringBean
     private GetUserByIdQuery userById;
@@ -67,9 +71,9 @@ public class UserWorkoutPanel extends Panel {
         protected List<Workout> load() {
             if (workoutsToShow == ALL_WORKOUTS) {
                 hasMoreWorkouts = false;
-                return workoutQuery.result(userId, ALL_WORKOUTS);
+                return workoutQuery.result(UserSession.get().getUser().imei, userId, ALL_WORKOUTS);
             }
-            List<Workout> list = workoutQuery.result(userId, workoutsToShow + 1);
+            List<Workout> list = workoutQuery.result(UserSession.get().getUser().imei, userId, workoutsToShow + 1);
             hasMoreWorkouts = (list.size() > workoutsToShow);
             if (hasMoreWorkouts) {
                 list = list.subList(0, workoutsToShow);

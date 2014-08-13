@@ -34,6 +34,10 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         mountPage("user/${userId}/workouts", UserWorkoutsPage.class);
         mountPage("user/${userId}/friends", UserFriendsPage.class);
         mountPage("main", BasePage.class);
+        // http://apache-wicket.1842946.n4.nabble.com/How-Runtime-Exception-Handling-td1888907.html
+        //getApplicationSettings().setPageExpiredErrorPage(PageExpiredErrorPage.class);
+        //getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
+        //getApplicationSettings().setInternalErrorPage(InternalErrorPage.class);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.tieto.it2014.ui;
 
+import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.ui.friend.FriendPanel;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.workout.UserWorkoutPanel;
@@ -35,13 +36,14 @@ public class HomePage extends BasePage {
 
     }
 
+    private AllFriendsQuery a;
+
     @Override
     protected Component initContent(String wicketId) {
-        return !UserSession.get().isLoggedIn()
-                ? super.initContent(wicketId)
-                : new UserWorkoutPanel(
-                        wicketId,
-                        id);
+        if (UserSession.get().isLoggedIn()) {
+            return new UserWorkoutPanel(wicketId, id);
+        }
+        return super.initContent(wicketId);
     }
 
     @Override

@@ -33,6 +33,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         mountPage("register", RegisterPage.class);
         mountPage("user/${userId}/workouts", UserWorkoutsPage.class);
         mountPage("user/${userId}/friends", UserFriendsPage.class);
+        mountPage("main", BasePage.class);
     }
 
     @Override

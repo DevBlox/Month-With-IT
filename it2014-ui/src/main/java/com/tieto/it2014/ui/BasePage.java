@@ -1,9 +1,6 @@
 package com.tieto.it2014.ui;
 
 import com.tieto.it2014.ui.header.HeaderPanel;
-import com.tieto.it2014.ui.session.UserSession;
-import com.tieto.it2014.ui.workout.UserWorkoutPanel;
-import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;

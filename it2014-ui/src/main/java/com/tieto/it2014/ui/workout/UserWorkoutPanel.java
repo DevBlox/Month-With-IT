@@ -91,7 +91,7 @@ public class UserWorkoutPanel extends Panel {
         }
 
         void showMoreWorkouts() {
-            workoutsToShow += workoutsToShow;
+            workoutsToShow += 2;
         }
     }
 

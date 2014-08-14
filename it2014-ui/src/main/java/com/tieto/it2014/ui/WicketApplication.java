@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 public class WicketApplication extends WebApplication implements ApplicationContextAware {
 
     private ApplicationContext context;
+    private static final String UTF = "UTF-8";
 
     @Override
     public Class<? extends WebPage> getHomePage() {
@@ -29,8 +30,10 @@ public class WicketApplication extends WebApplication implements ApplicationCont
     public void init() {
         super.init();
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, this.context, true));
-        getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
-        getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
+        getRequestCycleSettings().setResponseRequestEncoding(UTF);
+        // disable wicket ajax debug
+        getDebugSettings().setAjaxDebugModeEnabled(false);
+        getMarkupSettings().setDefaultMarkupEncoding(UTF);
         mountPage("error404",ErrorPage404.class);
         // http://apache-wicket.1842946.n4.nabble.com/How-Runtime-Exception-Handling-td1888907.html
         //getApplicationSettings().setPageExpiredErrorPage(PageExpiredErrorPage.class);

@@ -16,13 +16,13 @@ import org.apache.wicket.validation.IValidator;
  *
  * @author pc3
  */
-public class IMEIValidation implements IValidator<String> {
+public class IMEIPatternValidation implements IValidator<String> {
 
     private final String pattern_string = "\\d{15}";
     private final Pattern pattern;
     private String password;
 
-    public IMEIValidation() {
+    public IMEIPatternValidation() {
         pattern = Pattern.compile(pattern_string);
     }
 

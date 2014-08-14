@@ -1,7 +1,6 @@
 package com.tieto.it2014.ui.workout;
 
 import com.tieto.it2014.domain.user.entity.Workout;
-import com.tieto.it2014.domain.user.query.GetFriendByImeiQuery;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.session.UserSession;
@@ -62,7 +61,7 @@ public class UserWorkoutPanel extends Panel {
         private static final long serialVersionUID = 1L;
         private final Integer ALL_WORKOUTS = null;
         private boolean hasMoreWorkouts = false;
-        private Integer workoutsToShow = 2;
+        private Integer workoutsToShow = 10;
 
         @Override
         protected List<Workout> load() {
@@ -88,7 +87,7 @@ public class UserWorkoutPanel extends Panel {
         }
 
         void showMoreWorkouts() {
-            workoutsToShow += 2;
+            workoutsToShow += 10;
         }
     }
 

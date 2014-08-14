@@ -39,13 +39,7 @@ public class Util {
             Optional<Workout> out = Iterables.tryFind(workouts, new Predicate<Workout>() {
                 @Override
                 public boolean apply(Workout t) {
-                    if (t.getImei().equals(loc.id)) {
-                        if (Math.abs(loc.timeStamp - t.getLastLoc().timeStamp) < 300000) {
-                            return true;
-                        }
-                        return false;
-                    }
-                    return false;
+                    return t.getImei().equals(loc.id) && Math.abs(loc.timeStamp - t.getLastLoc().timeStamp) < 300000;
                 }
             });
             if (out.isPresent()) {

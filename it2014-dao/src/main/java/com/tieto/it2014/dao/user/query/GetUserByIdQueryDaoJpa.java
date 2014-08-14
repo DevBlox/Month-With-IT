@@ -20,7 +20,7 @@ public class GetUserByIdQueryDaoJpa implements GetUserByIdQuery.Dao {
     @Override
     @Transactional(readOnly = true)
     public User resultOrNull(String id) {
-        return toDomainEntity(em.find(UserJpa.class, id));
+        return id == null ? null : toDomainEntity(em.find(UserJpa.class, id));
     }
 
 }

@@ -7,8 +7,9 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 public class ErrorPage404 extends WebPage {
 
     public ErrorPage404(final PageParameters parameters) {
-
-        add(new Label("404", "Page Not Found!"));
+        add(new Label("title", "404!"));
+        add(new Label("404", "404:"));
+        add(new Label("eText", "The page you requested could not be found"));
 
     }
 }

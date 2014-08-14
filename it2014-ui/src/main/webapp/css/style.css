@@ -30,3 +30,7 @@ a:hover, a:focus {
 .friendList li:hover {
     font-weight: bold;
 }
+
+.white_font {
+    color: #ffffff;
+}

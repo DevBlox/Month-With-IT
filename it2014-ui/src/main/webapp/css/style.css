@@ -5,3 +5,11 @@
 .remove_ico {
     color: #9C9C9C;
 }
+
+a {
+    color: #5cb85c;
+}
+
+a:hover, a:focus {
+    color: #5cb85c;
+}

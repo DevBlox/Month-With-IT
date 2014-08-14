@@ -34,3 +34,7 @@ a:hover, a:focus {
 .white_font {
     color: #ffffff;
 }
+
+.navbar {
+    min-height: 82px;
+}

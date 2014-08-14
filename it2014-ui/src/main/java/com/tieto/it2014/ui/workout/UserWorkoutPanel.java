@@ -20,21 +20,18 @@ public class UserWorkoutPanel extends Panel {
     private static final long serialVersionUID = 1L;
 
     public static final String USER_ID = "userId";
-    private final String userId;
+    private final IModel<String> imei;
     private WorkoutsModel workoutsModel;
 
     @SpringBean
     private WorkoutsQuery workoutQuery;
 
     @SpringBean
-    private GetFriendByImeiQuery a;
-
-    @SpringBean
     private GetUserByIdQuery userById;
 
-    public UserWorkoutPanel(String id, String userId) {
+    public UserWorkoutPanel(String id, IModel<String> imei) {
         super(id);
-        this.userId = userId;
+        this.imei = imei;
     }
 
     @Override
@@ -45,10 +42,10 @@ public class UserWorkoutPanel extends Panel {
         WorkoutListPanel workoutPanel = new WorkoutListPanel("workoutsList", (IModel<List<Workout>>) workoutsModel);
         Component showMoreLink = initShowMoreLink(workoutPanel);
 
-        String username = userById.resultOrNull(userId).username;
+        String username = userById.resultOrNull(imei.getObject()).username;
 
         if (UserSession.get().hasUser()) {
-            if (UserSession.get().getUser().imei.equals(userId)) {
+            if (UserSession.get().getUser().imei.equals(imei)) {
                 username = "My";
             }
         }
@@ -71,9 +68,9 @@ public class UserWorkoutPanel extends Panel {
         protected List<Workout> load() {
             if (workoutsToShow == ALL_WORKOUTS) {
                 hasMoreWorkouts = false;
-                return workoutQuery.result(UserSession.get().getUser().imei, userId, ALL_WORKOUTS);
+                return workoutQuery.result(UserSession.get().getUser().imei, imei.getObject(), ALL_WORKOUTS);
             }
-            List<Workout> list = workoutQuery.result(UserSession.get().getUser().imei, userId, workoutsToShow + 1);
+            List<Workout> list = workoutQuery.result(UserSession.get().getUser().imei, imei.getObject(), workoutsToShow + 1);
             hasMoreWorkouts = (list.size() > workoutsToShow);
             if (hasMoreWorkouts) {
                 list = list.subList(0, workoutsToShow);

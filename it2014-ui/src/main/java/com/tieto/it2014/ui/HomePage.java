@@ -8,40 +8,42 @@ import com.tieto.it2014.ui.workout.WorkoutTopListPanel;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 public class HomePage extends BasePage {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private IModel<String> imei = new Model<>();
 
     @Override
     protected void onInitialize() {
-        id = getRequest().getRequestParameters().getParameterValue("friend_imei").toString("");
-        if (StringUtils.isBlank(id) && UserSession.get().isLoggedIn()) {
-            id = UserSession.get().getUser().imei;
-        }
+        updateImeiModel();
         super.onInitialize();
     }
 
     @Override
     protected void onConfigure() {
-        id = getRequest().getRequestParameters().getParameterValue("friend_imei").toString("");
-        if (StringUtils.isBlank(id) && UserSession.get().isLoggedIn()) {
-            id = UserSession.get().getUser().imei;
-        }
+        updateImeiModel();
         super.onConfigure();
         initContent(CONTENT_ID);
         initSidebar(SIDEBAR_ID);
 
     }
 
-    private AllFriendsQuery a;
+    private void updateImeiModel() {
+        String imeiParam = getRequest().getRequestParameters().getParameterValue("friend_imei").toString("");
+        if (StringUtils.isBlank(imeiParam) && UserSession.get().isLoggedIn()) {
+            imeiParam = UserSession.get().getUser().imei;
+        }
+        imei.setObject(imeiParam);
+    }
 
     @Override
     protected Component initContent(String wicketId) {
         if (UserSession.get().isLoggedIn()) {
-            return new UserWorkoutPanel(wicketId, id);
+            return new UserWorkoutPanel(wicketId, imei);
         }
         return super.initContent(wicketId);
     }
@@ -57,6 +59,6 @@ public class HomePage extends BasePage {
     protected Component initSidebar(String wicketId) {
         return UserSession.get().getUser() == null
                 ? new EmptyPanel(wicketId).setVisible(false)
-                : new FriendPanel(wicketId);
+                : new FriendPanel(wicketId, imei);
     }
 }

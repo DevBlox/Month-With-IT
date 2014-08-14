@@ -43,7 +43,7 @@ public class HeaderPanel extends Panel {
 
         if (UserSession.get().hasUser() || setShowRegisterButton) {
             registerButton.setVisible(!UserSession.get().hasUser()
-                    || setShowRegisterButton);
+                    || !setShowRegisterButton);
         }
     }
 

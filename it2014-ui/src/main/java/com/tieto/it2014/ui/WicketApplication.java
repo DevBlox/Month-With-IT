@@ -1,5 +1,6 @@
 package com.tieto.it2014.ui;
 
+import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.UserFriendsPage;
 import com.tieto.it2014.ui.user.UserWorkoutsPage;
@@ -30,6 +31,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, this.context, true));
         getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
+        mountPage("error404",ErrorPage404.class);
         // http://apache-wicket.1842946.n4.nabble.com/How-Runtime-Exception-Handling-td1888907.html
         //getApplicationSettings().setPageExpiredErrorPage(PageExpiredErrorPage.class);
         //getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);

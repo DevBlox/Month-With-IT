@@ -13,3 +13,7 @@ a {
 a:hover, a:focus {
     color: #5cb85c;
 }
+
+.form-control {
+    height: 35px;
+}

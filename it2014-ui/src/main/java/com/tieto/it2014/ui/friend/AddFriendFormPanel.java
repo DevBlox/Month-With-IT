@@ -39,6 +39,7 @@ public class AddFriendFormPanel extends Panel {
     private List<User> array;
     final ModalWindow window;
     private AjaxRequestTarget target;
+    private Button btn;
     
    
 
@@ -60,6 +61,14 @@ public class AddFriendFormPanel extends Panel {
     protected void onInitialize() {
 
         super.onInitialize();
+        
+        btn = new Button("cancelButton");
+         btn.add(new AjaxEventBehavior("onclick") {
+             @Override
+             protected void onEvent(AjaxRequestTarget target) {
+                 window.close(target);
+             }
+         });
 
         addFriendForm = new Form("addFriendForm");
         addFriendField = (TextField) new TextField("inputFriendEmail",
@@ -72,6 +81,7 @@ public class AddFriendFormPanel extends Panel {
         addFriendForm.add(new FeedbackPanel("addFriendFeedback",
                 new ContainerFeedbackMessageFilter(addFriendForm)));
         addFriendForm.setOutputMarkupId(true);
+        addFriendForm.add(btn);
         add(addFriendForm);
     }
 
@@ -82,9 +92,8 @@ public class AddFriendFormPanel extends Panel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 String p = ((TextField)form.get("inputFriendEmail")).getValue();
                 if (addFriendAction(p)) {
-                    //window.close(target);
                     window.close(target);
-                    String javascript = "window.top.location = '/';";
+                    String javascript = "window.top.location.reload();";
                     target.appendJavaScript(javascript);
                  } else {
                     target.add(addFriendForm);

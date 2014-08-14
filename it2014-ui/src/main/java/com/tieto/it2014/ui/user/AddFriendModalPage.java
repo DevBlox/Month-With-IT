@@ -11,7 +11,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class AddFriendModalPage extends WebPage {
 
-    Button btn;
     final ModalWindow window;
     final PageReference modalWindowPage;
     
@@ -24,14 +23,8 @@ public class AddFriendModalPage extends WebPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-         btn = new Button("cancelButton");
-         btn.add(new AjaxEventBehavior("onclick") {
-             protected void onEvent(AjaxRequestTarget target) {
-                 window.close(target);
-             }
-         });
+        
         add(new AddFriendFormPanel("addFriendFormPanel", window));
-        add(btn);
     }
     
     

@@ -92,9 +92,8 @@ public class AddFriendFormPanel extends Panel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 String p = ((TextField)form.get("inputFriendEmail")).getValue();
                 if (addFriendAction(p)) {
-                    //window.close(target);
                     window.close(target);
-                    String javascript = "window.top.location = '/';";
+                    String javascript = "window.top.location.reload();";
                     target.appendJavaScript(javascript);
                  } else {
                     target.add(addFriendForm);

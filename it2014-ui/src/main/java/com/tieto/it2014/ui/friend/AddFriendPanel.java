@@ -34,17 +34,17 @@ public class AddFriendPanel extends Panel {
         // Create the modal window.
         modal = new ModalWindow("modal") ;
         
-        modal.setCookieName("modal-4");
+        modal.setCookieName("modal-6");
 
         modal.setInitialHeight(200);
-        modal.setInitialWidth(600);
+        modal.setInitialWidth(400);
         modal.setResizable(false);
         modal.setAutoSize(false);
         
         modal.setWidthUnit("px");
         modal.setHeightUnit("px"); 
         modal.setMinimalHeight(200);
-        modal.setMinimalWidth(600);
+        modal.setMinimalWidth(400);
         add(modal);
         modal.setPageCreator(new ModalWindow.PageCreator() {
             public Page createPage() {

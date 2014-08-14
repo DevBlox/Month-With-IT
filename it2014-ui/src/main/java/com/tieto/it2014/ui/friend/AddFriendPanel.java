@@ -32,16 +32,20 @@ public class AddFriendPanel extends Panel {
         super.onInitialize();
         
         // Create the modal window.
-        add(modal = new ModalWindow("modal") {
-//
-//            @Override
-//            public void renderHead(HtmlHeaderContainer container) {
-//                super.renderHead(container); //To change body of generated methods, choose Tools | Templates.
-//                container.renderH("Wicket.Window.unloadConfirmation = false;");
-//            }
-        });
-        modal.setCookieName("modal-1");
+        modal = new ModalWindow("modal") ;
+        
+        modal.setCookieName("modal-4");
 
+        modal.setInitialHeight(200);
+        modal.setInitialWidth(600);
+        modal.setResizable(false);
+        modal.setAutoSize(false);
+        
+        modal.setWidthUnit("px");
+        modal.setHeightUnit("px"); 
+        modal.setMinimalHeight(200);
+        modal.setMinimalWidth(600);
+        add(modal);
         modal.setPageCreator(new ModalWindow.PageCreator() {
             public Page createPage() {
                 // Use this constructor to pass a reference of this page.

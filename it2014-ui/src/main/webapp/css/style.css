@@ -1,4 +1,4 @@
-.remove_ico:hover {
+.remove_ico:hover, li:hover .remove_ico {
     color: red;
 }
 

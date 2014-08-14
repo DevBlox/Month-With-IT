@@ -27,11 +27,6 @@ public class HeaderPanel extends Panel {
         add(registerButton);
         add(new LoginPanel("loginPanel"));
         add(new Label("environmentComment", EnvironmentDao.getComment()));
-        add(new Link("logoLink") {
-            public void onClick() {
-                setResponsePage(HomePage.class);
-            }
-        });
     }
 
     @Override

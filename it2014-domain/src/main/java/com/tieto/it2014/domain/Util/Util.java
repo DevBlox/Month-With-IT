@@ -82,15 +82,6 @@ public class Util {
         return (int) TimeUnit.MILLISECONDS.toSeconds(end - start);
     }
 
-    public static UserLoc findNext(List<UserLoc> userLocs, UserLoc loc) {
-        for (int i = userLocs.indexOf(loc) + 1; i < userLocs.size() && calculateDuration(userLocs.get(i).timeStamp, loc.timeStamp) < 300; i++) {
-            if (userLocs.get(i).id.compareTo(loc.id) == 0) {
-                return userLocs.get(i);
-            }
-        }
-        return userLocs.get(userLocs.indexOf(loc) + 1);
-    }
-
     public static double calculateDistance(double userLat, double userLng, double userAlt, double venueLat, double venueLng, double venueAlt) {
         double latDistance = Math.toRadians(userLat - venueLat);
         double lngDistance = Math.toRadians(userLng - venueLng);
@@ -115,10 +106,6 @@ public class Util {
         int minutes = (seconds % 3600) / 60;
         if (seconds % 60 > 0) {
             minutes++;
-        }
-        if (minutes % 60 > 0) {
-            minutes = 0;
-            hours++;
         }
 
         return twoDigitString(hours) + " h. " + twoDigitString(minutes) + " min.";

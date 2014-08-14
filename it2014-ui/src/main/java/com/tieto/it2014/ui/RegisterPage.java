@@ -5,6 +5,7 @@
  */
 package com.tieto.it2014.ui;
 
+import com.tieto.it2014.ui.header.HeaderPanel;
 import com.tieto.it2014.ui.register.RegisterPanel;
 import org.apache.wicket.Component;
 
@@ -20,4 +21,12 @@ public class RegisterPage extends BasePage {
     protected Component initFullContent(String wicketId) {
         return new RegisterPanel(wicketId);
     }
+
+    @Override
+    protected Component initHeader(String wicketId) {
+        HeaderPanel headerPanel = new HeaderPanel(wicketId);
+        headerPanel.setShowRegisterButton(false);
+        return headerPanel;
+    }
+
 }

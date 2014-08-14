@@ -19,7 +19,7 @@ public abstract class BasePage extends WebPage {
     protected void onInitialize() {
         super.onInitialize();
         add(new Label("title", new PropertyModel<String>(this, "title")));
-        add(new HeaderPanel(HEADER_ID));
+        add(initHeader(HEADER_ID));
         add(initSidebar(SIDEBAR_ID));
         add(initContent(CONTENT_ID));
         add(initFullContent(CONTENT_FULL_ID));
@@ -35,6 +35,10 @@ public abstract class BasePage extends WebPage {
 
     protected Component initSidebar(String wicketId) {
         return empty(wicketId);
+    }
+
+    protected Component initHeader(String wicketId) {
+        return new HeaderPanel(wicketId);
     }
 
     protected Component empty(String id) {

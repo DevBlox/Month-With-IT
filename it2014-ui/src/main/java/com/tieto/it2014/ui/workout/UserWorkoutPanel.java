@@ -43,8 +43,8 @@ public class UserWorkoutPanel extends Panel {
 
         String username = userById.resultOrNull(imei.getObject()).username;
 
-        if (UserSession.get().hasUser()) {
-            if (UserSession.get().getUser().imei.equals(imei)) {
+        if (UserSession.get().isLoggedIn()) {
+            if (UserSession.get().getUser().imei.equals(imei.getObject())) {
                 username = "My";
             }
         }

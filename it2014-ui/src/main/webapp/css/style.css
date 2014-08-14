@@ -17,3 +17,16 @@ a:hover, a:focus {
 .form-control {
     height: 35px;
 }
+
+.friendList li.visited {
+    background: #ecf0f1;
+}
+
+.friendList li {
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.friendList li:hover {
+    font-weight: bold;
+}

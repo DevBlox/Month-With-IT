@@ -1,0 +1,48 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+    <div class="panel panel-default col-md-4 col-md-offset-4">
+        <div class="panel-body ">
+            <h2 class="center_text">REGISTRATION</h2>
+            <form wicket:id="registerForm" class="form-horizontal">
+
+                <div class="register_feedback" wicket:id="registerFeedback" />
+
+                <div class="form-group">
+                    <label>User Name:</label>
+                    <div class="controls">
+                        <input wicket:id="inputUserName" type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email: </label>
+                    <div class="controls">
+                        <input wicket:id="inputEmail" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password: </label>
+                    <div class="controls">
+                        <input wicket:id="inputPassword" type="password" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Repeat password: </label>
+                    <div class="controls">
+                        <input wicket:id="repeatPassword" type="password" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>IMEI: </label>
+                    <div class="controls">
+                        <input wicket:id="imei" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="controls" style="display: inline;">
+                        <button wicket:id="registerButton" type="submit" class="btn btn-default btn-success">Register</button>
+                        <a class="pull-right btn btn-default btn-success" wicket:id="cancelButton" type="button">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</wicket:panel>

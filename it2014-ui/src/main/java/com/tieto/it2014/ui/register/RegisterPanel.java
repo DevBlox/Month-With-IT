@@ -116,4 +116,12 @@ public class RegisterPanel extends Panel {
 
         setResponsePage(HomePage.class);
     }
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        if (UserSession.get().isLoggedIn()) {
+            setResponsePage(HomePage.class);
+        }
+    }
 }

@@ -107,16 +107,87 @@
             <column name="FriendID" value="111111111111112" />
         </insert>
 
-    </changeSet>
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="355687056232346" />
+            <column name="FriendID" value="357099042486556" />
+        </insert>
 
-    <changeSet id="5" author="mantas.jonytis@tietocamp.eu" >
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="355687056232346" />
+            <column name="FriendID" value="356871044631608" />
+        </insert>
 
-        <createView viewName="UserFriends">
-            SELECT UserID, ID, USERNAME
-            FROM FRIENDS
-            INNER JOIN USER WHERE FriendID = IMEI
-            ORDER BY USERNAME;
-        </createView>
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="355687056232346" />
+            <column name="FriendID" value="355866055632819" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="355687056232346" />
+            <column name="FriendID" value="111111111111112" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="356871044631608" />
+            <column name="FriendID" value="357099042486556" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="356871044631608" />
+            <column name="FriendID" value="355687056232346" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="356871044631608" />
+            <column name="FriendID" value="355866055632819" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="356871044631608" />
+            <column name="FriendID" value="111111111111112" />
+        </insert>
+
+
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="355866055632819" />
+            <column name="FriendID" value="357099042486556" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="355866055632819" />
+            <column name="FriendID" value="355687056232346" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="355866055632819" />
+            <column name="FriendID" value="356871044631608" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="355866055632819" />
+            <column name="FriendID" value="111111111111112" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="111111111111112" />
+            <column name="FriendID" value="357099042486556" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="111111111111112" />
+            <column name="FriendID" value="355687056232346" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="111111111111112" />
+            <column name="FriendID" value="356871044631608" />
+        </insert>
+
+        <insert tableName="FRIENDS">
+            <column name="UserID" value="111111111111112" />
+            <column name="FriendID" value="355866055632819" />
+        </insert>
 
     </changeSet>
 

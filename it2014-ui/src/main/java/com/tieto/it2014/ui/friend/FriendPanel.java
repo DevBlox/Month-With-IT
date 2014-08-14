@@ -43,10 +43,6 @@ public class FriendPanel extends Panel {
             array = new ArrayList<>();
         }
 
-        if (array.isEmpty()) {
-            array.add(new User(" ", "You have no friends", " ", " "));
-        }
-
         labels = new ListView("friendListItem", array) {
             private static final long serialVersionUID = 1L;
 

@@ -74,7 +74,13 @@ public class Util {
             }
         }));
 
-        // 5. Limiting the size of the result items.
+        // 5. Assign id to every item.
+        int i = 0;
+        for (Workout wo : workouts) {
+            wo.setId(++i);
+        }
+
+        // 6. Limiting the size of the result items.
         return Lists.newArrayList(Iterables.limit(workouts, workoutLimit));
     }
 

@@ -12,6 +12,8 @@ public class Workout implements Serializable {
 
     private List<UserLoc> locs;
 
+    private int id;
+
     public Workout(UserLoc loc) {
         this.locs = Lists.newArrayList(loc);
     }
@@ -20,8 +22,12 @@ public class Workout implements Serializable {
         locs.add(loc);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
-        return locs.size();
+        return this.id;
     }
 
     public UserLoc getLastLoc() {

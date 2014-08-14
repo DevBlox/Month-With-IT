@@ -4,9 +4,11 @@ import com.tieto.it2014.domain.Util.Hash;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
+import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
+import com.tieto.it2014.ui.validation.ExistingImeiValidator;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.Button;
@@ -39,6 +41,9 @@ public class RegisterPanel extends Panel {
     @SpringBean
     private GetUserByEmailQuery getUserByEmailQuery;
 
+    @SpringBean
+    private GetUserByIdQuery getUserByIdQuery;
+
     @Override
     protected void onInitialize() {
 
@@ -70,6 +75,7 @@ public class RegisterPanel extends Panel {
         );
         form.add(new TextField("imei", new PropertyModel(user, "imei"))
                 .setRequired(true)
+                .add(new ExistingImeiValidator(getUserByIdQuery))
         );
         form.add(initRegisterButton("registerButton"));
         form.add(initCancelButton("cancelButton"));

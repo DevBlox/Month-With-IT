@@ -37,8 +37,9 @@ public class FriendItemPanel extends Panel {
 
         modalWindow = new ModalWindow("confirmModalWindow");
 
+        modalWindow.setCssClassName("myModalCss");
         modalWindow.showUnloadConfirmation(false);
-        modalWindow.setResizable(true);
+        modalWindow.setResizable(false);
         modalWindow.setAutoSize(false);
 
         modalWindow.setWidthUnit("px");

@@ -1,6 +1,5 @@
 package com.tieto.it2014.ui;
 
-import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.ui.friend.FriendPanel;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.workout.UserWorkoutPanel;
@@ -29,7 +28,6 @@ public class HomePage extends BasePage {
         super.onConfigure();
         initContent(CONTENT_ID);
         initSidebar(SIDEBAR_ID);
-
     }
 
     private void updateImeiModel() {

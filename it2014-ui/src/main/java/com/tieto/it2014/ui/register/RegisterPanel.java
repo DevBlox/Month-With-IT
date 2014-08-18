@@ -7,6 +7,7 @@ import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
+import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import com.tieto.it2014.ui.validation.ExistingImeiValidator;
 import org.apache.wicket.Component;
@@ -120,7 +121,7 @@ public class RegisterPanel extends Panel {
         user = null;
         user = new User();
 
-        setResponsePage(HomePage.class);
+        setResponsePage(withInfoMsg(new HomePage(), "Registration was successfull"));
     }
 
     @Override

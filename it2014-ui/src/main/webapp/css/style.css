@@ -16,6 +16,7 @@ a:hover, a:focus {
 
 .form-control {
     height: 35px;
+    padding: 5px 15px;
 }
 
 .friendList li.visited {

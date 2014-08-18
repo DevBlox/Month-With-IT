@@ -39,11 +39,14 @@ a:hover, a:focus {
 .navbar {
     min-height: 82px;
 }
-
 .center-div-addfriend {
     width: 300px;
     margin: 0 auto;
     margin-top: 20px;
+}
+
+.confirmModalPanel {
+    padding: 20px;
 }
 
 .center-horizontal {

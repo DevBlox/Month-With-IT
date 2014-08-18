@@ -57,7 +57,7 @@ public class FriendPanel extends Panel {
             }
         });
 
-        add(new AddFriendPanel("addFriendPanel", null, null));
+        add(new AddFriendPanel("addFriendPanel"));
     }
 
 }

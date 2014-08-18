@@ -120,3 +120,7 @@ div.wicket-modal div.w_content_2 {
     padding-top: 0;
 }
 
+
+.confirmModalPanel {
+    padding: 20px;
+}

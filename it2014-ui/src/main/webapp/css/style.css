@@ -39,3 +39,7 @@ a:hover, a:focus {
 .navbar {
     min-height: 82px;
 }
+
+.confirmModalPanel {
+    padding: 20px;
+}

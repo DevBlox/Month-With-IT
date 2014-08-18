@@ -37,18 +37,16 @@ public class FriendItemPanel extends Panel {
 
         modalWindow = new ModalWindow("confirmModalWindow");
 
-        modalWindow.setCookieName("modal-6");
         modalWindow.showUnloadConfirmation(false);
-        modalWindow.setInitialHeight(200);
-        modalWindow.setInitialWidth(400);
-        modalWindow.setResizable(false);
+        modalWindow.setResizable(true);
         modalWindow.setAutoSize(false);
 
         modalWindow.setWidthUnit("px");
         modalWindow.setHeightUnit("px");
+        modalWindow.setInitialHeight(200);
+        modalWindow.setInitialWidth(500);
         modalWindow.setMinimalHeight(200);
-        modalWindow.setMinimalWidth(400);
-
+        modalWindow.setMinimalWidth(500);
         modalWindow.setContent(new ConfirmDeleteFriendPanel(modalWindow.getContentId(),
                 friend, modalWindow));
 

@@ -109,7 +109,7 @@ public class AddFriendFormPanel extends Panel {
             if (Objects.equals(addedFriend.email, loggedUser.email)) {
                 throw new DomainException("Dude, you can not be friend of yourself ");
             }
-            addFriend.execute(loggedUser.id, addedFriend.id);
+            addFriend.execute(loggedUser.imei, addedFriend.imei);
         } catch (DomainException ex) {
             addFriendForm.error(ex.getMessage());
             return false;

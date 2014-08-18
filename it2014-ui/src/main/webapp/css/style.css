@@ -82,3 +82,41 @@ div.wicket-modal div.w_content_2 {
     padding-top: 0;
 }
 
+
+.confirmModalPanel {
+    padding: 20px;
+}
+
+.center-horizontal {
+    margin: 0 auto;
+}
+
+
+.myModalCss > .w_bottom_1 {
+    display: none;
+}
+
+.myModalCss div.w_content_1 {
+    margin-right: 0px;
+}
+
+.myModalCss div.w_right_1 {
+    margin-left: 0px;
+}
+
+.myModalCss div.w_top_1 {
+    display: none;
+}
+
+.myModalCss a.w_close {
+    display: none;
+}
+
+.myModalCss div.w_caption {
+    display: none;
+}
+
+div.wicket-modal div.w_content_2 { 
+    padding-top: 0;
+}
+

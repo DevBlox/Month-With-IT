@@ -5,6 +5,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.http.WebResponse;
 
 public abstract class BasePage extends WebPage {
 
@@ -23,6 +24,16 @@ public abstract class BasePage extends WebPage {
         add(initSidebar(SIDEBAR_ID));
         add(initContent(CONTENT_ID));
         add(initFullContent(CONTENT_FULL_ID));
+    }
+
+    @Override
+    protected void setHeaders(WebResponse response) {
+        super.setHeaders(response);
+        response.disableCaching();
+        response.setHeader("X-Frame-Options","deny"); // Avoid  IFRFAMES
+        response.setHeader("Cache-Control", "no-cache,no-store,private,must-revalidate,max-stale=0,post-check=0,pre-check=0");
+        response.setHeader("Expires","0");
+        response.setHeader("Pragma", "no-cache");
     }
 
     protected Component initContent(String wicketId) {

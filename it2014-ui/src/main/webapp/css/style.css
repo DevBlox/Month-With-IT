@@ -97,11 +97,11 @@ div.wicket-modal div.w_content_2 {
 }
 
 .myModalCss div.w_content_1 {
-    margin-right: 0px;
+    margin-right: 0px !important;
 }
 
 .myModalCss div.w_right_1 {
-    margin-left: 0px;
+    margin-left: 0px !important; 
 }
 
 .myModalCss div.w_top_1 {
@@ -116,8 +116,8 @@ div.wicket-modal div.w_content_2 {
     display: none;
 }
 
-div.wicket-modal div.w_content_2 { 
-    padding-top: 0;
+.myModalCss div.w_content_2 { 
+    padding-top: 0 !important;
 }
 
 

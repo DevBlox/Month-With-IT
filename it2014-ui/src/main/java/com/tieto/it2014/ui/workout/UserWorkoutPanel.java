@@ -3,7 +3,10 @@ package com.tieto.it2014.ui.workout;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
+import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
+
+import java.security.AccessControlException;
 import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -69,10 +72,15 @@ public class UserWorkoutPanel extends Panel {
                 hasMoreWorkouts = false;
                 return workoutQuery.result(UserSession.get().getUser().imei, imei.getObject(), ALL_WORKOUTS);
             }
-            List<Workout> list = workoutQuery.result(UserSession.get().getUser().imei, imei.getObject(), workoutsToShow + 1);
-            hasMoreWorkouts = (list.size() > workoutsToShow);
-            if (hasMoreWorkouts) {
-                list = list.subList(0, workoutsToShow);
+            List<Workout> list = null;
+            try {
+                list = workoutQuery.result(UserSession.get().getUser().imei, imei.getObject(), workoutsToShow + 1);
+                hasMoreWorkouts = (list.size() > workoutsToShow);
+                if (hasMoreWorkouts) {
+                    list = list.subList(0, workoutsToShow);
+                }
+            } catch (AccessControlException e) {
+                setResponsePage(ErrorPage404.class);
             }
             return list;
         }

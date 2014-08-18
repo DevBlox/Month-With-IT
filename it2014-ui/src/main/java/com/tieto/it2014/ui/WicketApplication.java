@@ -4,6 +4,7 @@ import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.pages.AccessDeniedPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
@@ -35,7 +36,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         mountPage("error404", ErrorPage404.class);
         // http://apache-wicket.1842946.n4.nabble.com/How-Runtime-Exception-Handling-td1888907.html
         //getApplicationSettings().setPageExpiredErrorPage(PageExpiredErrorPage.class);
-        //getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
+        getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
         //getApplicationSettings().setInternalErrorPage(InternalErrorPage.class);
     }
 

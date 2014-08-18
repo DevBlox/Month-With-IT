@@ -7,6 +7,7 @@ import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import java.io.Serializable;
+import java.security.AccessControlException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -46,7 +47,7 @@ public class WorkoutsQuery implements Serializable {
         if (friend.isPresent()) {
             return dao.result(friendImei, limit);
         }
-        throw new RuntimeException("Sorry, access denied!");
+        throw new AccessControlException("Sorry, access denied!");
     }
 
 }

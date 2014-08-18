@@ -77,6 +77,7 @@ public class RegisterPanel extends Panel {
         form.add(new TextField("imei", new PropertyModel(user, "imei"))
                 .setRequired(true)
                 .add(new ExistingImeiValidator(getUserByIdQuery))
+                .add(new StringValidator(0, 15))
         );
         form.add(initRegisterButton("registerButton"));
         form.add(initCancelButton("cancelButton"));

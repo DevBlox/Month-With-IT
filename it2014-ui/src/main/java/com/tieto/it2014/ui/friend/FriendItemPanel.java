@@ -33,7 +33,7 @@ public class FriendItemPanel extends Panel {
         BookmarkablePageLink l = new BookmarkablePageLink("friendLink", HomePage.class, p);
 
         l.add(new Label("friendLabel", friend.username));
-        l.add(initDeleteButton("friendDelete"));
+        add(initDeleteButton("friendDelete"));
 
         modalWindow = new ModalWindow("confirmModalWindow");
 

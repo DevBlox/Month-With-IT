@@ -7,75 +7,33 @@ import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.PropertyModel;
 
 public class AddFriendPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+    private ModalWindow modalAddFriend;
 
-    private final User friend;
-    private PageReference pageReference;
-    private ModalWindow modal;
-
-    public AddFriendPanel(String id, User friend, PageReference pageReference) {
+    public AddFriendPanel(String id) {
         super(id);
-        this.friend = friend;
-        this.pageReference = pageReference;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        
-        // Create the modal window.
-        modal = new ModalWindow("modal") ;
-        
-        modal.setCookieName("modal-6");
 
-        modal.setInitialHeight(200);
-        modal.setInitialWidth(400);
-        modal.setResizable(false);
-        modal.setAutoSize(false);
-        
-        modal.setWidthUnit("px");
-        modal.setHeightUnit("px"); 
-        modal.setMinimalHeight(200);
-        modal.setMinimalWidth(400);
-        add(modal);
-        modal.setPageCreator(new ModalWindow.PageCreator() {
-            public Page createPage() {
-                // Use this constructor to pass a reference of this page.
-                return new AddFriendModalPage(pageReference,
-                        modal);
-            }
-        });
-        modal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-            @Override
-            public void onClose(AjaxRequestTarget target) {
-                // The variable passValue might be changed by the modal window.
-                // We need this to update the view of this page.
-            }
-        });
-        modal.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
-            public boolean onCloseButtonClicked(AjaxRequestTarget target) {
-                // Change the passValue variable when modal window is closed.
-                    modal.close(target);
-                return true;
-            }
-        });
+        modalAddFriend = new ModalWindow("modal");
+        modalAddFriend.setContent(new AddFriendFormPanel(modalAddFriend.getContentId(), modalAddFriend));
+        modalAddFriend.setCookieName("modal-2");
+        modalAddFriend.showUnloadConfirmation(false);
 
-        // Add the link that opens the modal window.
         add(new AjaxLink<Void>("showModalLink") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                target.appendJavaScript("Wicket.Window.unloadConfirmation = false;");
-                modal.show(target);
+                modalAddFriend.show(target);
             }
         });
+        add(modalAddFriend);
     }
 
 }

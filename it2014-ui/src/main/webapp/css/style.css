@@ -208,15 +208,11 @@ div.background::after {
 }
 
 .infoPanel {
-    width: 29%;
     max-height: 500px;
-    float: left;
 }
 
 .mapPanel {
-    width: 70%;
     height: 500px;
-    float: right;
 }
 
 .infoLabel {

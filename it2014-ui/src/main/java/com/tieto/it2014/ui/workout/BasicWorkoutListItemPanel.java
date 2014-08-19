@@ -9,21 +9,21 @@ class BasicWorkoutListItemPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    private final Workout userLoc;
+    protected final Workout workout;
 
-    public BasicWorkoutListItemPanel(String id, Workout userLoc) {
+    public BasicWorkoutListItemPanel(String id, Workout workout) {
         super(id);
-        this.userLoc = userLoc;
+        this.workout = workout;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new Label("no", new PropertyModel(userLoc, "id")));
-        add(new Label("start", new PropertyModel(userLoc, "startTime")));
-        add(new Label("finish", new PropertyModel(userLoc, "finishTime")));
-        add(new Label("distance", new PropertyModel(userLoc, "distance")));
-        add(new Label("duration", new PropertyModel(userLoc, "duration")));
+        add(new Label("no", new PropertyModel(workout, "id")));
+        add(new Label("start", new PropertyModel(workout, "startTime")));
+        add(new Label("finish", new PropertyModel(workout, "finishTime")));
+        add(new Label("distance", new PropertyModel(workout, "distance")));
+        add(new Label("duration", new PropertyModel(workout, "duration")));
     }
 
 }

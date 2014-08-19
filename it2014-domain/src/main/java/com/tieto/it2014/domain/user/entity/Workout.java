@@ -46,6 +46,10 @@ public class Workout implements Serializable {
         return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(locs.size() - 1).timeStamp);
     }
 
+    public List<UserLoc> getLocs() {
+        return this.locs;
+    }
+
     public String getDistance() {
         double d = 0;
         if (locs.size() > 1) {

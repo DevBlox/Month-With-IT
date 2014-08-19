@@ -22,7 +22,7 @@ public class WorkoutListPanel extends BaseWorkoutPanel {
 
             @Override
             protected void populateItem(ListItem<Workout> item) {
-                item.add(new BasicWorkoutListItemPanel("workout", item.getModelObject()));
+                item.add(new UserWorkoutListItemPanel("workout", item.getModelObject()));
             }
         };
         add(view);

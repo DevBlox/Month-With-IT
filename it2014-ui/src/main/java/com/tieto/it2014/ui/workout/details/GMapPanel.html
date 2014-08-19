@@ -2,7 +2,19 @@
 
     <html>
         <body>
-            <div wicket:id="map" style="height: 500px">Map</div>
+            <div class="panel panel-default infoPanel form-inline">
+                <div class="panel-heading">
+                    Workout information
+                </div>
+                <form wicket:id="infoPanel" class="panel-body">
+                    <div wicket:id="start" />
+                    <div wicket:id="finish" />
+                    <div wicket:id="distance" />
+                    <div wicket:id="duration" />
+                </form>
+            </div>
+
+            <div wicket:id="map" class="mapPanel form-inline">Map</div>
         </body>
     </html>
 

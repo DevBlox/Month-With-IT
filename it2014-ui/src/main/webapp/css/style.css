@@ -206,3 +206,15 @@ div.background::after {
     cursor: pointer;
     font-weight: bold;
 }
+
+.infoPanel {
+    width: 30%;
+    height: 500px;
+    float: left;
+}
+
+.mapPanel {
+    width: 70%;
+    height: 500px;
+    float: right;
+}

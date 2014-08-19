@@ -201,3 +201,8 @@ div.background::after {
     color: #010101;
     font-weight: bold;
 }
+
+.pointer {
+    cursor: pointer;
+    font-weight: bold;
+}

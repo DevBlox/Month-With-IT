@@ -123,6 +123,7 @@ public class RegisterPanel extends Panel {
         user = new User();
 
         setResponsePage(withInfoMsg(new HomePage(), "Registration was successfull"));
+
     }
 
     @Override

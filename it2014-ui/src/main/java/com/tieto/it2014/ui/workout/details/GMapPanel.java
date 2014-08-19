@@ -72,7 +72,7 @@ public class GMapPanel extends Panel {
         Form form = new Form(infoPanel);
         form.add(new Label("start", "Start time: " + workout.getStartTime()));
         form.add(new Label("finish", "Finish time: " + workout.getFinishTime()));
-        form.add(new Label("distance", "Distance: " + workout.getDistance()));
+        form.add(new Label("distance", "Distance: " + workout.getDistance() + " km."));
         form.add(new Label("duration", "Duration: " + workout.getDuration()));
 
         return form;

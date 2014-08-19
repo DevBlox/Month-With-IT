@@ -209,7 +209,7 @@ div.background::after {
 
 .infoPanel {
     width: 29%;
-    height: 500px;
+    max-height: 500px;
     float: left;
 }
 
@@ -217,4 +217,8 @@ div.background::after {
     width: 70%;
     height: 500px;
     float: right;
+}
+
+.infoLabel {
+    width: 100%;
 }

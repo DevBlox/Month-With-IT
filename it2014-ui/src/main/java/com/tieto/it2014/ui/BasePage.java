@@ -4,6 +4,8 @@ import com.tieto.it2014.ui.header.HeaderPanel;
 import com.tieto.it2014.ui.utils.NiceFeedbackPanel;
 import static com.tieto.it2014.ui.utils.UIUtils.ajaxReady;
 import org.apache.wicket.Component;
+import org.apache.wicket.feedback.FeedbackMessage;
+import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 
@@ -19,8 +21,13 @@ public abstract class BasePage extends WebPage {
     protected void onInitialize() {
         super.onInitialize();
         add(new Label("title", "IRunApp"));
-//        add(ajaxReady(new NiceFeedbackPanel("feedback", new ContainerFeedbackMessageFilter(form))));
-        add(ajaxReady(new NiceFeedbackPanel("feedback")));
+        add(ajaxReady(new NiceFeedbackPanel("feedback", new IFeedbackMessageFilter() {
+            @Override
+            public boolean accept(FeedbackMessage message) {
+                return !message.isError();
+            }
+        })));
+        //add(ajaxReady(new NiceFeedbackPanel("feedback")));
         add(initHeader(HEADER_ID));
         add(initSidebar(SIDEBAR_ID));
         add(initContent(CONTENT_ID));

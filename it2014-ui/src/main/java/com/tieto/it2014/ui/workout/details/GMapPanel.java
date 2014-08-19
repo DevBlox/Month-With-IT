@@ -4,28 +4,32 @@ import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.error.ErrorPage404;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.IResource;
-import org.apache.wicket.request.resource.ResourceReference;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.wicketstuff.gmap.GMap;
-import org.wicketstuff.gmap.api.*;
-
 import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.apache.wicket.Component;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.wicketstuff.gmap.GMap;
+import org.wicketstuff.gmap.api.GIcon;
+import org.wicketstuff.gmap.api.GLatLng;
+import org.wicketstuff.gmap.api.GMarker;
+import org.wicketstuff.gmap.api.GMarkerOptions;
+import org.wicketstuff.gmap.api.GPolyline;
 
 /**
  * Created by mantas on 18/08/14.
  */
 public class GMapPanel extends Panel {
 
-    private String userImei;
-    private String workoutToFindImei;
-    private int workoutId;
+    private static final long serialVersionUID = 1L;
+
+    private final String userImei;
+    private final String workoutToFindImei;
+    private final int workoutId;
 
     @SpringBean
     private WorkoutsQuery workoutQuery;
@@ -56,10 +60,22 @@ public class GMapPanel extends Panel {
 
         //TODO: Find a proper way to load images
         map.addOverlay(new GMarker(new GMarkerOptions(map, markers.get(0), "Start", new GIcon("http://haliucinas.eu/images/start.png"), null)));
-        map.addOverlay(new GMarker(new GMarkerOptions(map, markers.get(markers.size()-1), "End", new GIcon("http://haliucinas.eu/images/end.png"), null)));
+        map.addOverlay(new GMarker(new GMarkerOptions(map, markers.get(markers.size() - 1), "End", new GIcon("http://haliucinas.eu/images/end.png"), null)));
 
-        map.addOverlay(new GPolyline("red", 1, (float) 1, markers.toArray(new GLatLng[markers.size()-1])));
+        map.addOverlay(new GPolyline("red", 1, (float) 1, markers.toArray(new GLatLng[markers.size() - 1])));
         add(map);
+
+        add(initInfoPanel("infoPanel", workoutsModel.getObject()));
+    }
+
+    private Component initInfoPanel(String infoPanel, Workout workout) {
+        Form form = new Form(infoPanel);
+        form.add(new Label("start", "Start time: " + workout.getStartTime()));
+        form.add(new Label("finish", "Finish time: " + workout.getFinishTime()));
+        form.add(new Label("distance", "Distance: " + workout.getDistance()));
+        form.add(new Label("duration", "Duration: " + workout.getDuration()));
+
+        return form;
     }
 
     private class WorkoutsModel extends LoadableDetachableModel<Workout> {
@@ -71,7 +87,7 @@ public class GMapPanel extends Panel {
             List<Workout> list;
             try {
                 list = workoutQuery.result(userImei, workoutToFindImei, workoutId);
-                return list.get(workoutId-1);
+                return list.get(workoutId - 1);
             } catch (AccessControlException e) {
                 setResponsePage(ErrorPage404.class);
             }

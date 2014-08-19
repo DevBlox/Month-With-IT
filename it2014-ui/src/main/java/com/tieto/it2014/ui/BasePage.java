@@ -19,6 +19,7 @@ public abstract class BasePage extends WebPage {
     protected void onInitialize() {
         super.onInitialize();
         add(new Label("title", "IRunApp"));
+//        add(ajaxReady(new NiceFeedbackPanel("feedback", new ContainerFeedbackMessageFilter(form))));
         add(ajaxReady(new NiceFeedbackPanel("feedback")));
         add(initHeader(HEADER_ID));
         add(initSidebar(SIDEBAR_ID));

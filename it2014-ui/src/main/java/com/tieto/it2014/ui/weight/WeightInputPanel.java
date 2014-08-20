@@ -1,33 +1,39 @@
 package com.tieto.it2014.ui.weight;
 
 import com.tieto.it2014.domain.user.entity.User;
+import com.tieto.it2014.domain.weight.command.AddWeightCommand;
+import com.tieto.it2014.domain.weight.entity.Weight;
+import com.tieto.it2014.domain.weight.query.LastWeightQuery;
 import com.tieto.it2014.ui.session.UserSession;
 import java.sql.Timestamp;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.Request;
-import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.util.time.Time.*;
-import static org.apache.wicket.util.time.Time.now;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class WeightInputPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+
+    @SpringBean
+    private AddWeightCommand addWeightCommand;
+
+    @SpringBean
+    private LastWeightQuery lastWeightQuery;
 
     private Form weightInputForm;
     private String enteredWeight;
     private TextField weightInputField;
     Timestamp currentTimestamp;
     User user = UserSession.get().getUser();
-    String id = user.id;
+    String id = user.imei;
 
     public WeightInputPanel(String id) {
         super(id);
@@ -41,6 +47,9 @@ public class WeightInputPanel extends Panel {
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
         weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));
+        if (lastWeightQuery.result(UserSession.get().getUser().imei) != null) {
+            weightInputField.add(new AttributeModifier("value", lastWeightQuery.result(UserSession.get().getUser().imei).weight));
+        }
         weightInputField.setRequired(true);
         weightInputField.add(new AjaxEventBehavior("keyup") {
 
@@ -78,6 +87,14 @@ public class WeightInputPanel extends Panel {
 
     }
 
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        if (lastWeightQuery.result(UserSession.get().getUser().imei) != null) {
+            weightInputField.add(new AttributeModifier("value", lastWeightQuery.result(UserSession.get().getUser().imei).weight));
+        }
+    }
+
     private Component initRegisterButton(String wicketId) {
         return new Button(wicketId) {
             private static final long serialVersionUID = 1L;
@@ -89,12 +106,12 @@ public class WeightInputPanel extends Panel {
                     Float zeroForCheck = Float.parseFloat("0");
                     if (savingWeight.equals(zeroForCheck)) {
                         weightInputForm.error("Your weight is probably more than 0. Please check again");
-                        return; 
+                        return;
                     }
-                    System.out.println("svoris" + savingWeight + "laikas: " + currentTimestamp + " Useris:" + id);
+                    addWeightCommand.execute(new Weight(savingWeight, id, 0, currentTimestamp.getTime()));
                 } else {
                     weightInputForm.error("Wrong weight format");
-                };
+                }
             }
 
         };

@@ -70,12 +70,12 @@ public class ChartPanel extends Panel {
 
         Axis yAxis = new Axis();
         yAxis.setTitle(new Title("Weight"));
-        yAxis.setMin(this.getMinWeightValue());
+        yAxis.setMin(this.getMinWeightValue(data));
         options.setyAxis(yAxis);
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter(new Function(
-                "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y +' kg';"));
+                "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' kg';"));
         options.setTooltip(tooltip);
 
         CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<String, Float>();
@@ -98,9 +98,30 @@ public class ChartPanel extends Panel {
         add(chart);
     }
 
-    private int getMinWeightValue() {
-        //TODO: get all weights, find less - 5 kilos
-        return 40;
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        List<Weight> chartData = weightQuery.result(UserSession.get().getUser().imei);
+        options = getDefaultOptions(chartData);
+        chart.setOptions(options);
+    }
+
+    private Float getMinWeightValue(List<Weight> data) {
+        Float less = null;
+        for (Weight element : data) {
+            if (less == null) {
+                less = element.weight;
+            }
+
+            if (element.weight < less) {
+                less = element.weight;
+            }
+        }
+        if (less == null || less < 5) {
+            return (float) 0;
+        } else {
+            return less - 5;
+        }
     }
 
     private List<Coordinate<String, Float>> getSeriesData(List<Weight> chartData) {

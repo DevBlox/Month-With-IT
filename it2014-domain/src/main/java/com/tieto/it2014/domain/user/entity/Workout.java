@@ -42,6 +42,10 @@ public class Workout implements Serializable {
         return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(0).timeStamp);
     }
 
+    public Long getStartTimeTimestamp() {
+        return locs.get(0).timeStamp;
+    }
+
     public String getFinishTime() {
         return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(locs.size() - 1).timeStamp);
     }

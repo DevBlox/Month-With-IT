@@ -14,7 +14,10 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.security.AccessControlException;
+import java.util.Calendar;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mantas on 20/08/14.
@@ -32,14 +35,25 @@ public class StatsPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
         WorkoutsModel workoutsModel = new WorkoutsModel();
+        Calendar cal = Calendar.getInstance();
         double totalDist = 0;
         int totalTime = 0;
+        Set<Integer> daysCount = new LinkedHashSet<Integer>();
+
         for (Workout wo : workoutsModel.getObject()) {
             totalDist += wo.getDistanceDouble();
             totalTime += wo.getDurationInt();
+
+            cal.setTimeInMillis(wo.getStartTimeTimestamp());
+            daysCount.add(cal.get(Calendar.DAY_OF_MONTH));
+
         }
+
         add(new Label("totalDist", "Total distance: " + Util.format(totalDist) + " km."));
         add(new Label("totalTime", "Total time: " + Util.getDurationString(totalTime)));
+        add(new Label("totalDays", "Days using app: " + daysCount.size() + " d."));
+        add(new Label("Calories", "Calories: "));
+        add(new Label("Weight", "Weight: "));
     }
 
     private class WorkoutsModel extends LoadableDetachableModel<List<Workout>> {

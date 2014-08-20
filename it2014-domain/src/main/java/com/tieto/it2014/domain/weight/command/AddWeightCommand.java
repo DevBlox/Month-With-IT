@@ -1,28 +1,28 @@
-package com.tieto.it2014.domain.weight.query;
+package com.tieto.it2014.domain.weight.command;
 
 import com.tieto.it2014.domain.weight.entity.Weight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by mantas on 20/08/14.
  */
 @Component
-public class WeightQuery implements Serializable {
+public class AddWeightCommand implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Autowired
     private Dao dao;
 
     public interface Dao extends Serializable {
-        List<Weight> result(String imei);
+        void execute(Weight weight);
     }
 
-    public List<Weight> result(String imei) {
-        return dao.result(imei);
+    public void execute(Weight weight) {
+        dao.execute(weight);
     }
 
 }

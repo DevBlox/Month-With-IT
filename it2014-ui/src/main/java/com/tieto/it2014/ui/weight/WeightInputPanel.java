@@ -37,21 +37,16 @@ public class WeightInputPanel extends Panel {
 
             @Override
             protected void onEvent(AjaxRequestTarget target) {
-                System.out.println("paspausta:" + weightInputField.getInput());
 
                 if (weightInputField.getInput().contains(".")) {
-                    System.out.println("Radau taska");
                     String enteredValue = weightInputField.getInput();
                     int plusIndex = enteredValue.indexOf(".");
                     int pluslenght = enteredValue.length();
 
                     if (pluslenght - 3 >= plusIndex) {
-                        System.out.println("virsyti skaiciai po kablelio");
                         enteredValue = enteredValue.substring(0, plusIndex + 2);
-                        System.out.println("pataisyta reiksme" + enteredValue);
-                        target.appendJavaScript("alert('SUSIMOVEI');"
-//                                + " document.getElementById('weightInput').value = " + enteredValue + ";"
-//                                + "        alert('SUSIMOVEI');"
+                        target.appendJavaScript(
+                                 " document.getElementById('weightInput').value = " + enteredValue + ";"
                         );
 
                     }

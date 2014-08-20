@@ -28,7 +28,7 @@ public class FriendItemPanel extends Panel {
         super.onInitialize();
 
         PageParameters p = new PageParameters();
-        p.add("friend_imei", friend.imei);
+        p.add("userImei", friend.imei);
 
         BookmarkablePageLink l = new BookmarkablePageLink("friendLink", HomePage.class, p);
 

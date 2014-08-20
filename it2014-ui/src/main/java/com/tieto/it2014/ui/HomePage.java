@@ -9,12 +9,21 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class HomePage extends BasePage {
 
     private static final long serialVersionUID = 1L;
 
     private IModel<String> imei = new Model<>();
+    private String imeiParam;
+
+    public HomePage() {}
+
+    public HomePage(final PageParameters params) {
+        imeiParam = params.get("userImei").toString();
+    }
 
     @Override
     protected void onInitialize() {
@@ -31,7 +40,6 @@ public class HomePage extends BasePage {
     }
 
     private void updateImeiModel() {
-        String imeiParam = getRequest().getRequestParameters().getParameterValue("friend_imei").toString("");
         if (StringUtils.isBlank(imeiParam) && UserSession.get().isLoggedIn()) {
             imeiParam = UserSession.get().getUser().imei;
         }

@@ -3,10 +3,7 @@ package com.tieto.it2014.dao.weight;
 import com.tieto.it2014.dao.JpaEntity;
 import com.tieto.it2014.domain.weight.entity.Weight;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by mantas on 20/08/14.
@@ -17,6 +14,7 @@ public class WeightJpa implements JpaEntity<Weight> {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue
     private int id;
 
     @Column(name = "userId")
@@ -27,6 +25,12 @@ public class WeightJpa implements JpaEntity<Weight> {
 
     @Column(name = "created")
     private Long timeStamp;
+
+    public WeightJpa(Weight weight) {
+        this.userId = weight.userId;
+        this.weight = weight.weight;
+        this.timeStamp = weight.timeStamp;
+    }
 
     @Override
     public Weight toDomain() {

@@ -32,7 +32,7 @@
             <column name="weight" type="FLOAT">
                 <constraints nullable="false" />
             </column>
-            <column name="created" type="timestamp">
+            <column name="created" type="BIGINT">
                 <constraints nullable="false" />
             </column>
         </createTable>

@@ -31,47 +31,39 @@ public class WeightInputPanel extends Panel {
 
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
-        weightInputField = new TextField("weightInput");
+        weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));
 
         weightInputField.add(new AjaxEventBehavior("keyup") {
 
             @Override
             protected void onEvent(AjaxRequestTarget target) {
-
-                if (weightInputField.getInput().contains(".")) {
-                    String enteredValue = weightInputField.getInput();
-                    int plusIndex = enteredValue.indexOf(".");
-                    int pluslenght = enteredValue.length();
-
-                    String doubleDotChecker = enteredValue.substring(plusIndex + 1);
-                    if (doubleDotChecker.equals(".")) {
-//                        enteredValue = weightInputField.getInput();
-//                        plusIndex = enteredValue.indexOf("..");
-//                        pluslenght = enteredValue.length();
-                        String enteredValueDoubleDot = enteredValue.substring(0, plusIndex + 1);
-                        target.appendJavaScript(
-                                " document.getElementById('weightInput').value = " + enteredValueDoubleDot + ";"
-                        );
-
-                    }
-                    // System.out.println("radau du taskus" + doubleDotChecker);
-
-                    if (pluslenght - 3 >= plusIndex) {
-                        enteredValue = enteredValue.substring(0, plusIndex + 2);
-                        target.appendJavaScript(
-                                " document.getElementById('weightInput').value = " + enteredValue + ";"
-                        );
-
-                    }
-
-                } 
-
+                String enteredValue = weightInputField.getInput();
+                if (!enteredValue.contains(".")) {
+                    return;
+                }
+                enteredValue = enteredValue.replace("\\", "\\\\'");
+                enteredValue = enteredValue.replace("'", "\\'");
+                int plusIndex = enteredValue.indexOf(".");
+                String doubleDotChecker = enteredValue.substring(plusIndex + 1);
+                if (doubleDotChecker.startsWith(".")) {
+                    String enteredValueDoubleDot = enteredValue.substring(0, plusIndex + 1);
+                    target.appendJavaScript(
+                            " document.getElementById('weightInput').value = '" + enteredValueDoubleDot + "';"
+                    );
+                    return;
+                }
+                int enteredLength = enteredValue.length();
+                if (enteredLength - 3 >= plusIndex) {
+                    enteredValue = enteredValue.substring(0, plusIndex + 2);
+                    target.appendJavaScript(
+                            " document.getElementById('weightInput').value = '" + enteredValue + "';"
+                    );
+                }
             }
 
         });
 
         weightInputForm.add(weightInputField);
-
         weightInputForm.add(initRegisterButton("buttonWeight"));
         add(weightInputForm);
 

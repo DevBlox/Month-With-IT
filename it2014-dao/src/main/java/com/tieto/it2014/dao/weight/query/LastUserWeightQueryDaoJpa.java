@@ -32,6 +32,6 @@ public class LastUserWeightQueryDaoJpa implements LastWeightQuery.Dao {
                 .setMaxResults(1)
                 .setParameter("imei", imei);
 
-        return query.getResultList().get(0).toDomain();
+        return query.getResultList().isEmpty() ? null : query.getResultList().get(0).toDomain();
     }
 }

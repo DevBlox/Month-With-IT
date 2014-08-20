@@ -2,6 +2,7 @@ package com.tieto.it2014.ui;
 
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.workout.details.Details;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.pages.AccessDeniedPage;
@@ -33,6 +34,9 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         getDebugSettings().setAjaxDebugModeEnabled(false);
         getMarkupSettings().setDefaultMarkupEncoding(UTF);
         mountPage("error404", ErrorPage404.class);
+        mountPage("register", RegisterPage.class);
+        mountPage("user/${userImei}/workout/${imei}/${id}", Details.class);
+        mountPage("user/${friend_imei}", HomePage.class);
         // http://apache-wicket.1842946.n4.nabble.com/How-Runtime-Exception-Handling-td1888907.html
         //getApplicationSettings().setPageExpiredErrorPage(PageExpiredErrorPage.class);
         getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);

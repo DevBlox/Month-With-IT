@@ -1,5 +1,7 @@
 package com.tieto.it2014.ui.weight;
 
+import com.tieto.it2014.domain.user.entity.User;
+import com.tieto.it2014.ui.session.UserSession;
 import java.sql.Timestamp;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
@@ -25,6 +27,9 @@ public class WeightInputPanel extends Panel {
     private String enteredWeight;
     private TextField weightInputField;
     Timestamp currentTimestamp;
+    User user = UserSession.get().getUser();
+    String id = user.id;
+    
 	// System.out.println(new Timestamp(date.getTime()));
 
     public WeightInputPanel(String id) {
@@ -34,8 +39,8 @@ public class WeightInputPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        
-       // currentTimestamp = new Timestamp(now.getTime());
+        java.util.Date date= new java.util.Date();
+        currentTimestamp = new Timestamp(date.getTime());
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
         weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));
@@ -82,7 +87,8 @@ public class WeightInputPanel extends Panel {
 
             @Override
             public void onSubmit() {
-                System.out.println("svoris" + enteredWeight);
+                Float savingWeight= Float.parseFloat(enteredWeight);
+                System.out.println("svoris" + savingWeight+ "laikas: "+currentTimestamp+" Useris:"+id);
             }
 
         };

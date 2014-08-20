@@ -5,7 +5,9 @@ import com.googlecode.wickedcharts.highcharts.options.AxisType;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat;
 import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat.DateTimeProperties;
+import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
 import com.googlecode.wickedcharts.highcharts.options.Function;
+import com.googlecode.wickedcharts.highcharts.options.Legend;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.highcharts.options.SeriesType;
 import com.googlecode.wickedcharts.highcharts.options.Title;
@@ -67,6 +69,7 @@ public class ChartPanel extends Panel {
         xAxis.setDateTimeLabelFormats(dateTimeLabelFormat);
         xAxis.setTitle(new Title("Time"));
         options.setxAxis(xAxis);
+        options.setExporting(new ExportingOptions().setEnabled(Boolean.FALSE));
 
         Axis yAxis = new Axis();
         yAxis.setTitle(new Title("Weight"));
@@ -78,8 +81,9 @@ public class ChartPanel extends Panel {
                 "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' kg';"));
         options.setTooltip(tooltip);
 
+        options.setLegend(new Legend().setEnabled(Boolean.FALSE));
         CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<String, Float>();
-        series1.setName("Weight");
+        series1.setName(null);
         series1.setData(this.getSeriesData(data));
 
         options.addSeries(series1);

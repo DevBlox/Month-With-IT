@@ -98,6 +98,14 @@ public class ChartPanel extends Panel {
         add(chart);
     }
 
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        List<Weight> chartData = weightQuery.result(UserSession.get().getUser().imei);
+        options = getDefaultOptions(chartData);
+        chart.setOptions(options);
+    }
+
     private int getMinWeightValue() {
         //TODO: get all weights, find less - 5 kilos
         return 40;

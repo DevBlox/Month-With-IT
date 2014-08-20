@@ -17,4 +17,9 @@ public class WeightQuery implements Serializable {
     public interface Dao extends Serializable {
         List<Weight> result(String imei);
     }
+
+    public List<Weight> result(String imei) {
+        return dao.result(imei);
+    }
+
 }

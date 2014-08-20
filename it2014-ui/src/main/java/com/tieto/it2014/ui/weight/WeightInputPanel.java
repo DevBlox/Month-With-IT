@@ -1,6 +1,8 @@
 package com.tieto.it2014.ui.weight;
 
 import com.tieto.it2014.domain.user.entity.User;
+import com.tieto.it2014.domain.weight.command.AddWeightCommand;
+import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.ui.session.UserSession;
 import java.sql.Timestamp;
 import org.apache.wicket.Component;
@@ -15,12 +17,16 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.time.Time.*;
 import static org.apache.wicket.util.time.Time.now;
 
 public class WeightInputPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+
+    @SpringBean
+    private AddWeightCommand addWeightCommand;
 
     private Form weightInputForm;
     private String enteredWeight;
@@ -92,9 +98,10 @@ public class WeightInputPanel extends Panel {
                         return; 
                     }
                     System.out.println("svoris" + savingWeight + "laikas: " + currentTimestamp + " Useris:" + id);
+                    addWeightCommand.execute(new Weight(savingWeight, id, 0, currentTimestamp.getTime()));
                 } else {
                     weightInputForm.error("Wrong weight format");
-                };
+                }
             }
 
         };

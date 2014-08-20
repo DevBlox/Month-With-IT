@@ -101,7 +101,7 @@ public class WeightInputPanel extends Panel {
 
             @Override
             public void onSubmit() {
-                if (enteredWeight.matches("[0-9]+.[0-9]+") || enteredWeight.matches("[0-9]+")) {
+                if (enteredWeight.matches("\\d+[.]?\\d")) {
                     Float savingWeight = Float.parseFloat(enteredWeight);
                     Float zeroForCheck = Float.parseFloat("0");
                     if (savingWeight.equals(zeroForCheck)) {

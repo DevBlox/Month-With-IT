@@ -5,7 +5,9 @@ import com.googlecode.wickedcharts.highcharts.options.AxisType;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat;
 import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat.DateTimeProperties;
+import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
 import com.googlecode.wickedcharts.highcharts.options.Function;
+import com.googlecode.wickedcharts.highcharts.options.Legend;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.highcharts.options.SeriesType;
 import com.googlecode.wickedcharts.highcharts.options.Title;
@@ -54,7 +56,7 @@ public class ChartPanel extends Panel {
 
         options.setChartOptions(new ChartOptions().setType(SeriesType.SPLINE));
 
-        options.setTitle(new Title("Weight statistics"));
+        options.setTitle(new Title("Weight changes in a current day"));
         options.setSubtitle(new Title("Nothing tastes as good as being thin feels"));
 
         Axis xAxis = new Axis();
@@ -65,11 +67,12 @@ public class ChartPanel extends Panel {
                 .setProperty(DateTimeProperties.YEAR, "%b");
 
         xAxis.setDateTimeLabelFormats(dateTimeLabelFormat);
-        xAxis.setTitle(new Title("Time"));
+        xAxis.setTitle(new Title("Time, h"));
         options.setxAxis(xAxis);
+        options.setExporting(new ExportingOptions().setEnabled(Boolean.FALSE));
 
         Axis yAxis = new Axis();
-        yAxis.setTitle(new Title("Weight"));
+        yAxis.setTitle(new Title("Weight, kg"));
         yAxis.setMin(this.getMinWeightValue(data));
         options.setyAxis(yAxis);
 
@@ -78,8 +81,9 @@ public class ChartPanel extends Panel {
                 "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' kg';"));
         options.setTooltip(tooltip);
 
+        options.setLegend(new Legend().setEnabled(Boolean.FALSE));
         CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<String, Float>();
-        series1.setName("Weight");
+        series1.setName(null);
         series1.setData(this.getSeriesData(data));
 
         options.addSeries(series1);

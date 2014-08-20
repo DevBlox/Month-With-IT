@@ -3,19 +3,29 @@ package com.tieto.it2014.ui.register;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.ui.BaseWebTest;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class RegisterPanelTest extends BaseWebTest {
-
     private WicketTester wicketTester;
+    @Autowired
+    private GetUserByEmailQuery getUserByEmailQuery;
 
     @Before
     public void setUp() {
         wicketTester = createWicketTester();
+    }
+
+    @Test
+    public void checks_if_emails_are_equal() {
+        String email = "audrius.siliunas@tietocamp.eu";
+        User user = getUserByEmailQuery.result(email);
+        assertThat(email, equalTo(user.email));
     }
 
     @Test
@@ -88,5 +98,4 @@ public class RegisterPanelTest extends BaseWebTest {
         formTester.submit();
         wicketTester.assertErrorMessages("Password does not match");
     }
-
 }

@@ -75,7 +75,7 @@ public class ChartPanel extends Panel {
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter(new Function(
-                "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y +' kg';"));
+                "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%e %b %H:%m', this.x) +': '+ this.y +' kg';"));
         options.setTooltip(tooltip);
 
         CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<String, Float>();

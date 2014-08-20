@@ -93,8 +93,6 @@ public class ChartPanel extends Panel {
 
         List<Weight> chartData = weightQuery.result(UserSession.get().getUser().imei);
 
-        System.out.println(chartData);
-
         options = getDefaultOptions(chartData);
         chart = new Chart("chart", options);
         add(chart);
@@ -106,17 +104,11 @@ public class ChartPanel extends Panel {
     }
 
     private List<Coordinate<String, Float>> getSeriesData(List<Weight> chartData) {
-        //TODO: get series data from weights array
         List<Coordinate<String, Float>> data = new ArrayList<Coordinate<String, Float>>();
 
         for (Weight element : chartData) {
-
-//            data.add(new Coordinate<String, Float>("Date.UTC(2013, 9, 27, 2, 5, 6)", 50f));
-            System.out.println("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")" + element.weight);
             data.add(new Coordinate<String, Float>("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")", element.weight));
         }
-
-        System.out.println(data.size());
 
         return data;
     }

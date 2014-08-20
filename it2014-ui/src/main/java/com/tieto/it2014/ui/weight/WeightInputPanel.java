@@ -6,7 +6,6 @@ import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.LastWeightQuery;
 import com.tieto.it2014.ui.session.UserSession;
 import java.sql.Timestamp;
-
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
@@ -34,7 +33,7 @@ public class WeightInputPanel extends Panel {
     private TextField weightInputField;
     Timestamp currentTimestamp;
     User user = UserSession.get().getUser();
-    String id = user.id;
+    String id = user.imei;
 
     public WeightInputPanel(String id) {
         super(id);
@@ -107,7 +106,7 @@ public class WeightInputPanel extends Panel {
                     Float zeroForCheck = Float.parseFloat("0");
                     if (savingWeight.equals(zeroForCheck)) {
                         weightInputForm.error("Your weight is probably more than 0. Please check again");
-                        return; 
+                        return;
                     }
                     addWeightCommand.execute(new Weight(savingWeight, id, 0, currentTimestamp.getTime()));
                 } else {

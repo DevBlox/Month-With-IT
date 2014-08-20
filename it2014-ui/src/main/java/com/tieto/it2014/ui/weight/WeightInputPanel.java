@@ -3,23 +3,21 @@ package com.tieto.it2014.ui.weight;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.weight.command.AddWeightCommand;
 import com.tieto.it2014.domain.weight.entity.Weight;
+import com.tieto.it2014.domain.weight.query.LastWeightQuery;
 import com.tieto.it2014.ui.session.UserSession;
 import java.sql.Timestamp;
+
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.Request;
-import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.time.Time.*;
-import static org.apache.wicket.util.time.Time.now;
 
 public class WeightInputPanel extends Panel {
 
@@ -27,6 +25,9 @@ public class WeightInputPanel extends Panel {
 
     @SpringBean
     private AddWeightCommand addWeightCommand;
+
+    @SpringBean
+    private LastWeightQuery lastWeightQuery;
 
     private Form weightInputForm;
     private String enteredWeight;
@@ -47,6 +48,7 @@ public class WeightInputPanel extends Panel {
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
         weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));
+        weightInputField.add(new AttributeModifier("value", lastWeightQuery.result(UserSession.get().getUser().imei).weight.toString()));
         weightInputField.setRequired(true);
         weightInputField.add(new AjaxEventBehavior("keyup") {
 

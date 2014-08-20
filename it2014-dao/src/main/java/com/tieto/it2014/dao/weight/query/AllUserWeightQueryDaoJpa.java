@@ -28,10 +28,9 @@ public class AllUserWeightQueryDaoJpa implements WeightQuery.Dao {
     @Transactional(readOnly = true)
     public List<Weight> result(String imei) {
         TypedQuery< WeightJpa> query = em.createQuery(
-                "SELECT w FROM WeightJpa w WHERE w.userId = :imei", WeightJpa.class)
+                "SELECT w FROM WeightJpa w WHERE w.userId = :imei ORDER BY w.timeStamp ASC", WeightJpa.class)
                 .setParameter("imei", imei);
 
         return JpaUtils.toDomainList(query.getResultList());
-
     }
 }

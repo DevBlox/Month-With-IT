@@ -48,8 +48,9 @@ public class WeightInputPanel extends Panel {
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
         weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));
-        Float lastWeight = lastWeightQuery.result(UserSession.get().getUser().imei) == null ? 0 : lastWeightQuery.result(UserSession.get().getUser().imei).weight;
-        weightInputField.add(new AttributeModifier("value", lastWeight));
+        if (lastWeightQuery.result(UserSession.get().getUser().imei) != null) {
+            weightInputField.add(new AttributeModifier("value", lastWeightQuery.result(UserSession.get().getUser().imei).weight));
+        }
         weightInputField.setRequired(true);
         weightInputField.add(new AjaxEventBehavior("keyup") {
 
@@ -90,8 +91,9 @@ public class WeightInputPanel extends Panel {
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        Float lastWeight = lastWeightQuery.result(UserSession.get().getUser().imei) == null ? 0 : lastWeightQuery.result(UserSession.get().getUser().imei).weight;
-        weightInputField.add(new AttributeModifier("value", lastWeight));
+        if (lastWeightQuery.result(UserSession.get().getUser().imei) != null) {
+            weightInputField.add(new AttributeModifier("value", lastWeightQuery.result(UserSession.get().getUser().imei).weight));
+        }
     }
 
     private Component initRegisterButton(String wicketId) {

@@ -1,6 +1,8 @@
-package com.tieto.it2014.domain.weight;
+package com.tieto.it2014.domain.weight.entity;
 
-public class Weight {
+import com.tieto.it2014.domain.weight.Entity;
+
+public class Weight extends Entity {
 
     private static final long serialVersionUID = 1L;
 
@@ -9,9 +11,11 @@ public class Weight {
     public int id;
 
     public Weight() {
+        super(0);
     }
 
     public Weight(Float weight, String userId, int id) {
+        super(id);
         this.id = id;
         this.userId = userId;
         this.weight = weight;

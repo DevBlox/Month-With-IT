@@ -7,7 +7,7 @@ import org.apache.wicket.Component;
 /**
  * Created by mantas on 20/08/14.
  */
-public class Statistics extends BasePage {
+public class StatisticsPage extends BasePage {
 
     @Override
     protected Component initFullContent(String wicketId) {

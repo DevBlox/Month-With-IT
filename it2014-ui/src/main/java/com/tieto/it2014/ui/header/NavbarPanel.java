@@ -1,7 +1,7 @@
 package com.tieto.it2014.ui.header;
 
-import com.tieto.it2014.ui.user.Statistics;
-import com.tieto.it2014.ui.user.Top;
+import com.tieto.it2014.ui.user.StatisticsPage;
+import com.tieto.it2014.ui.user.TopPage;
 import com.tieto.it2014.ui.user.WeightPage;
 import java.util.Objects;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -47,9 +47,9 @@ public class NavbarPanel extends Panel {
 
         if (Objects.equals(weightPageLink.getPage().getClass(), WeightPage.class)) {
             weightListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
-        } else if (Objects.equals(weightPageLink.getPage().getClass(), Statistics.class)) {
+        } else if (Objects.equals(weightPageLink.getPage().getClass(), StatisticsPage.class)) {
             statisticsListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
-        } else if (Objects.equals(weightPageLink.getPage().getClass(), Top.class)) {
+        } else if (Objects.equals(weightPageLink.getPage().getClass(), TopPage.class)) {
             topListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
         }
     }
@@ -72,7 +72,7 @@ public class NavbarPanel extends Panel {
 
             @Override
             public void onClick() {
-                setResponsePage(Statistics.class);
+                setResponsePage(StatisticsPage.class);
             }
 
         };
@@ -84,7 +84,7 @@ public class NavbarPanel extends Panel {
 
             @Override
             public void onClick() {
-                setResponsePage(Top.class);
+                setResponsePage(TopPage.class);
             }
 
         };

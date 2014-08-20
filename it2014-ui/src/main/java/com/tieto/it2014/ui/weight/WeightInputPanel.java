@@ -1,5 +1,6 @@
 package com.tieto.it2014.ui.weight;
 
+import java.sql.Timestamp;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -12,6 +13,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.util.time.Time.*;
+import static org.apache.wicket.util.time.Time.now;
+
 
 public class WeightInputPanel extends Panel {
 
@@ -20,6 +24,8 @@ public class WeightInputPanel extends Panel {
     private Form weightInputForm;
     private String enteredWeight;
     private TextField weightInputField;
+    Timestamp currentTimestamp;
+	// System.out.println(new Timestamp(date.getTime()));
 
     public WeightInputPanel(String id) {
         super(id);
@@ -28,7 +34,8 @@ public class WeightInputPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
+        
+       // currentTimestamp = new Timestamp(now.getTime());
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
         weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));

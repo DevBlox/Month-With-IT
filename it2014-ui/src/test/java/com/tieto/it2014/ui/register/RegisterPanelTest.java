@@ -62,7 +62,7 @@ public class RegisterPanelTest extends BaseWebTest {
         formTester.submit();
         wicketTester.assertErrorMessages("Email is already in use!");
     }
-    
+
     @Test
     public void shows_error_if_imei_is_inUse() {
         wicketTester.startComponentInPage(new RegisterPanel("register"));
@@ -74,6 +74,19 @@ public class RegisterPanelTest extends BaseWebTest {
         formTester.setValue("imei", "356871044631608");
         formTester.submit();
         wicketTester.assertErrorMessages("IMEI number is already in use!");
+    }
+
+    @Test
+    public void shows_error_if_password_missmatch() {
+        wicketTester.startComponentInPage(new RegisterPanel("register"));
+        FormTester formTester = wicketTester.newFormTester("register:registerForm");
+        formTester.setValue("inputUserName", "Audrius Siliunas");
+        formTester.setValue("inputEmail", "adudu@valio.lt");
+        formTester.setValue("inputPassword", "slaptaisaugu");
+        formTester.setValue("repeatPassword", "ne4564");
+        formTester.setValue("imei", "4566");
+        formTester.submit();
+        wicketTester.assertErrorMessages("Password does not match");
     }
 
 }

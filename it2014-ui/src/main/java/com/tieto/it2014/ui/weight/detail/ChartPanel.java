@@ -1,22 +1,33 @@
 package com.tieto.it2014.ui.weight.detail;
 
 import com.googlecode.wickedcharts.highcharts.options.Axis;
+import com.googlecode.wickedcharts.highcharts.options.AxisType;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
-import com.googlecode.wickedcharts.highcharts.options.HorizontalAlignment;
-import com.googlecode.wickedcharts.highcharts.options.Legend;
-import com.googlecode.wickedcharts.highcharts.options.LegendLayout;
+import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat;
+import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat.DateTimeProperties;
+import com.googlecode.wickedcharts.highcharts.options.Function;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.highcharts.options.SeriesType;
 import com.googlecode.wickedcharts.highcharts.options.Title;
-import com.googlecode.wickedcharts.highcharts.options.VerticalAlignment;
-import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
+import com.googlecode.wickedcharts.highcharts.options.Tooltip;
+import com.googlecode.wickedcharts.highcharts.options.series.Coordinate;
+import com.googlecode.wickedcharts.highcharts.options.series.CustomCoordinatesSeries;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
-import java.util.Arrays;
+import com.tieto.it2014.domain.weight.entity.Weight;
+import com.tieto.it2014.domain.weight.query.WeightQuery;
+import com.tieto.it2014.ui.session.UserSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+
+    @SpringBean
+    private WeightQuery weightQuery;
 
     private Options options = new Options();
     private Chart chart;
@@ -38,61 +49,80 @@ public class ChartPanel extends Panel {
         this.options = options;
     }
 
-    public Options getDefaultOptions() {
+    public Options getDefaultOptions(List<Weight> data) {
         Options options = new Options();
-        options
-                .setChartOptions(new ChartOptions()
-                        .setType(SeriesType.LINE));
 
-        options
-                .setTitle(new Title("My very own chart."));
+        options.setChartOptions(new ChartOptions().setType(SeriesType.SPLINE));
 
-        options
-                .setxAxis(new Axis()
-                        .setCategories(Arrays
-                                .asList(new String[]{"Jan", "Feb", "Mar", "Apr", "May",
-                                    "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"})));
+        options.setTitle(new Title("Weight statistics"));
+        options.setSubtitle(new Title("Nothing tastes as good as being thin feels"));
 
-        options
-                .setyAxis(new Axis()
-                        .setTitle(new Title("Temperature (C)")));
+        Axis xAxis = new Axis();
+        xAxis.setType(AxisType.DATETIME);
 
-        options
-                .setLegend(new Legend()
-                        .setLayout(LegendLayout.VERTICAL)
-                        .setAlign(HorizontalAlignment.RIGHT)
-                        .setVerticalAlign(VerticalAlignment.TOP)
-                        .setX(-10)
-                        .setY(100)
-                        .setBorderWidth(0));
+        DateTimeLabelFormat dateTimeLabelFormat = new DateTimeLabelFormat()
+                .setProperty(DateTimeProperties.MONTH, "%e. %b")
+                .setProperty(DateTimeProperties.YEAR, "%b");
 
-        options
-                .addSeries(new SimpleSeries()
-                        .setName("Tokyo")
-                        .setData(
-                                Arrays
-                                .asList(new Number[]{7.0, 6.9, 9.5, 14.5, 18.2, 21.5,
-                                    25.2, 26.5, 23.3, 18.3, 13.9, 9.6})));
+        xAxis.setDateTimeLabelFormats(dateTimeLabelFormat);
+        xAxis.setTitle(new Title("Time"));
+        options.setxAxis(xAxis);
 
-        options
-                .addSeries(new SimpleSeries()
-                        .setName("New York")
-                        .setData(
-                                Arrays
-                                .asList(new Number[]{-0.2, 0.8, 5.7, 11.3, 17.0, 22.0,
-                                    24.8, 24.1, 20.1, 14.1, 8.6, 2.5})));
+        Axis yAxis = new Axis();
+        yAxis.setTitle(new Title("Weight"));
+        yAxis.setMin(this.getMinWeightValue());
+        options.setyAxis(yAxis);
+
+        Tooltip tooltip = new Tooltip();
+        tooltip.setFormatter(new Function(
+                "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%e. %b', this.x) +': '+ this.y +' kg';"));
+        options.setTooltip(tooltip);
+
+        CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<String, Float>();
+        series1.setName("Weight");
+        series1.setData(this.getSeriesData(data));
+
+        options.addSeries(series1);
+
         return options;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        options = getDefaultOptions();
+
+        List<Weight> chartData = weightQuery.result(UserSession.get().getUser().imei);
+
+        System.out.println(chartData);
+
+        options = getDefaultOptions(chartData);
         chart = new Chart("chart", options);
         add(chart);
     }
 
-    private void setChartOptions(ChartOptions chartOptions) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private int getMinWeightValue() {
+        //TODO: get all weights, find less - 5 kilos
+        return 40;
     }
+
+    private List<Coordinate<String, Float>> getSeriesData(List<Weight> chartData) {
+        //TODO: get series data from weights array
+        List<Coordinate<String, Float>> data = new ArrayList<Coordinate<String, Float>>();
+
+        for (Weight element : chartData) {
+
+//            data.add(new Coordinate<String, Float>("Date.UTC(2013, 9, 27, 2, 5, 6)", 50f));
+            System.out.println("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")" + element.weight);
+            data.add(new Coordinate<String, Float>("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")", element.weight));
+        }
+
+        System.out.println(data.size());
+
+        return data;
+    }
+
+    private String getUtcStringFromTimestamp(Long timestamp) {
+        return new SimpleDateFormat("yyyy, M, dd, H, m, s").format(new java.sql.Timestamp(timestamp));
+    }
+
 }

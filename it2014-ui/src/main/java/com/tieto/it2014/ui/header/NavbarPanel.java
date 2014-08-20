@@ -1,5 +1,7 @@
 package com.tieto.it2014.ui.header;
 
+import com.tieto.it2014.ui.user.Statistics;
+import com.tieto.it2014.ui.user.Top;
 import com.tieto.it2014.ui.user.WeightPage;
 import java.util.Objects;
 import org.apache.wicket.behavior.AttributeAppender;
@@ -13,7 +15,11 @@ public class NavbarPanel extends Panel {
     private static final long serialVersionUID = 1L;
 
     private Link weightPageLink;
+    private Link statisticsPageLink;
+    private Link topPageLink;
     private ListItem weightListItem;
+    private ListItem statisticsListItem;
+    private ListItem topListItem;
 
     public NavbarPanel(String id) {
         super(id);
@@ -24,12 +30,27 @@ public class NavbarPanel extends Panel {
         super.onInitialize();
 
         weightPageLink = initWeightLink("weightPageLink");
-        weightListItem = new ListItem("li", 0);
+        statisticsPageLink = initStatisticsLink("statisticsPageLink");
+        topPageLink = initTopLink("topPageLink");
+
+        weightListItem = new ListItem("weightListItem", 0);
+        statisticsListItem = new ListItem("statisticsListItem", 1);
+        topListItem = new ListItem("topListItem", 2);
+
         add(weightListItem);
+        add(statisticsListItem);
+        add(topListItem);
+
         weightListItem.add(weightPageLink);
+        statisticsListItem.add(statisticsPageLink);
+        topListItem.add(topPageLink);
 
         if (Objects.equals(weightPageLink.getPage().getClass(), WeightPage.class)) {
             weightListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
+        } else if (Objects.equals(weightPageLink.getPage().getClass(), Statistics.class)) {
+            statisticsListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
+        } else if (Objects.equals(weightPageLink.getPage().getClass(), Top.class)) {
+            topListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
         }
     }
 
@@ -40,6 +61,30 @@ public class NavbarPanel extends Panel {
             @Override
             public void onClick() {
                 setResponsePage(WeightPage.class);
+            }
+
+        };
+    }
+
+    private Link initStatisticsLink(String statisticsPageLink) {
+        return new Link(statisticsPageLink) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onClick() {
+                setResponsePage(Statistics.class);
+            }
+
+        };
+    }
+
+    private Link initTopLink(String topPageLink) {
+        return new Link(topPageLink) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onClick() {
+                setResponsePage(Top.class);
             }
 
         };

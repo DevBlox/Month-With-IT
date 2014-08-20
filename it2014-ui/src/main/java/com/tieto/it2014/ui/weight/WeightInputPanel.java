@@ -101,8 +101,12 @@ public class WeightInputPanel extends Panel {
 
             @Override
             public void onSubmit() {
-                if (enteredWeight.matches("\\d+[.]?\\d")) {
+                if (enteredWeight.matches("\\d+[.]?\\d?")) {
                     Float savingWeight = Float.parseFloat(enteredWeight);
+                    if (savingWeight >= Float.MAX_VALUE) {
+                        weightInputField.error("You are too huge. Check your weight");
+                        return;
+                    }
                     Float zeroForCheck = Float.parseFloat("0");
                     if (savingWeight.equals(zeroForCheck)) {
                         weightInputForm.error("Your weight is probably more than 0. Please check again");

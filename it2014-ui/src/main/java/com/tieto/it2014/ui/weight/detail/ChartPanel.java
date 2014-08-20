@@ -56,7 +56,7 @@ public class ChartPanel extends Panel {
 
         options.setChartOptions(new ChartOptions().setType(SeriesType.SPLINE));
 
-        options.setTitle(new Title("Weight statistics"));
+        options.setTitle(new Title("Weight changes in a current day"));
         options.setSubtitle(new Title("Nothing tastes as good as being thin feels"));
 
         Axis xAxis = new Axis();
@@ -67,12 +67,12 @@ public class ChartPanel extends Panel {
                 .setProperty(DateTimeProperties.YEAR, "%b");
 
         xAxis.setDateTimeLabelFormats(dateTimeLabelFormat);
-        xAxis.setTitle(new Title("Time"));
+        xAxis.setTitle(new Title("Time, days (depending)"));
         options.setxAxis(xAxis);
         options.setExporting(new ExportingOptions().setEnabled(Boolean.FALSE));
 
         Axis yAxis = new Axis();
-        yAxis.setTitle(new Title("Weight"));
+        yAxis.setTitle(new Title("Weight, kg"));
         yAxis.setMin(this.getMinWeightValue(data));
         options.setyAxis(yAxis);
 

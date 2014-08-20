@@ -97,7 +97,6 @@ public class WeightInputPanel extends Panel {
                         weightInputForm.error("Your weight is probably more than 0. Please check again");
                         return; 
                     }
-                    System.out.println("svoris" + savingWeight + "laikas: " + currentTimestamp + " Useris:" + id);
                     addWeightCommand.execute(new Weight(savingWeight, id, 0, currentTimestamp.getTime()));
                 } else {
                     weightInputForm.error("Wrong weight format");

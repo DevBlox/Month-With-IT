@@ -70,7 +70,7 @@ public class ChartPanel extends Panel {
 
         Axis yAxis = new Axis();
         yAxis.setTitle(new Title("Weight"));
-        yAxis.setMin(this.getMinWeightValue());
+        yAxis.setMin(this.getMinWeightValue(data));
         options.setyAxis(yAxis);
 
         Tooltip tooltip = new Tooltip();
@@ -106,9 +106,18 @@ public class ChartPanel extends Panel {
         chart.setOptions(options);
     }
 
-    private int getMinWeightValue() {
-        //TODO: get all weights, find less - 5 kilos
-        return 40;
+    private Float getMinWeightValue(List<Weight> data) {
+        Float less = null;
+        for (Weight element : data) {
+            if (less == null) {
+                less = element.weight;
+            }
+
+            if (element.weight < less) {
+                less = element.weight;
+            }
+        }
+        return less - 5;
     }
 
     private List<Coordinate<String, Float>> getSeriesData(List<Weight> chartData) {

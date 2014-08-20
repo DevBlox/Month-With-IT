@@ -33,7 +33,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         super.init();
         initSpring();
         getRequestCycleSettings().setResponseRequestEncoding(UTF);
-        // disable wicket ajax debug
+        // disables wicket ajax debug
         getDebugSettings().setAjaxDebugModeEnabled(false);
         getMarkupSettings().setDefaultMarkupEncoding(UTF);
         mountPage("error404", ErrorPage404.class);
@@ -43,10 +43,6 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         mountPage("user/weight", WeightPage.class);
         mountPage("user/stats", Statistics.class);
         mountPage("top", Top.class);
-        // http://apache-wicket.1842946.n4.nabble.com/How-Runtime-Exception-Handling-td1888907.html
-        //getApplicationSettings().setPageExpiredErrorPage(PageExpiredErrorPage.class);
-        getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
-        //getApplicationSettings().setInternalErrorPage(InternalErrorPage.class);
     }
 
     protected void initSpring() {

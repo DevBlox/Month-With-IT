@@ -70,6 +70,26 @@ public class Workout implements Serializable {
         return Util.format(d);
     }
 
+    public double getDistanceDouble() {
+        double d = 0;
+        if (locs.size() > 1) {
+            UserLoc previous = null;
+            for (UserLoc l : locs) {
+                if (previous != null) {
+                    d += Util.calculateDistance(
+                            previous.latitude,
+                            previous.longtitude,
+                            previous.altitude,
+                            l.latitude,
+                            l.longtitude,
+                            l.altitude);
+                }
+                previous = l;
+            }
+        }
+        return d;
+    }
+
     public String getDuration() {
         int d = 0;
         if (locs.size() > 1) {
@@ -82,6 +102,20 @@ public class Workout implements Serializable {
             }
         }
         return Util.getDurationString(d);
+    }
+
+    public int getDurationInt() {
+        int d = 0;
+        if (locs.size() > 1) {
+            UserLoc previous = null;
+            for (UserLoc l : locs) {
+                if (previous != null) {
+                    d += Util.calculateDuration(previous.timeStamp, l.timeStamp);
+                }
+                previous = l;
+            }
+        }
+        return d;
     }
 
 }

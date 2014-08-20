@@ -53,7 +53,7 @@ public class Util {
         Collections.sort(workouts, new Comparator<Workout>() {
             @Override
             public int compare(Workout o1, Workout o2) {
-                if (o1.getFinishTime() == o2.getFinishTime()) {
+                if (o1.getFinishTime().equals(o2.getFinishTime())) {
                     return o2.getDistance().compareTo(o1.getDistance());
                 }
                 return o2.getFinishTime().compareTo(o1.getFinishTime());
@@ -75,7 +75,11 @@ public class Util {
         }
 
         // 6. Limiting the size of the result items.
-        return Lists.newArrayList(Iterables.limit(workouts, workoutLimit));
+        if (workoutLimit != null) {
+            return Lists.newArrayList(Iterables.limit(workouts, workoutLimit));
+        } else {
+            return workouts;
+        }
     }
 
     public static int calculateDuration(Long start, Long end) {

@@ -117,7 +117,11 @@ public class ChartPanel extends Panel {
                 less = element.weight;
             }
         }
-        return less - 5;
+        if (less == null || less < 5) {
+            return (float) 0;
+        } else {
+            return less - 5;
+        }
     }
 
     private List<Coordinate<String, Float>> getSeriesData(List<Weight> chartData) {

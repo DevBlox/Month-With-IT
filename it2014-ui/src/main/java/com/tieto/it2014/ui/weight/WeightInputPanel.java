@@ -43,15 +43,28 @@ public class WeightInputPanel extends Panel {
                     int plusIndex = enteredValue.indexOf(".");
                     int pluslenght = enteredValue.length();
 
+                    String doubleDotChecker = enteredValue.substring(plusIndex + 1);
+                    if (doubleDotChecker.equals(".")) {
+//                        enteredValue = weightInputField.getInput();
+//                        plusIndex = enteredValue.indexOf("..");
+//                        pluslenght = enteredValue.length();
+                        String enteredValueDoubleDot = enteredValue.substring(0, plusIndex + 1);
+                        target.appendJavaScript(
+                                " document.getElementById('weightInput').value = " + enteredValueDoubleDot + ";"
+                        );
+
+                    }
+                    // System.out.println("radau du taskus" + doubleDotChecker);
+
                     if (pluslenght - 3 >= plusIndex) {
                         enteredValue = enteredValue.substring(0, plusIndex + 2);
                         target.appendJavaScript(
-                                 " document.getElementById('weightInput').value = " + enteredValue + ";"
+                                " document.getElementById('weightInput').value = " + enteredValue + ";"
                         );
 
                     }
 
-                }
+                } 
 
             }
 

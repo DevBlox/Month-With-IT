@@ -67,7 +67,7 @@ public class ChartPanel extends Panel {
                 .setProperty(DateTimeProperties.YEAR, "%b");
 
         xAxis.setDateTimeLabelFormats(dateTimeLabelFormat);
-        xAxis.setTitle(new Title("Time"));
+        xAxis.setTitle(new Title("Time, h"));
         options.setxAxis(xAxis);
         options.setExporting(new ExportingOptions().setEnabled(Boolean.FALSE));
 

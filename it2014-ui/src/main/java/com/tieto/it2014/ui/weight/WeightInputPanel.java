@@ -18,7 +18,6 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.time.Time.*;
 import static org.apache.wicket.util.time.Time.now;
 
-
 public class WeightInputPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
@@ -29,8 +28,6 @@ public class WeightInputPanel extends Panel {
     Timestamp currentTimestamp;
     User user = UserSession.get().getUser();
     String id = user.id;
-    
-	// System.out.println(new Timestamp(date.getTime()));
 
     public WeightInputPanel(String id) {
         super(id);
@@ -39,12 +36,12 @@ public class WeightInputPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        java.util.Date date= new java.util.Date();
+        java.util.Date date = new java.util.Date();
         currentTimestamp = new Timestamp(date.getTime());
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
         weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));
-
+        weightInputField.setRequired(true);
         weightInputField.add(new AjaxEventBehavior("keyup") {
 
             @Override
@@ -87,8 +84,17 @@ public class WeightInputPanel extends Panel {
 
             @Override
             public void onSubmit() {
-                Float savingWeight= Float.parseFloat(enteredWeight);
-                System.out.println("svoris" + savingWeight+ "laikas: "+currentTimestamp+" Useris:"+id);
+                if (enteredWeight.matches("[0-9]+.[0-9]+") || enteredWeight.matches("[0-9]+")) {
+                    Float savingWeight = Float.parseFloat(enteredWeight);
+                    Float zeroForCheck = Float.parseFloat("0");
+                    if (savingWeight.equals(zeroForCheck)) {
+                        weightInputForm.error("Your weight is probably more than 0. Please check again");
+                        return; 
+                    }
+                    System.out.println("svoris" + savingWeight + "laikas: " + currentTimestamp + " Useris:" + id);
+                } else {
+                    weightInputForm.error("Wrong weight format");
+                };
             }
 
         };

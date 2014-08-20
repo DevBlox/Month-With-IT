@@ -46,27 +46,34 @@ public class GMapPanel extends Panel {
         super.onInitialize();
 
         WorkoutsModel workoutsModel = new WorkoutsModel();
-        List<UserLoc> uLocs = workoutsModel.getObject().getLocs();
+        List<UserLoc> uLocs;
         List<GLatLng> markers = new ArrayList<>();
-        for (UserLoc uLoc : uLocs) {
-            markers.add(new GLatLng(uLoc.latitude, uLoc.longtitude));
+
+        try {
+            uLocs = workoutsModel.getObject().getLocs();
+            for (UserLoc uLoc : uLocs) {
+                markers.add(new GLatLng(uLoc.latitude, uLoc.longtitude));
+            }
+
+            GMap map = new GMap("map");
+            map.setStreetViewControlEnabled(false);
+            map.setScaleControlEnabled(true);
+            map.setScrollWheelZoomEnabled(true);
+            map.fitMarkers(markers);
+
+            //TODO: Find a proper way to load images
+            map.addOverlay(new GMarker(new GMarkerOptions(map, markers.get(0), "Start", new GIcon("http://haliucinas.eu/images/start.png"), null)));
+
+            map.addOverlay(new GPolyline("red", 1, (float) 1, markers.toArray(new GLatLng[markers.size() - 1])));
+
+            map.addOverlay(new GMarker(new GMarkerOptions(map, markers.get(markers.size() - 1), "End", new GIcon("http://haliucinas.eu/images/end.png"), null)));
+            add(map);
+
+            add(initInfoPanel("infoPanel", workoutsModel.getObject()));
+
+        } catch (Exception e) {
+            setResponsePage(ErrorPage404.class);
         }
-
-        GMap map = new GMap("map");
-        map.setStreetViewControlEnabled(false);
-        map.setScaleControlEnabled(true);
-        map.setScrollWheelZoomEnabled(true);
-        map.fitMarkers(markers);
-
-        //TODO: Find a proper way to load images
-        map.addOverlay(new GMarker(new GMarkerOptions(map, markers.get(0), "Start", new GIcon("http://haliucinas.eu/images/start.png"), null)));
-
-        map.addOverlay(new GPolyline("red", 1, (float) 1, markers.toArray(new GLatLng[markers.size() - 1])));
-
-        map.addOverlay(new GMarker(new GMarkerOptions(map, markers.get(markers.size() - 1), "End", new GIcon("http://haliucinas.eu/images/end.png"), null)));
-        add(map);
-
-        add(initInfoPanel("infoPanel", workoutsModel.getObject()));
     }
 
     private Component initInfoPanel(String infoPanel, Workout workout) {

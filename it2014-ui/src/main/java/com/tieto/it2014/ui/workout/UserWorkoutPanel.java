@@ -43,8 +43,12 @@ public class UserWorkoutPanel extends Panel {
 
         WorkoutListPanel workoutPanel = new WorkoutListPanel("workoutsList", (IModel<List<Workout>>) workoutsModel);
         Component showMoreLink = initShowMoreLink(workoutPanel);
-
-        String username = userById.resultOrNull(imei.getObject()).username;
+        String username = null;
+        try {
+            username = userById.resultOrNull(imei.getObject()).username;
+        } catch (NullPointerException e) {
+            setResponsePage(ErrorPage404.class);
+        }
 
         if (UserSession.get().isLoggedIn()) {
             if (UserSession.get().getUser().imei.equals(imei.getObject())) {

@@ -22,7 +22,7 @@ public class ExistingImeiValidator implements IValidator<String> {
 
     private static final long serialVersionUID = 1L;
 
-    @SpringBean
+    //@SpringBean
     private final GetUserByIdQuery getUserByIdQuery;
 
     private User user;

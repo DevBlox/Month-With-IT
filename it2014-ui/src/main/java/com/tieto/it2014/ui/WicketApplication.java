@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WicketApplication extends WebApplication implements ApplicationContextAware {
-
     private ApplicationContext context;
     private static final String UTF = "UTF-8";
 
@@ -28,7 +27,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
     @Override
     public void init() {
         super.init();
-        getComponentInstantiationListeners().add(new SpringComponentInjector(this, this.context, true));
+        initSpring();
         getRequestCycleSettings().setResponseRequestEncoding(UTF);
         // disable wicket ajax debug
         getDebugSettings().setAjaxDebugModeEnabled(false);
@@ -40,6 +39,10 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         //getApplicationSettings().setInternalErrorPage(InternalErrorPage.class);
     }
 
+    protected void initSpring() {
+        getComponentInstantiationListeners().add(new SpringComponentInjector(this, this.context, true));
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.context = applicationContext;
@@ -49,5 +52,4 @@ public class WicketApplication extends WebApplication implements ApplicationCont
     public Session newSession(Request request, Response response) {
         return new UserSession(request);
     }
-
 }

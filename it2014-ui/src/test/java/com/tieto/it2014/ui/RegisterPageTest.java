@@ -4,7 +4,7 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HomePageTest extends BaseWebTest {
+public class RegisterPageTest extends BaseWebTest {
     private WicketTester tester;
 
     @Before
@@ -14,7 +14,7 @@ public class HomePageTest extends BaseWebTest {
 
     @Test
     public void renders_successfully() {
-        tester.startPage(HomePage.class);
-        tester.assertRenderedPage(HomePage.class);
+        tester.startPage(RegisterPage.class);
+        tester.assertRenderedPage(RegisterPage.class);
     }
 }

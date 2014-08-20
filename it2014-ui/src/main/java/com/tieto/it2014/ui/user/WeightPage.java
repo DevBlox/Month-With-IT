@@ -1,7 +1,7 @@
 package com.tieto.it2014.ui.user;
 
 import com.tieto.it2014.ui.BasePage;
-import com.tieto.it2014.ui.weight.WeightInputPanel;
+import com.tieto.it2014.ui.weight.WeightPagePanel;
 import org.apache.wicket.Component;
 
 /**
@@ -13,7 +13,7 @@ public class WeightPage extends BasePage {
 
     @Override
     protected Component initFullContent(String wicketId) {
-        return new WeightInputPanel(wicketId);
+        return new WeightPagePanel(wicketId);
     }
 
 }

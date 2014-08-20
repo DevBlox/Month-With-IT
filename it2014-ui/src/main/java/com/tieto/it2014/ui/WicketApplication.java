@@ -2,6 +2,9 @@ package com.tieto.it2014.ui;
 
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.user.Statistics;
+import com.tieto.it2014.ui.user.Top;
+import com.tieto.it2014.ui.user.WeightPage;
 import com.tieto.it2014.ui.workout.details.Details;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
@@ -37,6 +40,9 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         mountPage("register", RegisterPage.class);
         mountPage("user/${userImei}/workout/${imei}/${id}", Details.class);
         mountPage("user/${userImei}", HomePage.class);
+        mountPage("user/weight", WeightPage.class);
+        mountPage("user/stats", Statistics.class);
+        mountPage("top", Top.class);
         // http://apache-wicket.1842946.n4.nabble.com/How-Runtime-Exception-Handling-td1888907.html
         //getApplicationSettings().setPageExpiredErrorPage(PageExpiredErrorPage.class);
         getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);

@@ -32,12 +32,15 @@ public class WeightPagePanel extends Panel {
 
         if (!data.isEmpty()) {
             if ((double) (Math.round(data.get(data.size() - 1).weight * 10)) / 10 >= 0) {
-                add(new Label("quote", RandomQuote.getNegative()));
+                add(new Label("quote", RandomQuote.getNegative()[0]));
+                add(new Label("cite", RandomQuote.getNegative()[1]));
             } else {
-                add(new Label("quote", RandomQuote.getPositive()));
+                add(new Label("quote", RandomQuote.getPositive()[0]));
+                add(new Label("cite", RandomQuote.getPositive()[1]));
             }
         } else {
-            add(new Label("quote", RandomQuote.getPositive()));
+            add(new Label("quote", RandomQuote.getPositive()[0]));
+            add(new Label("cite", RandomQuote.getPositive()[1]));
         }
 
 

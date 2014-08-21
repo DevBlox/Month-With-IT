@@ -121,7 +121,7 @@ public class GMapPanel extends Panel {
             String[] array = new String[axisData.size()];
             int index = 0;
             for (Object value : axisData) {
-                array[index] = Util.format((double)value);
+                array[index] = Util.formatDoubleToString((double)value);
                 index++;
             }
             xAxis.setCategories(array);

@@ -66,7 +66,7 @@ public class StatsPanel extends Panel {
         weightDiff = weights.isEmpty() ? 0 : weights.get(weights.size() - 1).weight - weights.get(0).weight;
         weightDiff = (double) (Math.round(weightDiff * 10)) / 10;
 
-        add(new Label("totalDist", "Total distance: " + Util.format(totalDist) + " km."));
+        add(new Label("totalDist", "Total distance: " + Util.formatDoubleToString(totalDist) + " km."));
         add(new Label("totalTime", "Total time: " + Util.getDurationString(totalTime)));
         add(new Label("totalDays", "Days: " + totalDays + " d."));
         add(new Label("Calories", "Calories: -"));

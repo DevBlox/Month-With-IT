@@ -83,7 +83,7 @@ public class GMapPanel extends Panel {
         form.add(new Label("finish", "Finish time: " + workout.getFinishTime()));
         form.add(new Label("distance", "Distance: " + workout.getDistance() + " km."));
         form.add(new Label("duration", "Duration: " + workout.getDuration()));
-        form.add(new Label("avgSpeed", "Average speed: " + Util.format(workout.getDistanceDouble()/((double)workout.getDurationInt()/3600)) + " km/h"));
+        form.add(new Label("avgSpeed", "Average speed: " + Util.formatDoubleToString(workout.getDistanceDouble()/((double)workout.getDurationInt()/3600)) + " km/h"));
         return form;
     }
 

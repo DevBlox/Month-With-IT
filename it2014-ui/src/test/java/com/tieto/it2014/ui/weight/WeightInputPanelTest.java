@@ -27,14 +27,14 @@ public class WeightInputPanelTest extends BaseWebTest {
         userSession.setUser(user);
     }
 
-//    @Test
-//    public void shows_error_if_weight_is_zero() {
-//
-//        wicketTester.startComponentInPage(new WeightInputPanel("weightInput"));
-//        FormTester formTester = wicketTester.newFormTester("weightInput:weightInputForm");
-//        formTester.submit();
-//        formTester.getForm().getFeedbackMessages();
-//        wicketTester.assertErrorMessages("Please enter your weight");
-//    }
+    @Test
+    public void shows_error_if_weight_is_zero() {
+
+        wicketTester.startComponentInPage(new WeightInputPanel("weightInput"));
+        FormTester formTester = wicketTester.newFormTester("weightInput:weightInputForm");
+        formTester.submit();
+        formTester.getForm().getFeedbackMessages();
+        wicketTester.assertErrorMessages("Please enter your weight");
+    }
 
 }

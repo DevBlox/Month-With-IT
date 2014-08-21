@@ -59,7 +59,8 @@ public class ChartPanel extends Panel {
         options.setChartOptions(new ChartOptions().setType(SeriesType.SPLINE));
 
         options.setTitle(new Title("Weight changes in a current day"));
-        options.setSubtitle(new Title("Nothing tastes as good as being thin feels"));
+//        options.setSubtitle(new Title("Nothing tastes as good as being thin feels"));
+        options.setSubtitle(new Title(RandomQuote.getPositive()));
 
         Axis xAxis = new Axis();
         xAxis.setType(AxisType.DATETIME);

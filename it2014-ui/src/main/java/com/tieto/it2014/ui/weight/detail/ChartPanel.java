@@ -19,6 +19,7 @@ public class ChartPanel extends Panel {
     public static final int BUTTON_TYPE_MONTH = 2;
     public static final int BUTTON_TYPE_QUARTER = 3;
     public static final int BUTTON_TYPE_YEAR = 4;
+    public static final int BUTTON_TYPE_TIME_DEPENDING = 5;
 
     private List<Weight> weights;
 

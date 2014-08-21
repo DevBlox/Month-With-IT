@@ -39,7 +39,8 @@ public class RandomQuote {
             "You may be disappointed if you fail, but you are doomed if you don’t try. –Beverly Sills",
             "Remember no one can make you feel inferior without your consent. –Eleanor Roosevelt",
             "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it. –Henry Ford",
-            "It’s not the years in your life that count. It’s the life in your years. –Abraham Lincoln"
+            "It’s not the years in your life that count. It’s the life in your years. –Abraham Lincoln",
+            "“A bear, however hard he tries, grows tubby without exercise.” ― A.A. Milne, Winnie-the-Pooh"
     );
 
     private static final List<String> negativeQuotes = Arrays.asList();

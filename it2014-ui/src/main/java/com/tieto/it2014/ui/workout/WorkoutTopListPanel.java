@@ -13,6 +13,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class WorkoutTopListPanel extends Panel {
 
+    private static final long serialVersionUID = 1L;
+
     @SpringBean
     private WorkoutsQuery workoutQuery;
     IModel<List<Workout>> workoutModel = initWorkoutListModel();
@@ -24,7 +26,7 @@ public class WorkoutTopListPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new Label("Heading", "RECENT WORKOUTS"));
+        add(new Label("Heading", "Recent Workouts"));
         RepeatingView view = new RepeatingView("oneWorkout");
         for (Workout wk : workoutModel.getObject()) {
             view.add(new WorkoutListItemPanel(view.newChildId(), wk));

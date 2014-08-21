@@ -15,10 +15,10 @@ public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int BUTTON_TYPE_DAY = 1;
-    private static final int BUTTON_TYPE_MONTH = 2;
-    private static final int BUTTON_TYPE_QUARTER = 3;
-    private static final int BUTTON_TYPE_YEAR = 4;
+    public static final int BUTTON_TYPE_DAY = 1;
+    public static final int BUTTON_TYPE_MONTH = 2;
+    public static final int BUTTON_TYPE_QUARTER = 3;
+    public static final int BUTTON_TYPE_YEAR = 4;
 
     private List<Weight> weights;
 
@@ -105,8 +105,17 @@ public class ChartPanel extends Panel {
         chartForm.add(initFilterButton("currentQuarter", BUTTON_TYPE_QUARTER));
         chartForm.add(initFilterButton("currentYear", BUTTON_TYPE_YEAR));
 
-        add(chartForm);
+//        Form dayForm = new Form("dayForm");
+//        Form monthForm = new Form("monthForm");
+//        Form quarterForm = new Form("quarterForm");
+//        Form yearForm = new Form("yearForm");
+//        add(chartForm);
+//        add(dayForm);
+//        add(monthForm);
+//        add(quarterForm);
+//        add(yearForm);
         add(chart);
+        add(chartForm);
 
     }
 
@@ -115,6 +124,13 @@ public class ChartPanel extends Panel {
         super.onConfigure();
         options = ChartPanelOptionsProvider.getInstance().getOptions();
         chart.setOptions(options);
+    }
+
+    private void hideForms(int type) {
+        switch (type) {
+            case BUTTON_TYPE_DAY:
+
+        }
     }
 
 }

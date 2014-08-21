@@ -32,6 +32,7 @@ public class ChartPanelOptionsProvider implements Serializable {
     private static ChartPanelOptionsProvider instance = null;
     private static final long serialVersionUID = 1L;
     private Options options = null;
+    private int optionsType = ChartPanel.BUTTON_TYPE_MONTH;
 
     @SpringBean
     private UserWeightOfTheDay weightQueryDay;
@@ -67,21 +68,25 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     public Options getDayOptions() {
+        optionsType = ChartPanel.BUTTON_TYPE_DAY;
         List<Weight> data = weightQueryDay.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_DAY, CHART_XAXIS_TITLE_DAY);
     }
 
     public Options getMonthOptions() {
+        optionsType = ChartPanel.BUTTON_TYPE_MONTH;
         List<Weight> data = weightQueryMonth.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_MONTH, CHART_XAXIS_TITLE_MONTH);
     }
 
     public Options getYearOptions() {
+        optionsType = ChartPanel.BUTTON_TYPE_YEAR;
         List<Weight> data = weightQueryYear.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_YEAR, CHART_XAXIS_TITLE_YEAR);
     }
 
     public Options getQuaterOptions() {
+        optionsType = ChartPanel.BUTTON_TYPE_QUARTER;
         List<Weight> data = weightQueryQuarter.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
     }
@@ -163,5 +168,9 @@ public class ChartPanelOptionsProvider implements Serializable {
         options.addSeries(series1);
 
         return options;
+    }
+
+    public int getOptionsType() {
+        return optionsType;
     }
 }

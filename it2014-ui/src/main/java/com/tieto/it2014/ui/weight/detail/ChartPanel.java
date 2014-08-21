@@ -15,10 +15,10 @@ public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int BUTTON_TYPE_DAY = 1;
-    private static final int BUTTON_TYPE_MONTH = 2;
-    private static final int BUTTON_TYPE_QUARTER = 3;
-    private static final int BUTTON_TYPE_YEAR = 4;
+    public static final int BUTTON_TYPE_DAY = 1;
+    public static final int BUTTON_TYPE_MONTH = 2;
+    public static final int BUTTON_TYPE_QUARTER = 3;
+    public static final int BUTTON_TYPE_YEAR = 4;
 
     private List<Weight> weights;
 
@@ -59,6 +59,7 @@ public class ChartPanel extends Panel {
             };
         } else if (BUTTON_TYPE_MONTH == type) {
             button = new AjaxSubmitLink(wicketId) {
+                private static final long serialVersionUID = 1L;
 
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -69,6 +70,7 @@ public class ChartPanel extends Panel {
             };
         } else if (BUTTON_TYPE_QUARTER == type) {
             button = new AjaxSubmitLink(wicketId) {
+                private static final long serialVersionUID = 1L;
 
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -79,6 +81,7 @@ public class ChartPanel extends Panel {
             };
         } else {
             button = new AjaxSubmitLink(wicketId) {
+                private static final long serialVersionUID = 1L;
 
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

@@ -55,8 +55,6 @@ public class WeightInputPanel extends Panel {
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
         weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));
-        Double d = weights.isEmpty() ? 0 : (double)(Math.round(weights.get(weights.size()-1).weight * 10))/10;
-        weightInputField.add(new AttributeModifier("value", d));
         weightInputField.setRequired(true);
         weightInputField.add(new AjaxEventBehavior("keyup") {
 
@@ -98,8 +96,9 @@ public class WeightInputPanel extends Panel {
     protected void onConfigure() {
         super.onConfigure();
         weights = weightQuery.result(UserSession.get().getUser().imei);
-        Double d = weights.isEmpty() ? 0 : (double)(Math.round(weights.get(weights.size()-1).weight * 10))/10;
-        weightInputField.add(new AttributeModifier("value", d));
+        if (!weights.isEmpty()) {
+            weightInputField.add(new AttributeModifier("value", (double)(Math.round(weights.get(weights.size()-1).weight * 10))/10));
+        }
     }
 
     private Component initRegisterButton(String wicketId) {

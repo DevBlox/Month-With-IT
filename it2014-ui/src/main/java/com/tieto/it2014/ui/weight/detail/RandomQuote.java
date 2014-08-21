@@ -43,10 +43,25 @@ public class RandomQuote {
             "“A bear, however hard he tries, grows tubby without exercise.” ― A.A. Milne, Winnie-the-Pooh"
     );
 
-    private static final List<String> negativeQuotes = Arrays.asList();
+    private static final List<String> negativeQuotes = Arrays.asList(
+            "You'll be so fat the only thing stopping you from going to the gym is the doorframe.",
+            "You are so fat, you have to wear a watch on each arm - one for each time zone you're in.",
+            "You have a wanted poster in every restourant around town.",
+            "You will get so fat your belt will become the real equator",
+            "Sattelites will soon start to orbit around you.",
+            "You're gonna need you very own postal code.",
+            "Your cereal bowl comes with a lifeguard.",
+            "You don't need internet, you're already world wide!",
+            "Hands up! Drop that burger!",
+            "You always get gold medals in sprints. Becouse you are at the both ends of the track at the same time!"
+    );
 
     public static String getPositive() {
         return positiveQuotes.get(randomWithRange(1, positiveQuotes.size() - 1));
+    }
+
+    public static String getNegative() {
+        return negativeQuotes.get(randomWithRange(1, negativeQuotes.size()));
     }
 
     private static int randomWithRange(int min, int max) {

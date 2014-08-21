@@ -1,35 +1,25 @@
 package com.tieto.it2014.ui.weight.detail;
 
-import com.googlecode.wickedcharts.highcharts.options.Axis;
-import com.googlecode.wickedcharts.highcharts.options.AxisType;
-import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
-import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat;
-import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat.DateTimeProperties;
-import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
-import com.googlecode.wickedcharts.highcharts.options.Function;
-import com.googlecode.wickedcharts.highcharts.options.Legend;
 import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.highcharts.options.SeriesType;
-import com.googlecode.wickedcharts.highcharts.options.Title;
-import com.googlecode.wickedcharts.highcharts.options.Tooltip;
-import com.googlecode.wickedcharts.highcharts.options.series.Coordinate;
-import com.googlecode.wickedcharts.highcharts.options.series.CustomCoordinatesSeries;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
 import com.tieto.it2014.domain.weight.entity.Weight;
-import com.tieto.it2014.domain.weight.query.WeightQuery;
-import com.tieto.it2014.ui.session.UserSession;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import com.tieto.it2014.ui.user.WeightPage;
 import java.util.List;
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    @SpringBean
-    private WeightQuery weightQuery;
+    private static final int BUTTON_TYPE_DAY = 1;
+    private static final int BUTTON_TYPE_MONTH = 2;
+    private static final int BUTTON_TYPE_QUARTER = 3;
+    private static final int BUTTON_TYPE_YEAR = 4;
+
     private List<Weight> weights;
 
     private Options options = new Options();
@@ -53,93 +43,79 @@ public class ChartPanel extends Panel {
         this.options = options;
     }
 
-    public Options getDefaultOptions(List<Weight> data) {
-        Options options = new Options();
+    private Component initFilterButton(String wicketId, int type) {
+        AjaxSubmitLink button;
 
-        options.setChartOptions(new ChartOptions().setType(SeriesType.SPLINE));
+        if (BUTTON_TYPE_DAY == type) {
+            button = new AjaxSubmitLink(wicketId) {
+                private static final long serialVersionUID = 1L;
 
-        options.setTitle(new Title("Weight changes in a current day"));
-        options.setSubtitle(new Title("Nothing tastes as good as being thin feels"));
+                @Override
+                protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                    options = ChartPanelOptionsProvider.getInstance().getDayOptions();
+                    chart.setOptions(options);
+                    setResponsePage(WeightPage.class);
+                }
+            };
+        } else if (BUTTON_TYPE_MONTH == type) {
+            button = new AjaxSubmitLink(wicketId) {
 
-        Axis xAxis = new Axis();
-        xAxis.setType(AxisType.DATETIME);
+                @Override
+                protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                    options = ChartPanelOptionsProvider.getInstance().getMonthOptions();
+                    chart.setOptions(options);
+                    setResponsePage(WeightPage.class);
+                }
+            };
+        } else if (BUTTON_TYPE_QUARTER == type) {
+            button = new AjaxSubmitLink(wicketId) {
 
-        DateTimeLabelFormat dateTimeLabelFormat = new DateTimeLabelFormat()
-                .setProperty(DateTimeProperties.MONTH, "%e. %b")
-                .setProperty(DateTimeProperties.YEAR, "%b");
+                @Override
+                protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                    options = ChartPanelOptionsProvider.getInstance().getQuaterOptions();
+                    chart.setOptions(options);
+                    setResponsePage(WeightPage.class);
+                }
+            };
+        } else {
+            button = new AjaxSubmitLink(wicketId) {
 
-        xAxis.setDateTimeLabelFormats(dateTimeLabelFormat);
-        xAxis.setTitle(new Title("Time, h"));
-        options.setxAxis(xAxis);
-        options.setExporting(new ExportingOptions().setEnabled(Boolean.FALSE));
+                @Override
+                protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                    options = ChartPanelOptionsProvider.getInstance().getYearOptions();
+                    chart.setOptions(options);
+                    setResponsePage(WeightPage.class);
+                }
+            };
+        }
 
-        Axis yAxis = new Axis();
-        yAxis.setTitle(new Title("Weight, kg"));
-        yAxis.setMin(this.getMinWeightValue(data));
-        options.setyAxis(yAxis);
-
-        Tooltip tooltip = new Tooltip();
-        tooltip.setFormatter(new Function(
-                "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' kg';"));
-        options.setTooltip(tooltip);
-
-        options.setLegend(new Legend().setEnabled(Boolean.FALSE));
-        CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<String, Float>();
-        series1.setName(null);
-        series1.setData(this.getSeriesData(data));
-
-        options.addSeries(series1);
-
-        return options;
+        return button;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        options = getDefaultOptions(weights);
+        options = ChartPanelOptionsProvider.getInstance().getOptions();
         chart = new Chart("chart", options);
+
+        Form chartForm = new Form("chartForm");
+        chartForm.add(initFilterButton("currentDay", BUTTON_TYPE_DAY));
+        chartForm.add(initFilterButton("currentMonth", BUTTON_TYPE_MONTH));
+        chartForm.add(initFilterButton("currentQuarter", BUTTON_TYPE_QUARTER));
+        chartForm.add(initFilterButton("currentYear", BUTTON_TYPE_YEAR));
+
+        add(chartForm);
         add(chart);
+
+        System.out.println("initialize");
     }
 
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        weights = weightQuery.result(UserSession.get().getUser().imei);
-        options = getDefaultOptions(weights);
+        options = ChartPanelOptionsProvider.getInstance().getOptions();
         chart.setOptions(options);
-    }
-
-    private Float getMinWeightValue(List<Weight> data) {
-        Float less = null;
-        for (Weight element : data) {
-            if (less == null) {
-                less = element.weight;
-            }
-
-            if (element.weight < less) {
-                less = element.weight;
-            }
-        }
-        if (less == null || less < 5) {
-            return (float) 0;
-        } else {
-            return less - 5;
-        }
-    }
-
-    private List<Coordinate<String, Float>> getSeriesData(List<Weight> chartData) {
-        List<Coordinate<String, Float>> data = new ArrayList<Coordinate<String, Float>>();
-
-        for (Weight element : chartData) {
-            data.add(new Coordinate<String, Float>("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")", element.weight));
-        }
-
-        return data;
-    }
-
-    private String getUtcStringFromTimestamp(Long timestamp) {
-        return new SimpleDateFormat("yyyy, M, dd, H, m, s").format(new java.sql.Timestamp(timestamp));
     }
 
 }

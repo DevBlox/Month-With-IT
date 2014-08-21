@@ -17,6 +17,7 @@ public class WeightPagePanel extends Panel {
 
     private static final long serialVersionUID = 1L;
     private List<Weight> data;
+    private String imei;
 
     public WeightPagePanel(String id) {
         super(id);
@@ -31,7 +32,7 @@ public class WeightPagePanel extends Panel {
         add(new Label("quote", ""));
         add(new Label("cite", ""));
         try {
-            String imei = UserSession.get().getUser().imei;
+            imei = UserSession.get().getUser().imei;
             data = weightQuery.result(imei);
             add(new WeightInputPanel("weightInput", data));
             add(new ChartPanel("weightChart", data));
@@ -43,6 +44,7 @@ public class WeightPagePanel extends Panel {
     @Override
     protected void onConfigure() {
         super.onConfigure();
+        data = weightQuery.result(imei);
         addQuote();
     }
 

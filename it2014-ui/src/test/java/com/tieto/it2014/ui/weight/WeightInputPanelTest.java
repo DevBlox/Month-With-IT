@@ -8,7 +8,6 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class WeightInputPanelTest extends BaseWebTest {
@@ -28,7 +27,7 @@ public class WeightInputPanelTest extends BaseWebTest {
     }
 
     @Test
-    public void shows_error_if_weight_is_zero() {
+    public void shows_error_if_weight_is_not_entered() {
 
         wicketTester.startComponentInPage(new WeightInputPanel("weightInput"));
         FormTester formTester = wicketTester.newFormTester("weightInput:weightInputForm");

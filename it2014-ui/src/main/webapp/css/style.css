@@ -218,3 +218,49 @@ div.background::after {
 .infoLabel {
     width: 100%;
 }
+
+/*blockquote {
+    background: url(../img/blockqoute.png) no-repeat;
+    color: #a5a4a4;
+    font-style:italic;
+    margin: 30px;
+    padding: 30px 30px 30px 50px;
+}*/
+
+.qoute {
+    top: -25px;
+}
+
+blockquote {
+    background: url(../img/blockqoute.png) no-repeat;
+    font-style: italic;
+    width: 500px;
+    margin: 0.25em 0;
+    padding: 0.25em 40px;
+    line-height: 1.45;
+    position: relative;
+    color: #383838;
+    border:0px;
+}
+
+blockquote:before {
+    display: block;
+    content: "";
+    font-size: 80px;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    color: #7a7a7a;
+}
+
+blockquote cite {
+    text-align: right;
+    color: #999999;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+blockquote cite:before {
+    content: "\2014 \2009";
+}

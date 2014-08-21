@@ -108,7 +108,6 @@ public class ChartPanel extends Panel {
         add(chartForm);
         add(chart);
 
-        System.out.println("initialize");
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.apache.wicket.Component;
@@ -57,6 +56,8 @@ public class AddFriendFormPanel extends Panel {
 
         btn = new Button("cancelButton");
         btn.add(new AjaxEventBehavior("onclick") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected void onEvent(AjaxRequestTarget target) {
                 window.close(target);
@@ -80,6 +81,7 @@ public class AddFriendFormPanel extends Panel {
 
     private Component initaddFriendButton(String wicketId) {
         AjaxSubmitLink button = new AjaxSubmitLink(wicketId) {
+            private static final long serialVersionUID = 1L;
 
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

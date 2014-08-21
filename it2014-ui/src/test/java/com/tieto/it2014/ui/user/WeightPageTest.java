@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 
 public class WeightPageTest extends BaseWebTest {
+    
     private WicketTester tester;
     private UserSession userSession;
    

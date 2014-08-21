@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
- * Created by mantas on 20/08/14.
+ * Created by mantas on 21/08/14.
  */
 @Component
-public class LastWeightQuery implements Serializable {
+public class UserWeightOfTheMonth implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,10 +20,10 @@ public class LastWeightQuery implements Serializable {
 
     public interface Dao extends Serializable {
 
-        Weight result(String imei);
+        List<Weight> result(String imei);
     }
 
-    public Weight result(String imei) {
+    public List<Weight> result(String imei) {
         return dao.result(imei);
     }
 }

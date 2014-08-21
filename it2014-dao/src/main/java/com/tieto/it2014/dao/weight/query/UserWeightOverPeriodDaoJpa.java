@@ -23,7 +23,7 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
     @Transactional(readOnly = true)
     public List<Weight> result(long start, long finish, String imei, int type) {
         TypedQuery<WeightJpa> query = em.createQuery(
-                "SELECT w FROM WeightJpa w WHERE w.created > :start AND w.created < :finish AND w.userId = :userId",
+                "SELECT w FROM WeightJpa w WHERE w.timeStamp > :start AND w.timeStamp < :finish AND w.userId = :userId",
                 WeightJpa.class)
                 .setParameter("start", start)
                 .setParameter("finish", finish)

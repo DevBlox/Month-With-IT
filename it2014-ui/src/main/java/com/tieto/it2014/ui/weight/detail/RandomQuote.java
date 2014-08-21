@@ -40,7 +40,9 @@ public class RandomQuote {
             "Remember no one can make you feel inferior without your consent. –Eleanor Roosevelt",
             "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it. –Henry Ford",
             "It’s not the years in your life that count. It’s the life in your years. –Abraham Lincoln",
-            "“A bear, however hard he tries, grows tubby without exercise.” ― A.A. Milne, Winnie-the-Pooh"
+            "“A bear, however hard he tries, grows tubby without exercise.” ― A.A. Milne, Winnie-the-Pooh",
+            "The human body is the best work of art. ― Jess C. Scott.",
+            "A fit, healthy body—that is the best fashion statement. ― Jess C. Scott."
     );
 
     private static final List<String> negativeQuotes = Arrays.asList(
@@ -53,7 +55,9 @@ public class RandomQuote {
             "Your cereal bowl comes with a lifeguard.",
             "You don't need internet, you're already world wide!",
             "Hands up! Drop that burger!",
-            "You always get gold medals in sprints. Becouse you are at the both ends of the track at the same time!"
+            "You always get gold medals in sprints. Becouse you are at the both ends of the track at the same time!",
+            "Exercise is a dirty word. Every time I hear it I wash my mouth out with chocolate. ― Charles M. Schulz.",
+            "The reason fat men are good natured is they can neither fight nor run. ― Theodore Roosevelt."
     );
 
     public static String getPositive() {
@@ -61,7 +65,7 @@ public class RandomQuote {
     }
 
     public static String getNegative() {
-        return negativeQuotes.get(randomWithRange(1, negativeQuotes.size()));
+        return negativeQuotes.get(randomWithRange(1, negativeQuotes.size() - 1));
     }
 
     private static int randomWithRange(int min, int max) {

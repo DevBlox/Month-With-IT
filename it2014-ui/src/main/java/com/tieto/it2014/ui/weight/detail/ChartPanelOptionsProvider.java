@@ -130,9 +130,6 @@ public class ChartPanelOptionsProvider implements Serializable {
         options = new Options();
         options.setChartOptions(new ChartOptions().setType(SeriesType.SPLINE));
 
-        options.setTitle(new Title(chartTitle));
-        options.setSubtitle(new Title("Nothing tastes as good as being thin feels"));
-
         Axis xAxis = new Axis();
         xAxis.setType(AxisType.DATETIME);
 

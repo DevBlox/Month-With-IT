@@ -10,13 +10,17 @@ import com.tieto.it2014.domain.user.entity.UserStats;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.workout.query.CurrentMonthWorkoutsQuery;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import org.apache.commons.lang3.text.WordUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.*;
 
 /**
  * Created by mantas on 20/08/14.
@@ -50,7 +54,7 @@ public class TopPanel extends Panel {
                 totalTime += wo.getDurationInt();
             }
 
-            Double d = (totalDist/((double)totalTime/3600));
+            Double d = (totalDist / ((double) totalTime / 3600));
             d = d.equals(Double.NaN) ? 0 : d;
             usList.add(new UserStats(u.imei, u.username, totalDist, totalTime, d));
 
@@ -81,7 +85,10 @@ public class TopPanel extends Panel {
             st.topId = ++i;
         }
 
-        add(new Label("Heading", "TOP 10 OF " + Util.theMonth(Calendar.getInstance().get(Calendar.MONTH))));
+        add(new Label("Heading", "Top 10 of "
+                + WordUtils.capitalizeFully(
+                        Util.theMonth(
+                                Calendar.getInstance().get(Calendar.MONTH)))));
         RepeatingView view = new RepeatingView("topItem");
         for (UserStats us : usList) {
             view.add(new TopListItemPanel(view.newChildId(), us));

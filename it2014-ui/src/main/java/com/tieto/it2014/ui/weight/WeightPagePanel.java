@@ -15,6 +15,7 @@ import java.util.List;
 public class WeightPagePanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+    List<Weight> data;
 
     public WeightPagePanel(String id) {
         super(id);
@@ -28,8 +29,21 @@ public class WeightPagePanel extends Panel {
         super.onInitialize();
         try {
         String imei = UserSession.get().getUser().imei;
-        List<Weight> data = weightQuery.result(imei);
+        data = weightQuery.result(imei);
+        add(new WeightInputPanel("weightInput", data));
+        add(new ChartPanel("weightChart", data));
+        } catch (NullPointerException e) {
+            setResponsePage(ErrorPage404.class);
+        }
+    }
 
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        addQuote();
+    }
+
+    public void addQuote() {
         if (!data.isEmpty()) {
             if ((double) (Math.round(data.get(data.size() - 1).weight * 10)) / 10 >= 0) {
                 add(new Label("quote", RandomQuote.getNegative()[0]));
@@ -41,13 +55,6 @@ public class WeightPagePanel extends Panel {
         } else {
             add(new Label("quote", RandomQuote.getPositive()[0]));
             add(new Label("cite", RandomQuote.getPositive()[1]));
-        }
-
-
-        add(new WeightInputPanel("weightInput", data));
-        add(new ChartPanel("weightChart", data));
-        } catch (NullPointerException e) {
-            setResponsePage(ErrorPage404.class);
         }
     }
 

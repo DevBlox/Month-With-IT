@@ -133,7 +133,7 @@ public class Util {
         return String.valueOf(number);
     }
 
-    public static String format(Double doub) {
+    public static String formatDoubleToString(Double doub) {
         return new DecimalFormat("0.000").format(doub);
     }
 

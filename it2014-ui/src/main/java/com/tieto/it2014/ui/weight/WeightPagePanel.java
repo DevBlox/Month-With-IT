@@ -30,8 +30,12 @@ public class WeightPagePanel extends Panel {
         String imei = UserSession.get().getUser().imei;
         List<Weight> data = weightQuery.result(imei);
 
-        if ((double)(Math.round(data.get(data.size()-1).weight * 10))/10 >= 0) {
-            add(new Label("quote", RandomQuote.getNegative()));
+        if (!data.isEmpty()) {
+            if ((double) (Math.round(data.get(data.size() - 1).weight * 10)) / 10 >= 0) {
+                add(new Label("quote", RandomQuote.getNegative()));
+            } else {
+                add(new Label("quote", RandomQuote.getPositive()));
+            }
         } else {
             add(new Label("quote", RandomQuote.getPositive()));
         }

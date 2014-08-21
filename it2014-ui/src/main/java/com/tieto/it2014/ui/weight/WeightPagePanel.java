@@ -44,17 +44,19 @@ public class WeightPagePanel extends Panel {
     }
 
     public void addQuote() {
+        String[] pos = RandomQuote.getPositive();
+        String[] neg = RandomQuote.getNegative();
         if (!data.isEmpty()) {
             if ((double) (Math.round(data.get(data.size() - 1).weight * 10)) / 10 >= 0) {
-                add(new Label("quote", RandomQuote.getNegative()[0]));
-                add(new Label("cite", RandomQuote.getNegative()[1]));
+                add(new Label("quote", neg[0]));
+                add(new Label("cite", neg[1]));
             } else {
-                add(new Label("quote", RandomQuote.getPositive()[0]));
-                add(new Label("cite", RandomQuote.getPositive()[1]));
+                add(new Label("quote", pos[0]));
+                add(new Label("cite", pos[1]));
             }
         } else {
-            add(new Label("quote", RandomQuote.getPositive()[0]));
-            add(new Label("cite", RandomQuote.getPositive()[1]));
+            add(new Label("quote", pos[0]));
+            add(new Label("cite", pos[1]));
         }
     }
 

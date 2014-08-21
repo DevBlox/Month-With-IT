@@ -1,6 +1,8 @@
 package com.tieto.it2014.ui;
 
+import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
+import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import com.tieto.it2014.ui.validation.ExistingImeiValidator;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.validation.IValidatable;
@@ -11,12 +13,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-
-
 public class RegisterPanelTest {
-    
+
     @Mock
-    private GetUserByIdQuery query;
+    private GetUserByIdQuery getUserByIdQuery;
+
+    @Mock
+    private GetUserByEmailQuery getUserByEmailQuery;
 
     @Before
     public void setUp() {
@@ -24,12 +27,12 @@ public class RegisterPanelTest {
     }
 
     @Test
-    public void abc() {
+    public void checks_if_imei_is_not_in_use() {
         Mockito.when(
-                query.resultOrNull(Mockito.anyString()))
+                getUserByIdQuery.resultOrNull(Mockito.anyString()))
                 .thenReturn(null);
-        ExistingImeiValidator v = new ExistingImeiValidator(query);
-        IValidatable<String> a = new IValidatable<String>() {
+        ExistingImeiValidator imeiValidator = new ExistingImeiValidator(getUserByIdQuery);
+        IValidatable<String> validatableUserImei = new IValidatable<String>() {
 
             @Override
             public String getValue() {
@@ -50,8 +53,37 @@ public class RegisterPanelTest {
                 return null;
             }
         };
-        v.validate(a);
+        imeiValidator.validate(validatableUserImei);
     }
-   
+
+    @Test
+    public void checks_if_email_is_not_in_use() {
+        Mockito.when(
+                getUserByEmailQuery.result(Mockito.anyString()))
+                .thenReturn(null);
+        ExistingEmailValidator emailValidator = new ExistingEmailValidator(getUserByEmailQuery);
+        IValidatable<String> validatableUserEmail = new IValidatable<String>() {
+
+            @Override
+            public String getValue() {
+                return "";
+            }
+
+            @Override
+            public void error(IValidationError error) {
+            }
+
+            @Override
+            public boolean isValid() {
+                return true;
+            }
+
+            @Override
+            public IModel<String> getModel() {
+                return null;
+            }
+        };
+        emailValidator.validate(validatableUserEmail);
+    }
 
 }

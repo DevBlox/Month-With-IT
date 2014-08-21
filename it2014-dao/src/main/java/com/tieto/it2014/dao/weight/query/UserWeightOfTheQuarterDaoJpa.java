@@ -3,8 +3,7 @@ package com.tieto.it2014.dao.weight.query;
 import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.weight.WeightJpa;
 import com.tieto.it2014.domain.weight.entity.Weight;
-import com.tieto.it2014.domain.weight.query.LastWeightQuery;
-import com.tieto.it2014.domain.weight.query.WeightQuery;
+import com.tieto.it2014.domain.weight.query.UserWeightOfTheQuarter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,10 +13,10 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Created by mantas on 20/08/14.
+ * Created by mantas on 21/08/14.
  */
 @Component
-public class LastUserWeightQueryDaoJpa implements LastWeightQuery.Dao {
+public class UserWeightOfTheQuarterDaoJpa implements UserWeightOfTheQuarter.Dao {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,12 +25,11 @@ public class LastUserWeightQueryDaoJpa implements LastWeightQuery.Dao {
 
     @Override
     @Transactional(readOnly = true)
-    public Weight result(String imei) {
-        TypedQuery<WeightJpa> query = em.createQuery(
-                "SELECT w FROM WeightJpa w WHERE w.userId = :imei ORDER BY w.timeStamp DESC", WeightJpa.class)
-                .setMaxResults(1)
+    public List<Weight> result(String imei) {
+        TypedQuery< WeightJpa> query = em.createQuery(
+                "SELECT w FROM WeightJpa w WHERE w.userId = :imei ORDER BY w.timeStamp ASC", WeightJpa.class)
                 .setParameter("imei", imei);
 
-        return query.getResultList().isEmpty() ? null : query.getResultList().get(0).toDomain();
+        return JpaUtils.toDomainList(query.getResultList());
     }
 }

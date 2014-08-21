@@ -5,21 +5,15 @@ import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
-import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
-import com.tieto.it2014.ui.workout.WorkoutListPanel;
-import org.apache.wicket.Component;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.security.AccessControlException;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  * Created by mantas on 20/08/14.
@@ -61,7 +55,7 @@ public class StatsPanel extends Panel {
             daysCount.add(cal.get(Calendar.DAY_OF_MONTH));
         }
 
-        for(int year : yearCount) {
+        for (int year : yearCount) {
             for (int month : monthCount) {
                 for (int day : daysCount) {
                     totalDays++;
@@ -69,17 +63,17 @@ public class StatsPanel extends Panel {
             }
         }
 
-        weightDiff = weights.isEmpty() ? 0 : weights.get(weights.size()-1).weight-weights.get(0).weight;
-        weightDiff = (double)(Math.round(weightDiff * 10))/10;
+        weightDiff = weights.isEmpty() ? 0 : weights.get(weights.size() - 1).weight - weights.get(0).weight;
+        weightDiff = (double) (Math.round(weightDiff * 10)) / 10;
 
-        add(new Label("totalDist", "Total distance: " + Util.format(totalDist) + " km."));
+        add(new Label("totalDist", "Total distance: " + Util.formatDoubleToString(totalDist) + " km."));
         add(new Label("totalTime", "Total time: " + Util.getDurationString(totalTime)));
-        add(new Label("totalDays", "Days using app: " + totalDays + " d."));
+        add(new Label("totalDays", "Days: " + totalDays + " d."));
         add(new Label("Calories", "Calories: -"));
         if (weightDiff > 0) {
-            add(new Label("Weight", "Weight difference: +" + weightDiff + " kg."));
+            add(new Label("Weight", "Weight change: +" + weightDiff + " kg."));
         } else {
-            add(new Label("Weight", "Weight difference: " + weightDiff + " kg."));
+            add(new Label("Weight", "Weight change: " + weightDiff + " kg."));
         }
     }
 

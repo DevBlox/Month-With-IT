@@ -71,7 +71,7 @@ public class Workout implements Serializable {
                 previous = l;
             }
         }
-        return Util.format(d);
+        return Util.formatDoubleToString(d);
     }
 
     public double getDistanceDouble() {

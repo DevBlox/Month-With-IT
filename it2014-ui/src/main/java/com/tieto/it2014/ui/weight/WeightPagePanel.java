@@ -8,6 +8,7 @@ import com.tieto.it2014.ui.weight.detail.ChartPanel;
 import com.tieto.it2014.ui.weight.detail.RandomQuote;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 public class WeightPagePanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+    private List<Weight> data;
+    private String imei;
 
     public WeightPagePanel(String id) {
         super(id);
@@ -26,28 +29,41 @@ public class WeightPagePanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        add(new Label("quote", ""));
+        add(new Label("cite", ""));
         try {
-        String imei = UserSession.get().getUser().imei;
-        List<Weight> data = weightQuery.result(imei);
-
-        if (!data.isEmpty()) {
-            if ((double) (Math.round(data.get(data.size() - 1).weight * 10)) / 10 >= 0) {
-                add(new Label("quote", RandomQuote.getNegative()[0]));
-                add(new Label("cite", RandomQuote.getNegative()[1]));
-            } else {
-                add(new Label("quote", RandomQuote.getPositive()[0]));
-                add(new Label("cite", RandomQuote.getPositive()[1]));
-            }
-        } else {
-            add(new Label("quote", RandomQuote.getPositive()[0]));
-            add(new Label("cite", RandomQuote.getPositive()[1]));
-        }
-
-
-        add(new WeightInputPanel("weightInput", data));
-        add(new ChartPanel("weightChart", data));
+            imei = UserSession.get().getUser().imei;
+            data = weightQuery.result(imei);
+            add(new WeightInputPanel("weightInput", data));
+            add(new ChartPanel("weightChart", data));
         } catch (NullPointerException e) {
             setResponsePage(ErrorPage404.class);
+        }
+    }
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        data = weightQuery.result(imei);
+        addQuote();
+    }
+
+    public void addQuote() {
+        this.remove("quote");
+        this.remove("cite");
+        String[] pos = RandomQuote.getPositive();
+        String[] neg = RandomQuote.getNegative();
+        if (!data.isEmpty()) {
+            if (data.get(data.size()-1).weight-data.get(0).weight > 0) {
+                add(new Label("quote", neg[0]));
+                add(new Label("cite", neg[1]));
+            } else {
+                add(new Label("quote", pos[0]));
+                add(new Label("cite", pos[1]));
+            }
+        } else {
+            add(new Label("quote", pos[0]));
+            add(new Label("cite", pos[1]));
         }
     }
 

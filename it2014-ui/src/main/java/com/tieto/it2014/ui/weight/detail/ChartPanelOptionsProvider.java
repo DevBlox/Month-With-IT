@@ -130,6 +130,8 @@ public class ChartPanelOptionsProvider implements Serializable {
         options = new Options();
         options.setChartOptions(new ChartOptions().setType(SeriesType.SPLINE));
 
+        options.setTitle(new Title(chartTitle));
+
         Axis xAxis = new Axis();
         xAxis.setType(AxisType.DATETIME);
 

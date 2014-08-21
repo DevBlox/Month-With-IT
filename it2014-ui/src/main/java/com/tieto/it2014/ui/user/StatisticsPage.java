@@ -9,6 +9,8 @@ import org.apache.wicket.Component;
  */
 public class StatisticsPage extends BasePage {
 
+    private static final long serialVersionUID = 1L;
+
     @Override
     protected Component initFullContent(String wicketId) {
         return new StatsPanel(wicketId);

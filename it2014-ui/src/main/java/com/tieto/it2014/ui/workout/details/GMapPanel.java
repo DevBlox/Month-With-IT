@@ -1,5 +1,6 @@
 package com.tieto.it2014.ui.workout.details;
 
+import com.tieto.it2014.domain.Util.Util;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
@@ -82,7 +83,7 @@ public class GMapPanel extends Panel {
         form.add(new Label("finish", "Finish time: " + workout.getFinishTime()));
         form.add(new Label("distance", "Distance: " + workout.getDistance() + " km."));
         form.add(new Label("duration", "Duration: " + workout.getDuration()));
-
+        form.add(new Label("avgSpeed", "Average speed: " + Util.format(workout.getDistanceDouble()/((double)workout.getDurationInt()/3600)) + " km/h"));
         return form;
     }
 

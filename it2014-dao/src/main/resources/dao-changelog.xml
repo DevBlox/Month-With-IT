@@ -20,23 +20,6 @@
             </column>
         </createTable>
     </changeSet>
-    
-    <changeSet id="2" author="juste.noreikaite@tietocamp.eu">
-        <createTable tableName="WEIGHT">
-            <column name="userId" type="VARCHAR(15)">
-                <constraints foreignKeyName="userId_fk" references="USER(IMEI)" nullable="false" />
-            </column>
-            <column name="id" type="BIGINT" autoIncrement="true" incrementBy="1" startWith="1">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="ID_PK" />
-            </column>
-            <column name="weight" type="FLOAT">
-                <constraints nullable="false" />
-            </column>
-            <column name="created" type="BIGINT">
-                <constraints nullable="false" />
-            </column>
-        </createTable>
-    </changeSet>
 
     <changeSet id="1" author="mantas.jonytis@tietocamp.eu">
         <insert tableName="USER">
@@ -88,15 +71,16 @@
     </changeSet>
 
     <changeSet id="3" author="mantas.jonytis@tietocamp.eu">
+
         <createTable tableName="FRIENDS">
             <column name="ID" type="BIGINT" autoIncrement="true" incrementBy="1" startWith="1">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="ID_PK" />
+                <constraints nullable="false" primaryKey="true" primaryKeyName="FRIENDS_ID_PK" />
             </column>
             <column name="UserID" type="VARCHAR(15)">
-                <constraints foreignKeyName="userId_fk" references="USER(IMEI)" nullable="false" />
+                <constraints foreignKeyName="friends_userId_fk" references="USER(IMEI)" nullable="false" />
             </column>
             <column name="FriendID" type="VARCHAR(15)">
-                <constraints foreignKeyName="friendId_fk" references="USER(IMEI)" nullable="false" />
+                <constraints foreignKeyName="friends_friendId_fk" references="USER(IMEI)" nullable="false" />
             </column>
         </createTable>
 
@@ -206,6 +190,23 @@
             <column name="FriendID" value="355866055632819" />
         </insert>
 
+    </changeSet>
+
+    <changeSet id="2" author="juste.noreikaite@tietocamp.eu">
+        <createTable tableName="WEIGHT">
+            <column name="id" type="BIGINT" autoIncrement="true" incrementBy="1" startWith="1">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="WEIGHT_ID_PK" />
+            </column>
+            <column name="userId" type="VARCHAR(15)">
+                <constraints foreignKeyName="weight_userId_fk" references="USER(IMEI)" nullable="false" />
+            </column>
+            <column name="weight" type="FLOAT">
+                <constraints nullable="false" />
+            </column>
+            <column name="created" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
     </changeSet>
     
 

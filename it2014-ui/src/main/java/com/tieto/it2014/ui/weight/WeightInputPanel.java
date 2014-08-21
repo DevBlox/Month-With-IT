@@ -3,9 +3,11 @@ package com.tieto.it2014.ui.weight;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.weight.command.AddWeightCommand;
 import com.tieto.it2014.domain.weight.entity.Weight;
-import com.tieto.it2014.domain.weight.query.LastWeightQuery;
+import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.ui.session.UserSession;
 import java.sql.Timestamp;
+import java.util.List;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
@@ -26,7 +28,8 @@ public class WeightInputPanel extends Panel {
     private AddWeightCommand addWeightCommand;
 
     @SpringBean
-    private LastWeightQuery lastWeightQuery;
+    private WeightQuery weightQuery;
+    private List<Weight> weights;
 
     private Form weightInputForm;
     private String enteredWeight;
@@ -39,6 +42,11 @@ public class WeightInputPanel extends Panel {
         super(id);
     }
 
+    public WeightInputPanel(String id, List<Weight> weights) {
+        super(id);
+        this.weights = weights;
+    }
+
     @Override
     protected void onInitialize() {
         super.onInitialize();
@@ -47,9 +55,8 @@ public class WeightInputPanel extends Panel {
         weightInputForm = new Form("weightInputForm");
         weightInputForm.add(new FeedbackPanel("weightInputFeedback"));
         weightInputField = new TextField("weightInput", new PropertyModel(this, "enteredWeight"));
-        if (lastWeightQuery.result(UserSession.get().getUser().imei) != null) {
-            weightInputField.add(new AttributeModifier("value", lastWeightQuery.result(UserSession.get().getUser().imei).weight));
-        }
+        Double d = weights.isEmpty() ? 0 : (double)(Math.round(weights.get(weights.size()-1).weight * 10))/10;
+        weightInputField.add(new AttributeModifier("value", d));
         weightInputField.setRequired(true);
         weightInputField.add(new AjaxEventBehavior("keyup") {
 
@@ -90,9 +97,9 @@ public class WeightInputPanel extends Panel {
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        if (lastWeightQuery.result(UserSession.get().getUser().imei) != null) {
-            weightInputField.add(new AttributeModifier("value", lastWeightQuery.result(UserSession.get().getUser().imei).weight));
-        }
+        weights = weightQuery.result(UserSession.get().getUser().imei);
+        Double d = weights.isEmpty() ? 0 : (double)(Math.round(weights.get(weights.size()-1).weight * 10))/10;
+        weightInputField.add(new AttributeModifier("value", d));
     }
 
     private Component initRegisterButton(String wicketId) {

@@ -30,12 +30,14 @@ public class ChartPanel extends Panel {
 
     @SpringBean
     private WeightQuery weightQuery;
+    private List<Weight> weights;
 
     private Options options = new Options();
     private Chart chart;
 
-    public ChartPanel(String id) {
-        this(id, null);
+    public ChartPanel(String id, List<Weight> weights) {
+        this(id, new Options());
+        this.weights = weights;
     }
 
     public ChartPanel(String id, Options options) {
@@ -95,9 +97,7 @@ public class ChartPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
 
-        List<Weight> chartData = weightQuery.result(UserSession.get().getUser().imei);
-
-        options = getDefaultOptions(chartData);
+        options = getDefaultOptions(weights);
         chart = new Chart("chart", options);
         add(chart);
     }
@@ -105,8 +105,8 @@ public class ChartPanel extends Panel {
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        List<Weight> chartData = weightQuery.result(UserSession.get().getUser().imei);
-        options = getDefaultOptions(chartData);
+        weights = weightQuery.result(UserSession.get().getUser().imei);
+        options = getDefaultOptions(weights);
         chart.setOptions(options);
     }
 

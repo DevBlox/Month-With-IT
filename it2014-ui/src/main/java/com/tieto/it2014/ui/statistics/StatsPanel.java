@@ -2,6 +2,8 @@ package com.tieto.it2014.ui.statistics;
 
 import com.tieto.it2014.domain.Util.Util;
 import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.weight.entity.Weight;
+import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
@@ -27,6 +29,9 @@ public class StatsPanel extends Panel {
     @SpringBean
     private WorkoutsQuery workoutQuery;
 
+    @SpringBean
+    private WeightQuery weightQuery;
+
     public StatsPanel(String id) {
         super(id);
     }
@@ -38,22 +43,44 @@ public class StatsPanel extends Panel {
         Calendar cal = Calendar.getInstance();
         double totalDist = 0;
         int totalTime = 0;
-        Set<Integer> daysCount = new LinkedHashSet<Integer>();
+        int totalDays = 0;
+        double weightDiff = 0;
+        Set<Integer> yearCount = new LinkedHashSet<>();
+        Set<Integer> monthCount = new LinkedHashSet<>();
+        Set<Integer> daysCount = new LinkedHashSet<>();
+
+        List<Weight> weights = weightQuery.result(UserSession.get().getUser().imei);
 
         for (Workout wo : workoutsModel.getObject()) {
             totalDist += wo.getDistanceDouble();
             totalTime += wo.getDurationInt();
 
             cal.setTimeInMillis(wo.getStartTimeTimestamp());
+            yearCount.add(cal.get(Calendar.YEAR));
+            monthCount.add(cal.get(Calendar.MONTH));
             daysCount.add(cal.get(Calendar.DAY_OF_MONTH));
-
         }
+
+        for(int year : yearCount) {
+            for (int month : monthCount) {
+                for (int day : daysCount) {
+                    totalDays++;
+                }
+            }
+        }
+
+        weightDiff = weights.isEmpty() ? 0 : weights.get(weights.size()-1).weight-weights.get(0).weight;
+        weightDiff = (double)(Math.round(weightDiff * 10))/10;
 
         add(new Label("totalDist", "Total distance: " + Util.format(totalDist) + " km."));
         add(new Label("totalTime", "Total time: " + Util.getDurationString(totalTime)));
-        add(new Label("totalDays", "Days using app: " + daysCount.size() + " d."));
-        add(new Label("Calories", "Calories: "));
-        add(new Label("Weight", "Weight: "));
+        add(new Label("totalDays", "Days using app: " + totalDays + " d."));
+        add(new Label("Calories", "Calories: -"));
+        if (weightDiff > 0) {
+            add(new Label("Weight", "Weight difference: +" + weightDiff + " kg."));
+        } else {
+            add(new Label("Weight", "Weight difference: " + weightDiff + " kg."));
+        }
     }
 
     private class WorkoutsModel extends LoadableDetachableModel<List<Workout>> {

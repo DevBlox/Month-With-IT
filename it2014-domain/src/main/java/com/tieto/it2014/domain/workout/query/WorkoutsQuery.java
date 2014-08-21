@@ -24,7 +24,6 @@ public class WorkoutsQuery implements Serializable {
     private AllFriendsQuery.Dao friendsDao;
 
     public interface Dao extends Serializable {
-
         List<Workout> result(String imei, Integer limit);
     }
 

@@ -37,9 +37,9 @@ public class TestUtil {
     @Test
     public void calculates_workouts_correctly_with_same_timestamp() {
         List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
-                new UserLoc("321654987", "Test", (long) 0, 54.724767, 25.298105, 50.0),
-                new UserLoc("321654987", "Test", (long) 0, 54.722828, 25.298035, 500.0),
-                new UserLoc("321654987", "Test", (long) 0, 54.721865, 25.296, 5.0)
+                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
+                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.722828, 25.298035, 500.0),
+                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.721865, 25.296, 501.0)
         ));
 
         List<Workout> workouts = Util.getRecentWorkouts(userLoc, 10);
@@ -49,20 +49,30 @@ public class TestUtil {
     @Test
     public void calculates_single_workout() {
         List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
-                //                new UserLoc("356871044631608", "Test", Long.parseLong("1408512754995"), 54.724767, 25.298105, 50.0),
-                //                new UserLoc("356871044631608", "Test", Long.parseLong("1408512775012"), 54.722828, 25.298035, 500.0),
-                //                new UserLoc("356871044631608", "Test", Long.parseLong("1408512795051"), 54.721865, 25.296, 5.0)
-                new UserLoc("0", "Test", 10010L, 0d, 0d, 0d),
-                new UserLoc("0", "Test", 20010L, 0d, 0d, 0d),
-                new UserLoc("0", "Test", 30010L, 0d, 0d, 0d)
+                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
+                new UserLoc("356871044631608", "Test", Long.parseLong("1407350752000"), 54.722828, 25.298035, 500.0),
+                new UserLoc("356871044631608", "Test", Long.parseLong("1407350742000"), 54.721865, 25.296, 501.0)
         ));
 
         List<Workout> workouts = Util.getRecentWorkouts(userLoc, null);
 
-        //This test is false!!
-        assertFalse(!workouts.isEmpty());
+        assertFalse((workouts.isEmpty()));
     }
 
+    // Point A Latitude: 54.71722152 Longitude: 25.29514074 Altitude: 120
+    // Point B Latitude: 54.72031996 Longitude: 25.30243635 Altitude: 117
+    // Actual Distance: 0.581 km. 
+    @Test
+    public void checks_if_distance_between_two_points_calculated_correctly() {
+        Double errorRange = 0.01;
+        Double actualdistance = 0.581;
+        Double calculatedDistance = Util.calculateDistance(54.71722152, 25.29514074, 120, 54.72031996, 25.30243635, 117);
+        assertFalse(!(actualdistance <= calculatedDistance + errorRange)
+                && (actualdistance >= calculatedDistance - errorRange));
+    }
+
+}
+// 0.215 + 0.169
 //    @Test
 //    public void calculates_distance_correctly() {
 //        List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
@@ -75,4 +85,4 @@ public class TestUtil {
 //
 //
 //    }
-}
+

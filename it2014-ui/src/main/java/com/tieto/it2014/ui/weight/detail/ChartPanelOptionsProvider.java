@@ -19,6 +19,7 @@ import com.tieto.it2014.domain.weight.query.UserWeightOfTheDay;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheMonth;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheQuarter;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheYear;
+import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -45,6 +46,9 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     @SpringBean
     private UserWeightOfTheYear weightQueryYear;
+
+    @SpringBean
+    private UserWeightOverPeriod weightOverPeriod;
 
     private static final String CHART_TITLE_DAY = "Weight changes in a current day";
     private static final String CHART_TITLE_MONTH = "Weight changes in a current month";
@@ -88,6 +92,12 @@ public class ChartPanelOptionsProvider implements Serializable {
     public Options getQuaterOptions() {
         optionsType = ChartPanel.BUTTON_TYPE_QUARTER;
         List<Weight> data = weightQueryQuarter.result(UserSession.get().getUser().imei);
+        return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
+    }
+
+    public Options getGivenTimeOptions(long start, long finish) {
+        List<Weight> data = weightOverPeriod.result(start, finish, UserSession.get().getUser().imei, optionsType);
+        System.out.println(data.size());
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
     }
 

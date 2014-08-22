@@ -1,6 +1,16 @@
 package com.tieto.it2014.ui.workout.details;
 
-import com.googlecode.wickedcharts.highcharts.options.*;
+import com.googlecode.wickedcharts.highcharts.options.Axis;
+import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
+import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
+import com.googlecode.wickedcharts.highcharts.options.HorizontalAlignment;
+import com.googlecode.wickedcharts.highcharts.options.Legend;
+import com.googlecode.wickedcharts.highcharts.options.LegendLayout;
+import com.googlecode.wickedcharts.highcharts.options.Options;
+import com.googlecode.wickedcharts.highcharts.options.PlotLine;
+import com.googlecode.wickedcharts.highcharts.options.SeriesType;
+import com.googlecode.wickedcharts.highcharts.options.Title;
+import com.googlecode.wickedcharts.highcharts.options.VerticalAlignment;
 import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
@@ -12,7 +22,6 @@ import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import java.security.AccessControlException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.apache.wicket.Component;
@@ -57,15 +66,12 @@ public class GMapPanel extends Panel {
         List<UserLoc> uLocs;
         List<GLatLng> markers = new ArrayList<>();
 
-
 //        0.49211000000000005 0.5077200000000001
 //        479.0 488.0
 //        0.4968599999999999 0.5110899999999999
 //        425.0 435.0
 //        0.4855199999999999 0.5018199999999999
 //        416.0 426.0
-
-
         try {
             uLocs = workoutsModel.getObject().getLocs();
 
@@ -81,19 +87,19 @@ public class GMapPanel extends Panel {
             Double km = 0.0;
             List<Double> axisData = new ArrayList<>();
             List<Double> seriesData = new ArrayList<>();
-            for (int i = 0; i <= uLocs.size()-2; i++) {
+            for (int i = 0; i <= uLocs.size() - 2; i++) {
                 UserLoc ul1 = uLocs.get(i);
-                UserLoc ul2 = uLocs.get(i+1);
+                UserLoc ul2 = uLocs.get(i + 1);
                 if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) > 0.5) {
-                    Double distDiff = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude)*100;
-                    Double timeDiff = (double)Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-                    time += (double)timeDiff/distDiff;
-                    totalTime+=time;
+                    Double distDiff = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) * 100;
+                    Double timeDiff = (double) Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+                    time += (double) timeDiff / distDiff;
+                    totalTime += time;
                     km += 0.5;
                     axisData.add(km);
                     seriesData.add((time % 3600) / 60);
                     dist = 0.0;
-                    time = timeDiff - (double)timeDiff/distDiff;
+                    time = timeDiff - (double) timeDiff / distDiff;
                 }
                 timeInSeconds += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
                 time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
@@ -121,7 +127,7 @@ public class GMapPanel extends Panel {
             String[] array = new String[axisData.size()];
             int index = 0;
             for (Object value : axisData) {
-                array[index] = Util.formatDoubleToString((double)value);
+                array[index] = Util.formatDoubleToString((double) value);
                 index++;
             }
             xAxis.setCategories(array);
@@ -136,6 +142,9 @@ public class GMapPanel extends Panel {
             yAxis.setTitle(new Title("Temperature (°C)"));
             yAxis.setPlotLines(Collections.singletonList(plotLines));
             options.setyAxis(yAxis);
+
+            //Do not show exporting btn
+            options.setExporting(new ExportingOptions().setEnabled(Boolean.FALSE));
 
             Legend legend = new Legend();
             legend.setLayout(LegendLayout.VERTICAL);
@@ -187,7 +196,7 @@ public class GMapPanel extends Panel {
         form.add(new Label("finish", "Finish time: " + workout.getFinishTime()));
         form.add(new Label("distance", "Distance: " + workout.getDistance() + " km."));
         form.add(new Label("duration", "Duration: " + workout.getDuration()));
-        form.add(new Label("avgSpeed", "Average speed: " + Util.formatDoubleToString(workout.getDistanceDouble()/((double)workout.getDurationInt()/3600)) + " km/h"));
+        form.add(new Label("avgSpeed", "Average speed: " + Util.formatDoubleToString(workout.getDistanceDouble() / ((double) workout.getDurationInt() / 3600)) + " km/h"));
         return form;
     }
 

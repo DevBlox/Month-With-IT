@@ -161,6 +161,7 @@ public class ChartPanel extends Panel {
                     Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
+                System.out.println("pradžia: "+start+" pabaiga: "+end);
                 info("Jūs pasirinkote : " + selected);
 
             }
@@ -169,6 +170,7 @@ public class ChartPanel extends Panel {
         monthForm = new Form<Void>("dropDownFormMonth") {
             @Override
             protected void onSubmit() {
+                System.out.println(getLastDayInMonthInCurrentYearTimestamp(selected));
 
                 info("Jūs pasirinkote : " + selected);
 
@@ -301,7 +303,24 @@ public class ChartPanel extends Panel {
         String dateString = day + "/" + month + "/" + year;
         Date date = dateFormat.parse(dateString);
         long timestamp = date.getTime();
+        
+       
         return timestamp;
     }
+    
+    private long getLastDayInMonthInCurrentYearTimestamp(String month) {
+        Calendar cal=Calendar.getInstance();
+        cal.set(Calendar.MONTH, Integer.parseInt(month));
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(cal.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date date2 = cal.getTime();
+        return date2.getTime();
+    }
+    
+    
+       
 
 }

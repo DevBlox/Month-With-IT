@@ -72,12 +72,12 @@ public class TopPanel extends Panel {
 
         usList = Lists.newArrayList(Iterables.limit(usList, 10));
 
-//        usList = Lists.newArrayList(Collections2.filter(usList, new Predicate<UserStats>() {
-//            @Override
-//            public boolean apply(UserStats t) {
-//                return t.getDistance() != 0;
-//            }
-//        }));
+        usList = Lists.newArrayList(Collections2.filter(usList, new Predicate<UserStats>() {
+            @Override
+            public boolean apply(UserStats t) {
+                return t.getDistance() != 0;
+            }
+        }));
 
         // 5. Assign id to every item.
         int i = 0;

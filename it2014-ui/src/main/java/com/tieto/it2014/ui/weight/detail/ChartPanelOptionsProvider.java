@@ -206,22 +206,22 @@ public class ChartPanelOptionsProvider implements Serializable {
         try {
 
             switch (this.optionsType) {
-                case ChartPanel.BUTTON_TYPE_DAY:
+                case BUTTON_TYPE_DAY:
                     dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     date = dateFormat.parse("2014/08/22 00:00:00");
                     number = date.getTime();
                     break;
-                case ChartPanel.BUTTON_TYPE_MONTH:
+                case BUTTON_TYPE_MONTH:
                     dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     date = dateFormat.parse("2014/08/01 00:00:00");
                     number = date.getTime();
                     break;
-                case ChartPanel.BUTTON_TYPE_QUARTER:
+                case BUTTON_TYPE_QUARTER:
                     dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     date = dateFormat.parse("2014/06/01 00:00:00");
                     number = date.getTime();
                     break;
-                case ChartPanel.BUTTON_TYPE_YEAR:
+                case BUTTON_TYPE_YEAR:
                     dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     date = dateFormat.parse("2014/01/01 00:00:00");
                     number = date.getTime();
@@ -242,22 +242,22 @@ public class ChartPanelOptionsProvider implements Serializable {
         try {
 
             switch (this.optionsType) {
-                case ChartPanel.BUTTON_TYPE_DAY:
+                case BUTTON_TYPE_DAY:
                     dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     date = dateFormat.parse("2014/08/22 23:59:59");
                     number = date.getTime();
                     break;
-                case ChartPanel.BUTTON_TYPE_MONTH:
+                case BUTTON_TYPE_MONTH:
                     dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     date = dateFormat.parse("2014/08/22 23:59:59");
                     number = date.getTime();
                     break;
-                case ChartPanel.BUTTON_TYPE_QUARTER:
+                case BUTTON_TYPE_QUARTER:
                     dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     date = dateFormat.parse("2014/08/22 23:59:59");
                     number = date.getTime();
                     break;
-                case ChartPanel.BUTTON_TYPE_YEAR:
+                case BUTTON_TYPE_YEAR:
                     dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                     date = dateFormat.parse("2014/08/22 23:59:59");
                     number = date.getTime();

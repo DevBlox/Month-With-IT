@@ -135,8 +135,7 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     public Options getOptions() {
         if (null == options) {
-            //return getMonthOptions();
-            return getGivenTimeOptions(1408636541L, 2408636541L);
+            return getMonthOptions();
         } else {
             return options;
         }

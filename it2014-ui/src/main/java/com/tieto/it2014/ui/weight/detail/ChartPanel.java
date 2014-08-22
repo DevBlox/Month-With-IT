@@ -161,8 +161,8 @@ public class ChartPanel extends Panel {
                     Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
-                System.out.println("pradžia: "+start+" pabaiga: "+end);
-                info("Jūs pasirinkote : " + selected);
+                System.out.println("pradžia: " + start + " pabaiga: " + end);
+               // info("Jūs pasirinkote : " + selected);
 
             }
         };
@@ -170,9 +170,19 @@ public class ChartPanel extends Panel {
         monthForm = new Form<Void>("dropDownFormMonth") {
             @Override
             protected void onSubmit() {
-                System.out.println(getLastDayInMonthInCurrentYearTimestamp(selected));
+                Long start = 0L;
+                start = getLastDayInMonthInCurrentYearTimestamp(selected);
+                Long end = 0L;
+                try {
+                    end = createTimeStamp(getYearString(), selected, "01");
+                } catch (ParseException ex) {
+                    Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-                info("Jūs pasirinkote : " + selected);
+                ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
+                System.out.println("pradžia: " + start + " pabaiga: " + end);
+
+            //    info("Jūs pasirinkote : " + selected);
 
             }
         };
@@ -258,15 +268,14 @@ public class ChartPanel extends Panel {
     }
 
     private String getMonthString() {
-         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-         return Integer.toString(calendar.get(Calendar.MONTH) + 1);
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.MONTH) + 1);
     }
-    
+
     private String getYearString() {
-         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-         return Integer.toString(calendar.get(Calendar.YEAR));
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.YEAR));
     }
-    
 
     private List<String> getMonthsInThisYear() {
 
@@ -303,14 +312,13 @@ public class ChartPanel extends Panel {
         String dateString = day + "/" + month + "/" + year;
         Date date = dateFormat.parse(dateString);
         long timestamp = date.getTime();
-        
-       
+
         return timestamp;
     }
-    
+
     private long getLastDayInMonthInCurrentYearTimestamp(String month) {
-        Calendar cal=Calendar.getInstance();
-        cal.set(Calendar.MONTH, Integer.parseInt(month));
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, Integer.parseInt(month) - 1);
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(cal.DAY_OF_MONTH));
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
@@ -319,8 +327,5 @@ public class ChartPanel extends Panel {
         Date date2 = cal.getTime();
         return date2.getTime();
     }
-    
-    
-       
 
 }

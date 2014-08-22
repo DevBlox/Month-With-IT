@@ -211,7 +211,8 @@ public class ChartPanelOptionsProvider implements Serializable {
             switch (this.optionsType) {
                 case BUTTON_TYPE_DAY:
                     cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR));
+                    cal.add(Calendar.HOUR_OF_DAY, 2);
                     cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
                     cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
@@ -278,6 +279,7 @@ public class ChartPanelOptionsProvider implements Serializable {
                 case BUTTON_TYPE_MONTH:
                     cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
                     cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
+                    cal.add(Calendar.HOUR_OF_DAY, 2);
                     cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
                     cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));

@@ -46,19 +46,19 @@ public class RandomQuote {
     );
 
     private static final List<String[]> negativeQuotes = Arrays.asList(
-            new String[]{"You'll be so fat the only thing stopping you from going to the gym is the doorframe.", "Somebody famous"},
-            new String[]{"You are so fat, you have to wear a watch on each arm - one for each time zone you're in.", "Somebody famous"},
-            new String[]{"You have a wanted poster in every restourant around town.", "Somebody famous"},
-            new String[]{"You will get so fat your belt will become the real equator", "Somebody famous"},
-            new String[]{"Sattelites will soon start to orbit around you.", "Somebody famous"},
-            new String[]{"You're gonna need you very own postal code.", "Somebody famous"},
-            new String[]{"Your cereal bowl comes with a lifeguard.", "Somebody famous"},
             new String[]{"You don't need internet, you're already world wide!", "Somebody famous"},
             new String[]{"Hands up! Drop that burger!", "Somebody famous"},
-            new String[]{"You always get gold medals in sprints. Becouse you are at the both ends of the track at the same time!", "Somebody famous"},
             new String[]{"Exercise is a dirty word. Every time I hear it I wash my mouth out with chocolate.", "Charles M. Schulz"},
             new String[]{"A bear, however hard he tries, grows tubby without exercise.", "A.A. Milne, Winnie-the-Pooh"},
-            new String[]{"The reason fat men are good natured is they can neither fight nor run.", "Somebody famous"}
+            new String[]{"The human body is the best work of art.", "Jess C. Scott"},
+            new String[]{"The reason fat men are good natured is they can neither fight nor run.", "Theodore Roosevelt"},
+            new String[]{"No one wakes up in the morning and says, 'I want to gain 150 pounds and I will start right now!", "Tricia Cunningham"},
+            new String[]{"Getting fit is all about mind over matter. I don't mind, so it doesn't matter.", "Adam Hargreaves"},
+            new String[]{"It's easier to stay in shape if you never let yourself get out of shape in the first place.", "Bill Loguidice"},
+            new String[]{"Cricket is only 30 per cent physical and 70 per cent mental. South Africans train 120 per cent physically.", "Boeta Dippenaar"},
+            new String[]{"Dieting is the only game where you win when you lose!", "Karl Lagerfeld"},
+            new String[]{"If you don’t make mistakes, you aren’t really trying. ", "Somebody famous"},
+            new String[]{"Take care of your body. It's the only place you have to live.", "Jim Rohn"}
     );
 
     public static String[] getPositive() {

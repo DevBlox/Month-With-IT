@@ -1,10 +1,10 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org" >
-    
-<!--    <form class="form-horizontal" wicket:id="dayForm"></form>
-    <form class="form-horizontal" wicket:id="monthForm"></form>
-    <form class="form-horizontal" wicket:id="quarterForm"></form>
-    <form class="form-horizontal" wicket:id="yearForm"></form>-->
-    
+
+    <!--    <form class="form-horizontal" wicket:id="dayForm"></form>
+        <form class="form-horizontal" wicket:id="monthForm"></form>
+        <form class="form-horizontal" wicket:id="quarterForm"></form>
+        <form class="form-horizontal" wicket:id="yearForm"></form>-->
+
     <div wicket:id="chart"/>
 
     <form class="form-horizontal" wicket:id="chartForm">
@@ -15,5 +15,10 @@
             <button wicket:id="currentYear" type="submit" class="btn btn-default btn-success">Current year</button>
         </div>
     </form>
-    
+    <div wicket:id="feedback"></div>
+    <form wicket:id="dropDownForm">
+        <label>Day</label>
+        <select wicket:id="days"  onchange="this.form.submit()"></select>
+        <input type="submit" value="Enter" />
+    </form>
 </wicket:panel>

@@ -22,8 +22,11 @@ import com.tieto.it2014.domain.weight.query.UserWeightOfTheYear;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -97,7 +100,6 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     public Options getGivenTimeOptions(long start, long finish) {
         List<Weight> data = weightOverPeriod.result(start, finish, UserSession.get().getUser().imei, optionsType);
-        System.out.println(data.size());
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
     }
 
@@ -130,7 +132,13 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     private String getUtcStringFromTimestamp(Long timestamp) {
-        return new SimpleDateFormat("yyyy, M, dd, H, m, s").format(new java.sql.Timestamp(timestamp));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c1 = Calendar.getInstance();
+        c1.setTimeInMillis(timestamp);
+
+        c1.add(Calendar.MONTH, -1);
+
+        return new SimpleDateFormat("yyyy, M, dd, H, m, s").format(c1.getTime());
     }
 
     public Options getOptions() {
@@ -150,6 +158,8 @@ public class ChartPanelOptionsProvider implements Serializable {
         Axis xAxis = new Axis();
         xAxis.setType(AxisType.DATETIME);
 
+        xAxis.setMin(getMinXDependingOnType());
+        xAxis.setMax(getMaxXDependingOnType());
         DateTimeLabelFormat dateTimeLabelFormat = new DateTimeLabelFormat()
                 .setProperty(DateTimeProperties.MONTH, "%e. %b")
                 .setProperty(DateTimeProperties.YEAR, "%b");
@@ -182,5 +192,77 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     public int getOptionsType() {
         return optionsType;
+    }
+
+    private long getMinXDependingOnType() {
+        long number = 0;
+        DateFormat dateFormat;
+        Date date;
+
+        try {
+
+            switch (this.optionsType) {
+                case ChartPanel.BUTTON_TYPE_DAY:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 00:00:00");
+                    number = date.getTime();
+                    break;
+                case ChartPanel.BUTTON_TYPE_MONTH:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/01 00:00:00");
+                    number = date.getTime();
+                    break;
+                case ChartPanel.BUTTON_TYPE_QUARTER:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/06/01 00:00:00");
+                    number = date.getTime();
+                    break;
+                case ChartPanel.BUTTON_TYPE_YEAR:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/01/01 00:00:00");
+                    number = date.getTime();
+                    break;
+            }
+
+        } catch (Exception e) {
+
+        }
+        return number;
+    }
+
+    private long getMaxXDependingOnType() {
+        long number = 0;
+        DateFormat dateFormat;
+        Date date;
+
+        try {
+
+            switch (this.optionsType) {
+                case ChartPanel.BUTTON_TYPE_DAY:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 23:59:59");
+                    number = date.getTime();
+                    break;
+                case ChartPanel.BUTTON_TYPE_MONTH:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 23:59:59");
+                    number = date.getTime();
+                    break;
+                case ChartPanel.BUTTON_TYPE_QUARTER:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 23:59:59");
+                    number = date.getTime();
+                    break;
+                case ChartPanel.BUTTON_TYPE_YEAR:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 23:59:59");
+                    number = date.getTime();
+                    break;
+            }
+
+        } catch (Exception e) {
+
+        }
+        return number;
     }
 }

@@ -149,10 +149,18 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     public Options getOptions() {
-        if (null == options || (UserSession.get().getUser().imei != userImei)) {
-            return getMonthOptions();
+        if (userImei != null) {
+            if (UserSession.get().getUser().imei.equals(userImei)) {
+                return options;
+            } else {
+                return getMonthOptions();
+            }
         } else {
-            return options;
+            if (null == options) {
+                return getMonthOptions();
+            } else {
+                return options;
+            }
         }
     }
 

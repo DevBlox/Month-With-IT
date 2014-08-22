@@ -149,19 +149,22 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     public Options getOptions() {
-        if (userImei != null) {
-            if (UserSession.get().getUser().imei.equals(userImei)) {
-                return options;
-            } else {
-                return getMonthOptions();
-            }
+        if (options == null) {
+            return getMonthOptions();
         } else {
-            if (null == options) {
-                return getMonthOptions();
-            } else {
-                return options;
-            }
+            return options;
         }
+//        if (userImei != null) {
+//            if (UserSession.get().getUser().imei.equals(userImei)) {
+//                return options;
+//            } else {
+//                return getMonthOptions();
+//            }
+//        } else {
+//            if (null == options) {
+//                return getMonthOptions();
+//            }
+//        }
     }
 
     public Options getDefaultOptions(List<Weight> data, String chartTitle, String xAxisTitle, Long start, Long finish) {

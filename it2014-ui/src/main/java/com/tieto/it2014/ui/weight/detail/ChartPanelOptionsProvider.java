@@ -186,7 +186,7 @@ public class ChartPanelOptionsProvider implements Serializable {
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter(new Function(
-                "return '<b>'+ this.series.name +'</b><br/>'+Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' kg';"));
+                "return '<b>'+ Weight +'</b><br/>'+Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' kg';"));
         options.setTooltip(tooltip);
 
         options.setLegend(new Legend().setEnabled(Boolean.FALSE));

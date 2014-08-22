@@ -81,30 +81,30 @@ public class ChartPanelOptionsProvider implements Serializable {
     public Options getDayOptions() {
         optionsType = BUTTON_TYPE_DAY;
         List<Weight> data = weightQueryDay.result(UserSession.get().getUser().imei);
-        return getDefaultOptions(data, CHART_TITLE_DAY, CHART_XAXIS_TITLE_DAY);
+        return getDefaultOptions(data, CHART_TITLE_DAY, CHART_XAXIS_TITLE_DAY, null, null);
     }
 
     public Options getMonthOptions() {
         optionsType = BUTTON_TYPE_MONTH;
         List<Weight> data = weightQueryMonth.result(UserSession.get().getUser().imei);
-        return getDefaultOptions(data, CHART_TITLE_MONTH, CHART_XAXIS_TITLE_MONTH);
+        return getDefaultOptions(data, CHART_TITLE_MONTH, CHART_XAXIS_TITLE_MONTH, null, null);
     }
 
     public Options getYearOptions() {
         optionsType = BUTTON_TYPE_YEAR;
         List<Weight> data = weightQueryYear.result(UserSession.get().getUser().imei);
-        return getDefaultOptions(data, CHART_TITLE_YEAR, CHART_XAXIS_TITLE_YEAR);
+        return getDefaultOptions(data, CHART_TITLE_YEAR, CHART_XAXIS_TITLE_YEAR, null, null);
     }
 
     public Options getQuaterOptions() {
         optionsType = BUTTON_TYPE_QUARTER;
         List<Weight> data = weightQueryQuarter.result(UserSession.get().getUser().imei);
-        return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
+        return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER, null, null);
     }
 
     public Options getGivenTimeOptions(long start, long finish) {
         List<Weight> data = weightOverPeriod.result(start, finish, UserSession.get().getUser().imei, optionsType);
-        return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
+        return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER, start, finish);
     }
 
     private static Float getMinWeightValue(List<Weight> data) {
@@ -153,7 +153,7 @@ public class ChartPanelOptionsProvider implements Serializable {
         }
     }
 
-    public Options getDefaultOptions(List<Weight> data, String chartTitle, String xAxisTitle) {
+    public Options getDefaultOptions(List<Weight> data, String chartTitle, String xAxisTitle, Long start, Long finish) {
         options = new Options();
         options.setChartOptions(new ChartOptions().setType(SeriesType.SPLINE));
 
@@ -162,8 +162,14 @@ public class ChartPanelOptionsProvider implements Serializable {
         Axis xAxis = new Axis();
         xAxis.setType(AxisType.DATETIME);
 
-        xAxis.setMin(getMinXDependingOnType());
-        xAxis.setMax(getMaxXDependingOnType());
+        if ((null == start) && (null == finish)) {
+            xAxis.setMin(getMinXDependingOnType());
+            xAxis.setMax(getMaxXDependingOnType());
+        } else {
+            xAxis.setMin(start);
+            xAxis.setMax(finish);
+        }
+
         DateTimeLabelFormat dateTimeLabelFormat = new DateTimeLabelFormat()
                 .setProperty(DateTimeProperties.MONTH, "%e. %b")
                 .setProperty(DateTimeProperties.YEAR, "%b");

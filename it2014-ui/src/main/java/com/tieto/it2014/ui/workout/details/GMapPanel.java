@@ -65,6 +65,8 @@ public class GMapPanel extends Panel {
         WorkoutsModel workoutsModel = new WorkoutsModel();
         List<UserLoc> uLocs;
         List<GLatLng> markers = new ArrayList<>();
+        List<Double> axisData = new ArrayList<>();
+        List<Double> seriesData = new ArrayList<>();
 
 //        0.49211000000000005 0.5077200000000001
 //        479.0 488.0
@@ -79,35 +81,113 @@ public class GMapPanel extends Panel {
                 markers.add(new GLatLng(uLoc.latitude, uLoc.longtitude));
             }
 
-            Double dist = 0.0;
+//            Double dist = 0.0;
+//            Double time = 0.0;
+//            int timeInSeconds = 0;
+//            Double totalTime = 0.0;
+//            Double totalDist = 0.0;
+//            Double km = 0.0;
+//
+//            for (int i = 0; i <= uLocs.size() - 2; i++) {
+//                UserLoc ul1 = uLocs.get(i);
+//                UserLoc ul2 = uLocs.get(i + 1);
+//                if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) > 0.5) {
+//                    Double distDiff = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) * 100;
+//                    Double timeDiff = (double) Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+//                    time += (double) timeDiff / distDiff;
+//                    totalTime += time;
+//                    km += 0.5;
+//                    axisData.add(km);
+//                    seriesData.add((time % 3600) / 60);
+//                    dist = 0.0;
+//                    time = timeDiff - (double) timeDiff / distDiff;
+//                }
+//                timeInSeconds += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+//                time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+//                totalDist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
+//                dist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
+//            }
+//            axisData.add((km + (((totalDist * 1000) % 500) / 1000)));
+//            seriesData.add(((timeInSeconds - totalTime) % 3600) / 60);
+//
+//            double dist = 0;
+//            double distDiffSum = 0;
+//            double totalDist = 0;
+//            float time = 0;
+//            float timeDiffSum = 0;
+//            for (int i = 0; i <= uLocs.size() - 2; i++) {
+//                UserLoc ul1 = uLocs.get(i+1);
+//                UserLoc ul2 = uLocs.get(i);
+//                if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) > 0.5) {
+//
+//                    System.out.println(dist + " " + (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude)));
+//
+//                    distDiffSum += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
+//                    timeDiffSum += (float) Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+//
+//                    Double distDiff = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) * 100;
+//                    float timeDiff = (float) Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+//
+//                    time += timeDiff / distDiff;
+//                    //System.out.println(time);
+//                    seriesData.add((time % 3600) / 60);
+//                    Double minChange = 0.500 - dist;
+//                    dist += minChange;
+//                    totalDist += dist;
+//                    axisData.add(totalDist);
+//                    dist = (distDiff/100) - minChange;
+//                    time = (float)(timeDiff - timeDiff / distDiff);
+//                }
+//                dist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
+//                time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+//            }
+//            axisData.add(dist + totalDist - distDiffSum);
+//            seriesData.add(((time-timeDiffSum) % 3600) / 60);
+
+
+            UserLoc ul1 = uLocs.get(0);
+            UserLoc ul2 = uLocs.get(1);
+            Double lc = 0.5;
             Double time = 0.0;
-            int timeInSeconds = 0;
-            Double totalTime = 0.0;
-            Double totalDist = 0.0;
-            Double km = 0.0;
-            List<Double> axisData = new ArrayList<>();
-            List<Double> seriesData = new ArrayList<>();
-            for (int i = 0; i <= uLocs.size() - 2; i++) {
-                UserLoc ul1 = uLocs.get(i);
-                UserLoc ul2 = uLocs.get(i + 1);
-                if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) > 0.5) {
+            int totalTime = 0;
+            Double timeDiffSum = 0.0;
+            Double sum = 0.0;
+            double dist = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
+            for (int i = 1; i <= uLocs.size() - 2; i++) {
+
+                ul1 = uLocs.get(i);
+                ul2 = uLocs.get(i+1);
+
+                if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) >= lc) {
+
+                    timeDiffSum += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+
                     Double distDiff = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) * 100;
-                    Double timeDiff = (double) Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-                    time += (double) timeDiff / distDiff;
-                    totalTime += time;
-                    km += 0.5;
-                    axisData.add(km);
-                    seriesData.add((time % 3600) / 60);
-                    dist = 0.0;
-                    time = timeDiff - (double) timeDiff / distDiff;
+                    float timeDiff = Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+
+                    time += timeDiff / distDiff;
+                    Double addValue = time.isNaN() ? seriesData.get(seriesData.size()-1) : time ;
+                    addValue = Util.truncate(((addValue % 3600) / 60), 2);
+                    seriesData.add(addValue);
+                    sum += time;
+                    System.out.println(time);
+                    axisData.add(lc);
+                    time = (timeDiff - timeDiff / distDiff);
+
+                    lc += 0.5;
                 }
-                timeInSeconds += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-                time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-                totalDist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
+
                 dist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
+                time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+                totalTime += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
+
             }
-            axisData.add((km + (((totalDist * 1000) % 500) / 1000)));
-            seriesData.add(((timeInSeconds - totalTime) % 3600) / 60);
+            axisData.add(dist);
+            System.out.println(time-timeDiffSum);
+            seriesData.add(Util.truncate((((time-timeDiffSum) % 3600) / 60), 2));
+            sum += time-timeDiffSum;
+
+            System.out.println(sum + " " + totalTime);
 
             // adding chart to page
             Options options = new Options();
@@ -130,6 +210,7 @@ public class GMapPanel extends Panel {
                 array[index] = Util.formatDoubleToString((double) value);
                 index++;
             }
+            //xAxis.setTitle(new Title("Distance"));
             xAxis.setCategories(array);
             options.setxAxis(xAxis);
 
@@ -139,24 +220,17 @@ public class GMapPanel extends Panel {
             plotLines.setColor(new HexColor("#999999"));
 
             Axis yAxis = new Axis();
-            yAxis.setTitle(new Title("Temperature (°C)"));
+            yAxis.setTitle(new Title("Time (min.)"));
             yAxis.setPlotLines(Collections.singletonList(plotLines));
             options.setyAxis(yAxis);
 
             //Do not show exporting btn
             options.setExporting(new ExportingOptions().setEnabled(Boolean.FALSE));
 
-            Legend legend = new Legend();
-            legend.setLayout(LegendLayout.VERTICAL);
-            legend.setAlign(HorizontalAlignment.RIGHT);
-            legend.setVerticalAlign(VerticalAlignment.TOP);
-            legend.setX(-10);
-            legend.setY(100);
-            legend.setBorderWidth(0);
-            options.setLegend(legend);
+            options.setLegend(new Legend().setEnabled(Boolean.FALSE));
 
             Series<Number> series1 = new SimpleSeries();
-            series1.setName("Tokyo");
+            series1.setName("");
             Number[] array2 = new Number[axisData.size()];
             index = 0;
             for (Number value : seriesData) {

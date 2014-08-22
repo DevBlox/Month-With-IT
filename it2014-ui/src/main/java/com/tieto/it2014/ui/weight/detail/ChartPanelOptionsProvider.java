@@ -14,6 +14,10 @@ import com.googlecode.wickedcharts.highcharts.options.Title;
 import com.googlecode.wickedcharts.highcharts.options.Tooltip;
 import com.googlecode.wickedcharts.highcharts.options.series.Coordinate;
 import com.googlecode.wickedcharts.highcharts.options.series.CustomCoordinatesSeries;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheDay;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheMonth;
@@ -22,8 +26,11 @@ import com.tieto.it2014.domain.weight.query.UserWeightOfTheYear;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -33,7 +40,7 @@ public class ChartPanelOptionsProvider implements Serializable {
     private static ChartPanelOptionsProvider instance = null;
     private static final long serialVersionUID = 1L;
     private Options options = null;
-    private int optionsType = ChartPanel.BUTTON_TYPE_MONTH;
+    private int optionsType = BUTTON_TYPE_MONTH;
 
     @SpringBean
     private UserWeightOfTheDay weightQueryDay;
@@ -72,32 +79,31 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     public Options getDayOptions() {
-        optionsType = ChartPanel.BUTTON_TYPE_DAY;
+        optionsType = BUTTON_TYPE_DAY;
         List<Weight> data = weightQueryDay.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_DAY, CHART_XAXIS_TITLE_DAY);
     }
 
     public Options getMonthOptions() {
-        optionsType = ChartPanel.BUTTON_TYPE_MONTH;
+        optionsType = BUTTON_TYPE_MONTH;
         List<Weight> data = weightQueryMonth.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_MONTH, CHART_XAXIS_TITLE_MONTH);
     }
 
     public Options getYearOptions() {
-        optionsType = ChartPanel.BUTTON_TYPE_YEAR;
+        optionsType = BUTTON_TYPE_YEAR;
         List<Weight> data = weightQueryYear.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_YEAR, CHART_XAXIS_TITLE_YEAR);
     }
 
     public Options getQuaterOptions() {
-        optionsType = ChartPanel.BUTTON_TYPE_QUARTER;
+        optionsType = BUTTON_TYPE_QUARTER;
         List<Weight> data = weightQueryQuarter.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
     }
 
     public Options getGivenTimeOptions(long start, long finish) {
         List<Weight> data = weightOverPeriod.result(start, finish, UserSession.get().getUser().imei, optionsType);
-        System.out.println(data.size());
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
     }
 
@@ -120,17 +126,23 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     private List<Coordinate<String, Float>> getSeriesData(List<Weight> chartData) {
-        List<Coordinate<String, Float>> data = new ArrayList<Coordinate<String, Float>>();
+        List<Coordinate<String, Float>> data = new ArrayList<>();
 
         for (Weight element : chartData) {
-            data.add(new Coordinate<String, Float>("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")", element.weight));
+            data.add(new Coordinate<>("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")", element.weight));
         }
 
         return data;
     }
 
     private String getUtcStringFromTimestamp(Long timestamp) {
-        return new SimpleDateFormat("yyyy, M, dd, H, m, s").format(new java.sql.Timestamp(timestamp));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c1 = Calendar.getInstance();
+        c1.setTimeInMillis(timestamp);
+
+        c1.add(Calendar.MONTH, -1);
+
+        return new SimpleDateFormat("yyyy, M, dd, H, m, s").format(c1.getTime());
     }
 
     public Options getOptions() {
@@ -150,6 +162,8 @@ public class ChartPanelOptionsProvider implements Serializable {
         Axis xAxis = new Axis();
         xAxis.setType(AxisType.DATETIME);
 
+        xAxis.setMin(getMinXDependingOnType());
+        xAxis.setMax(getMaxXDependingOnType());
         DateTimeLabelFormat dateTimeLabelFormat = new DateTimeLabelFormat()
                 .setProperty(DateTimeProperties.MONTH, "%e. %b")
                 .setProperty(DateTimeProperties.YEAR, "%b");
@@ -171,7 +185,7 @@ public class ChartPanelOptionsProvider implements Serializable {
 
         options.setLegend(new Legend().setEnabled(Boolean.FALSE));
 
-        CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<String, Float>();
+        CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<>();
         series1.setName(null);
         series1.setData(this.getSeriesData(data));
 
@@ -182,5 +196,77 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     public int getOptionsType() {
         return optionsType;
+    }
+
+    private long getMinXDependingOnType() {
+        long number = 0;
+        DateFormat dateFormat;
+        Date date;
+
+        try {
+
+            switch (this.optionsType) {
+                case BUTTON_TYPE_DAY:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 00:00:00");
+                    number = date.getTime();
+                    break;
+                case BUTTON_TYPE_MONTH:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/01 00:00:00");
+                    number = date.getTime();
+                    break;
+                case BUTTON_TYPE_QUARTER:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/06/01 00:00:00");
+                    number = date.getTime();
+                    break;
+                case BUTTON_TYPE_YEAR:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/01/01 00:00:00");
+                    number = date.getTime();
+                    break;
+            }
+
+        } catch (Exception e) {
+
+        }
+        return number;
+    }
+
+    private long getMaxXDependingOnType() {
+        long number = 0;
+        DateFormat dateFormat;
+        Date date;
+
+        try {
+
+            switch (this.optionsType) {
+                case BUTTON_TYPE_DAY:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 23:59:59");
+                    number = date.getTime();
+                    break;
+                case BUTTON_TYPE_MONTH:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 23:59:59");
+                    number = date.getTime();
+                    break;
+                case BUTTON_TYPE_QUARTER:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 23:59:59");
+                    number = date.getTime();
+                    break;
+                case BUTTON_TYPE_YEAR:
+                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    date = dateFormat.parse("2014/08/22 23:59:59");
+                    number = date.getTime();
+                    break;
+            }
+
+        } catch (Exception e) {
+
+        }
+        return number;
     }
 }

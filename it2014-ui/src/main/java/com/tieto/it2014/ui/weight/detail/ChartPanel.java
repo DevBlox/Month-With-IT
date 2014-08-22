@@ -3,6 +3,10 @@ package com.tieto.it2014.ui.weight.detail;
 import static com.google.common.collect.ComparisonChain.start;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.ui.user.WeightPage;
 import java.text.DateFormat;
@@ -31,12 +35,6 @@ import org.apache.wicket.model.PropertyModel;
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
-
-    public static final int BUTTON_TYPE_DAY = 1;
-    public static final int BUTTON_TYPE_MONTH = 2;
-    public static final int BUTTON_TYPE_QUARTER = 3;
-    public static final int BUTTON_TYPE_YEAR = 4;
-    public static final int BUTTON_TYPE_TIME_DEPENDING = 5;
 
     private List<Weight> weights;
 

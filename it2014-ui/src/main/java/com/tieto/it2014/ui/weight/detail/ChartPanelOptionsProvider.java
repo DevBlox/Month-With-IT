@@ -26,11 +26,9 @@ import com.tieto.it2014.domain.weight.query.UserWeightOfTheYear;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -186,7 +184,7 @@ public class ChartPanelOptionsProvider implements Serializable {
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter(new Function(
-                "return '<b>'+ Weight +'</b><br/>'+Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' kg';"));
+                "return Highcharts.dateFormat('%H:%M', this.x) +' '+ this.y +' kg';"));
         options.setTooltip(tooltip);
 
         options.setLegend(new Legend().setEnabled(Boolean.FALSE));
@@ -206,31 +204,52 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     private long getMinXDependingOnType() {
         long number = 0;
-        DateFormat dateFormat;
-        Date date;
+        Calendar cal = Calendar.getInstance();
 
         try {
 
             switch (this.optionsType) {
                 case BUTTON_TYPE_DAY:
-                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    date = dateFormat.parse("2014/08/22 00:00:00");
-                    number = date.getTime();
+                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR));
+                    cal.add(Calendar.HOUR_OF_DAY, 2);
+                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                    cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+                    number = cal.getTimeInMillis();
+
                     break;
                 case BUTTON_TYPE_MONTH:
-                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    date = dateFormat.parse("2014/08/01 00:00:00");
-                    number = date.getTime();
+                    cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));
+                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                    cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+                    number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_QUARTER:
-                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    date = dateFormat.parse("2014/06/01 00:00:00");
-                    number = date.getTime();
+                    cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));
+                    cal.add(Calendar.MONTH, -2);
+                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                    cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+                    number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_YEAR:
-                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    date = dateFormat.parse("2014/01/01 00:00:00");
-                    number = date.getTime();
+                    cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
+                    cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
+                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                    cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+                    number = cal.getTimeInMillis();
                     break;
             }
 
@@ -242,31 +261,48 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     private long getMaxXDependingOnType() {
         long number = 0;
-        DateFormat dateFormat;
-        Date date;
+        Calendar cal = Calendar.getInstance();
 
         try {
 
             switch (this.optionsType) {
                 case BUTTON_TYPE_DAY:
-                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    date = dateFormat.parse("2014/08/22 23:59:59");
-                    number = date.getTime();
+                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
+                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
+                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+                    cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
+
+                    number = cal.getTimeInMillis();
+
                     break;
                 case BUTTON_TYPE_MONTH:
-                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    date = dateFormat.parse("2014/08/22 23:59:59");
-                    number = date.getTime();
+                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
+                    cal.add(Calendar.HOUR_OF_DAY, 2);
+                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
+                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+                    cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
+
+                    number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_QUARTER:
-                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    date = dateFormat.parse("2014/08/22 23:59:59");
-                    number = date.getTime();
+                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
+                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
+                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+                    cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
+
+                    number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_YEAR:
-                    dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    date = dateFormat.parse("2014/08/22 23:59:59");
-                    number = date.getTime();
+                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
+                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
+                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+                    cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
+
+                    number = cal.getTimeInMillis();
                     break;
             }
 

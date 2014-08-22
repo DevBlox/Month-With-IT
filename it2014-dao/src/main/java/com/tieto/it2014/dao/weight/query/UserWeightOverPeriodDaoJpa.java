@@ -9,7 +9,7 @@ import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_TIME_DE
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
 
     private static final long serialVersionUID = 1L;
+
+    private long oneHour = 3600000;
 
     @PersistenceContext
     private EntityManager em;
@@ -36,21 +38,26 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
                 .setParameter("userId", imei);
 
         List<Weight> list = JpaUtils.toDomainList(query.getResultList());
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
-        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+        List<Weight> filtered = new ArrayList<>();
+        Weight lastWeight;
 
         switch (type) {
             case BUTTON_TYPE_DAY:
-                int day_min = Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH);
-                int day_max = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+                long hourStart;
+                long hourFinish = start;
 
-                System.out.println("Minimum: " + day_min);
-                System.out.println("Maximum: " + day_max);
+                List<Weight> hourList;
+                while (hourFinish < finish) {
+                    hourStart = hourFinish;
+                    hourFinish += oneHour;
+
+                    hourList = new ArrayList<>();
+                    for (Weight weight : list) {
+                        if (weight.timeStamp > hourStart && weight.timeStamp < hourFinish) {
+                            hourList.add(weight);
+                        }
+                    }
+                }
 
                 break;
 

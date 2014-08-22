@@ -100,9 +100,9 @@ public class ChartPanel extends Panel {
         options = ChartPanelOptionsProvider.getInstance().getOptions();
         chart = new Chart("chart", options);
 
-//        Form chartForm = new Form("chartForm");
+        Form chartForm = new Form("chartForm");
 //        chartForm.add(initFilterButton("currentDay", BUTTON_TYPE_DAY));
-//        chartForm.add(initFilterButton("currentMonth", BUTTON_TYPE_MONTH));
+        chartForm.add(initFilterButton("currentMonth", BUTTON_TYPE_MONTH));
 //        chartForm.add(initFilterButton("currentQuarter", BUTTON_TYPE_QUARTER));
 //        chartForm.add(initFilterButton("currentYear", BUTTON_TYPE_YEAR));
 //        Form dayForm = new Form("dayForm");
@@ -115,7 +115,7 @@ public class ChartPanel extends Panel {
 //        add(quarterForm);
 //        add(yearForm);
         add(chart);
-//        add(chartForm);
+        add(chartForm);
 
     }
 

@@ -115,7 +115,7 @@ public class ChartPanel extends Panel {
 //        add(quarterForm);
 //        add(yearForm);
         add(chart);
-        add(chartForm);
+//        add(chartForm);
 
     }
 

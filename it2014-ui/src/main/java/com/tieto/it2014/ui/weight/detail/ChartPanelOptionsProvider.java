@@ -14,6 +14,10 @@ import com.googlecode.wickedcharts.highcharts.options.Title;
 import com.googlecode.wickedcharts.highcharts.options.Tooltip;
 import com.googlecode.wickedcharts.highcharts.options.series.Coordinate;
 import com.googlecode.wickedcharts.highcharts.options.series.CustomCoordinatesSeries;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheDay;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheMonth;
@@ -33,7 +37,7 @@ public class ChartPanelOptionsProvider implements Serializable {
     private static ChartPanelOptionsProvider instance = null;
     private static final long serialVersionUID = 1L;
     private Options options = null;
-    private int optionsType = ChartPanel.BUTTON_TYPE_MONTH;
+    private int optionsType = BUTTON_TYPE_MONTH;
 
     @SpringBean
     private UserWeightOfTheDay weightQueryDay;
@@ -72,25 +76,25 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     public Options getDayOptions() {
-        optionsType = ChartPanel.BUTTON_TYPE_DAY;
+        optionsType = BUTTON_TYPE_DAY;
         List<Weight> data = weightQueryDay.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_DAY, CHART_XAXIS_TITLE_DAY);
     }
 
     public Options getMonthOptions() {
-        optionsType = ChartPanel.BUTTON_TYPE_MONTH;
+        optionsType = BUTTON_TYPE_MONTH;
         List<Weight> data = weightQueryMonth.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_MONTH, CHART_XAXIS_TITLE_MONTH);
     }
 
     public Options getYearOptions() {
-        optionsType = ChartPanel.BUTTON_TYPE_YEAR;
+        optionsType = BUTTON_TYPE_YEAR;
         List<Weight> data = weightQueryYear.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_YEAR, CHART_XAXIS_TITLE_YEAR);
     }
 
     public Options getQuaterOptions() {
-        optionsType = ChartPanel.BUTTON_TYPE_QUARTER;
+        optionsType = BUTTON_TYPE_QUARTER;
         List<Weight> data = weightQueryQuarter.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER);
     }
@@ -120,10 +124,10 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     private List<Coordinate<String, Float>> getSeriesData(List<Weight> chartData) {
-        List<Coordinate<String, Float>> data = new ArrayList<Coordinate<String, Float>>();
+        List<Coordinate<String, Float>> data = new ArrayList<>();
 
         for (Weight element : chartData) {
-            data.add(new Coordinate<String, Float>("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")", element.weight));
+            data.add(new Coordinate<>("Date.UTC(" + this.getUtcStringFromTimestamp(element.timeStamp) + ")", element.weight));
         }
 
         return data;
@@ -171,7 +175,7 @@ public class ChartPanelOptionsProvider implements Serializable {
 
         options.setLegend(new Legend().setEnabled(Boolean.FALSE));
 
-        CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<String, Float>();
+        CustomCoordinatesSeries<String, Float> series1 = new CustomCoordinatesSeries<>();
         series1.setName(null);
         series1.setData(this.getSeriesData(data));
 

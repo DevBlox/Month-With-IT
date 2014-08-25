@@ -3,10 +3,11 @@ package com.tieto.it2014.dao.user.command;
 import com.tieto.it2014.dao.user.UserJpa;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Component
 public class SaveUserCommandDaoJpa implements SaveUserCommand.Dao {

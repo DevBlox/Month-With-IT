@@ -2,12 +2,9 @@ package com.tieto.it2014.dao.weight;
 
 import com.tieto.it2014.dao.JpaEntity;
 import com.tieto.it2014.domain.weight.entity.Weight;
+
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * Created by mantas on 20/08/14.

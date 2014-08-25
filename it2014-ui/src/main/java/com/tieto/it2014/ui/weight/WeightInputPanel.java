@@ -6,8 +6,6 @@ import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.weight.detail.ChartPanelOptionsProvider;
-import java.sql.Timestamp;
-import java.util.List;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
@@ -19,6 +17,9 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 public class WeightInputPanel extends Panel {
 

@@ -1,6 +1,5 @@
 package com.tieto.it2014.dao.user.query;
 
-import com.google.common.collect.Iterables;
 import com.tieto.it2014.dao.user.FriendJpa;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllFriendsQuery;

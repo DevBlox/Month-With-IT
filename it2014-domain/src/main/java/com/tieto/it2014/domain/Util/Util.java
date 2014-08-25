@@ -8,16 +8,12 @@ import com.google.common.collect.Lists;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.weight.entity.Weight;
+import org.apache.commons.lang3.StringUtils;
+
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.lang3.StringUtils;
 
 public class Util {
 

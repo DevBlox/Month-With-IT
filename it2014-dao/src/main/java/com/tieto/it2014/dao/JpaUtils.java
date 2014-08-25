@@ -1,8 +1,8 @@
 package com.tieto.it2014.dao;
 
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.TypedQuery;
 
 public class JpaUtils {
 

@@ -2,18 +2,21 @@ package com.tieto.it2014.dao.weight.query;
 
 import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.weight.WeightJpa;
+import com.tieto.it2014.domain.Util.Util;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_TIME_DEPENDING;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.tieto.it2014.domain.weight.WeightChartType.*;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
@@ -55,27 +58,31 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
                             hourList.add(weight);
                         }
                     }
+
+                    if (!hourList.isEmpty()) {
+                        filtered.add(hourList.get(hourList.size() - 1));
+                    }
                 }
 
                 break;
 
             case BUTTON_TYPE_MONTH:
-
+                filtered = Util.getFilteredOnePerDayList(list);
                 break;
 
             case BUTTON_TYPE_QUARTER:
-
+                filtered = Util.getFilteredOnePerDayList(list);
                 break;
 
             case BUTTON_TYPE_TIME_DEPENDING:
-
+                filtered = Util.getFilteredOnePerDayList(list);
                 break;
 
             case BUTTON_TYPE_YEAR:
-
+                filtered = Util.getFilteredOnePerDayList(list);
                 break;
         }
 
-        return list;
+        return filtered;
     }
 }

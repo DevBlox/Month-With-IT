@@ -1,5 +1,6 @@
 package com.tieto.it2014.ui.user;
 
+import com.google.common.base.Objects;
 import com.tieto.it2014.domain.Util.Hash;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
@@ -8,21 +9,19 @@ import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
-import com.tieto.it2014.ui.validation.ExistingEmailValidator;
-import com.tieto.it2014.ui.validation.ExistingImeiValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 
 public class UpdateProfilePanel extends Panel {
@@ -35,6 +34,12 @@ public class UpdateProfilePanel extends Panel {
 
     private User user;
     private Form form;
+
+    private String oldPasswordString;
+    private String newPasswordString;
+    private String repeatNewPasswordString;
+    private static final int MIN_PASSWORD_LENGHT = 5;
+    private static final int MAX_PASSWORD_LENGHT = 30;
 
     @SpringBean
     private SaveUserCommand saveUser;
@@ -49,15 +54,20 @@ public class UpdateProfilePanel extends Panel {
     protected void onInitialize() {
 
         super.onInitialize();
+
+        if (!UserSession.get().hasUser()) {
+            setResponsePage(HomePage.class);
+        }
+
         user = UserSession.get().getUser();
 
         form = new Form("updateProfileForm");
         PasswordTextField newPassword = new PasswordTextField("inputNewPassword",
-                new PropertyModel(user, "password"));
+                new PropertyModel(this, "newPasswordString"));
         PasswordTextField repeatNewPassword = new PasswordTextField("repeatNewPassword",
-                new PropertyModel(user, "password"));
+                new PropertyModel(this, "repeatNewPasswordString"));
         PasswordTextField oldPassword = new PasswordTextField("inputOldPassword",
-                new PropertyModel(user, "password"));
+                new PropertyModel(this, "oldPasswordString"));
 
         form.add(new TextField("inputUserName",
                 new PropertyModel(user, "username"))
@@ -65,31 +75,28 @@ public class UpdateProfilePanel extends Panel {
                 .add(new StringValidator(1, 30))
         );
         form.add(newPassword
-                .setRequired(true)
-                .add(new StringValidator(5, 30))
-        );
+                .setRequired(false));
+        form.add(repeatNewPassword
+                .setRequired(false));
         form.add(oldPassword
-                .setRequired(true)
-                .add(new StringValidator(5, 30))
-        );
-        form.add(new TextField("email", new PropertyModel(user, "email"))
-                .setRequired(true)
-                .add(EmailAddressValidator.getInstance())
-                .add(new ExistingEmailValidator(getUserByEmailQuery))
-        );
-        form.add(new TextField("imei", new PropertyModel(user, "imei"))
-                .setRequired(true)
-                .add(new ExistingImeiValidator(getUserByIdQuery))
-                .add(new StringValidator(0, 15))
-        );
+                .setRequired(false));
+        form.add(new Label("email", new PropertyModel(user, "email")));
+        form.add(new Label("imei", new PropertyModel(user, "imei")));
         form.add(initRegisterButton("updateButton"));
         form.add(initCancelButton("cancelButton"));
-        form.add(new EqualPasswordInputValidator(newPassword, oldPassword));
+//        form.add(new EqualPasswordInputValidator(newPassword, repeatNewPassword));
 
         form.add(new FeedbackPanel("updateFeedback",
                 new ContainerFeedbackMessageFilter(form)));
 
         add(form);
+    }
+
+    @Override
+    protected void onConfigure() {
+        if (!UserSession.get().hasUser()) {
+            setResponsePage(HomePage.class);
+        }
     }
 
     private Link initCancelButton(String id) {
@@ -110,26 +117,48 @@ public class UpdateProfilePanel extends Panel {
 
             @Override
             public void onSubmit() {
-                actionRegisterUser();
+                actionUpdateUser();
             }
 
         };
     }
 
-    private void actionRegisterUser() {
-        user.password = Hash.sha256(user.password);
+    private void actionUpdateUser() {
+
+        if (StringUtils.isNotBlank(oldPasswordString)
+                && StringUtils.isNotBlank(newPasswordString)
+                && StringUtils.isNotBlank(repeatNewPasswordString)) {
+
+            if (!checkLength(MIN_PASSWORD_LENGHT, MAX_PASSWORD_LENGHT, newPasswordString.length())) {
+                form.error("Password must be between " + MIN_PASSWORD_LENGHT + " and "
+                        + MAX_PASSWORD_LENGHT);
+                return;
+            }
+
+            if (!Objects.equal(newPasswordString, repeatNewPasswordString)) {
+                form.error("Passwords do not match!");
+                return;
+            } else if (Objects.equal(user.password, Hash.sha256(oldPasswordString))) {
+                user.password = Hash.sha256(newPasswordString);
+            } else {
+                form.error("Incorrect old password.");
+                return;
+            }
+        } else if (StringUtils.isNotBlank(oldPasswordString)
+                || StringUtils.isNotBlank(newPasswordString)
+                || StringUtils.isNotBlank(repeatNewPasswordString)) {
+            form.error("Not all password fields are entered.");
+            return;
+        }
+
         saveUser.execute(user);
         UserSession.get().setUser(user);
 
-        setResponsePage(withInfoMsg(new HomePage(), "Yoi have successfuly updated your profile"));
+        setResponsePage(withInfoMsg(new HomePage(), "You have successfuly updated your profile"));
 
     }
 
-    @Override
-    protected void onConfigure() {
-        super.onConfigure();
-        if (UserSession.get().isLoggedIn()) {
-            setResponsePage(HomePage.class);
-        }
+    private boolean checkLength(int low, int high, int msgLength) {
+        return msgLength <= high && msgLength >= low;
     }
 }

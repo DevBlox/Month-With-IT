@@ -4,12 +4,8 @@ import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.weight.WeightJpa;
 import com.tieto.it2014.domain.Util.Util;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
-import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
-import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
-import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +18,7 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
 
     private static final long serialVersionUID = 1L;
 
-    private long oneHour = 3600000;
+    private final long oneHour = 3600000;
 
     @PersistenceContext
     private EntityManager em;
@@ -38,46 +34,13 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
                 .setParameter("userId", imei);
 
         List<Weight> list = JpaUtils.toDomainList(query.getResultList());
-        List<Weight> filtered = new ArrayList<>();
+        List<Weight> filtered;
         Weight lastWeight;
 
-        switch (type) {
-            case BUTTON_TYPE_DAY:
-
-                filtered = list;
-
-//                long hourStart;
-//                long hourFinish = start;
-//
-//                List<Weight> hourList;
-//                while (hourFinish < finish) {
-//                    hourStart = hourFinish;
-//                    hourFinish += oneHour;
-//
-//                    hourList = new ArrayList<>();
-//                    for (Weight weight : list) {
-//                        if (weight.timeStamp > hourStart && weight.timeStamp < hourFinish) {
-//                            hourList.add(weight);
-//                        }
-//                    }
-//
-//                    if (!hourList.isEmpty()) {
-//                        filtered.add(hourList.get(hourList.size() - 1));
-//                    }
-//                }
-                break;
-
-            case BUTTON_TYPE_MONTH:
-                filtered = Util.getFilteredOnePerDayList(list);
-                break;
-
-            case BUTTON_TYPE_QUARTER:
-                filtered = Util.getFilteredOnePerDayList(list);
-                break;
-
-            case BUTTON_TYPE_YEAR:
-                filtered = Util.getFilteredOnePerDayList(list);
-                break;
+        if (BUTTON_TYPE_DAY == type) {
+            filtered = list;
+        } else {
+            filtered = Util.getFilteredOnePerDayList(list);
         }
 
         return filtered;

@@ -12,6 +12,7 @@ public class ProfilePagePanel extends Panel {
 
     public ProfilePagePanel(String id) {
         super(id);
+        add(new UpdateProfilePanel("updatePanel"));
     }
 
 }

@@ -9,10 +9,12 @@
 
     <form class="form-horizontal" wicket:id="chartForm">
         <div class="form-group">
-            <button wicket:id="currentDay" type="submit" class="btn btn-default btn-success">Current day</button>
-            <button wicket:id="currentMonth" type="submit" class="btn btn-default btn-success">Current month</button>
-            <button wicket:id="currentQuarter" type="submit" class="btn btn-default btn-success">Current quarter</button>
-            <button wicket:id="currentYear" type="submit" class="btn btn-default btn-success">Current year</button>
+            <div class="btn-group">
+                <button wicket:id="currentDay" type="submit" class="btn btn-default btn-success">Current day</button>
+                <button wicket:id="currentMonth" type="submit" class="btn btn-default btn-success">Current month</button>
+                <button wicket:id="currentQuarter" type="submit" class="btn btn-default btn-success">Current quarter</button>
+                <button wicket:id="currentYear" type="submit" class="btn btn-default btn-success">Current year</button>
+            </div>
         </div>
     </form>
     <div wicket:id="feedback"></div>

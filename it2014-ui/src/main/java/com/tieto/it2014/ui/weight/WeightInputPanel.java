@@ -5,9 +5,9 @@ import com.tieto.it2014.domain.weight.command.AddWeightCommand;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.weight.detail.ChartPanelOptionsProvider;
 import java.sql.Timestamp;
 import java.util.List;
-
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
@@ -97,7 +97,7 @@ public class WeightInputPanel extends Panel {
         super.onConfigure();
         weights = weightQuery.result(UserSession.get().getUser().imei);
         if (!weights.isEmpty()) {
-            weightInputField.add(new AttributeModifier("value", (double)(Math.round(weights.get(weights.size()-1).weight * 10))/10));
+            weightInputField.add(new AttributeModifier("value", (double) (Math.round(weights.get(weights.size() - 1).weight * 10)) / 10));
         }
     }
 
@@ -119,6 +119,7 @@ public class WeightInputPanel extends Panel {
                         return;
                     }
                     addWeightCommand.execute(new Weight(savingWeight, id, 0, currentTimestamp.getTime()));
+                    ChartPanelOptionsProvider.getInstance().setNewOptions();
                 } else {
                     weightInputForm.error("Wrong weight format");
                 }

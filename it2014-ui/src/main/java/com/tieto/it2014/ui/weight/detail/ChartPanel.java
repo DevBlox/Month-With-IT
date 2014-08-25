@@ -5,6 +5,7 @@ import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.ui.user.WeightPage;
 import java.util.List;
@@ -101,10 +102,10 @@ public class ChartPanel extends Panel {
         chart = new Chart("chart", options);
 
         Form chartForm = new Form("chartForm");
-//        chartForm.add(initFilterButton("currentDay", BUTTON_TYPE_DAY));
+        chartForm.add(initFilterButton("currentDay", BUTTON_TYPE_DAY));
         chartForm.add(initFilterButton("currentMonth", BUTTON_TYPE_MONTH));
-//        chartForm.add(initFilterButton("currentQuarter", BUTTON_TYPE_QUARTER));
-//        chartForm.add(initFilterButton("currentYear", BUTTON_TYPE_YEAR));
+        chartForm.add(initFilterButton("currentQuarter", BUTTON_TYPE_QUARTER));
+        chartForm.add(initFilterButton("currentYear", BUTTON_TYPE_YEAR));
 //        Form dayForm = new Form("dayForm");
 //        Form monthForm = new Form("monthForm");
 //        Form quarterForm = new Form("quarterForm");

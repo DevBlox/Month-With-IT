@@ -27,7 +27,7 @@ public class RegisterPanelTest {
     }
 
     @Test
-    public void checks_if_imei_is_not_in_use() {
+    public void checksIfImeiIsNotInUse() {
         Mockito.when(
                 getUserByIdQuery.resultOrNull(Mockito.anyString()))
                 .thenReturn(null);

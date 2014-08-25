@@ -12,7 +12,22 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class RegisterPanelTest extends BaseWebTest {
+
     private WicketTester wicketTester;
+
+    private static final String email = "audrius.siliunas@tietocamp.eu";
+    private static final String registerFormName = "register";
+    private static final String registerFormTesterName = "register:registerForm";
+    private static final String inputUserNameFieldName = "inputUserName";
+    private static final String inputEmailFieldName = "inputEmail";
+    private static final String inputPasswordFieldName = "inputPassword";
+    private static final String repeatPasswordFieldName = "repeatPassword";
+    private static final String imeiIsRequiredMsg = "IMEI is required";
+    private static final String repeatPasswordMsg = "Please repeat password";
+    private static final String userName = "Audrius Siliunas";
+    private static final String secondEmail = "adudu@valio.lt";
+    private static final String password = "slaptaisaugu";
+
     @Autowired
     private GetUserByEmailQuery getUserByEmailQuery;
 
@@ -22,78 +37,77 @@ public class RegisterPanelTest extends BaseWebTest {
     }
 
     @Test
-    public void checks_if_emails_are_equal() {
-        String email = "audrius.siliunas@tietocamp.eu";
+    public void checksIfEmailsAreEqual() {
         User user = getUserByEmailQuery.result(email);
         assertThat(email, equalTo(user.email));
     }
 
     @Test
-    public void shows_error_if_imei_field_is_empty() {
-        wicketTester.startComponentInPage(new RegisterPanel("register"));
-        FormTester formTester = wicketTester.newFormTester("register:registerForm");
-        formTester.setValue("inputUserName", "Artur Černiavskij");
-        formTester.setValue("inputEmail", "artur.cerniavskij@tieto.com");
-        formTester.setValue("inputPassword", "pass@word");
-        formTester.setValue("repeatPassword", "pass@word");
+    public void showsErrorIfImeiFieldIsEmpty() {
+        wicketTester.startComponentInPage(new RegisterPanel(registerFormName));
+        FormTester formTester = wicketTester.newFormTester(registerFormTesterName);
+        formTester.setValue(inputUserNameFieldName, "Artur Černiavskij");
+        formTester.setValue(inputEmailFieldName, "artur.cerniavskij@tieto.com");
+        formTester.setValue(inputPasswordFieldName, "pass@word");
+        formTester.setValue(repeatPasswordFieldName, "pass@word");
         formTester.submit();
-        wicketTester.assertErrorMessages("IMEI is required");
+        wicketTester.assertErrorMessages(imeiIsRequiredMsg);
     }
 
     @Test
-    public void shows_error_if_all_fields_is_empty() {
-        wicketTester.startComponentInPage(new RegisterPanel("register"));
-        FormTester formTester = wicketTester.newFormTester("register:registerForm");
+    public void showsErrorIfAllFieldsIsEmpty() {
+        wicketTester.startComponentInPage(new RegisterPanel(registerFormName));
+        FormTester formTester = wicketTester.newFormTester(registerFormTesterName);
         formTester.submit();
-        wicketTester.assertErrorMessages("User name is required", "Password is required", "Please repeat password", "E-mail is required", "IMEI is required");
+        wicketTester.assertErrorMessages("User name is required", "Password is required", repeatPasswordMsg, "E-mail is required", imeiIsRequiredMsg);
     }
 
     @Test
-    public void shows_error_if_password_is_not_repeated() {
-        wicketTester.startComponentInPage(new RegisterPanel("register"));
-        FormTester formTester = wicketTester.newFormTester("register:registerForm");
-        formTester.setValue("inputUserName", "Audrius Siliunas");
-        formTester.setValue("inputEmail", "adudu@valio.lt");
-        formTester.setValue("inputPassword", "slaptaisaugu");
+    public void showsErrorIfPasswordIsNotRepeated() {
+        wicketTester.startComponentInPage(new RegisterPanel(registerFormName));
+        FormTester formTester = wicketTester.newFormTester(registerFormTesterName);
+        formTester.setValue(inputUserNameFieldName, userName);
+        formTester.setValue(inputEmailFieldName, secondEmail);
+        formTester.setValue(inputPasswordFieldName, password);
         formTester.setValue("imei", "4566");
         formTester.submit();
-        wicketTester.assertErrorMessages("Please repeat password");
+        wicketTester.assertErrorMessages(repeatPasswordMsg);
     }
 
     @Test
-    public void shows_error_if_email_is_inUse() {
-        wicketTester.startComponentInPage(new RegisterPanel("register"));
-        FormTester formTester = wicketTester.newFormTester("register:registerForm");
-        formTester.setValue("inputUserName", "Audrius Siliunas");
-        formTester.setValue("inputEmail", "audrius.siliunas@tietocamp.eu");
-        formTester.setValue("inputPassword", "slaptaisaugu");
-        formTester.setValue("repeatPassword", "slaptaisaugu");
+    public void showsErrorIfEmailIsInUse() {
+        wicketTester.startComponentInPage(new RegisterPanel(registerFormName));
+        FormTester formTester = wicketTester.newFormTester(registerFormTesterName);
+        formTester.setValue(inputUserNameFieldName, userName);
+        formTester.setValue(inputEmailFieldName, email);
+        formTester.setValue(inputPasswordFieldName, password);
+        formTester.setValue(repeatPasswordFieldName, password);
         formTester.setValue("imei", "4566");
         formTester.submit();
         wicketTester.assertErrorMessages("Email is already in use!");
     }
 
     @Test
-    public void shows_error_if_imei_is_inUse() {
-        wicketTester.startComponentInPage(new RegisterPanel("register"));
-        FormTester formTester = wicketTester.newFormTester("register:registerForm");
-        formTester.setValue("inputUserName", "Audrius Siliunas");
-        formTester.setValue("inputEmail", "random@audrius.lt");
-        formTester.setValue("inputPassword", "slaptaisaugu");
-        formTester.setValue("repeatPassword", "slaptaisaugu");
+    public void showsErrorIfImeiIsInUse() {
+        wicketTester.startComponentInPage(new RegisterPanel(registerFormName));
+        FormTester formTester = wicketTester.newFormTester(registerFormTesterName);
+        formTester.setValue(inputUserNameFieldName, userName);
+        formTester.setValue(inputEmailFieldName, "random@audrius.lt");
+        formTester.setValue(inputPasswordFieldName, password);
+        formTester.setValue(repeatPasswordFieldName, password);
         formTester.setValue("imei", "356871044631608");
         formTester.submit();
         wicketTester.assertErrorMessages("IMEI number is already in use!");
     }
 
     @Test
-    public void shows_error_if_password_missmatch() {
-        wicketTester.startComponentInPage(new RegisterPanel("register"));
-        FormTester formTester = wicketTester.newFormTester("register:registerForm");
-        formTester.setValue("inputUserName", "Audrius Siliunas");
-        formTester.setValue("inputEmail", "adudu@valio.lt");
-        formTester.setValue("inputPassword", "slaptaisaugu");
-        formTester.setValue("repeatPassword", "ne4564");
+    public void showsErrorIfPasswordMissmatch() {
+        wicketTester.startComponentInPage(new RegisterPanel(registerFormName));
+        FormTester formTester = wicketTester.newFormTester(registerFormTesterName);
+        formTester.setValue(inputUserNameFieldName, userName);
+        formTester.setValue(inputEmailFieldName, secondEmail);
+        formTester.setValue(inputPasswordFieldName, password);
+        formTester.setValue(repeatPasswordFieldName, "ne4564");
         formTester.setValue("imei", "4566");
         formTester.submit();
         wicketTester.assertErrorMessages("Password does not match");

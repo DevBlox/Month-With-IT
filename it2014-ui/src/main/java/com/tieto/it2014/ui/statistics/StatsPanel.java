@@ -21,6 +21,8 @@ import java.util.Set;
  */
 public class StatsPanel extends Panel {
 
+    private static final long serialVersionUID = 1L;
+
     @SpringBean
     private WorkoutsQuery workoutQuery;
 
@@ -70,7 +72,7 @@ public class StatsPanel extends Panel {
         add(new Label("totalDist", "Total distance: " + Util.formatDoubleToString(totalDist) + " km."));
         add(new Label("totalTime", "Total time: " + Util.getDurationString(totalTime)));
         add(new Label("totalDays", "Days: " + totalDays + " d."));
-        add(new Label("Calories", "Calories: -"));
+        add(new Label("Calories", "Calories: "));
         if (weightDiff > 0) {
             add(new Label("Weight", "Weight change: +" + weightDiff + " kg."));
         } else {

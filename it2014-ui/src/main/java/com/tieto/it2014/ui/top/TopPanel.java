@@ -10,19 +10,27 @@ import com.tieto.it2014.domain.user.entity.UserStats;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.workout.query.CurrentMonthWorkoutsQuery;
+import com.tieto.it2014.ui.session.UserSession;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import org.apache.commons.lang3.text.WordUtils;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.*;
-
 /**
  * Created by mantas on 20/08/14.
  */
 public class TopPanel extends Panel {
+
+    private static final long serialVersionUID = 1L;
 
     public TopPanel(String id) {
         super(id);
@@ -88,7 +96,11 @@ public class TopPanel extends Panel {
                                 Calendar.getInstance().get(Calendar.MONTH)))));
         RepeatingView view = new RepeatingView("topItem");
         for (UserStats us : usList) {
-            view.add(new TopListItemPanel(view.newChildId(), us));
+            TopListItemPanel item = new TopListItemPanel(view.newChildId(), us);
+            if (Objects.equals(UserSession.get().getUser().imei, us.id)) {
+                item.add(new AttributeAppender("class", "active"));
+            }
+            view.add(item);
         }
         add(view);
     }

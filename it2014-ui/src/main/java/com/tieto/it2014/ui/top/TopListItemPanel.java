@@ -10,6 +10,8 @@ import org.apache.wicket.model.PropertyModel;
  */
 public class TopListItemPanel extends Panel {
 
+    private static final long serialVersionUID = 1L;
+
     private UserStats st;
 
     public TopListItemPanel(String id, UserStats st) {

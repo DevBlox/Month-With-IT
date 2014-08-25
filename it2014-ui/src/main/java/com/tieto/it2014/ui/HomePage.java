@@ -19,7 +19,7 @@ public class HomePage extends BasePage {
     private String imeiParam;
 
     public HomePage() {
-        
+
     }
 
     public HomePage(final PageParameters params) {

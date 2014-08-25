@@ -121,7 +121,7 @@ public class UpdateProfilePanel extends Panel {
         saveUser.execute(user);
         UserSession.get().setUser(user);
 
-        setResponsePage(withInfoMsg(new HomePage(), "Registration was successfull"));
+        setResponsePage(withInfoMsg(new HomePage(), "Yoi have successfuly updated your profile"));
 
     }
 

@@ -2,6 +2,7 @@ package com.tieto.it2014.dao.weight.query;
 
 import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.weight.WeightJpa;
+import com.tieto.it2014.domain.Util.Util;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheMonth;
 import java.util.Calendar;
@@ -41,6 +42,6 @@ public class UserWeightOfTheMonthDaoJpa implements UserWeightOfTheMonth.Dao {
                 "SELECT w FROM WeightJpa w WHERE w.userId = :imei AND w.timeStamp > :time ORDER BY w.timeStamp ASC", WeightJpa.class)
                 .setParameter("imei", imei).setParameter("time", time);
 
-        return JpaUtils.toDomainList(query.getResultList());
+        return Util.getFilteredOnePerDayList(JpaUtils.toDomainList(query.getResultList()));
     }
 }

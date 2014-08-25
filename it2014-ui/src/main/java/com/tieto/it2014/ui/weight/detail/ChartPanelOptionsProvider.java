@@ -14,6 +14,7 @@ import com.googlecode.wickedcharts.highcharts.options.Title;
 import com.googlecode.wickedcharts.highcharts.options.Tooltip;
 import com.googlecode.wickedcharts.highcharts.options.series.Coordinate;
 import com.googlecode.wickedcharts.highcharts.options.series.CustomCoordinatesSeries;
+import com.tieto.it2014.domain.Util.Util;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
@@ -149,22 +150,19 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     public Options getOptions() {
-        if (options == null) {
-            return getMonthOptions();
+        if (userImei != null) {
+            if (UserSession.get().getUser().imei.equals(userImei)) {
+                return options;
+            } else {
+                return getMonthOptions();
+            }
         } else {
-            return options;
+            if (null == options) {
+                return getMonthOptions();
+            } else {
+                return options;
+            }
         }
-//        if (userImei != null) {
-//            if (UserSession.get().getUser().imei.equals(userImei)) {
-//                return options;
-//            } else {
-//                return getMonthOptions();
-//            }
-//        } else {
-//            if (null == options) {
-//                return getMonthOptions();
-//            }
-//        }
     }
 
     public Options getDefaultOptions(List<Weight> data, String chartTitle, String xAxisTitle, Long start, Long finish) {
@@ -200,7 +198,7 @@ public class ChartPanelOptionsProvider implements Serializable {
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter(new Function(
-                "return Highcharts.dateFormat('%H:%M', this.x) +' '+ this.y +' kg';"));
+                "return '<b>Time: </b>' + Highcharts.dateFormat('%Y-%m-%d %H:%M', this.x) +'<br /><b>Weight:</b> '+ this.y +' kg';"));
         options.setTooltip(tooltip);
 
         options.setLegend(new Legend().setEnabled(Boolean.FALSE));
@@ -228,10 +226,11 @@ public class ChartPanelOptionsProvider implements Serializable {
                 case BUTTON_TYPE_DAY:
                     cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
                     cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR));
-                    cal.add(Calendar.HOUR_OF_DAY, 2);
                     cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
                     cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+                    cal = Util.convertToGmt(cal);
 
                     number = cal.getTimeInMillis();
 
@@ -289,6 +288,8 @@ public class ChartPanelOptionsProvider implements Serializable {
                     cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
 
+                    cal = Util.convertToGmt(cal);
+
                     number = cal.getTimeInMillis();
 
                     break;
@@ -330,5 +331,25 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     private void setUserImei(String imei) {
         this.userImei = imei;
+    }
+
+    public void setNewOptions() {
+        switch (optionsType) {
+            case BUTTON_TYPE_DAY:
+                getDayOptions();
+                break;
+            case BUTTON_TYPE_MONTH:
+                getMonthOptions();
+                break;
+            case BUTTON_TYPE_QUARTER:
+                getQuaterOptions();
+                break;
+            case BUTTON_TYPE_YEAR:
+                getYearOptions();
+                break;
+            default:
+                getMonthOptions();
+                break;
+        }
     }
 }

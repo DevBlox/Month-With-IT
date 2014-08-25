@@ -2,6 +2,7 @@ package com.tieto.it2014.ui;
 
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.user.ProfilePage;
 import com.tieto.it2014.ui.user.StatisticsPage;
 import com.tieto.it2014.ui.user.TopPage;
 import com.tieto.it2014.ui.user.WeightPage;
@@ -42,6 +43,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         mountPage("user/${userImei}", HomePage.class);
         mountPage("user/weight", WeightPage.class);
         mountPage("user/stats", StatisticsPage.class);
+        mountPage("user/edit", ProfilePage.class);
         mountPage("top", TopPage.class);
     }
 

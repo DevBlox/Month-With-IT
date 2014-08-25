@@ -165,7 +165,6 @@ public class ChartPanel extends Panel {
                     Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
-                System.out.println("pradžia: " + start + " pabaiga: " + end);
                 // info("Jūs pasirinkote : " + selected);
 
             }
@@ -184,7 +183,6 @@ public class ChartPanel extends Panel {
                 }
 
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
-                System.out.println("pradžia: " + start + " pabaiga: " + end);
 
             //    info("Jūs pasirinkote : " + selected);
             }

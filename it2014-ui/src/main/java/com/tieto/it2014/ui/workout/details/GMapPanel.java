@@ -55,12 +55,6 @@ public class GMapPanel extends Panel {
         List<Double> axisData = new ArrayList<>();
         List<Double> seriesData = new ArrayList<>();
 
-//        0.49211000000000005 0.5077200000000001
-//        479.0 488.0
-//        0.4968599999999999 0.5110899999999999
-//        425.0 435.0
-//        0.4855199999999999 0.5018199999999999
-//        416.0 426.0
         try {
             uLocs = workoutsModel.getObject().getLocs();
 
@@ -68,77 +62,11 @@ public class GMapPanel extends Panel {
                 markers.add(new GLatLng(uLoc.latitude, uLoc.longtitude));
             }
 
-//            Double dist = 0.0;
-//            Double time = 0.0;
-//            int timeInSeconds = 0;
-//            Double totalTime = 0.0;
-//            Double totalDist = 0.0;
-//            Double km = 0.0;
-//
-//            for (int i = 0; i <= uLocs.size() - 2; i++) {
-//                UserLoc ul1 = uLocs.get(i);
-//                UserLoc ul2 = uLocs.get(i + 1);
-//                if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) > 0.5) {
-//                    Double distDiff = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) * 100;
-//                    Double timeDiff = (double) Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-//                    time += (double) timeDiff / distDiff;
-//                    totalTime += time;
-//                    km += 0.5;
-//                    axisData.add(km);
-//                    seriesData.add((time % 3600) / 60);
-//                    dist = 0.0;
-//                    time = timeDiff - (double) timeDiff / distDiff;
-//                }
-//                timeInSeconds += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-//                time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-//                totalDist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
-//                dist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
-//            }
-//            axisData.add((km + (((totalDist * 1000) % 500) / 1000)));
-//            seriesData.add(((timeInSeconds - totalTime) % 3600) / 60);
-//
-//            double dist = 0;
-//            double distDiffSum = 0;
-//            double totalDist = 0;
-//            float time = 0;
-//            float timeDiffSum = 0;
-//            for (int i = 0; i <= uLocs.size() - 2; i++) {
-//                UserLoc ul1 = uLocs.get(i+1);
-//                UserLoc ul2 = uLocs.get(i);
-//                if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) > 0.5) {
-//
-//                    System.out.println(dist + " " + (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude)));
-//
-//                    distDiffSum += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
-//                    timeDiffSum += (float) Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-//
-//                    Double distDiff = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) * 100;
-//                    float timeDiff = (float) Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-//
-//                    time += timeDiff / distDiff;
-//                    //System.out.println(time);
-//                    seriesData.add((time % 3600) / 60);
-//                    Double minChange = 0.500 - dist;
-//                    dist += minChange;
-//                    totalDist += dist;
-//                    axisData.add(totalDist);
-//                    dist = (distDiff/100) - minChange;
-//                    time = (float)(timeDiff - timeDiff / distDiff);
-//                }
-//                dist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
-//                time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-//            }
-//            axisData.add(dist + totalDist - distDiffSum);
-//            seriesData.add(((time-timeDiffSum) % 3600) / 60);
-
-
             UserLoc ul1 = uLocs.get(0);
             UserLoc ul2 = uLocs.get(1);
             Double lc = 0.5;
             Double time = 0.0;
-            int totalTime = 0;
             Double timeDiffSum = 0.0;
-            Double sum = 0.0;
             double dist = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
             for (int i = 1; i <= uLocs.size() - 2; i++) {
 
@@ -154,10 +82,8 @@ public class GMapPanel extends Panel {
 
                     time += timeDiff / distDiff;
                     Double addValue = time.isNaN() ? seriesData.get(seriesData.size()-1) : time ;
-                    addValue = Util.truncate(((addValue % 3600) / 60), 2);
+                    addValue = Util.truncate(addValue % 3600 / 60, 2);
                     seriesData.add(addValue);
-                    sum += time;
-                    System.out.println(time);
                     axisData.add(lc);
                     time = (timeDiff - timeDiff / distDiff);
 
@@ -166,15 +92,10 @@ public class GMapPanel extends Panel {
 
                 dist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
                 time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-                totalTime += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
 
             }
             axisData.add(dist);
-            System.out.println(time-timeDiffSum);
-            seriesData.add(Util.truncate((((time-timeDiffSum) % 3600) / 60), 2));
-            sum += time-timeDiffSum;
-
-            System.out.println(sum + " " + totalTime);
+            seriesData.add(Util.truncate((time-timeDiffSum) % 3600 / 60, 2));
 
             // adding chart to page
             Options options = new Options();
@@ -197,7 +118,7 @@ public class GMapPanel extends Panel {
                 array[index] = Util.formatDoubleToString((double) value);
                 index++;
             }
-            //xAxis.setTitle(new Title("Distance"));
+            // TODO: add category name
             xAxis.setCategories(array);
             options.setxAxis(xAxis);
 

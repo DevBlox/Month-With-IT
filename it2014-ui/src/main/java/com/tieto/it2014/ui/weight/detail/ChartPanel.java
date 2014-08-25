@@ -1,6 +1,5 @@
 package com.tieto.it2014.ui.weight.detail;
 
-import static com.google.common.collect.ComparisonChain.start;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
@@ -23,13 +22,10 @@ import java.util.logging.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 public class ChartPanel extends Panel {
@@ -162,7 +158,7 @@ public class ChartPanel extends Panel {
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
                 System.out.println("pradžia: " + start + " pabaiga: " + end);
-               // info("Jūs pasirinkote : " + selected);
+                // info("Jūs pasirinkote : " + selected);
 
             }
         };
@@ -183,7 +179,6 @@ public class ChartPanel extends Panel {
                 System.out.println("pradžia: " + start + " pabaiga: " + end);
 
             //    info("Jūs pasirinkote : " + selected);
-
             }
         };
 
@@ -236,8 +231,96 @@ public class ChartPanel extends Panel {
     private void hideForms(int type) {
         switch (type) {
             case BUTTON_TYPE_DAY:
-
+                daysForm.setVisible(true);
+                monthForm.setVisible(false);
+                quarterForm.setVisible(false);
+                break;
+            case BUTTON_TYPE_MONTH:
+                monthForm.setVisible(true);
+                daysForm.setVisible(false);
+                quarterForm.setVisible(false);
+                break;
+            case BUTTON_TYPE_QUARTER:
+                monthForm.setVisible(false);
+                daysForm.setVisible(false);
+                quarterForm.setVisible(true);
+                break;
         }
+    }
+
+    private List<String> getDaysInThisMonth() {
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        // Date date = calendar.getTime();
+        int day = calendar.get(Calendar.DATE);
+        String[] stringArrayOfDays = new String[day];
+        for (int i = 1; i <= day; i++) {
+            stringArrayOfDays[i - 1] = Integer.toString(i);
+            // createdListOfdays.add(new String(Integer.toString(i)));
+        };
+        ArrayList<String> createdListOfdays = new ArrayList<String>(Arrays.asList(stringArrayOfDays));
+        return createdListOfdays;
+    }
+
+    private String getMonthString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.MONTH) + 1);
+    }
+
+    private String getYearString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.YEAR));
+    }
+
+    private List<String> getMonthsInThisYear() {
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        // Date date = calendar.getTime();
+        int month = calendar.get(Calendar.MONTH) + 1;
+        String[] stringArrayOfMonths = new String[month];
+        for (int i = 1; i <= month; i++) {
+            stringArrayOfMonths[i - 1] = Integer.toString(i);
+        };
+        ArrayList<String> createdListOfMonths = new ArrayList<String>(Arrays.asList(stringArrayOfMonths));
+        return createdListOfMonths;
+    }
+
+    private List<String> getQuartersInThisYear() {
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        // Date date = calendar.getTime();
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int quarters = month / 3;
+        if ((month % 3) != 0) {
+            quarters = quarters + 1;
+        }
+        String[] stringArrayOfQuarters = new String[quarters];
+        for (int i = 1; i <= quarters; i++) {
+            stringArrayOfQuarters[i - 1] = Integer.toString(i);
+        };
+        ArrayList<String> createdListOfQuarters = new ArrayList<String>(Arrays.asList(stringArrayOfQuarters));
+        return createdListOfQuarters;
+    }
+
+    private Long createTimeStamp(String year, String month, String day) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = day + "/" + month + "/" + year;
+        Date date = dateFormat.parse(dateString);
+        long timestamp = date.getTime();
+
+        return timestamp;
+    }
+
+    private long getLastDayInMonthInCurrentYearTimestamp(String month) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(cal.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date date2 = cal.getTime();
+        return date2.getTime();
     }
 
 }

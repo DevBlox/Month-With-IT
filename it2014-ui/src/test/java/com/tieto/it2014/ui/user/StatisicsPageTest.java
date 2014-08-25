@@ -29,7 +29,7 @@ public class StatisicsPageTest extends BaseWebTest {
     }
 
     @Test
-    public void renders_successfully_with_logged_in_user() {
+    public void rendersSuccessfullyWithLoggedInUser() {
         userSession = (UserSession) tester.getSession();
         userSession.setUser(user);
         tester.startPage(StatisticsPage.class);
@@ -37,7 +37,7 @@ public class StatisicsPageTest extends BaseWebTest {
     }
 
     @Test
-    public void renders_successfully_with_no_logged_in_user() {
+    public void rendersSuccessfullyWithNoLoggedInUser() {
         tester.startPage(StatisticsPage.class);
         tester.assertRenderedPage(ErrorPage404.class);
     }

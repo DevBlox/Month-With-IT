@@ -22,14 +22,14 @@ public class RegisterPanelTest extends BaseWebTest {
     }
 
     @Test
-    public void checks_if_emails_are_equal() {
+    public void checksIfEmailsAreEqual() {
         String email = "audrius.siliunas@tietocamp.eu";
         User user = getUserByEmailQuery.result(email);
         assertThat(email, equalTo(user.email));
     }
 
     @Test
-    public void shows_error_if_imei_field_is_empty() {
+    public void showsErrorIfImeiFieldIsEmpty() {
         wicketTester.startComponentInPage(new RegisterPanel("register"));
         FormTester formTester = wicketTester.newFormTester("register:registerForm");
         formTester.setValue("inputUserName", "Artur Černiavskij");
@@ -41,7 +41,7 @@ public class RegisterPanelTest extends BaseWebTest {
     }
 
     @Test
-    public void shows_error_if_all_fields_is_empty() {
+    public void showsErrorIfAllFieldsIsEmpty() {
         wicketTester.startComponentInPage(new RegisterPanel("register"));
         FormTester formTester = wicketTester.newFormTester("register:registerForm");
         formTester.submit();
@@ -49,7 +49,7 @@ public class RegisterPanelTest extends BaseWebTest {
     }
 
     @Test
-    public void shows_error_if_password_is_not_repeated() {
+    public void showsErrorIfPasswordIsNotRepeated() {
         wicketTester.startComponentInPage(new RegisterPanel("register"));
         FormTester formTester = wicketTester.newFormTester("register:registerForm");
         formTester.setValue("inputUserName", "Audrius Siliunas");
@@ -61,7 +61,7 @@ public class RegisterPanelTest extends BaseWebTest {
     }
 
     @Test
-    public void shows_error_if_email_is_inUse() {
+    public void showsErrorIfEmailIsInUse() {
         wicketTester.startComponentInPage(new RegisterPanel("register"));
         FormTester formTester = wicketTester.newFormTester("register:registerForm");
         formTester.setValue("inputUserName", "Audrius Siliunas");
@@ -74,7 +74,7 @@ public class RegisterPanelTest extends BaseWebTest {
     }
 
     @Test
-    public void shows_error_if_imei_is_inUse() {
+    public void showsErrorIfImeiIsInUse() {
         wicketTester.startComponentInPage(new RegisterPanel("register"));
         FormTester formTester = wicketTester.newFormTester("register:registerForm");
         formTester.setValue("inputUserName", "Audrius Siliunas");
@@ -87,7 +87,7 @@ public class RegisterPanelTest extends BaseWebTest {
     }
 
     @Test
-    public void shows_error_if_password_missmatch() {
+    public void showsErrorIfPasswordMissmatch() {
         wicketTester.startComponentInPage(new RegisterPanel("register"));
         FormTester formTester = wicketTester.newFormTester("register:registerForm");
         formTester.setValue("inputUserName", "Audrius Siliunas");

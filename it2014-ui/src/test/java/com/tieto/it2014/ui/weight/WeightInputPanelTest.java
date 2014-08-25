@@ -22,12 +22,11 @@ public class WeightInputPanelTest extends BaseWebTest {
         wicketTester = createWicketTester();
         MockitoAnnotations.initMocks(this);
         userSession = (UserSession) wicketTester.getSession();
-        System.out.println(userSession.get().getUser());
         userSession.setUser(user);
     }
 
     @Test
-    public void shows_error_if_weight_is_not_entered() {
+    public void showsErrorIfWeightIsNotEntered() {
 
         wicketTester.startComponentInPage(new WeightInputPanel("weightInput"));
         FormTester formTester = wicketTester.newFormTester("weightInput:weightInputForm");

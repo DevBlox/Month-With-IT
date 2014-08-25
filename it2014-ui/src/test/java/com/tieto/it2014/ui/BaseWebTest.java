@@ -33,6 +33,6 @@ public class BaseWebTest extends AbstractTransactionalJUnit4SpringContextTests {
     }
 
     @Test
-    public void empty_test() {
+    public void EmptyTest() {
     }
 }

@@ -27,7 +27,7 @@ public class RegisterPanelTest {
     }
 
     @Test
-    public void checks_if_imei_is_not_in_use() {
+    public void checksIfImeiIsNotInUse() {
         Mockito.when(
                 getUserByIdQuery.resultOrNull(Mockito.anyString()))
                 .thenReturn(null);
@@ -57,7 +57,7 @@ public class RegisterPanelTest {
     }
 
     @Test
-    public void checks_if_email_is_not_in_use() {
+    public void checksIfEmailIsNotInUse() {
         Mockito.when(
                 getUserByEmailQuery.result(Mockito.anyString()))
                 .thenReturn(null);

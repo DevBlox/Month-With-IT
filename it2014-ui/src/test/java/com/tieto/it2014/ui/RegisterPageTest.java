@@ -13,7 +13,7 @@ public class RegisterPageTest extends BaseWebTest {
     }
 
     @Test
-    public void renders_successfully() {
+    public void rendersSuccessfully() {
         tester.startPage(RegisterPage.class);
         tester.assertRenderedPage(RegisterPage.class);
     }

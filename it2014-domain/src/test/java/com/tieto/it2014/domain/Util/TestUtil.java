@@ -12,22 +12,22 @@ import org.junit.Test;
 public class TestUtil {
 
     @Test
-    public void test_0_seconds_to_duration_string() {
+    public void test0SecondsToDurationString() {
         assertThat(Util.getDurationString(0), equalTo("00 h. 00 min."));
     }
 
     @Test
-    public void test_minus_seconds_to_duration_string() {
+    public void testMinusSecondsToDurationString() {
         assertThat(Util.getDurationString(-1), equalTo("00 h. 00 min."));
     }
 
     @Test
-    public void test_positive_seconds_to_duration_string() {
+    public void testPositiveSecondsToDurationString() {
         assertThat(Util.getDurationString(1), equalTo("00 h. 01 min."));
     }
 
     @Test
-    public void rounds_correctly() {
+    public void roundsCorrectly() {
         assertThat(Util.getDurationString(59), equalTo("00 h. 01 min."));
         assertThat(Util.getDurationString(60), equalTo("00 h. 01 min."));
         assertThat(Util.getDurationString(61), equalTo("00 h. 02 min."));
@@ -35,7 +35,7 @@ public class TestUtil {
     }
 
     @Test
-    public void calculates_workouts_correctly_with_same_timestamp() {
+    public void calculatesWorkoutsCorrectlyWithSameTimestamp() {
         List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
                 new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
                 new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.722828, 25.298035, 500.0),
@@ -47,7 +47,7 @@ public class TestUtil {
     }
 
     @Test
-    public void calculates_single_workout() {
+    public void calculatesSingleWorkout() {
         List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
                 new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
                 new UserLoc("356871044631608", "Test", Long.parseLong("1407350752000"), 54.722828, 25.298035, 500.0),
@@ -63,7 +63,7 @@ public class TestUtil {
     // Point B Latitude: 54.72031996 Longitude: 25.30243635 Altitude: 117
     // Actual Distance: 0.581 km. 
     @Test
-    public void checks_if_distance_between_two_points_calculated_correctly() {
+    public void checksIfDistanceBetweenTwoPointsCalculatedCorrectly() {
         Double errorRange = 0.01;
         Double actualdistance = 0.581;
         Double calculatedDistance = Util.calculateDistance(54.71722152, 25.29514074, 120, 54.72031996, 25.30243635, 117);
@@ -73,7 +73,7 @@ public class TestUtil {
 
 
     @Test
-    public void calculates_distance_correctly() {
+    public void calculatesDistanceCorrectly() {
         List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
                 new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
                 new UserLoc("356871044631608", "Test", Long.parseLong("1407350752000"), 54.722828, 25.298035, 500.0),

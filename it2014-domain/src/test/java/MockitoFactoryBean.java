@@ -1,4 +1,4 @@
-package com.tieto.it2014.domain;
+
 
 import org.mockito.Mockito;
 import org.springframework.beans.factory.FactoryBean;

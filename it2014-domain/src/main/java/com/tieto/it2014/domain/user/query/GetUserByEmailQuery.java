@@ -14,8 +14,6 @@ public class GetUserByEmailQuery implements Serializable {
     @Autowired
     private Dao dao;
 
-    private User user;
-
     public interface Dao extends Serializable {
 
         User result(String email);

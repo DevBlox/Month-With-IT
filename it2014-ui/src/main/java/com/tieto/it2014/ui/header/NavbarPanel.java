@@ -3,12 +3,13 @@ package com.tieto.it2014.ui.header;
 import com.tieto.it2014.ui.user.StatisticsPage;
 import com.tieto.it2014.ui.user.TopPage;
 import com.tieto.it2014.ui.user.WeightPage;
-import java.util.Objects;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+
+import java.util.Objects;
 
 public class NavbarPanel extends Panel {
 

@@ -4,11 +4,12 @@ import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.user.UserJpa;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class LoggedInUserQueryDaoJpa implements LoggedInUserQuery.Dao {

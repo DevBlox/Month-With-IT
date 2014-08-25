@@ -5,13 +5,14 @@ import com.tieto.it2014.dao.weight.WeightJpa;
 import com.tieto.it2014.domain.Util.Util;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheMonth;
-import java.util.Calendar;
-import java.util.List;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by mantas on 21/08/14.

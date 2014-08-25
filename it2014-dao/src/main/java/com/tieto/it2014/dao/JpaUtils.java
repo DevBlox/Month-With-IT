@@ -6,6 +6,9 @@ import java.util.List;
 
 public class JpaUtils {
 
+    private JpaUtils() {
+    }
+
     public static <T> T singleResultOrNull(TypedQuery<? extends JpaEntity<T>> query) {
         List<? extends JpaEntity<T>> resultList = query.getResultList();
         if (resultList.isEmpty()) {

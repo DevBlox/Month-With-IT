@@ -6,12 +6,10 @@ import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.weight.detail.ChartPanel;
 import com.tieto.it2014.ui.weight.detail.RandomQuote;
+import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.List;
 
 public class WeightPagePanel extends Panel {
 
@@ -54,7 +52,7 @@ public class WeightPagePanel extends Panel {
         String[] pos = RandomQuote.getPositive();
         String[] neg = RandomQuote.getNegative();
         if (!data.isEmpty()) {
-            if (data.get(data.size()-1).weight-data.get(0).weight > 0) {
+            if (data.get(data.size() - 1).weight - data.get(0).weight > 0) {
                 add(new Label("quote", neg[0]));
                 add(new Label("cite", neg[1]));
             } else {

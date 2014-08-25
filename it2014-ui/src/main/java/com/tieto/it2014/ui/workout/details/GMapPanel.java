@@ -3,14 +3,11 @@ package com.tieto.it2014.ui.workout.details;
 import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
-import com.googlecode.wickedcharts.highcharts.options.HorizontalAlignment;
 import com.googlecode.wickedcharts.highcharts.options.Legend;
-import com.googlecode.wickedcharts.highcharts.options.LegendLayout;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.highcharts.options.PlotLine;
 import com.googlecode.wickedcharts.highcharts.options.SeriesType;
 import com.googlecode.wickedcharts.highcharts.options.Title;
-import com.googlecode.wickedcharts.highcharts.options.VerticalAlignment;
 import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
@@ -143,8 +140,6 @@ public class GMapPanel extends Panel {
 //            }
 //            axisData.add(dist + totalDist - distDiffSum);
 //            seriesData.add(((time-timeDiffSum) % 3600) / 60);
-
-
             UserLoc ul1 = uLocs.get(0);
             UserLoc ul2 = uLocs.get(1);
             Double lc = 0.5;
@@ -156,7 +151,7 @@ public class GMapPanel extends Panel {
             for (int i = 1; i <= uLocs.size() - 2; i++) {
 
                 ul1 = uLocs.get(i);
-                ul2 = uLocs.get(i+1);
+                ul2 = uLocs.get(i + 1);
 
                 if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) >= lc) {
 
@@ -166,7 +161,7 @@ public class GMapPanel extends Panel {
                     float timeDiff = Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
 
                     time += timeDiff / distDiff;
-                    Double addValue = time.isNaN() ? seriesData.get(seriesData.size()-1) : time ;
+                    Double addValue = time.isNaN() ? seriesData.get(seriesData.size() - 1) : time;
                     addValue = Util.truncate(((addValue % 3600) / 60), 2);
                     seriesData.add(addValue);
                     sum += time;
@@ -183,9 +178,9 @@ public class GMapPanel extends Panel {
 
             }
             axisData.add(dist);
-            System.out.println(time-timeDiffSum);
-            seriesData.add(Util.truncate((((time-timeDiffSum) % 3600) / 60), 2));
-            sum += time-timeDiffSum;
+            System.out.println(time - timeDiffSum);
+            seriesData.add(Util.truncate((((time - timeDiffSum) % 3600) / 60), 2));
+            sum += time - timeDiffSum;
 
             System.out.println(sum + " " + totalTime);
 

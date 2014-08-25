@@ -8,7 +8,6 @@ import com.tieto.it2014.ui.user.WeightPage;
 import com.tieto.it2014.ui.workout.details.Details;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.pages.AccessDeniedPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
@@ -20,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WicketApplication extends WebApplication implements ApplicationContextAware {
+
     private ApplicationContext context;
     private static final String UTF = "UTF-8";
 

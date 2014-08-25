@@ -27,7 +27,7 @@ public abstract class BasePage extends WebPage {
                 return !message.isError();
             }
         })));
-        //add(ajaxReady(new NiceFeedbackPanel("feedback")));
+
         add(initHeader(HEADER_ID));
         add(initSidebar(SIDEBAR_ID));
         add(initContent(CONTENT_ID));

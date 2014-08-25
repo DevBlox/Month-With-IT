@@ -1,8 +1,5 @@
 package com.tieto.it2014.ui.friend;
 
-import com.tieto.it2014.domain.user.entity.User;
-import org.apache.wicket.Page;
-import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -12,7 +9,6 @@ public class AddFriendPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
     private ModalWindow modalAddFriend;
- 
 
     public AddFriendPanel(String id) {
         super(id);
@@ -33,7 +29,7 @@ public class AddFriendPanel extends Panel {
         modalAddFriend.setInitialHeight(180);
         modalAddFriend.setResizable(false);
         modalAddFriend.setWidthUnit("px");
-        modalAddFriend.setHeightUnit("px"); 
+        modalAddFriend.setHeightUnit("px");
 
         add(new AjaxLink<Void>("showModalLink") {
             @Override

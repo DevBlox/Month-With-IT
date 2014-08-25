@@ -6,15 +6,14 @@ import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.session.UserSession;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  * Created by mantas on 20/08/14.
@@ -71,7 +70,7 @@ public class StatsPanel extends Panel {
 
         add(new Label("totalDist", "Total distance: " + Util.formatDoubleToString(totalDist) + " km."));
         add(new Label("totalTime", "Total time: " + Util.getDurationString(totalTime)));
-        add(new Label("totalDays", "Days: " + totalDays + " d."));
+        add(new Label("totalDays", "Days: " + totalDays));
         add(new Label("Calories", "Calories: "));
         if (weightDiff > 0) {
             add(new Label("Weight", "Weight change: +" + weightDiff + " kg."));

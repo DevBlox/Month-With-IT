@@ -5,12 +5,13 @@
  */
 package com.tieto.it2014.ui.validation;
 
-import java.io.Serializable;
-import java.util.regex.Pattern;
 import org.apache.wicket.validation.IErrorMessageSource;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidationError;
 import org.apache.wicket.validation.IValidator;
+
+import java.io.Serializable;
+import java.util.regex.Pattern;
 
 /**
  *

@@ -1,9 +1,10 @@
 package com.tieto.it2014.domain.user.query;
 
 import com.tieto.it2014.domain.user.entity.User;
-import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 
 @Component
 public class GetUserByEmailQuery implements Serializable {
@@ -12,8 +13,6 @@ public class GetUserByEmailQuery implements Serializable {
 
     @Autowired
     private Dao dao;
-
-    private User user;
 
     public interface Dao extends Serializable {
 

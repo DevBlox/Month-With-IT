@@ -2,10 +2,11 @@ package com.tieto.it2014.dao.user.command;
 
 import com.tieto.it2014.domain.user.command.DeleteUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Component
 public class DeleteUserCommandDaoJpa implements DeleteUserCommand.Dao {
@@ -17,9 +18,6 @@ public class DeleteUserCommandDaoJpa implements DeleteUserCommand.Dao {
 
     @Override
     @Transactional
-    public void execute(User user) {
-//        repository.delete(user.id);
-
-    }
+    public void execute(User user) {}
 
 }

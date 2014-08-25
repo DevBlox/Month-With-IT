@@ -26,7 +26,7 @@ public class WeightPageTest extends BaseWebTest {
     }
 
     @Test
-    public void renders_successfully_with_loggedInUser() {
+    public void rendersSuccessfullyWithLoggedInUser() {
         userSession = (UserSession) tester.getSession();
         userSession.setUser(user);
         tester.startPage(WeightPage.class);
@@ -34,7 +34,7 @@ public class WeightPageTest extends BaseWebTest {
     }
     
     @Test
-    public void renders_successfully_with_noLoggedInUser() {
+    public void rendersSuccessfullyWithNoLoggedInUser() {
         tester.startPage(WeightPage.class);
         tester.assertRenderedPage(ErrorPage404.class);
     }

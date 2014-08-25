@@ -5,7 +5,6 @@ import com.tieto.it2014.ui.BaseWebTest;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.util.tester.WicketTester;
-import static org.eclipse.jetty.util.log.Log.ignore;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class StatisicsPageTest extends BaseWebTest {
     }
 
     @Test
-    public void renders_successfully_with_logged_in_user() {
+    public void rendersSuccessfullyWithLoggedInUser() {
         userSession = (UserSession) tester.getSession();
         userSession.setUser(user);
         tester.startPage(StatisticsPage.class);
@@ -37,7 +36,7 @@ public class StatisicsPageTest extends BaseWebTest {
     }
 
     @Test
-    public void renders_successfully_with_no_logged_in_user() {
+    public void rendersSuccessfullyWithNoLoggedInUser() {
         tester.startPage(StatisticsPage.class);
         tester.assertRenderedPage(ErrorPage404.class);
     }

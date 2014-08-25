@@ -13,7 +13,7 @@ public class HomePageTest extends BaseWebTest {
     }
 
     @Test
-    public void renders_successfully() {
+    public void rendersSuccessfully() {
         tester.startPage(HomePage.class);
         tester.assertRenderedPage(HomePage.class);
     }

@@ -1,10 +1,12 @@
 package com.tieto.it2014.domain.user.query;
 
 import com.tieto.it2014.domain.user.entity.User;
-import java.io.Serializable;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class AllFriendsQuery implements Serializable {
@@ -21,7 +23,7 @@ public class AllFriendsQuery implements Serializable {
 
     public List<User> result(String id) {
         if (id == null) {
-            return null;
+            return new ArrayList<>();
         } else {
             return dao.result(id);
         }

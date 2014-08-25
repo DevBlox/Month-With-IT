@@ -10,17 +10,14 @@ import com.tieto.it2014.domain.user.entity.UserStats;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.workout.query.CurrentMonthWorkoutsQuery;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.util.*;
 
 /**
  * Created by mantas on 20/08/14.

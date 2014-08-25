@@ -27,13 +27,13 @@ public class TopPageTest extends BaseWebTest {
     }
 
     @Test
-    public void renders_successfully_with_no_logged_in_user() {
+    public void rendersSuccessfullyWithNoLoggedInUser() {
         tester.startPage(TopPage.class);
         tester.assertRenderedPage(ErrorPage404.class);
     }
     
     @Test
-    public void renders_successfully_with_logged_in_user() {
+    public void rendersSuccessfullyWithLoggedInUser() {
         userSession = (UserSession) tester.getSession();
         userSession.setUser(user);
         tester.startPage(TopPage.class);

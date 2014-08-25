@@ -18,7 +18,9 @@ public class HomePage extends BasePage {
     private IModel<String> imei = new Model<>();
     private String imeiParam;
 
-    public HomePage() {}
+    public HomePage() {
+
+    }
 
     public HomePage(final PageParameters params) {
         imeiParam = params.get("userImei").toString();

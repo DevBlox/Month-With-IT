@@ -38,6 +38,7 @@ public class RegisterPanelTest extends BaseWebTest {
 
     @Test
     public void checksIfEmailsAreEqual() {
+
         User user = getUserByEmailQuery.result(email);
         assertThat(email, equalTo(user.email));
     }

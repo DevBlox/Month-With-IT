@@ -12,11 +12,6 @@ public class TopPage extends BasePage {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void onInitialize() {
-        super.onInitialize();
-    }
-
-    @Override
     protected Component initFullContent(String wicketId) {
         return new TopPanel(wicketId);
     }

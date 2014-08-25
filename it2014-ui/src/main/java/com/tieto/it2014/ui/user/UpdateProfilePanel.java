@@ -151,6 +151,11 @@ public class UpdateProfilePanel extends Panel {
             return;
         }
 
+        if (Objects.equal(oldPasswordString, newPasswordString)) {
+            form.error("You can't set the same password!");
+            return;
+        }
+
         saveUser.execute(user);
         UserSession.get().setUser(user);
 

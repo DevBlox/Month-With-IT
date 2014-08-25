@@ -246,8 +246,19 @@ public class ChartPanelOptionsProvider implements Serializable {
                     number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_QUARTER:
+
                     cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));
-                    cal.add(Calendar.MONTH, -2);
+                    System.out.println("");
+                    if (Calendar.getInstance().get(Calendar.MONTH) < 3) {
+                        cal.set(Calendar.MONTH, 0);
+                    } else if (Calendar.getInstance().get(Calendar.MONTH) < 6) {
+                        cal.set(Calendar.MONTH, 3);
+                    } else if (Calendar.getInstance().get(Calendar.MONTH) < 9) {
+                        cal.set(Calendar.MONTH, 6);
+                    } else if (Calendar.getInstance().get(Calendar.MONTH) < 12) {
+                        cal.set(Calendar.MONTH, 9);
+                    }
+
                     cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
                     cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
                     cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
@@ -304,6 +315,19 @@ public class ChartPanelOptionsProvider implements Serializable {
                     number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_QUARTER:
+
+                    cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));
+
+                    if (Calendar.getInstance().get(Calendar.MONTH) < 3) {
+                        cal.set(Calendar.MONTH, 2);
+                    } else if (Calendar.getInstance().get(Calendar.MONTH) < 6) {
+                        cal.set(Calendar.MONTH, 5);
+                    } else if (Calendar.getInstance().get(Calendar.MONTH) < 9) {
+                        cal.set(Calendar.MONTH, 8);
+                    } else if (Calendar.getInstance().get(Calendar.MONTH) < 12) {
+                        cal.set(Calendar.MONTH, 11);
+                    }
+
                     cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
                     cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
                     cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));

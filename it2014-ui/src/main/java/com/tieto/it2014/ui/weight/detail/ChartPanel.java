@@ -2,6 +2,7 @@ package com.tieto.it2014.ui.weight.detail;
 
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
+import com.tieto.it2014.domain.Util.Util;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.ui.user.WeightPage;
 import java.text.DateFormat;
@@ -133,6 +134,7 @@ public class ChartPanel extends Panel {
             @Override
             protected void onSubmit() {
                 Long start = 0L;
+               // Calendar startTemp = null;
                 try {
                     start = createTimeStamp(getYearString(), getMonthString(), selected);
                 } catch (ParseException ex) {
@@ -146,6 +148,10 @@ public class ChartPanel extends Panel {
                 } catch (ParseException ex) {
                     Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                Calendar startTemp = startTemp.setTimeInMillis(start);
+                startTemp = Util.convertToGmt(startTemp);
+                Date date = startTemp.getTime();
+                start = date.getTime();
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
 
             }

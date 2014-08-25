@@ -202,4 +202,26 @@ public class Util {
 
         return gmtCal;
     }
+
+    public static Long convertToGmtLong(long timestamp) {
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(timestamp);
+        Date date = cal.getTime();
+        TimeZone tz = cal.getTimeZone();
+
+        //Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT
+        long msFromEpochGmt = date.getTime();
+
+        //gives you the current offset in ms from GMT at the current date
+        int offsetFromUTC = tz.getOffset(msFromEpochGmt);
+
+        //create a new calendar in GMT timezone, set to this date and add the offset
+        Calendar gmtCal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        gmtCal.setTime(date);
+        gmtCal.add(Calendar.MILLISECOND, offsetFromUTC);
+        Date trimedDate = gmtCal.getTime();
+        Long trimedTimestamp = trimedDate.getTime();
+
+        return trimedTimestamp;
+    }
 }

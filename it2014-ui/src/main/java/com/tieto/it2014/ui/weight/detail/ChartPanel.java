@@ -3,7 +3,14 @@ package com.tieto.it2014.ui.weight.detail;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
 import com.tieto.it2014.domain.Util.Util;
+import static com.tieto.it2014.domain.Util.Util.extractDayFromTimestamp;
+import static com.tieto.it2014.domain.Util.Util.extractMonthFromTimestamp;
+import static com.tieto.it2014.domain.Util.Util.extractYearFromTimestamp;
+
+import static com.tieto.it2014.domain.weight.WeightChartType.*;
 import com.tieto.it2014.domain.weight.entity.Weight;
+import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
+import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.WeightPage;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,14 +32,18 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
-
-import java.util.List;
-
-import static com.tieto.it2014.domain.weight.WeightChartType.*;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+    private static final String FIRST_QUARTER_STRING = "1";
+    private static final String SECOND_QUARTER_STRING = "2";
+    private static final String THIRD_QUARTER_STRING = "3";
+    private static final String FOURTH_QUARTER_STRING = "4";
+
+    @SpringBean
+    private UserWeightOverPeriod weightOverPeriod;
 
     private List<Weight> weights;
     public static final int FIRST_QUARTER = 1;
@@ -140,6 +153,8 @@ public class ChartPanel extends Panel {
                 "days", new PropertyModel<String>(this, "selected"), getMonthsInThisYear());
         listQuarters = new DropDownChoice<String>(
                 "days", new PropertyModel<String>(this, "selected"), getQuartersInThisYear());
+        listYears = new DropDownChoice<String>(
+                "days", new PropertyModel<String>(this, "selected"), getYearsList());
         options = ChartPanelOptionsProvider.getInstance().getOptions();
         chart = new Chart("chart", options);
 
@@ -179,6 +194,35 @@ public class ChartPanel extends Panel {
                 }
                 Long end = 0L;
                 end = getLastDayInMonthInCurrentYearTimestamp(selected);
+                start = Util.convertToGmtLong(start);
+                end = Util.convertToGmtLong(end);
+                ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
+
+            }
+        };
+
+        yearForm = new Form<Void>("dropDownFormYear") {
+            @Override
+            protected void onSubmit() {
+                Calendar cal = new GregorianCalendar();
+                cal.set(Calendar.YEAR, Integer.parseInt(selected));
+                cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
+                cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+                cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+                cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+                cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+                Long start = cal.getTimeInMillis();
+
+                cal.set(Calendar.MONTH, Calendar.getInstance().getActualMaximum(Calendar.MONTH));
+                cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+                cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
+                cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
+                cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+                cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
+
+                Long end = cal.getTimeInMillis();
                 start = Util.convertToGmtLong(start);
                 end = Util.convertToGmtLong(end);
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
@@ -252,6 +296,8 @@ public class ChartPanel extends Panel {
         monthForm.add(listMonths);
         add(daysForm);
         daysForm.add(listDays);
+        add(yearForm);
+        yearForm.add(listYears);
         add(chart);
         add(chartForm);
 
@@ -271,30 +317,49 @@ public class ChartPanel extends Panel {
                 daysForm.setVisible(true);
                 monthForm.setVisible(false);
                 quarterForm.setVisible(false);
+                yearForm.setVisible(false);
                 break;
             case BUTTON_TYPE_MONTH:
                 monthForm.setVisible(true);
                 daysForm.setVisible(false);
                 quarterForm.setVisible(false);
+                yearForm.setVisible(false);
                 break;
             case BUTTON_TYPE_QUARTER:
                 monthForm.setVisible(false);
                 daysForm.setVisible(false);
                 quarterForm.setVisible(true);
+                yearForm.setVisible(false);
+                break;
+            case BUTTON_TYPE_YEAR:
+                monthForm.setVisible(false);
+                daysForm.setVisible(false);
+                quarterForm.setVisible(false);
+                yearForm.setVisible(true);
                 break;
         }
     }
 
     private List<String> getDaysInThisMonth() {
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        int day = calendar.get(Calendar.DATE);
-        String[] stringArrayOfDays = new String[day];
-        for (int i = 1; i <= day; i++) {
-            stringArrayOfDays[i - 1] = Integer.toString(i);
-        };
-        ArrayList<String> createdListOfdays = new ArrayList<String>(Arrays.asList(stringArrayOfDays));
-        return createdListOfdays;
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+        Long start = cal.getTimeInMillis();
+
+        Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
+        List<Weight> userWeightsInMonth = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
+        ArrayList<String> createdListOfDays = new ArrayList<>();
+        for (Weight userWeightsInMonth1 : userWeightsInMonth) {
+            createdListOfDays.add(String.valueOf(Util.extractDayFromTimestamp(userWeightsInMonth1.timeStamp)));
+        }
+
+        return createdListOfDays;
     }
 
     private String getMonthString() {
@@ -309,30 +374,113 @@ public class ChartPanel extends Panel {
 
     private List<String> getMonthsInThisYear() {
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        int month = calendar.get(Calendar.MONTH) + 1;
-        String[] stringArrayOfMonths = new String[month];
-        for (int i = 1; i <= month; i++) {
-            stringArrayOfMonths[i - 1] = Integer.toString(i);
-        };
-        ArrayList<String> createdListOfMonths = new ArrayList<String>(Arrays.asList(stringArrayOfMonths));
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
+        cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+        Long start = cal.getTimeInMillis();
+
+        cal = Calendar.getInstance();
+        Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
+        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
+        ArrayList<String> createdListOfMonths = new ArrayList<>();
+        for (int i = 0; i < userWeightsInYear.size(); i++) {
+            if ((userWeightsInYear.size() - 1) > i) {
+                if (extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp) != extractMonthFromTimestamp(userWeightsInYear.get(i + 1).timeStamp)) {
+                    createdListOfMonths.add(String.valueOf(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+                }
+            } else {
+                createdListOfMonths.add(String.valueOf(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+            }
+        }
+
         return createdListOfMonths;
     }
 
     private List<String> getQuartersInThisYear() {
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int quarters = month / 3;
-        if ((month % 3) != 0) {
-            quarters = quarters + 1;
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
+        cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+        Long start = cal.getTimeInMillis();
+
+        cal = Calendar.getInstance();
+        Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
+        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
+        ArrayList<String> createdListOfQuarters = new ArrayList<>();
+        for (int i = 0; i < userWeightsInYear.size(); i++) {
+            if ((userWeightsInYear.size() - 1) > i) {
+                int currentMonth = extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp);
+                int comparedMonth = extractMonthFromTimestamp(userWeightsInYear.get(i + 1).timeStamp);
+                if ((currentMonth != comparedMonth) && (currentMonth <= 3) && (comparedMonth > 3)) {
+                    createdListOfQuarters.add(FIRST_QUARTER_STRING);
+                } else if ((currentMonth != comparedMonth) && (currentMonth > 3) && (currentMonth <= 6) && (comparedMonth > 6)) {
+                    createdListOfQuarters.add(SECOND_QUARTER_STRING);
+                } else if ((currentMonth != comparedMonth) && (currentMonth <= 9) && (currentMonth > 6) && (comparedMonth > 9)) {
+                    createdListOfQuarters.add(THIRD_QUARTER_STRING);
+                } else if ((currentMonth != comparedMonth) && (currentMonth > 9) && (currentMonth <= 12)) {
+                    createdListOfQuarters.add(FOURTH_QUARTER_STRING);
+                } else if ((i == userWeightsInYear.size() - 2) && (createdListOfQuarters.isEmpty())) {
+                    createdListOfQuarters.add(getMonthQuarterString(currentMonth));
+                }
+            }
+
         }
-        String[] stringArrayOfQuarters = new String[quarters];
-        for (int i = 1; i <= quarters; i++) {
-            stringArrayOfQuarters[i - 1] = Integer.toString(i);
-        };
-        ArrayList<String> createdListOfQuarters = new ArrayList<String>(Arrays.asList(stringArrayOfQuarters));
         return createdListOfQuarters;
+    }
+
+    private String getMonthQuarterString(int month) {
+        if (month < 4) {
+            return FIRST_QUARTER_STRING;
+        } else if (month < 7) {
+            return SECOND_QUARTER_STRING;
+        } else if (month < 10) {
+            return THIRD_QUARTER_STRING;
+        } else {
+            return FOURTH_QUARTER_STRING;
+        }
+    }
+
+    private List<? extends String> getYearsList() {
+
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.YEAR, Integer.parseInt(selected));
+        cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+        Long start = cal.getTimeInMillis();
+
+        cal = Calendar.getInstance();
+        Long end = cal.getTimeInMillis();
+        //  Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
+        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_YEAR);
+        ArrayList<String> createdListOfYears = new ArrayList<>();
+        for (int i = 0; i < userWeightsInYear.size(); i++) {
+            if ((userWeightsInYear.size() - 1) > i) {
+                if (extractYearFromTimestamp(userWeightsInYear.get(i).timeStamp) != extractYearFromTimestamp(userWeightsInYear.get(i + 1).timeStamp)) {
+                    createdListOfYears.add(String.valueOf(Util.extractYearFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+                }
+            } else {
+                createdListOfYears.add(String.valueOf(Util.extractYearFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+            }
+        }
+
+        return createdListOfYears;
     }
 
     private Long createTimeStamp(String year, String month, String day) throws ParseException {
@@ -347,11 +495,11 @@ public class ChartPanel extends Panel {
     private long getLastDayInMonthInCurrentYearTimestamp(String month) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(cal.DAY_OF_MONTH));
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 59);
-        cal.set(Calendar.SECOND, 59);
-        cal.set(Calendar.MILLISECOND, 0);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, cal.getActualMaximum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, cal.getActualMaximum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, cal.getActualMaximum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, cal.getActualMaximum(Calendar.MILLISECOND));
         Date date2 = cal.getTime();
         return date2.getTime();
     }

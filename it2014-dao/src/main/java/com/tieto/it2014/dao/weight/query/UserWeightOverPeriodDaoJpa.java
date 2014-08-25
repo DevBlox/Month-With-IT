@@ -18,8 +18,6 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
 
     private static final long serialVersionUID = 1L;
 
-    private final long oneHour = 3600000;
-
     @PersistenceContext
     private EntityManager em;
 
@@ -27,22 +25,18 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
     @Transactional(readOnly = true)
     public List<Weight> result(long start, long finish, String imei, int type) {
         TypedQuery<WeightJpa> query = em.createQuery(
-                "SELECT w FROM WeightJpa w WHERE w.timeStamp > :start AND w.timeStamp < :finish AND w.userId = :userId",
+                "SELECT w FROM WeightJpa w WHERE w.timeStamp > :start AND w.timeStamp < :finish AND w.userId = :userId ORDER BY w.timeStamp ASC",
                 WeightJpa.class)
                 .setParameter("start", start)
                 .setParameter("finish", finish)
                 .setParameter("userId", imei);
 
         List<Weight> list = JpaUtils.toDomainList(query.getResultList());
-        List<Weight> filtered;
-        Weight lastWeight;
 
-        if (BUTTON_TYPE_DAY == type) {
-            filtered = list;
-        } else {
-            filtered = Util.getFilteredOnePerDayList(list);
-        }
+        if (BUTTON_TYPE_DAY != type) {
+            list = Util.getFilteredOnePerDayList(list);
+        } 
 
-        return filtered;
+        return list;
     }
 }

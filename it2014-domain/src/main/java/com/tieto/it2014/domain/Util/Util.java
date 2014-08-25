@@ -224,4 +224,31 @@ public class Util {
 
         return trimedTimestamp;
     }
+
+    public static int extractMonthFromTimestamp(Long timeStamp) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Timestamp(timeStamp));
+        int month = cal.get(Calendar.MONTH) + 1;
+
+        return month;
+    }
+    
+    public static int extractYearFromTimestamp(Long timeStamp) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Timestamp(timeStamp));
+        int year = cal.get(Calendar.YEAR);
+
+        return year;
+    }
+
+    public static Date getDateFromTimestamp(Long timeStamp) {
+        Date date = new Date(timeStamp);
+        return date;
+    }
+    
+    public static void printList(List<Weight> printedList) {
+        for (Weight listItem: printedList) {
+            System.out.println(listItem +" Data: "+ getDateFromTimestamp(listItem.timeStamp));
+        }
+    }
 }

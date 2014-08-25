@@ -24,7 +24,6 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 
-
 import java.util.List;
 
 import static com.tieto.it2014.domain.weight.WeightChartType.*;
@@ -34,6 +33,20 @@ public class ChartPanel extends Panel {
     private static final long serialVersionUID = 1L;
 
     private List<Weight> weights;
+    public static final int FIRST_QUARTER = 1;
+    public static final int SECOND_QUARTER = 2;
+    public static final int THIRD_QUARTER = 3;
+    public static final int FORTH_QUARTER = 4;
+
+    public static final String FIRST_QUARTER_FIRST_MONTH = "01";
+    public static final String FIRST_QUARTER_LAST_MONTH = "03";
+    public static final String SECOND_QUARTER_FIRST_MONTH = "04";
+    public static final String SECOND_QUARTER_LAST_MONTH = "06";
+    public static final String THIRD_QUARTER_FIRST_MONTH = "07";
+    public static final String THIRD_QUARTER_LAST_MONTH = "09";
+    public static final String FORTH_QUARTER_FIRST_MONTH = "10";
+    public static final String FORTH_QUARTER_LAST_MONTH = "12";
+    public static final String FIRST_DAY = "01";
 
     private String selected = "1";
     private DropDownChoice<String> listDays;
@@ -134,7 +147,7 @@ public class ChartPanel extends Panel {
             @Override
             protected void onSubmit() {
                 Long start = 0L;
-               // Calendar startTemp = null;
+                // Calendar startTemp = null;
                 try {
                     start = createTimeStamp(getYearString(), getMonthString(), selected);
                 } catch (ParseException ex) {
@@ -148,10 +161,8 @@ public class ChartPanel extends Panel {
                 } catch (ParseException ex) {
                     Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Calendar startTemp = startTemp.setTimeInMillis(start);
-                startTemp = Util.convertToGmt(startTemp);
-                Date date = startTemp.getTime();
-                start = date.getTime();
+                start = Util.convertToGmtLong(start);
+                end = Util.convertToGmtLong(end);
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
 
             }
@@ -161,14 +172,15 @@ public class ChartPanel extends Panel {
             @Override
             protected void onSubmit() {
                 Long start = 0L;
-                start = getLastDayInMonthInCurrentYearTimestamp(selected);
-                Long end = 0L;
                 try {
-                    end = createTimeStamp(getYearString(), selected, "01");
+                    start = createTimeStamp(getYearString(), selected, FIRST_DAY);
                 } catch (ParseException ex) {
                     Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                Long end = 0L;
+                end = getLastDayInMonthInCurrentYearTimestamp(selected);
+                start = Util.convertToGmtLong(start);
+                end = Util.convertToGmtLong(end);
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
 
             }
@@ -177,8 +189,51 @@ public class ChartPanel extends Panel {
         quarterForm = new Form<Void>("dropDownFormQuarter") {
             @Override
             protected void onSubmit() {
+                int quarter = Integer.parseInt(selected);
+                Long start = 0L;
+                Long end = 0L;
+                switch (quarter) {
+                    case FIRST_QUARTER:
+                        try {
+                            start = createTimeStamp(getYearString(), FIRST_QUARTER_FIRST_MONTH, FIRST_DAY);
+                            end = getLastDayInMonthInCurrentYearTimestamp(FIRST_QUARTER_LAST_MONTH);
 
-                info("Jūs pasirinkote : " + selected);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
+                        break;
+                    case SECOND_QUARTER:
+                        try {
+                            start = createTimeStamp(getYearString(), SECOND_QUARTER_FIRST_MONTH, FIRST_DAY);
+                            end = getLastDayInMonthInCurrentYearTimestamp(SECOND_QUARTER_LAST_MONTH);
+
+                        } catch (ParseException ex) {
+                            Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
+                        break;
+                    case THIRD_QUARTER:
+                        try {
+                            start = createTimeStamp(getYearString(), THIRD_QUARTER_FIRST_MONTH, FIRST_DAY);
+                            end = getLastDayInMonthInCurrentYearTimestamp(THIRD_QUARTER_LAST_MONTH);
+
+                        } catch (ParseException ex) {
+                            Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
+                        break;
+                    case FORTH_QUARTER:
+                        try {
+                            start = createTimeStamp(getYearString(), FORTH_QUARTER_FIRST_MONTH, FIRST_DAY);
+                            end = getLastDayInMonthInCurrentYearTimestamp(FORTH_QUARTER_LAST_MONTH);
+
+                        } catch (ParseException ex) {
+                            Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
+                        break;
+                }
 
             }
         };

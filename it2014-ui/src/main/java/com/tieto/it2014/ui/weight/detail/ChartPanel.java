@@ -32,6 +32,10 @@ import java.util.List;
 
 import static com.tieto.it2014.domain.weight.WeightChartType.*;
 
+import java.util.List;
+
+import static com.tieto.it2014.domain.weight.WeightChartType.*;
+
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;

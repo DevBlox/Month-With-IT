@@ -6,7 +6,6 @@ import com.tieto.it2014.domain.Util.Util;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
-import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_TIME_DEPENDING;
 import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
@@ -44,26 +43,28 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
 
         switch (type) {
             case BUTTON_TYPE_DAY:
-                long hourStart;
-                long hourFinish = start;
 
-                List<Weight> hourList;
-                while (hourFinish < finish) {
-                    hourStart = hourFinish;
-                    hourFinish += oneHour;
+                filtered = list;
 
-                    hourList = new ArrayList<>();
-                    for (Weight weight : list) {
-                        if (weight.timeStamp > hourStart && weight.timeStamp < hourFinish) {
-                            hourList.add(weight);
-                        }
-                    }
-
-                    if (!hourList.isEmpty()) {
-                        filtered.add(hourList.get(hourList.size() - 1));
-                    }
-                }
-
+//                long hourStart;
+//                long hourFinish = start;
+//
+//                List<Weight> hourList;
+//                while (hourFinish < finish) {
+//                    hourStart = hourFinish;
+//                    hourFinish += oneHour;
+//
+//                    hourList = new ArrayList<>();
+//                    for (Weight weight : list) {
+//                        if (weight.timeStamp > hourStart && weight.timeStamp < hourFinish) {
+//                            hourList.add(weight);
+//                        }
+//                    }
+//
+//                    if (!hourList.isEmpty()) {
+//                        filtered.add(hourList.get(hourList.size() - 1));
+//                    }
+//                }
                 break;
 
             case BUTTON_TYPE_MONTH:
@@ -71,10 +72,6 @@ public class UserWeightOverPeriodDaoJpa implements UserWeightOverPeriod.Dao {
                 break;
 
             case BUTTON_TYPE_QUARTER:
-                filtered = Util.getFilteredOnePerDayList(list);
-                break;
-
-            case BUTTON_TYPE_TIME_DEPENDING:
                 filtered = Util.getFilteredOnePerDayList(list);
                 break;
 

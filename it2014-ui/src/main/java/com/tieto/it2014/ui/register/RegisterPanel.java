@@ -7,7 +7,6 @@ import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
-import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import com.tieto.it2014.ui.validation.ExistingImeiValidator;
 import org.apache.wicket.Component;
@@ -24,6 +23,8 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.StringValidator;
+
+import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 
 public class RegisterPanel extends Panel {
 

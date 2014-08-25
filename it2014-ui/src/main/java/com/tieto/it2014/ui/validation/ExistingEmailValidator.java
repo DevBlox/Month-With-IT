@@ -7,12 +7,13 @@ package com.tieto.it2014.ui.validation;
 
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
-import java.io.Serializable;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IErrorMessageSource;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidationError;
 import org.apache.wicket.validation.IValidator;
+
+import java.io.Serializable;
 
 /**
  *

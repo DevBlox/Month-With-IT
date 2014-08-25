@@ -1,7 +1,8 @@
 package com.tieto.it2014.domain.Util;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class HashTest {
 

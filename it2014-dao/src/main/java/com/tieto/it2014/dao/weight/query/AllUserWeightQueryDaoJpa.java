@@ -4,14 +4,13 @@ import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.weight.WeightJpa;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.WeightQuery;
-
-import javax.persistence.TypedQuery;
-
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * Created by mantas on 20/08/14.

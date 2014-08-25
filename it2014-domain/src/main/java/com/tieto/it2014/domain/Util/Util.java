@@ -7,14 +7,13 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.weight.entity.Weight;
+import org.apache.commons.lang3.StringUtils;
+
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.lang3.StringUtils;
 
 public class Util {
 
@@ -148,8 +147,59 @@ public class Util {
         double fractionalPart = number - integerPart;
         fractionalPart *= prec;
         int fractPart = (int) fractionalPart;
-        fractionalPart = (double) (integerPart) + (double) (fractPart)/prec;
+        fractionalPart = (double) (integerPart) + (double) (fractPart) / prec;
         return fractionalPart;
     }
 
+    /**
+     * Loop through all the list and leave the last weight input in day
+     *
+     * @param list
+     * @return
+     */
+    public static List<Weight> getFilteredOnePerDayList(List<Weight> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if ((list.size() - 1) > i) {
+                if (extractDayFromTimestamp(list.get(i).timeStamp) == extractDayFromTimestamp(list.get(i + 1).timeStamp)) {
+                    list.remove(i);
+                    i--;
+                }
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * Get day of the month from given timestamp
+     *
+     * @param timestamp
+     * @return
+     */
+    public static int extractDayFromTimestamp(Long timestamp) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Timestamp(timestamp));
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        return day;
+    }
+
+    public static Calendar convertToGmt(Calendar cal) {
+
+        Date date = cal.getTime();
+        TimeZone tz = cal.getTimeZone();
+
+        //Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT
+        long msFromEpochGmt = date.getTime();
+
+        //gives you the current offset in ms from GMT at the current date
+        int offsetFromUTC = tz.getOffset(msFromEpochGmt);
+
+        //create a new calendar in GMT timezone, set to this date and add the offset
+        Calendar gmtCal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        gmtCal.setTime(date);
+        gmtCal.add(Calendar.MILLISECOND, offsetFromUTC);
+
+        return gmtCal;
+    }
 }

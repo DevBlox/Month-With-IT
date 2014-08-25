@@ -28,6 +28,10 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 
+import java.util.List;
+
+import static com.tieto.it2014.domain.weight.WeightChartType.*;
+
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;

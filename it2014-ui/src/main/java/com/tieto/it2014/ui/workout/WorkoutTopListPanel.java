@@ -3,13 +3,14 @@ package com.tieto.it2014.ui.workout;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.session.UserSession;
-import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.util.List;
 
 public class WorkoutTopListPanel extends Panel {
 

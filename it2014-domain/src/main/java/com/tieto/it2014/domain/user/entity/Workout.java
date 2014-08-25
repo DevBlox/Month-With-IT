@@ -2,6 +2,7 @@ package com.tieto.it2014.domain.user.entity;
 
 import com.google.common.collect.Lists;
 import com.tieto.it2014.domain.Util.Util;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.List;

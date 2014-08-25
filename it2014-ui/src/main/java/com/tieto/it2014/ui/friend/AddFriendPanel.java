@@ -1,8 +1,5 @@
 package com.tieto.it2014.ui.friend;
 
-import com.tieto.it2014.domain.user.entity.User;
-import org.apache.wicket.Page;
-import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;

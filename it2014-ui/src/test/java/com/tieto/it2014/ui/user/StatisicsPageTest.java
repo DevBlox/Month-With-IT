@@ -5,7 +5,6 @@ import com.tieto.it2014.ui.BaseWebTest;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.util.tester.WicketTester;
-import static org.eclipse.jetty.util.log.Log.ignore;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

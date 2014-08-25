@@ -8,7 +8,6 @@ import com.tieto.it2014.ui.weight.detail.ChartPanel;
 import com.tieto.it2014.ui.weight.detail.RandomQuote;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.List;

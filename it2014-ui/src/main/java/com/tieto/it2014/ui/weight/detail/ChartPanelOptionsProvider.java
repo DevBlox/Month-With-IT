@@ -1,37 +1,23 @@
 package com.tieto.it2014.ui.weight.detail;
 
-import com.googlecode.wickedcharts.highcharts.options.Axis;
-import com.googlecode.wickedcharts.highcharts.options.AxisType;
-import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
-import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat;
+import com.googlecode.wickedcharts.highcharts.options.*;
 import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat.DateTimeProperties;
-import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
-import com.googlecode.wickedcharts.highcharts.options.Function;
-import com.googlecode.wickedcharts.highcharts.options.Legend;
-import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.highcharts.options.SeriesType;
-import com.googlecode.wickedcharts.highcharts.options.Title;
-import com.googlecode.wickedcharts.highcharts.options.Tooltip;
 import com.googlecode.wickedcharts.highcharts.options.series.Coordinate;
 import com.googlecode.wickedcharts.highcharts.options.series.CustomCoordinatesSeries;
-import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
-import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
-import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
-import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
+import com.tieto.it2014.domain.Util.Util;
 import com.tieto.it2014.domain.weight.entity.Weight;
-import com.tieto.it2014.domain.weight.query.UserWeightOfTheDay;
-import com.tieto.it2014.domain.weight.query.UserWeightOfTheMonth;
-import com.tieto.it2014.domain.weight.query.UserWeightOfTheQuarter;
-import com.tieto.it2014.domain.weight.query.UserWeightOfTheYear;
-import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
+import com.tieto.it2014.domain.weight.query.*;
 import com.tieto.it2014.ui.session.UserSession;
+import org.apache.wicket.injection.Injector;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import org.apache.wicket.injection.Injector;
-import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import static com.tieto.it2014.domain.weight.WeightChartType.*;
 
 public class ChartPanelOptionsProvider implements Serializable {
 
@@ -39,6 +25,7 @@ public class ChartPanelOptionsProvider implements Serializable {
     private static final long serialVersionUID = 1L;
     private Options options = null;
     private int optionsType = BUTTON_TYPE_MONTH;
+    private String userImei;
 
     @SpringBean
     private UserWeightOfTheDay weightQueryDay;
@@ -78,24 +65,28 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     public Options getDayOptions() {
         optionsType = BUTTON_TYPE_DAY;
+        setUserImei(UserSession.get().getUser().imei);
         List<Weight> data = weightQueryDay.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_DAY, CHART_XAXIS_TITLE_DAY, null, null);
     }
 
     public Options getMonthOptions() {
         optionsType = BUTTON_TYPE_MONTH;
+        setUserImei(UserSession.get().getUser().imei);
         List<Weight> data = weightQueryMonth.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_MONTH, CHART_XAXIS_TITLE_MONTH, null, null);
     }
 
     public Options getYearOptions() {
         optionsType = BUTTON_TYPE_YEAR;
+        setUserImei(UserSession.get().getUser().imei);
         List<Weight> data = weightQueryYear.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_YEAR, CHART_XAXIS_TITLE_YEAR, null, null);
     }
 
     public Options getQuaterOptions() {
         optionsType = BUTTON_TYPE_QUARTER;
+        setUserImei(UserSession.get().getUser().imei);
         List<Weight> data = weightQueryQuarter.result(UserSession.get().getUser().imei);
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER, null, null);
     }
@@ -144,10 +135,18 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     public Options getOptions() {
-        if (null == options) {
-            return getMonthOptions();
+        if (userImei != null) {
+            if (UserSession.get().getUser().imei.equals(userImei)) {
+                return options;
+            } else {
+                return getMonthOptions();
+            }
         } else {
-            return options;
+            if (null == options) {
+                return getMonthOptions();
+            } else {
+                return options;
+            }
         }
     }
 
@@ -184,7 +183,7 @@ public class ChartPanelOptionsProvider implements Serializable {
 
         Tooltip tooltip = new Tooltip();
         tooltip.setFormatter(new Function(
-                "return Highcharts.dateFormat('%H:%M', this.x) +' '+ this.y +' kg';"));
+                "return '<b>Time: </b>' + Highcharts.dateFormat('%Y-%m-%d %H:%M', this.x) +'<br /><b>Weight:</b> '+ this.y +' kg';"));
         options.setTooltip(tooltip);
 
         options.setLegend(new Legend().setEnabled(Boolean.FALSE));
@@ -212,10 +211,11 @@ public class ChartPanelOptionsProvider implements Serializable {
                 case BUTTON_TYPE_DAY:
                     cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
                     cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR));
-                    cal.add(Calendar.HOUR_OF_DAY, 2);
                     cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
                     cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+                    cal = Util.convertToGmt(cal);
 
                     number = cal.getTimeInMillis();
 
@@ -273,6 +273,8 @@ public class ChartPanelOptionsProvider implements Serializable {
                     cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
 
+                    cal = Util.convertToGmt(cal);
+
                     number = cal.getTimeInMillis();
 
                     break;
@@ -310,5 +312,29 @@ public class ChartPanelOptionsProvider implements Serializable {
 
         }
         return number;
+    }
+
+    private void setUserImei(String imei) {
+        this.userImei = imei;
+    }
+
+    public void setNewOptions() {
+        switch (optionsType) {
+            case BUTTON_TYPE_DAY:
+                getDayOptions();
+                break;
+            case BUTTON_TYPE_MONTH:
+                getMonthOptions();
+                break;
+            case BUTTON_TYPE_QUARTER:
+                getQuaterOptions();
+                break;
+            case BUTTON_TYPE_YEAR:
+                getYearOptions();
+                break;
+            default:
+                getMonthOptions();
+                break;
+        }
     }
 }

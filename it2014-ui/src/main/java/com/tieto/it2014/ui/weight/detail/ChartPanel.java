@@ -3,27 +3,10 @@ package com.tieto.it2014.ui.weight.detail;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
 import com.tieto.it2014.domain.Util.Util;
-import static com.tieto.it2014.domain.Util.Util.extractDayFromTimestamp;
-import static com.tieto.it2014.domain.Util.Util.extractMonthFromTimestamp;
-import static com.tieto.it2014.domain.Util.Util.extractYearFromTimestamp;
-
-import static com.tieto.it2014.domain.weight.WeightChartType.*;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.WeightPage;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -33,6 +16,17 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.tieto.it2014.domain.Util.Util.extractMonthFromTimestamp;
+import static com.tieto.it2014.domain.Util.Util.extractYearFromTimestamp;
+import static com.tieto.it2014.domain.weight.WeightChartType.*;
 
 public class ChartPanel extends Panel {
 

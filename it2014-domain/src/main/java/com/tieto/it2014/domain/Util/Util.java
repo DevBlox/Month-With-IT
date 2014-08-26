@@ -85,6 +85,10 @@ public class Util {
         return (int) TimeUnit.MILLISECONDS.toSeconds(end - start);
     }
 
+    public static double calculateDistance(UserLoc srcLoc, UserLoc destLoc) {
+        return calculateDistance(srcLoc.latitude, srcLoc.longtitude, srcLoc.altitude, destLoc.latitude, destLoc.longtitude, destLoc.altitude);
+    }
+
     public static double calculateDistance(double userLat, double userLng, double userAlt, double venueLat, double venueLng, double venueAlt) {
         double latDistance = Math.toRadians(userLat - venueLat);
         double lngDistance = Math.toRadians(userLng - venueLng);
@@ -247,8 +251,90 @@ public class Util {
     }
     
     public static void printList(List<Weight> printedList) {
-        for (Weight listItem: printedList) {
-            System.out.println(listItem +" Data: "+ getDateFromTimestamp(listItem.timeStamp));
+        for (Weight listItem : printedList) {
+            System.out.println(listItem + " Data: " + getDateFromTimestamp(listItem.timeStamp));
+        }
+    }
+
+    public static GraphData getGraphData(List<UserLoc> uLocs) {
+
+        GraphData data = new GraphData();
+        Double dist = 0.0;
+        Double time = 0.0;
+        Double totalTimeDiff = 0.0;
+        Double lastTimeDiff = 0.0;
+        Double distanceCounter = 0.5;
+        Double addValue;
+        for (int i = 0; i <= uLocs.size()-2; i++) {
+
+            UserLoc srcLoc = uLocs.get(i);
+            UserLoc destLoc = uLocs.get(i+1);
+
+            Double distanceDiff = Util.calculateDistance(srcLoc, destLoc);
+            Double timeDiff = (double)Util.calculateDuration(srcLoc.timeStamp, destLoc.timeStamp);
+            lastTimeDiff = timeDiff.equals(0D) ? lastTimeDiff : timeDiff;
+
+            Double nextDist;
+            if ((nextDist = dist + distanceDiff) >= distanceCounter) {
+
+                Double timeOverDistance = timeDiff / distanceDiff;
+
+                Double tempDist = dist;
+                while (nextDist > distanceCounter) {
+
+                    time += timeOverDistance*(distanceCounter-tempDist);
+                    time = time % 3600 / 60;
+                    addValue = Math.floor(time * 100) / 100;
+                    data.setSeriesData(addValue);
+                    data.setAxisData(distanceCounter);
+
+                    tempDist = distanceCounter;
+                    distanceCounter += 0.5;
+                }
+                time = timeOverDistance*(nextDist-distanceCounter+0.5);
+                totalTimeDiff += timeDiff;
+
+            } else if (Objects.equals(destLoc, uLocs.get(uLocs.size()-1))) {
+
+                dist += distanceDiff;
+                time += timeDiff;
+
+                if (time - totalTimeDiff > 0) {
+                    addValue = (time - totalTimeDiff) % 3600 / 60;
+                    addValue = Util.truncate(addValue, 2);
+                    data.setSeriesData(addValue);
+                } else {
+                    addValue = (time - lastTimeDiff) % 3600 / 60;
+                    addValue = Math.floor(addValue * 100) / 100;
+                    data.setSeriesData(addValue);
+                }
+                data.setAxisData(dist);
+            }
+
+            dist += distanceDiff;
+            time += timeDiff;
+        }
+        return data;
+    }
+
+    public static class GraphData {
+        private List<Double> axisData = new ArrayList<>();
+        private List<Double> seriesData = new ArrayList<>();
+
+        public List<Double> getAxisData() {
+            return axisData;
+        }
+
+        public void setAxisData(Double axisData) {
+            this.axisData.add(axisData);
+        }
+
+        public List<Double> getSeriesData() {
+            return seriesData;
+        }
+
+        public void setSeriesData(Double seriesData) {
+            this.seriesData.add(seriesData);
         }
     }
 }

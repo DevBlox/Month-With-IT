@@ -4,14 +4,15 @@ import com.tieto.it2014.dao.user.FriendJpa;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class AllFriendsQueryDaoJpa implements AllFriendsQuery.Dao {

@@ -1,13 +1,6 @@
 package com.tieto.it2014.ui.workout.details;
 
-import com.googlecode.wickedcharts.highcharts.options.Axis;
-import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
-import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
-import com.googlecode.wickedcharts.highcharts.options.Legend;
-import com.googlecode.wickedcharts.highcharts.options.Options;
-import com.googlecode.wickedcharts.highcharts.options.PlotLine;
-import com.googlecode.wickedcharts.highcharts.options.SeriesType;
-import com.googlecode.wickedcharts.highcharts.options.Title;
+import com.googlecode.wickedcharts.highcharts.options.*;
 import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
@@ -17,10 +10,6 @@ import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.error.ErrorPage404;
-import java.security.AccessControlException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -28,11 +17,12 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.gmap.GMap;
-import org.wicketstuff.gmap.api.GIcon;
-import org.wicketstuff.gmap.api.GLatLng;
-import org.wicketstuff.gmap.api.GMarker;
-import org.wicketstuff.gmap.api.GMarkerOptions;
-import org.wicketstuff.gmap.api.GPolyline;
+import org.wicketstuff.gmap.api.*;
+
+import java.security.AccessControlException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by mantas on 18/08/14.
@@ -62,8 +52,6 @@ public class GMapPanel extends Panel {
         WorkoutsModel workoutsModel = new WorkoutsModel();
         List<UserLoc> uLocs;
         List<GLatLng> markers = new ArrayList<>();
-        List<Double> axisData = new ArrayList<>();
-        List<Double> seriesData = new ArrayList<>();
 
         try {
             uLocs = workoutsModel.getObject().getLocs();
@@ -72,43 +60,7 @@ public class GMapPanel extends Panel {
                 markers.add(new GLatLng(uLoc.latitude, uLoc.longtitude));
             }
 
-            UserLoc ul1 = uLocs.get(0);
-            UserLoc ul2 = uLocs.get(1);
-            Double lc = 0.5;
-            Double time = 0.0;
-            Double timeDiffSum = 0.0;
-            double dist = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
-            for (int i = 1; i <= uLocs.size() - 2; i++) {
-
-                ul1 = uLocs.get(i);
-                ul2 = uLocs.get(i + 1);
-
-                if (dist + Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) >= lc) {
-
-                    timeDiffSum += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-
-                    Double distDiff = Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude) * 100;
-                    float timeDiff = Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-
-                    time += timeDiff / distDiff;
-
-                    Double addValue = time.isNaN() ? seriesData.get(seriesData.size() - 1) : time;
-                    addValue = Util.truncate(((addValue % 3600) / 60), 2);
-
-                    seriesData.add(addValue);
-                    axisData.add(lc);
-                    time = (timeDiff - timeDiff / distDiff);
-
-                    lc += 0.5;
-                }
-
-                dist += Util.calculateDistance(ul1.latitude, ul1.longtitude, ul1.altitude, ul2.latitude, ul2.longtitude, ul2.altitude);
-                time += Util.calculateDuration(ul1.timeStamp, ul2.timeStamp);
-
-            }
-            axisData.add(dist);
-
-            seriesData.add(Util.truncate((time - timeDiffSum) % 3600 / 60, 2));
+            Util.GraphData data = Util.getGraphData(uLocs);
 
             // adding chart to page
             Options options = new Options();
@@ -125,9 +77,9 @@ public class GMapPanel extends Panel {
             options.setTitle(title);
 
             Axis xAxis = new Axis();
-            String[] array = new String[axisData.size()];
+            String[] array = new String[data.getAxisData().size()];
             int index = 0;
-            for (Object value : axisData) {
+            for (Object value : data.getAxisData()) {
                 array[index] = Util.formatDoubleToString((double) value);
                 index++;
             }
@@ -152,9 +104,9 @@ public class GMapPanel extends Panel {
 
             Series<Number> series1 = new SimpleSeries();
             series1.setName("");
-            Number[] array2 = new Number[axisData.size()];
+            Number[] array2 = new Number[data.getSeriesData().size()];
             index = 0;
-            for (Number value : seriesData) {
+            for (Number value : data.getSeriesData()) {
                 array2[index] = value;
                 index++;
             }

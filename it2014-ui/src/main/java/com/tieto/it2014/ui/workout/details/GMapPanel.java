@@ -64,17 +64,11 @@ public class GMapPanel extends Panel {
 
             // adding chart to page
             Options options = new Options();
-            options.setTitle(new Title("My speed chart"));
+            options.setTitle(new Title("  "));
 
             ChartOptions chartOptions = new ChartOptions();
             chartOptions.setType(SeriesType.LINE);
-            chartOptions.setMarginRight(130);
-            chartOptions.setMarginBottom(25);
             options.setChartOptions(chartOptions);
-
-            Title title = new Title("Average workout speed");
-            title.setX(-20);
-            options.setTitle(title);
 
             Axis xAxis = new Axis();
             String[] array = new String[data.getAxisData().size()];
@@ -83,8 +77,9 @@ public class GMapPanel extends Panel {
                 array[index] = Util.formatDoubleToString((double) value);
                 index++;
             }
-            // TODO: add category name
+
             xAxis.setCategories(array);
+            xAxis.setTitle(new Title("Distance, km"));
             options.setxAxis(xAxis);
 
             PlotLine plotLines = new PlotLine();
@@ -93,17 +88,22 @@ public class GMapPanel extends Panel {
             plotLines.setColor(new HexColor("#999999"));
 
             Axis yAxis = new Axis();
-            yAxis.setTitle(new Title("Time (min.)"));
+            yAxis.setTitle(new Title("Time, min"));
             yAxis.setPlotLines(Collections.singletonList(plotLines));
             options.setyAxis(yAxis);
 
             //Do not show exporting btn
             options.setExporting(new ExportingOptions().setEnabled(Boolean.FALSE));
 
+            Tooltip tooltip = new Tooltip();
+            tooltip.setFormatter(new Function(
+                    "return '<b>Distance: </b>' + this.x + ' km<br /><b>Time:</b> '+ this.y +' min';"));
+            options.setTooltip(tooltip);
+
             options.setLegend(new Legend().setEnabled(Boolean.FALSE));
 
             Series<Number> series1 = new SimpleSeries();
-            series1.setName("");
+            series1.setName("Time");
             Number[] array2 = new Number[data.getSeriesData().size()];
             index = 0;
             for (Number value : data.getSeriesData()) {

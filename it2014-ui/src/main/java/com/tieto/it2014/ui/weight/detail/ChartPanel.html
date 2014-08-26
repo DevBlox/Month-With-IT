@@ -1,9 +1,21 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org" >
 
-    <!--    <form class="form-horizontal" wicket:id="dayForm"></form>
-        <form class="form-horizontal" wicket:id="monthForm"></form>
-        <form class="form-horizontal" wicket:id="quarterForm"></form>
-        <form class="form-horizontal" wicket:id="yearForm"></form>-->
+    <form wicket:id="dropDownForm">
+        <label>Day</label>
+        <select class="selectpicker" data-style="btn-success" wicket:id="days"  onchange="this.form.submit()"></select>
+    </form>
+    <form wicket:id="dropDownFormMonth">
+        <label>Month</label>
+        <select class="selectpicker" data-style="btn-success" wicket:id="days"  onchange="this.form.submit()"></select>
+    </form>
+    <form wicket:id="dropDownFormQuarter">
+        <label>Quarter</label>
+        <select class="selectpicker" data-style="btn-success" wicket:id="days"  onchange="this.form.submit()"></select>
+    </form>
+    <form wicket:id="dropDownFormYear">
+        <label>Year</label>
+        <select class="selectpicker" data-style="btn-success" wicket:id="days"  onchange="this.form.submit()"></select>
+    </form>
 
     <div wicket:id="chart"/>
 
@@ -18,20 +30,5 @@
         </div>
     </form>
     <div wicket:id="feedback"></div>
-    <form wicket:id="dropDownForm">
-        <label>Day</label>
-        <select wicket:id="days"  onchange="this.form.submit()"></select>
-    </form>
-    <form wicket:id="dropDownFormMonth">
-        <label>Month</label>
-        <select wicket:id="days"  onchange="this.form.submit()"></select>
-    </form>
-    <form wicket:id="dropDownFormQuarter">
-        <label>Quarter</label>
-        <select wicket:id="days"  onchange="this.form.submit()"></select>
-    </form>
-    <form wicket:id="dropDownFormYear">
-        <label>Year</label>
-        <select wicket:id="days"  onchange="this.form.submit()"></select>
-    </form>
+    
 </wicket:panel>

@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -161,6 +162,7 @@ public class ChartPanel extends Panel {
         daysForm = new Form<Void>("dropDownForm") {
             @Override
             protected void onSubmit() {
+               // selected = ""
                 Long start = 0L;
                 // Calendar startTemp = null;
                 try {
@@ -355,13 +357,25 @@ public class ChartPanel extends Panel {
         Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
         List<Weight> userWeightsInMonth = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
         ArrayList<String> createdListOfDays = new ArrayList<>();
+        boolean currentDayIsAdded = false;
         for (Weight userWeightsInMonth1 : userWeightsInMonth) {
+            
             createdListOfDays.add(String.valueOf(Util.extractDayFromTimestamp(userWeightsInMonth1.timeStamp)));
+            if (Util.extractDayFromTimestamp(userWeightsInMonth1.timeStamp) == Util.extractDayFromTimestamp(end)){
+                currentDayIsAdded = true;
+            } 
         }
-
+        if (currentDayIsAdded = true) {
+            createdListOfDays.add(String.valueOf(Util.extractDayFromTimestamp(end)));
+        }
         return createdListOfDays;
     }
-
+    
+    private String getDayString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+    
     private String getMonthString() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         return Integer.toString(calendar.get(Calendar.MONTH) + 1);

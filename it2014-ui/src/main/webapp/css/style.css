@@ -276,3 +276,12 @@ blockquote cite:before {
     border-color: black;
     font-weight: bold;
 }
+
+.loggedUserLabel {
+    padding-right: 20px; 
+    cursor: pointer;
+}
+
+.loggedUserLabel:hover {
+    text-decoration: underline; 
+}

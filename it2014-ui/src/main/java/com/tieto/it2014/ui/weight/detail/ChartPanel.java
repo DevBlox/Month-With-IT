@@ -367,7 +367,7 @@ public class ChartPanel extends Panel {
                 currentDayIsAdded = true;
             }
         }
-        if (currentDayIsAdded = true) {
+        if (currentDayIsAdded = false) {
             createdListOfDays.add(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
         }
         selectedDay = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));

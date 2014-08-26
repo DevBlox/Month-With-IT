@@ -6,10 +6,11 @@ import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.weight.detail.ChartPanel;
 import com.tieto.it2014.ui.weight.detail.RandomQuote;
-import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.util.List;
 
 public class WeightPagePanel extends Panel {
 

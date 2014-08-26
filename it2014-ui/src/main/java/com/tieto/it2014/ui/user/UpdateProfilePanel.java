@@ -135,6 +135,11 @@ public class UpdateProfilePanel extends Panel {
                 return;
             }
 
+            if (Objects.equal(oldPasswordString, newPasswordString)) {
+                form.error("You can't set the same password!");
+                return;
+            }
+
             if (!Objects.equal(newPasswordString, repeatNewPasswordString)) {
                 form.error("Passwords do not match!");
                 return;
@@ -148,11 +153,6 @@ public class UpdateProfilePanel extends Panel {
                 || StringUtils.isNotBlank(newPasswordString)
                 || StringUtils.isNotBlank(repeatNewPasswordString)) {
             form.error("Not all password fields are entered.");
-            return;
-        }
-
-        if (Objects.equal(oldPasswordString, newPasswordString)) {
-            form.error("You can't set the same password!");
             return;
         }
 

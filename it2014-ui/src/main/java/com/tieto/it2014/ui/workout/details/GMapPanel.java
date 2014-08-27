@@ -68,7 +68,7 @@ public class GMapPanel extends Panel {
             options.setTitle(new Title("  "));
 
             ChartOptions chartOptions = new ChartOptions();
-            chartOptions.setType(SeriesType.LINE);
+            chartOptions.setType(SeriesType.SPLINE);
             options.setChartOptions(chartOptions);
 
             Axis xAxis = new Axis();

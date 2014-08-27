@@ -17,7 +17,7 @@ public class AchievmentsPage extends BasePage {
     @Override
     protected Component initSidebar(String wicketId) {
         return UserSession.get().hasUser()
-                ? new FriendPanel(wicketId, imei)
+                ? new FriendPanel(wicketId, imei, AchievmentsPage.class)
                 : new EmptyPanel(wicketId);
     }
 

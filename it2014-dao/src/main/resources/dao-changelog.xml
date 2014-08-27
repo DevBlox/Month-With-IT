@@ -242,4 +242,93 @@
             </column>
         </createTable>
     </changeSet>
+    
+    <changeSet id="5" author="juste.noreikaite@tietocamp.eu">
+
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Reach 10 km distance per one workout" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Reach 20 km distance per one workout" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Reach 30 km distance per one workout" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Reach 40 km distance per one workout" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Reach 50 km distance per one workout" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Your workout must last 10 minutes" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Your workout must last 20 minutes" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Your workout must last 30 minutes" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Your workout must last 40 minutes" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Your workout must last 50 minutes" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Achievment 1" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Achievment 2" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Achievment 3" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Achievment 4" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+        <insert tableName="ACHIEVMENT">
+            <column name="name" value="Super duper achievment" />
+            <column name="description" value="Achievment 5" />
+            <column name="complete_message" value="Congratulations" />
+        </insert>
+    </changeSet>
+    
+    <changeSet id="6" author="juste.noreikaite@tietocamp.eu">
+
+        <insert tableName="USER_ACHIEVMENT">
+            <column name="userId" value="355866055632819" />
+            <column name="achievmentId" value="1" />
+            <column name="date" value="1409128681" />
+        </insert>
+       
+    </changeSet>
 </databaseChangeLog>

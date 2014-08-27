@@ -465,7 +465,7 @@ public class ChartPanel extends Panel {
                     createdListOfQuarters.add(getMonthQuarterString(currentMonth));
                 }
             }
-            selectedQuarter = "Jul-Sep";
+            selectedQuarter = THIRD_QUARTER_STRING;
         }
         return createdListOfQuarters;
     }

@@ -1,15 +1,15 @@
 package com.tieto.it2014.ui.header;
 
+import com.tieto.it2014.ui.achievments.AchievmentsPage;
 import com.tieto.it2014.ui.user.StatisticsPage;
 import com.tieto.it2014.ui.user.TopPage;
 import com.tieto.it2014.ui.user.WeightPage;
+import java.util.Objects;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
-
-import java.util.Objects;
 
 public class NavbarPanel extends Panel {
 
@@ -18,9 +18,11 @@ public class NavbarPanel extends Panel {
     private Link weightPageLink;
     private Link statisticsPageLink;
     private Link topPageLink;
+    private Link achievmentsPageLink;
     private ListItem weightListItem;
     private ListItem statisticsListItem;
     private ListItem topListItem;
+    private ListItem achievmentsListItem;
 
     public NavbarPanel(String id) {
         super(id);
@@ -33,18 +35,22 @@ public class NavbarPanel extends Panel {
         weightPageLink = initWeightLink("weightPageLink");
         statisticsPageLink = initStatisticsLink("statisticsPageLink");
         topPageLink = initTopLink("topPageLink");
+        achievmentsPageLink = initAchievmentsLink("achievmentsPageLink");
 
         weightListItem = new ListItem("weightListItem", 0);
         statisticsListItem = new ListItem("statisticsListItem", 1);
         topListItem = new ListItem("topListItem", 2);
+        achievmentsListItem = new ListItem("achievmentsListItem", 3);
 
         add(weightListItem);
         add(statisticsListItem);
         add(topListItem);
+        add(achievmentsListItem);
 
         weightListItem.add(weightPageLink);
         statisticsListItem.add(statisticsPageLink);
         topListItem.add(topPageLink);
+        achievmentsListItem.add(achievmentsPageLink);
 
         if (Objects.equals(weightPageLink.getPage().getClass(), WeightPage.class)) {
             weightListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
@@ -52,6 +58,8 @@ public class NavbarPanel extends Panel {
             statisticsListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
         } else if (Objects.equals(weightPageLink.getPage().getClass(), TopPage.class)) {
             topListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
+        } else if (Objects.equals(weightPageLink.getPage().getClass(), AchievmentsPage.class)) {
+            achievmentsListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
         }
     }
 
@@ -86,6 +94,18 @@ public class NavbarPanel extends Panel {
             @Override
             public void onClick() {
                 setResponsePage(TopPage.class);
+            }
+
+        };
+    }
+
+    private Link initAchievmentsLink(String achievmentsPageLink) {
+        return new Link(achievmentsPageLink) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onClick() {
+                setResponsePage(AchievmentsPage.class);
             }
 
         };

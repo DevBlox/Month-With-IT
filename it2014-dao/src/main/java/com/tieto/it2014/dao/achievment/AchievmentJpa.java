@@ -1,7 +1,7 @@
 package com.tieto.it2014.dao.achievment;
 
 import com.tieto.it2014.dao.JpaEntity;
-import com.tieto.it2014.domain.achievment.entity.Achievment;
+import com.tieto.it2014.domain.achievment.entity.Achievement;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ACHIEVMENT")
-public class AchievmentJpa implements JpaEntity<Achievment>, Serializable {
+public class AchievmentJpa implements JpaEntity<Achievement>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public class AchievmentJpa implements JpaEntity<Achievment>, Serializable {
     public AchievmentJpa() {
     }
 
-    public AchievmentJpa(Achievment achievment) {
+    public AchievmentJpa(Achievement achievment) {
         this.name = achievment.getName();
         this.description = achievment.getDescription();
         this.completeMessage = achievment.getCompleteMessage();
@@ -38,8 +38,8 @@ public class AchievmentJpa implements JpaEntity<Achievment>, Serializable {
     }
 
     @Override
-    public Achievment toDomain() {
-        return new Achievment(this.name, this.description, this.completeMessage, this.id);
+    public Achievement toDomain() {
+        return new Achievement(this.name, this.description, this.completeMessage, this.id);
     }
 
     /**

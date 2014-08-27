@@ -1,7 +1,7 @@
 package com.tieto.it2014.dao.achievment;
 
 import com.tieto.it2014.dao.JpaEntity;
-import com.tieto.it2014.domain.achievment.entity.UserAchievment;
+import com.tieto.it2014.domain.achievment.entity.UserAchievement;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER_ACHIEVMENT")
-public class UserAchievmentJpa implements JpaEntity<UserAchievment>, Serializable {
+public class UserAchievmentJpa implements JpaEntity<UserAchievement>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public class UserAchievmentJpa implements JpaEntity<UserAchievment>, Serializabl
     public UserAchievmentJpa() {
     }
 
-    public UserAchievmentJpa(UserAchievment achievment) {
+    public UserAchievmentJpa(UserAchievement achievment) {
         this.id = achievment.getId();
         this.userId = achievment.getUserId();
         this.achievmentId = achievment.getAchievmentId();
@@ -38,8 +38,8 @@ public class UserAchievmentJpa implements JpaEntity<UserAchievment>, Serializabl
     }
 
     @Override
-    public UserAchievment toDomain() {
-        return new UserAchievment(this.getUserId(), this.getAchievmentId(), this.getDate(), this.getId());
+    public UserAchievement toDomain() {
+        return new UserAchievement(this.getUserId(), this.getAchievmentId(), this.getDate(), this.getId());
     }
 
     /**

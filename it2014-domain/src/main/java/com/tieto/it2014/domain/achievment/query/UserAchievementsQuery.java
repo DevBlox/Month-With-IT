@@ -1,13 +1,13 @@
 package com.tieto.it2014.domain.achievment.query;
 
-import com.tieto.it2014.domain.achievment.entity.Achievment;
+import com.tieto.it2014.domain.achievment.entity.Achievement;
 import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserAchievmentsQuery implements Serializable {
+public class UserAchievementsQuery implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,10 +16,10 @@ public class UserAchievmentsQuery implements Serializable {
 
     public interface Dao extends Serializable {
 
-        List<Achievment> result(String imei);
+        List<Achievement> result(String imei);
     }
 
-    public List<Achievment> result(String imei) {
+    public List<Achievement> result(String imei) {
         return dao.result(imei);
     }
 

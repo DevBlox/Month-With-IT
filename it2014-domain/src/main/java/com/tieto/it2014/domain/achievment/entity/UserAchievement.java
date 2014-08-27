@@ -2,7 +2,7 @@ package com.tieto.it2014.domain.achievment.entity;
 
 import com.tieto.it2014.domain.achievment.Entity;
 
-public class UserAchievment extends Entity {
+public class UserAchievement extends Entity {
 
     private static final long serialVersionUID = 1L;
 
@@ -11,11 +11,11 @@ public class UserAchievment extends Entity {
     private int achievmentId;
     private Long date;
 
-    public UserAchievment() {
+    public UserAchievement() {
         super(0);
     }
 
-    public UserAchievment(String userId, int achievmentId, Long date, int id) {
+    public UserAchievement(String userId, int achievmentId, Long date, int id) {
         super(id);
         this.id = id;
         this.userId = userId;

@@ -1,7 +1,7 @@
 package com.tieto.it2014.ui.friend;
 
 import com.tieto.it2014.domain.user.entity.User;
-import com.tieto.it2014.ui.HomePage;
+import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -17,22 +17,25 @@ public class FriendItemPanel extends Panel {
 
     private final User friend;
     private ModalWindow modalWindow;
+    private final Class<? extends Page> friendDetailsPage;
 
-    public FriendItemPanel(String id, User friend) {
+    public FriendItemPanel(String id, User friend, Class<? extends Page> friendDetailsPage) {
         super(id);
         this.friend = friend;
+        this.friendDetailsPage = friendDetailsPage;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        PageParameters p = new PageParameters();
-        p.add("userImei", friend.imei);
+        PageParameters parameters = new PageParameters();
+        parameters.add("userImei", friend.imei);
 
-        BookmarkablePageLink l = new BookmarkablePageLink("friendLink", HomePage.class, p);
+        BookmarkablePageLink link = new BookmarkablePageLink(
+                "friendLink", friendDetailsPage, parameters);
 
-        l.add(new Label("friendLabel", friend.username));
+        link.add(new Label("friendLabel", friend.username));
         add(initDeleteButton("friendDelete"));
 
         modalWindow = new ModalWindow("confirmModalWindow");
@@ -52,7 +55,7 @@ public class FriendItemPanel extends Panel {
                 friend, modalWindow));
 
         add(modalWindow);
-        add(l);
+        add(link);
     }
 
     private Link initDeleteButton(String wicketId) {

@@ -1,6 +1,6 @@
 package com.tieto.it2014.ui.achievments;
 
-public interface Achievment {
+public interface Achievement {
 
     public boolean evaluate();
 

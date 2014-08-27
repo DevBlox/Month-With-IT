@@ -13,19 +13,19 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Objects;
 
-public class UserAchievmentsPanel extends Panel {
+public class UserAchievementsPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
     private final String friendImei;
     private String name;
-    private List<Achievment> listOfAchievments;
+    private List<Achievement> listOfAchievments;
     private User friend;
 
     @SpringBean
     private GetUserByIdQuery getUserByIdQuery;
 
-    public UserAchievmentsPanel(String id, IModel<String> imei) {
+    public UserAchievementsPanel(String id, IModel<String> imei) {
         super(id);
         this.friendImei = imei.getObject();
     }
@@ -45,14 +45,14 @@ public class UserAchievmentsPanel extends Panel {
 
         listOfAchievments = new ArrayList<>();
 
-        add(new ListView<Achievment>("achievmentList", listOfAchievments) {
+        add(new ListView<Achievement>("achievmentList", listOfAchievments) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(ListItem<Achievment> item) {
-                Achievment achievment = item.getModelObject();
+            protected void populateItem(ListItem<Achievement> item) {
+                Achievement achievment = item.getModelObject();
 
-                item.add(new UserAchievmentsListItem("achievmentItem"));
+                item.add(new UserAchievementsListItem("achievmentItem"));
             }
 
         });

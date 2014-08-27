@@ -32,10 +32,10 @@ import static com.tieto.it2014.domain.weight.WeightChartType.*;
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
-    private static final String FIRST_QUARTER_STRING = "Jan-Mar";
-    private static final String SECOND_QUARTER_STRING = "Apr-Jun";
-    private static final String THIRD_QUARTER_STRING = "Jul-Sep";
-    private static final String FOURTH_QUARTER_STRING = "Oct-Dec";
+    private static final String FIRST_QUARTER_STRING = "Jan-Feb-Mar";
+    private static final String SECOND_QUARTER_STRING = "Apr-May-Jun";
+    private static final String THIRD_QUARTER_STRING = "Jul-Aug-Sep";
+    private static final String FOURTH_QUARTER_STRING = "Oct-Nov-Dec";
 
     @SpringBean
     private UserWeightOverPeriod weightOverPeriod;
@@ -367,7 +367,7 @@ public class ChartPanel extends Panel {
                 currentDayIsAdded = true;
             }
         }
-        if (currentDayIsAdded = false) {
+        if (currentDayIsAdded == false) {
             createdListOfDays.add(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
         }
         selectedDay = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));

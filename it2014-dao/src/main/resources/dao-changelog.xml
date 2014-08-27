@@ -246,43 +246,43 @@
     <changeSet id="5" author="juste.noreikaite@tietocamp.eu">
 
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Reach 10 km distance per one workout" />
+            <column name="name" value="First Steps" />
+            <column name="description" value="Upload a workout of 1 km length" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Reach 20 km distance per one workout" />
+            <column name="name" value="Run Forest Run" />
+            <column name="description" value="Run for 15 min in a single workout" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Reach 30 km distance per one workout" />
+            <column name="name" value="Zippidy Doo Dah" />
+            <column name="description" value="Achieve average speeds of 5km/h" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Reach 40 km distance per one workout" />
+            <column name="name" value="Seasoned Fighter" />
+            <column name="description" value="Run 50 km overall" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Reach 50 km distance per one workout" />
+            <column name="name" value="Outside Graphics" />
+            <column name="description" value="Run for 5 hours overall" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Your workout must last 10 minutes" />
+            <column name="name" value="I Got SWAG" />
+            <column name="description" value="Add 5 friends to your list" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Your workout must last 20 minutes" />
+            <column name="name" value="Warm Up Your Feet" />
+            <column name="description" value="Upload at least 10 wokrouts" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Your workout must last 30 minutes" />
+            <column name="name" value="I will finish later" />
+            <column name="description" value="Whatever" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">

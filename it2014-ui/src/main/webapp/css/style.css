@@ -285,3 +285,9 @@ blockquote cite:before {
 .loggedUserLabel:hover {
     text-decoration: underline; 
 }
+
+.achievementItem {
+    display: inline-block;
+    position: relative;
+    height: 200px;
+}

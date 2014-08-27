@@ -1,6 +1,8 @@
 package com.tieto.it2014.domain.achievment.entity;
 
-public class UserAchievement {
+import java.io.Serializable;
+
+public class UserAchievement implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

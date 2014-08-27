@@ -6,6 +6,7 @@ import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.weight.detail.RandomQuote;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -88,7 +89,7 @@ public class LoginPanel extends Panel {
         loggedUserLabel.setVisible(UserSession.get().hasUser());
 
         if (UserSession.get().hasUser()) {
-            String userNameAndEmail = ""
+            String userNameAndEmail = RandomQuote.getHelloMsg()
                     + UserSession.get().getUser().username
                     + " (" + UserSession.get().getUser().email + ")";
             labelModel.setObject(userNameAndEmail);

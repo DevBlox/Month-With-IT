@@ -61,12 +61,25 @@ public class RandomQuote {
             new String[]{"Take care of your body. It's the only place you have to live.", "Jim Rohn"}
     );
 
+    private static final List<String> helloMesages = Arrays.asList(
+            "Hello, ",
+            "Bonjour, ",
+            "Shalom, ",
+            "Buonguiorno, ",
+            "おはよう, ",
+            "안녕하세요, "
+    );
+
     public static String[] getPositive() {
-        return positiveQuotes.get(randomWithRange(1, positiveQuotes.size() - 1));
+        return positiveQuotes.get(randomWithRange(0, positiveQuotes.size() - 1));
     }
 
     public static String[] getNegative() {
-        return negativeQuotes.get(randomWithRange(1, negativeQuotes.size() - 1));
+        return negativeQuotes.get(randomWithRange(0, negativeQuotes.size() - 1));
+    }
+
+    public static String getHelloMsg() {
+        return helloMesages.get(randomWithRange(0, helloMesages.size() - 1));
     }
 
     private static int randomWithRange(int min, int max) {

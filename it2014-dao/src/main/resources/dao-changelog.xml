@@ -18,6 +18,9 @@
             <column name="PASSWORD" type="VARCHAR(64)">
                 <constraints nullable="false" />
             </column>
+            <column name="TOKEN" type="VARCHAR(36)">
+                <constraints nullable="false" />
+            </column>
         </createTable>
     </changeSet>
 

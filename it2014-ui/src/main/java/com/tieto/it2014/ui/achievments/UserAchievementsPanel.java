@@ -1,5 +1,6 @@
 package com.tieto.it2014.ui.achievments;
 
+import com.tieto.it2014.domain.achievment.entity.Achievement;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.ui.session.UserSession;

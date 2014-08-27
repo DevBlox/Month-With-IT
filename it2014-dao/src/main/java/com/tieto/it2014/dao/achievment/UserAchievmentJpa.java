@@ -9,20 +9,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER_ACHIEVMENT")
+@Table(name = "UserAchievmentDate")
 public class UserAchievmentJpa implements JpaEntity<UserAchievement>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "ID")
-    private int id;
-
-    @Column(name = "userId")
-    private String userId;
-
-    @Column(name = "achievmentId")
+    @Column(name = "achievment_id")
     private int achievmentId;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "complete_message")
+    private String complete_message;
+
+    @Column(name = "imei")
+    private String imei;
 
     @Column(name = "date")
     private Long date;
@@ -31,43 +37,25 @@ public class UserAchievmentJpa implements JpaEntity<UserAchievement>, Serializab
     }
 
     public UserAchievmentJpa(UserAchievement achievment) {
-        this.id = achievment.getId();
-        this.userId = achievment.getUserId();
         this.achievmentId = achievment.getAchievmentId();
+        this.name = achievment.getName();
+        this.description = achievment.getDescription();
+        this.complete_message = achievment.getCompleteMessage();
+        this.imei = achievment.getImei();
         this.date = achievment.getDate();
     }
 
     @Override
     public UserAchievement toDomain() {
-        return new UserAchievement(this.getUserId(), this.getAchievmentId(), this.getDate(), this.getId());
+        return new UserAchievement(this.achievmentId, this.name, this.description, this.complete_message, this.imei, this.date);
     }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @return the userId
-     */
-    public String getUserId() {
-        return userId;
-    }
-
-    /**
-     * @return the achievmentId
-     */
     public int getAchievmentId() {
         return achievmentId;
     }
 
-    /**
-     * @return the date
-     */
-    public Long getDate() {
-        return date;
+    public void setAchievmentId(int achievmentId) {
+        this.achievmentId = achievmentId;
     }
 
 }

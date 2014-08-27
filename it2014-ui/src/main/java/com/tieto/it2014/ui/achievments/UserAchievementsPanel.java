@@ -1,10 +1,10 @@
 package com.tieto.it2014.ui.achievments;
 
-import com.tieto.it2014.domain.achievment.entity.Achievement;
+import com.tieto.it2014.domain.achievment.entity.UserAchievement;
+import com.tieto.it2014.domain.achievment.query.UserAchievementsQuery;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.ui.session.UserSession;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -20,11 +20,14 @@ public class UserAchievementsPanel extends Panel {
 
     private final String friendImei;
     private String name;
-    private List<Achievement> listOfAchievments;
+    private List<UserAchievement> listOfAchievments;
     private User friend;
 
     @SpringBean
     private GetUserByIdQuery getUserByIdQuery;
+
+    @SpringBean
+    private UserAchievementsQuery userAchievmentsQuery;
 
     public UserAchievementsPanel(String id, IModel<String> imei) {
         super(id);
@@ -44,14 +47,16 @@ public class UserAchievementsPanel extends Panel {
 
         add(new Label("headerLabel", name + " achievments"));
 
-        listOfAchievments = new ArrayList<>();
+        listOfAchievments = userAchievmentsQuery.result(UserSession.get().getUser().imei);
 
-        add(new ListView<Achievement>("achievmentList", listOfAchievments) {
+        System.out.println(listOfAchievments.size());
+
+        add(new ListView<UserAchievement>("achievmentList", listOfAchievments) {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected void populateItem(ListItem<Achievement> item) {
-                Achievement achievment = item.getModelObject();
+            protected void populateItem(ListItem<UserAchievement> item) {
+                UserAchievement achievment = item.getModelObject();
 
                 item.add(new UserAchievementsListItem("achievmentItem"));
             }

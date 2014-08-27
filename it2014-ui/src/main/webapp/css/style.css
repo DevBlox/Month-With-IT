@@ -290,4 +290,5 @@ blockquote cite:before {
     display: inline-block;
     position: relative;
     height: 200px;
+    width: 30%;
 }

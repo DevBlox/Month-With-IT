@@ -72,7 +72,6 @@ public class StatsPanel extends Panel {
         add(new Label("totalDist", "Total distance: " + Util.formatDoubleToString(totalDist) + " km."));
         add(new Label("totalTime", "Total time: " + Util.getDurationString(totalTime)));
         add(new Label("totalDays", "Days: " + totalDays));
-        add(new Label("Calories", "Calories: "));
         if (weightDiff > 0) {
             add(new Label("Weight", "Weight change: +" + weightDiff + " kg."));
         } else {

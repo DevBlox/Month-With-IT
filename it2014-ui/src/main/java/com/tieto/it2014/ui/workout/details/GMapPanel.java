@@ -19,6 +19,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.gmap.GMap;
 import org.wicketstuff.gmap.api.*;
 
+import java.awt.*;
 import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,15 +72,20 @@ public class GMapPanel extends Panel {
             options.setChartOptions(chartOptions);
 
             Axis xAxis = new Axis();
+            xAxis.setTitle(new Title("Distance, km"));
+
             String[] array = new String[data.getAxisData().size()];
             int index = 0;
             for (Object value : data.getAxisData()) {
-                array[index] = Util.formatDoubleToString((double) value);
+                array[index] = value.toString();
                 index++;
+            }
+            if (data.getAxisData().get(data.getAxisData().size()-1) > 20) {
+                xAxis.setTickInterval(8f);
             }
 
             xAxis.setCategories(array);
-            xAxis.setTitle(new Title("Distance, km"));
+
             options.setxAxis(xAxis);
 
             PlotLine plotLines = new PlotLine();

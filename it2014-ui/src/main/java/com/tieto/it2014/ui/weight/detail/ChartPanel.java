@@ -10,6 +10,7 @@ import com.tieto.it2014.ui.user.WeightPage;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -31,10 +32,10 @@ import static com.tieto.it2014.domain.weight.WeightChartType.*;
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
-    private static final String FIRST_QUARTER_STRING = "1";
-    private static final String SECOND_QUARTER_STRING = "2";
-    private static final String THIRD_QUARTER_STRING = "3";
-    private static final String FOURTH_QUARTER_STRING = "4";
+    private static final String FIRST_QUARTER_STRING = "Jan-Feb-Mar";
+    private static final String SECOND_QUARTER_STRING = "Apr-May-Jun";
+    private static final String THIRD_QUARTER_STRING = "Jul-Aug-Sep";
+    private static final String FOURTH_QUARTER_STRING = "Oct-Nov-Dec";
 
     @SpringBean
     private UserWeightOverPeriod weightOverPeriod;
@@ -55,7 +56,11 @@ public class ChartPanel extends Panel {
     public static final String FORTH_QUARTER_LAST_MONTH = "12";
     public static final String FIRST_DAY = "01";
 
-    private String selected = "1";
+    private Calendar calTmp = Calendar.getInstance();
+    private String selectedDay = Integer.toString(calTmp.get(Calendar.DAY_OF_MONTH));
+    private String selectedMonth = Integer.toString(calTmp.get(Calendar.MONTH));
+    private String selectedQuarter = "3";
+    private String selectedYear = Integer.toString(calTmp.get(Calendar.YEAR));
     private DropDownChoice<String> listDays;
     private DropDownChoice<String> listMonths;
     private DropDownChoice<String> listYears;
@@ -142,27 +147,28 @@ public class ChartPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
         listDays = new DropDownChoice<String>(
-                "days", new PropertyModel<String>(this, "selected"), getDaysInThisMonth());
+                "days", new PropertyModel<String>(this, "selectedDay"), getDaysInThisMonth());
         listMonths = new DropDownChoice<String>(
-                "days", new PropertyModel<String>(this, "selected"), getMonthsInThisYear());
+                "days", new PropertyModel<String>(this, "selectedMonth"), getMonthsInThisYear());
         listQuarters = new DropDownChoice<String>(
-                "days", new PropertyModel<String>(this, "selected"), getQuartersInThisYear());
+                "days", new PropertyModel<String>(this, "selectedQuarter"), getQuartersInThisYear());
         listYears = new DropDownChoice<String>(
-                "days", new PropertyModel<String>(this, "selected"), getYearsList());
+                "days", new PropertyModel<String>(this, "selectedYear"), getYearsList());
         options = ChartPanelOptionsProvider.getInstance().getOptions();
         chart = new Chart("chart", options);
 
         daysForm = new Form<Void>("dropDownForm") {
             @Override
             protected void onSubmit() {
+                // selected = ""
                 Long start = 0L;
                 // Calendar startTemp = null;
                 try {
-                    start = createTimeStamp(getYearString(), getMonthString(), selected);
+                    start = createTimeStamp(getYearString(), getMonthString(), selectedDay);
                 } catch (ParseException ex) {
                     Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                int endInt = Integer.parseInt(selected) + 1;
+                int endInt = Integer.parseInt(selectedDay) + 1;
                 String endString = Integer.toString(endInt);
                 Long end = 0L;
                 try {
@@ -181,13 +187,14 @@ public class ChartPanel extends Panel {
             @Override
             protected void onSubmit() {
                 Long start = 0L;
+                String tmpMonth = parseMonthNameToMonthString(selectedMonth);
                 try {
-                    start = createTimeStamp(getYearString(), selected, FIRST_DAY);
+                    start = createTimeStamp(getYearString(), tmpMonth, FIRST_DAY);
                 } catch (ParseException ex) {
                     Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 Long end = 0L;
-                end = getLastDayInMonthInCurrentYearTimestamp(selected);
+                end = getLastDayInMonthInCurrentYearTimestamp(tmpMonth);
                 start = Util.convertToGmtLong(start);
                 end = Util.convertToGmtLong(end);
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
@@ -199,7 +206,7 @@ public class ChartPanel extends Panel {
             @Override
             protected void onSubmit() {
                 Calendar cal = new GregorianCalendar();
-                cal.set(Calendar.YEAR, Integer.parseInt(selected));
+                cal.set(Calendar.YEAR, Integer.parseInt(selectedYear));
                 cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
                 cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
                 cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
@@ -227,7 +234,7 @@ public class ChartPanel extends Panel {
         quarterForm = new Form<Void>("dropDownFormQuarter") {
             @Override
             protected void onSubmit() {
-                int quarter = Integer.parseInt(selected);
+                int quarter = parseQuarterStringToInt(selectedQuarter);
                 Long start = 0L;
                 Long end = 0L;
                 switch (quarter) {
@@ -303,6 +310,7 @@ public class ChartPanel extends Panel {
         options = ChartPanelOptionsProvider.getInstance().getOptions();
         chart.setOptions(options);
         hideForms(ChartPanelOptionsProvider.getInstance().getOptionsType());
+
     }
 
     private void hideForms(int type) {
@@ -347,13 +355,28 @@ public class ChartPanel extends Panel {
         Long start = cal.getTimeInMillis();
 
         Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
+
+        cal = Calendar.getInstance();
         List<Weight> userWeightsInMonth = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
         ArrayList<String> createdListOfDays = new ArrayList<>();
+        boolean currentDayIsAdded = false;
         for (Weight userWeightsInMonth1 : userWeightsInMonth) {
-            createdListOfDays.add(String.valueOf(Util.extractDayFromTimestamp(userWeightsInMonth1.timeStamp)));
-        }
 
+            createdListOfDays.add(String.valueOf(Util.extractDayFromTimestamp(userWeightsInMonth1.timeStamp)));
+            if (Util.extractDayFromTimestamp(userWeightsInMonth1.timeStamp) == cal.get(Calendar.DAY_OF_MONTH)) {
+                currentDayIsAdded = true;
+            }
+        }
+        if (currentDayIsAdded == false) {
+            createdListOfDays.add(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+        }
+        selectedDay = Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
         return createdListOfDays;
+    }
+
+    private String getDayString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     private String getMonthString() {
@@ -383,15 +406,27 @@ public class ChartPanel extends Panel {
         Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
         List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
         ArrayList<String> createdListOfMonths = new ArrayList<>();
+        boolean currentMonthIsAdded = false;
+        int currentMonth = cal.get(Calendar.MONTH) + 1;
         for (int i = 0; i < userWeightsInYear.size(); i++) {
             if ((userWeightsInYear.size() - 1) > i) {
                 if (extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp) != extractMonthFromTimestamp(userWeightsInYear.get(i + 1).timeStamp)) {
-                    createdListOfMonths.add(String.valueOf(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+                    createdListOfMonths.add(parseMonthIntToMonthName(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+                    if (extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp) == currentMonth) {
+                        currentMonthIsAdded = true;
+                    }
                 }
             } else {
-                createdListOfMonths.add(String.valueOf(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+                if ((Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)) != currentMonth) {
+                    createdListOfMonths.add(parseMonthIntToMonthName(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+                }
             }
         }
+
+        if (!currentMonthIsAdded) {
+            createdListOfMonths.add(parseMonthIntToMonthName(currentMonth));
+        }
+        selectedMonth = parseMonthIntToMonthName(currentMonth);
 
         return createdListOfMonths;
     }
@@ -421,7 +456,8 @@ public class ChartPanel extends Panel {
                     createdListOfQuarters.add(FIRST_QUARTER_STRING);
                 } else if ((currentMonth != comparedMonth) && (currentMonth > 3) && (currentMonth <= 6) && (comparedMonth > 6)) {
                     createdListOfQuarters.add(SECOND_QUARTER_STRING);
-                } else if ((currentMonth != comparedMonth) && (currentMonth <= 9) && (currentMonth > 6) && (comparedMonth > 9)) {
+                } else if (((currentMonth != comparedMonth) && (currentMonth <= 9) && (currentMonth > 6) && (comparedMonth > 9) 
+                        ) || ((currentMonth == comparedMonth) && (i == userWeightsInYear.size() - 2)  ) ) {
                     createdListOfQuarters.add(THIRD_QUARTER_STRING);
                 } else if ((currentMonth != comparedMonth) && (currentMonth > 9) && (currentMonth <= 12)) {
                     createdListOfQuarters.add(FOURTH_QUARTER_STRING);
@@ -429,7 +465,7 @@ public class ChartPanel extends Panel {
                     createdListOfQuarters.add(getMonthQuarterString(currentMonth));
                 }
             }
-
+            selectedQuarter = "Jul-Sep";
         }
         return createdListOfQuarters;
     }
@@ -449,7 +485,7 @@ public class ChartPanel extends Panel {
     private List<? extends String> getYearsList() {
 
         Calendar cal = new GregorianCalendar();
-        cal.set(Calendar.YEAR, Integer.parseInt(selected));
+        cal.set(Calendar.YEAR, Integer.parseInt(selectedYear));
         cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
         cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
         cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
@@ -496,6 +532,113 @@ public class ChartPanel extends Panel {
         cal.set(Calendar.MILLISECOND, cal.getActualMaximum(Calendar.MILLISECOND));
         Date date2 = cal.getTime();
         return date2.getTime();
+    }
+
+    private int parseQuarterStringToInt(String quarter) {
+        int quarterInt = 0;
+        switch (quarter) {
+            case FIRST_QUARTER_STRING:
+                quarterInt = 1;
+                break;
+            case SECOND_QUARTER_STRING:
+                quarterInt = 2;
+                break;
+            case THIRD_QUARTER_STRING:
+                quarterInt = 3;
+                break;
+            case FOURTH_QUARTER_STRING:
+                quarterInt = 4;
+                break;
+        }
+        return quarterInt;
+    }
+
+    private String parseMonthIntToMonthName(int month) {
+        String monthString = "";
+        switch (month) {
+            case 1:
+                monthString = "January";
+                break;
+            case 2:
+                monthString = "February";
+                break;
+            case 3:
+                monthString = "March";
+                break;
+            case 4:
+                monthString = "April";
+                break;
+            case 5:
+                monthString = "May";
+                break;
+            case 6:
+                monthString = "June";
+                break;
+            case 7:
+                monthString = "July";
+                break;
+            case 8:
+                monthString = "August";
+                break;
+            case 9:
+                monthString = "September";
+                break;
+            case 10:
+                monthString = "October";
+                break;
+            case 11:
+                monthString = "November";
+                break;
+            case 12:
+                monthString = "December";
+                break;
+
+        }
+        return monthString;
+    }
+    
+    private String parseMonthNameToMonthString(String month) {
+        String monthString = "";
+        switch (month) {
+            case "January":
+                monthString = "1";
+                break;
+            case "February":
+                monthString = "2";
+                break;
+            case "March":
+                monthString = "3";
+                break;
+            case "April":
+                monthString = "4";
+                break;
+            case "May":
+                monthString = "5";
+                break;
+            case "June":
+                monthString = "6";
+                break;
+            case "July":
+                monthString = "7";
+                break;
+            case "August":
+                monthString = "8";
+                break;
+            case "September":
+                monthString = "9";
+                break;
+            case "October":
+                monthString = "10";
+                break;
+            case "November":
+                monthString = "11";
+                break;
+            case "December":
+                monthString = "12";
+                break;
+
+        }
+        return monthString;
     }
 
 }

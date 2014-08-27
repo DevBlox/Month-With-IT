@@ -308,7 +308,7 @@ public class Util {
                     addValue = Math.floor(addValue * 100) / 100;
                     data.setSeriesData(addValue);
                 }
-                data.setAxisData(dist);
+                data.setAxisData(Math.round(dist*1000.0)/1000.0);
             }
 
             dist += distanceDiff;

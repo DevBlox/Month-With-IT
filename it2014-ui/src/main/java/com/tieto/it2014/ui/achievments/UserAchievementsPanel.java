@@ -1,10 +1,11 @@
 package com.tieto.it2014.ui.achievments;
 
-import com.tieto.it2014.domain.achievment.entity.Achievement;
+import com.tieto.it2014.domain.achievment.entity.UserAchievement;
 import com.tieto.it2014.domain.achievment.query.UserAchievementsQuery;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.ui.session.UserSession;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -18,9 +19,9 @@ public class UserAchievementsPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    private String usableImei;
+    private final String friendImei;
     private String name;
-    private List<Achievement> listOfAchievments;
+    private List<UserAchievement> listOfAchievments;
     private User friend;
 
     @SpringBean
@@ -31,18 +32,18 @@ public class UserAchievementsPanel extends Panel {
 
     public UserAchievementsPanel(String id, IModel<String> imei) {
         super(id);
-        this.usableImei = imei.getObject();
+        this.friendImei = imei.getObject();
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+        if (Objects.equal(friendImei, UserSession.get().getUser().imei)) {
             name = "My";
             usableImei = UserSession.get().getUser().imei;
         } else {
-            friend = getUserByIdQuery.resultOrNull(usableImei);
+            friend = getUserByIdQuery.resultOrNull(friendImei);
             name = friend.username;
         }
 
@@ -56,7 +57,8 @@ public class UserAchievementsPanel extends Panel {
             @Override
             protected void populateItem(ListItem<Achievement> item) {
                 Achievement achievment = item.getModelObject();
-                item.add(new UserAchievementsListItem("achievmentItem", achievment));
+
+                item.add(new UserAchievementsListItem("achievmentItem"));
             }
 
         });

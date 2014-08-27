@@ -1,47 +1,27 @@
 package com.tieto.it2014.domain.achievment.entity;
 
-import com.tieto.it2014.domain.achievment.Entity;
-
-public class UserAchievement extends Entity {
+public class UserAchievement {
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
-    private String userId;
     private int achievmentId;
+    private String name;
+    private String description;
+    private String completeMessage;
+    private String imei;
     private Long date;
 
     public UserAchievement() {
-        super(0);
+
     }
 
-    public UserAchievement(String userId, int achievmentId, Long date, int id) {
-        super(id);
-        this.id = id;
-        this.userId = userId;
+    public UserAchievement(int achievmentId, String name, String description, String completeMessage, String imei, Long date) {
         this.achievmentId = achievmentId;
+        this.name = name;
+        this.description = description;
+        this.completeMessage = completeMessage;
+        this.imei = imei;
         this.date = date;
-    }
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @return the userId
-     */
-    public String getUserId() {
-        return userId;
-    }
-
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     /**
@@ -56,6 +36,62 @@ public class UserAchievement extends Entity {
      */
     public void setAchievmentId(int achievmentId) {
         this.achievmentId = achievmentId;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * @return the completeMessage
+     */
+    public String getCompleteMessage() {
+        return completeMessage;
+    }
+
+    /**
+     * @param completeMessage the completeMessage to set
+     */
+    public void setCompleteMessage(String completeMessage) {
+        this.completeMessage = completeMessage;
+    }
+
+    /**
+     * @return the imei
+     */
+    public String getImei() {
+        return imei;
+    }
+
+    /**
+     * @param imei the imei to set
+     */
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
     /**

@@ -2,7 +2,7 @@ package com.tieto.it2014.ui.weight.detail;
 
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
-import com.tieto.it2014.domain.Util.Util;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
@@ -10,7 +10,6 @@ import com.tieto.it2014.ui.user.WeightPage;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
-import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -25,8 +24,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.tieto.it2014.domain.Util.Util.extractMonthFromTimestamp;
-import static com.tieto.it2014.domain.Util.Util.extractYearFromTimestamp;
+import static com.tieto.it2014.domain.util.Util.extractMonthFromTimestamp;
+import static com.tieto.it2014.domain.util.Util.extractYearFromTimestamp;
 import static com.tieto.it2014.domain.weight.WeightChartType.*;
 
 public class ChartPanel extends Panel {

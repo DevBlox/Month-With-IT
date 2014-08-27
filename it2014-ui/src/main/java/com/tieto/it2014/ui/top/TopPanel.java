@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.tieto.it2014.domain.Util.Util;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.entity.UserStats;
 import com.tieto.it2014.domain.user.entity.Workout;

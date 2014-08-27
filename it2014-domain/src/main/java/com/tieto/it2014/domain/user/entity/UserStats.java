@@ -1,6 +1,6 @@
 package com.tieto.it2014.domain.user.entity;
 
-import com.tieto.it2014.domain.Util.Util;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.user.Entity;
 
 /**

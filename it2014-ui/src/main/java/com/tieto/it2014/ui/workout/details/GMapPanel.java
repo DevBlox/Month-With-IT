@@ -5,7 +5,7 @@ import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
-import com.tieto.it2014.domain.Util.Util;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
@@ -19,7 +19,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.gmap.GMap;
 import org.wicketstuff.gmap.api.*;
 
-import java.awt.*;
 import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -4,7 +4,7 @@ import com.googlecode.wickedcharts.highcharts.options.*;
 import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat.DateTimeProperties;
 import com.googlecode.wickedcharts.highcharts.options.series.Coordinate;
 import com.googlecode.wickedcharts.highcharts.options.series.CustomCoordinatesSeries;
-import com.tieto.it2014.domain.Util.Util;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.*;
 import com.tieto.it2014.ui.session.UserSession;

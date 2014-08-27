@@ -1,4 +1,4 @@
-package com.tieto.it2014.domain.Util;
+package com.tieto.it2014.domain.util;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;

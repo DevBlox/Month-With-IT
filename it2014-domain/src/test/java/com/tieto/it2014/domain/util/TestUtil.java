@@ -1,4 +1,4 @@
-package com.tieto.it2014.domain.Util;
+package com.tieto.it2014.domain.util;
 
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;

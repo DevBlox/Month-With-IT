@@ -1,5 +1,5 @@
 
-package com.tieto.it2014.domain.Util;
+package com.tieto.it2014.domain.util;
 
 import java.security.MessageDigest;
 

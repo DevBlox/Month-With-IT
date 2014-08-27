@@ -2,7 +2,7 @@ package com.tieto.it2014.dao.weight.query;
 
 import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.weight.WeightJpa;
-import com.tieto.it2014.domain.Util.Util;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOfTheQuarter;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package com.tieto.it2014.dao.workout.query;
 
 import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.workout.WorkoutJpa;
-import com.tieto.it2014.domain.Util.Util;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.workout.query.CurrentMonthWorkoutsQuery;

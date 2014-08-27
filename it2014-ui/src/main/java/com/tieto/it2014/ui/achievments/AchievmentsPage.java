@@ -36,7 +36,7 @@ public class AchievmentsPage extends BasePage {
 
     @Override
     protected Component initContent(String wicketId) {
-        return new UserAchievmentsPanel(CONTENT_ID, imei);
+        return new UserAchievementsPanel(CONTENT_ID, imei);
     }
 
     private void configureImei() {

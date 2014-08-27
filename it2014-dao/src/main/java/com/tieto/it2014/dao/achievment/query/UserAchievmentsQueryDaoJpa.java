@@ -22,12 +22,10 @@ public class UserAchievmentsQueryDaoJpa implements UserAchievmentsQuery.Dao {
     @Transactional(readOnly = true)
     @Override
     public List<Achievment> result(String imei) {
-//        TypedQuery<AchievmentJpa> query = em.createQuery(
-//                "SELECT u FROM AchievmentJpa u", AchievmentJpa.class);
-//        return JpaUtils.toDomainList(query.getResultList());
         TypedQuery<AchievmentJpa> query = em.createQuery(
                 "SELECT u FROM AchievmentJpa u", AchievmentJpa.class);
         return JpaUtils.toDomainList(query.getResultList());
+
     }
 
 }

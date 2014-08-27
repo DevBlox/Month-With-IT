@@ -331,4 +331,23 @@
         </insert>
        
     </changeSet>
+    
+    <changeSet id="7" author="juste.noreikaite@tietocamp.eu" >
+
+        <createView viewName="UserAch">
+            SELECT ACHIEVMENT.id as achievment_id, name, description, complete_message, imei
+            FROM ACHIEVMENT, USER
+        </createView>
+
+    </changeSet>
+    
+    <changeSet id="8" author="juste.noreikaite@tietocamp.eu" >
+
+        <createView viewName="UserAchievmentDate">
+            SELECT achievment_id, name, description, complete_message, imei, date
+            FROM UserAch
+            LEFT JOIN (USER_ACHIEVMENT) on (USER_ACHIEVMENT.userId = imei and USER_ACHIEVMENT.achievmentId = achievment_id)
+        </createView>
+
+    </changeSet>
 </databaseChangeLog>

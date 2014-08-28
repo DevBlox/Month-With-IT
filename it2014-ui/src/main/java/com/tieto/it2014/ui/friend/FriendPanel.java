@@ -3,6 +3,7 @@ package com.tieto.it2014.ui.friend;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.ui.HomePage;
+import com.tieto.it2014.ui.achievments.AchievmentsPage;
 import com.tieto.it2014.ui.session.UserSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class FriendPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
     private final IModel<String> imei;
+    AddFriendPanel addFriendPanel;
 
     private List<User> friendList;
 
@@ -49,9 +51,20 @@ public class FriendPanel extends Panel {
         }
 
         add(initListView("friendListItem", friendList));
-
-        add(new AddFriendPanel("addFriendPanel"));
+        addFriendPanel = new AddFriendPanel("addFriendPanel");
+        add(addFriendPanel);
     }
+
+    @Override
+    protected void onConfigure() {
+        if (Objects.equals(addFriendPanel.getPage().getClass(), AchievmentsPage.class)) {
+          addFriendPanel.setVisible(false);
+        }
+        
+        super.onConfigure(); 
+    }
+    
+    
 
     private ListView<User> initListView(String id, List<User> list) {
         return new ListView<User>(id, list) {

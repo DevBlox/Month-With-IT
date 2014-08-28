@@ -1,6 +1,8 @@
 package com.tieto.it2014.ui.friend;
 
 import com.tieto.it2014.domain.user.entity.User;
+import com.tieto.it2014.ui.achievments.AchievmentsPage;
+import java.util.Objects;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
@@ -18,6 +20,7 @@ public class FriendItemPanel extends Panel {
     private final User friend;
     private ModalWindow modalWindow;
     private final Class<? extends Page> friendDetailsPage;
+    private AjaxFallbackLink deleteFriendButton;
 
     public FriendItemPanel(String id, User friend, Class<? extends Page> friendDetailsPage) {
         super(id);
@@ -36,7 +39,8 @@ public class FriendItemPanel extends Panel {
                 "friendLink", friendDetailsPage, parameters);
 
         link.add(new Label("friendLabel", friend.username));
-        add(initDeleteButton("friendDelete"));
+        deleteFriendButton = (AjaxFallbackLink) initDeleteButton("friendDelete");
+        add(deleteFriendButton);
 
         modalWindow = new ModalWindow("confirmModalWindow");
 
@@ -57,6 +61,16 @@ public class FriendItemPanel extends Panel {
         add(modalWindow);
         add(link);
     }
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        if (Objects.equals(deleteFriendButton.getPage().getClass(), AchievmentsPage.class)) {
+          deleteFriendButton.setVisible(false);
+        }
+    }
+    
+    
 
     private Link initDeleteButton(String wicketId) {
         return new AjaxFallbackLink(wicketId) {

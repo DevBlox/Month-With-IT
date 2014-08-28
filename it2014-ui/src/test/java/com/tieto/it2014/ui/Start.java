@@ -7,7 +7,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 public class Start {
 
-    public Start() {
+    private Start() {
     }
 
     public static void main(String[] args) throws Exception {

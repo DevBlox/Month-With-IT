@@ -1,11 +1,9 @@
 package com.tieto.it2014.ui.login;
 
 import com.tieto.it2014.domain.DomainException;
-import com.tieto.it2014.domain.achievment.command.AddAchievementCommand;
 import com.tieto.it2014.domain.achievment.entity.UserAchievement;
 import com.tieto.it2014.domain.achievment.query.UserAchievementsQuery;
 import com.tieto.it2014.domain.user.entity.User;
-import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.achievments.AchievementsChecker;
@@ -49,13 +47,7 @@ public class LoginPanel extends Panel {
     private UserAchievementsQuery userAchievementsQuery;
 
     @SpringBean
-    private AllUsersQuery allUsersQuery;
-
-    @SpringBean
     private AchievementsChecker achievementChecker;
-
-    @SpringBean
-    private AddAchievementCommand addAchievementQuery;
 
     public LoginPanel(String wicketid) {
         super(wicketid);

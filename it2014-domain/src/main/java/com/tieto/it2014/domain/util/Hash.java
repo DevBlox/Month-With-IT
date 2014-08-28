@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 
 public class Hash {
 
-    public Hash() {
+    private Hash() {
     }
 
     public static String sha256(String base) {

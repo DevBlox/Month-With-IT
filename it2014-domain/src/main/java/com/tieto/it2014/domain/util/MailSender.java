@@ -17,7 +17,7 @@ public class MailSender {
     private MailSender() {
     }
 
-    public static void Send(String email, String subject, String message) {
+    public static void send(String email, String subject, String message) {
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 

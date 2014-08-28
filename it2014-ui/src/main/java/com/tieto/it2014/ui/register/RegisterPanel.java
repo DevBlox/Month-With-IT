@@ -25,6 +25,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.StringValidator;
 
+import java.util.Date;
+import java.util.UUID;
+
 import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 
 public class RegisterPanel extends Panel {
@@ -117,6 +120,9 @@ public class RegisterPanel extends Panel {
 
     private void actionRegisterUser() {
         user.password = Hash.sha256(user.password);
+        user.setActivated(false);
+        Date date= new Date();
+        user.setToken(UUID.randomUUID().toString() + "-" + date.getTime());
         saveUser.execute(user);
 
         try {

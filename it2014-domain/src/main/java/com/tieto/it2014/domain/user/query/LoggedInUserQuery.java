@@ -30,6 +30,10 @@ public class LoggedInUserQuery implements Serializable {
             throw new DomainException("Incorrect User Name/Password");
         }
 
+        if (!user.isActivated()) {
+            throw new DomainException("This user is not activated!");
+        }
+
         password = Hash.sha256(password);
 
         if (user.password.equals(password)) {

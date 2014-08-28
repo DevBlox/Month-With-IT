@@ -3,12 +3,10 @@ package com.tieto.it2014.ui.login;
 import com.tieto.it2014.domain.DomainException;
 import com.tieto.it2014.domain.achievment.command.AddAchievementCommand;
 import com.tieto.it2014.domain.achievment.entity.UserAchievement;
-import com.tieto.it2014.domain.achievment.entity.UserAchievementNoDate;
 import com.tieto.it2014.domain.achievment.query.UserAchievementsQuery;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
-import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.achievments.AchievementsChecker;
 import com.tieto.it2014.ui.session.UserSession;
@@ -162,7 +160,7 @@ public class LoginPanel extends Panel {
                 setResponsePage(HomePage.class);
             }
         } catch (DomainException ex) {
-            form.error("Incorrect User Name/Password");
+            form.error(ex.getMessage());
         }
     }
 

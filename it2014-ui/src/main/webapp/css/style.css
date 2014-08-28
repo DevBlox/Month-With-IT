@@ -174,22 +174,22 @@ div.wicket-modal div.w_content_2 {
 }*/
 
 div.background {
-  width: 100%;
-  height: 100%;
-  display: block;
-  position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
 }
 
 div.background::after {
-  content: "";
-  background: url(/img/WhiteCat1.jpg) no-repeat center center;
-  opacity: 0.4;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;  
+    content: "";
+    background: url(/img/WhiteCat1.jpg) no-repeat center center;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;  
 }
 
 .error_numbers {
@@ -304,49 +304,50 @@ blockquote cite:before {
 }
 
 .achievementImage {
-    width: 85px;
+    width: 150px;
     height: 100px;
     display: inline-block;
 }
 
 .achieved .achievement_1 {
-    background-image: url('/img/ach/1.png');
+    // background-image: url('/img/ach/1.png');
+    background-image: url('/img/ach/1.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_2 {
-    background-image: url('/img/ach/2.png');
+    background-image: url('/img/ach/2.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_3 {
-    background-image: url('/img/ach/3.png');
+    background-image: url('/img/ach/3.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_4 {
-    background-image: url('/img/ach/4.png');
+    background-image: url('/img/ach/4.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_5 {
-    background-image: url('/img/ach/5.png');
+    background-image: url('/img/ach/5.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_6 {
-    background-image: url('/img/ach/6.png');
+    background-image: url('/img/ach/6.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_7 {
-    background-image: url('/img/ach/7.png');
+    background-image: url('/img/ach/7.gif');
     background-repeat: no-repeat;
     background-position: center;
 }

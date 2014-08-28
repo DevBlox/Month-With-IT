@@ -292,9 +292,8 @@ blockquote cite:before {
     height: 200px;
 }
 
-.achievementImage {
-    height: 100px;
-    display: inline-block;
+.achieved {
+    color: red;
 }
 
 .achieved .achievement_1 {

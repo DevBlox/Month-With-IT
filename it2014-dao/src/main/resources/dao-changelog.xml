@@ -240,6 +240,12 @@
             <column name="date" type="BIGINT">
                 <constraints nullable="false" />
             </column>
+            <column name="isSeen" type="BOOLEAN">
+                <constraints nullable="true" />
+            </column>
+            <column name="isNew" type="BOOLEAN">
+                <constraints nullable="true" />
+            </column>
         </createTable>
     </changeSet>
     
@@ -322,16 +328,6 @@
         </insert>
     </changeSet>
     
-    <changeSet id="6" author="juste.noreikaite@tietocamp.eu">
-
-        <insert tableName="USER_ACHIEVMENT">
-            <column name="userId" value="355866055632819" />
-            <column name="achievmentId" value="1" />
-            <column name="date" value="1409128681" />
-        </insert>
-       
-    </changeSet>
-    
     <changeSet id="7" author="juste.noreikaite@tietocamp.eu" >
 
         <createView viewName="UserAch">
@@ -344,7 +340,7 @@
     <changeSet id="8" author="juste.noreikaite@tietocamp.eu" >
 
         <createView viewName="UserAchievmentDate">
-            SELECT achievment_id, name, description, complete_message, imei, date
+            SELECT achievment_id, name, description, complete_message, imei, date, isSeen, isNew
             FROM UserAch
             LEFT JOIN (USER_ACHIEVMENT) on (USER_ACHIEVMENT.userId = imei and USER_ACHIEVMENT.achievmentId = achievment_id)
         </createView>

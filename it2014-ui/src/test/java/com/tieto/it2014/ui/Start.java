@@ -40,7 +40,6 @@ public class Start {
             server.stop();
             server.join();
         } catch (Exception e) {
-            e.printStackTrace();
             System.exit(1);
         }
     }

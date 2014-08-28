@@ -372,7 +372,6 @@ public class Util {
             weather.setTimestmap(Long.parseLong(mainJsonObject.get("dt").toString()));
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return weather;
     }

@@ -24,7 +24,6 @@ public class WeatherDao {
             }
             scan.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

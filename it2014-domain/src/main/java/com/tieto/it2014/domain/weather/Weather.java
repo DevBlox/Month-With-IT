@@ -116,13 +116,6 @@ public class Weather implements Serializable {
         this.clouds = clouds;
     }
 
-//    public String getRunningMsg() {
-//        if (iconId == 1) {
-//            return "It's";
-//        }
-//        return "";
-//    }
-
     public void setIconId(int iconId) {
         this.iconId = iconId;
     }

@@ -84,7 +84,6 @@ public class MailSender {
             t.close();
 
         } catch (Exception e) {
-
         }
     }
 }

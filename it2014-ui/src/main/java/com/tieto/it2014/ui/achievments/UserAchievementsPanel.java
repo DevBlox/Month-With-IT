@@ -117,7 +117,7 @@ public class UserAchievementsPanel extends Panel {
                 UserAchievementsListItem listItem = new UserAchievementsListItem("achievmentItem", achievment);
                 if (achievment.getDate() != null) {
                     if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
-                        listItem.add(setAttributeAppender(""));
+                        listItem.add(setAttributeAppender("achieved"));
                     } else {
                         listItem.add(setAttributeAppender("achievedFriend"));
                     }

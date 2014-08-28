@@ -76,7 +76,6 @@ public class UpdateProfilePanel extends Panel {
         form.add(new Label("imei", new PropertyModel(user, "imei")));
         form.add(initRegisterButton("updateButton"));
         form.add(initCancelButton("cancelButton"));
-//        form.add(new EqualPasswordInputValidator(newPassword, repeatNewPassword));
 
         form.add(new FeedbackPanel("updateFeedback",
                 new ContainerFeedbackMessageFilter(form)));

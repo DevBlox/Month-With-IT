@@ -353,6 +353,7 @@ public class Util {
             weather.setMainWeather(childJsonObject1.get("main").toString());
             weather.setWeatherDescription(childJsonObject1.get("description").toString());
             weather.setIcon("http://openweathermap.org/img/w/" + childJsonObject1.get("icon").toString() + ".png");
+            weather.setIconId(Integer.parseInt(childJsonObject1.get("icon").toString().replaceAll("[\\D]", "")));
 
             JSONObject childJsonObject2 = new JSONObject(mainJsonObject.get("main").toString().replaceAll("\\[", "").replaceAll("\\]",""));
             weather.setTemp(Double.parseDouble(childJsonObject2.get("temp").toString()));

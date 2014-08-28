@@ -12,6 +12,7 @@ public class Weather implements Serializable {
     private String mainWeather;
     private String weatherDescription;
     private String icon;
+    private int iconId;
 
     private double tempInKelvins;
     private double tempInCelsius;
@@ -113,5 +114,16 @@ public class Weather implements Serializable {
 
     public void setClouds(double clouds) {
         this.clouds = clouds;
+    }
+
+//    public String getRunningMsg() {
+//        if (iconId == 1) {
+//            return "It's";
+//        }
+//        return "";
+//    }
+
+    public void setIconId(int iconId) {
+        this.iconId = iconId;
     }
 }

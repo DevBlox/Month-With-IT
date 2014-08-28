@@ -488,9 +488,15 @@ public class ChartPanel extends Panel {
                 } else if ((i == userWeightsInYear.size() - 2) && (createdListOfQuarters.isEmpty())) {
                     createdListOfQuarters.add(getMonthQuarterString(currentMonth));
                 }
+            } else if (createdListOfQuarters.isEmpty()) {
+                createdListOfQuarters.add(getMonthQuarterString(extractMonthFromTimestamp(cal.getTimeInMillis())));
             }
-            selectedQuarter = THIRD_QUARTER_STRING;
+
         }
+        if (userWeightsInYear.isEmpty()) {
+            createdListOfQuarters.add(getMonthQuarterString(extractMonthFromTimestamp(cal.getTimeInMillis())));
+        }
+        selectedQuarter = THIRD_QUARTER_STRING;
         return createdListOfQuarters;
     }
 
@@ -532,6 +538,11 @@ public class ChartPanel extends Panel {
                 createdListOfYears.add(String.valueOf(Util.extractYearFromTimestamp(userWeightsInYear.get(i).timeStamp)));
             }
         }
+
+        if (userWeightsInYear.isEmpty()) {
+            createdListOfYears.add(String.valueOf(extractYearFromTimestamp(cal.getTimeInMillis())));
+        }
+        selectedYear = String.valueOf(extractYearFromTimestamp(cal.getTimeInMillis()));
 
         return createdListOfYears;
     }

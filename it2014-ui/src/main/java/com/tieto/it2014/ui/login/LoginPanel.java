@@ -46,16 +46,16 @@ public class LoginPanel extends Panel {
 
     @SpringBean
     private LoggedInUserQuery loggedInUserQuery;
-    
+
     @SpringBean
     private UserAchievementsQuery userAchievementsQuery;
 
     @SpringBean
     private AllUsersQuery allUsersQuery;
-    
+
     @SpringBean
     private AchievementsChecker achievementChecker;
-    
+
     @SpringBean
     private AddAchievementCommand addAchievementQuery;
 
@@ -95,8 +95,7 @@ public class LoginPanel extends Panel {
                 new ContainerFeedbackMessageFilter(form)));
 
         add(form);
-        
-        
+
     }
 
     @Override
@@ -124,7 +123,7 @@ public class LoginPanel extends Panel {
             @Override
             public void onSubmit() {
                 buttonAction();
-                
+
             }
 
         };
@@ -157,8 +156,8 @@ public class LoginPanel extends Panel {
                 } else {
                     achievmentStr = "achievments";
                 }
-                
-            setResponsePage(withInfoMsg(new HomePage(), "Congrats! You have "+achievCount+"  new " + achievmentStr));
+
+                setResponsePage(withInfoMsg(new HomePage(), "Congrats! You have " + achievCount + "  new " + achievmentStr));
             } else {
                 setResponsePage(HomePage.class);
             }
@@ -166,22 +165,17 @@ public class LoginPanel extends Panel {
             form.error("Incorrect User Name/Password");
         }
     }
-    
-    private int getNewUserAchievementsCount () {
+
+    private int getNewUserAchievementsCount() {
         int achievCount = 0;
-         for (UserAchievement achievement : listOfAchievments) {
+        for (UserAchievement achievement : listOfAchievments) {
             if (achievement.getDate() == null) {
                 if (achievementChecker.checksAchievementById(achievement.getAchievmentId(), UserSession.get().getUser().imei)) {
                     achievCount++;
-                    addAchievementQuery.execute(new UserAchievementNoDate(0, achievement.getAchievmentId(), Util.getCurrentTimestamp(), UserSession.get().getUser().imei, true, false));
-                    achievement.setDate(Util.getCurrentTimestamp());
-                    achievement.setIsNew(true);
-                } else {
-                    achievement.setIsNew(false);
                 }
             }
         }
-         return achievCount;
+        return achievCount;
     }
 
 }

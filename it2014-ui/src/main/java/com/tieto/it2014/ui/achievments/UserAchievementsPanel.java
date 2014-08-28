@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Objects;
 
@@ -59,28 +60,45 @@ public class UserAchievementsPanel extends Panel {
         add(new Label("headerLabel", name + " achievments"));
 
         listOfAchievments = userAchievementsQuery.result(usableImei);
-        
-        if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
-            checkAchievements();
-        }
+
+        checkAchievements();
 
         add(initAchievementList());
 
     }
 
-
     public void checkAchievements() {
         for (UserAchievement achievement : listOfAchievments) {
             if (achievement.getDate() == null) {
                 if (achievementChecker.checksAchievementById(achievement.getAchievmentId(), usableImei)) {
-                    addAchievementQuery.execute(new UserAchievementNoDate(0, achievement.getAchievmentId(), Util.getCurrentTimestamp(), usableImei, true, false));
-                    achievement.setDate(Util.getCurrentTimestamp());
-                    achievement.setIsNew(true);
+                    if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                        addAchievementQuery.execute(new UserAchievementNoDate(0, achievement.getAchievmentId(), Util.getCurrentTimestamp(), usableImei, true, false));
+                        achievement.setDate(Util.getCurrentTimestamp());
+                        achievement.setIsNew(true);
+                        achievement.setIsSeen(false);
+                    } else {
+                        achievement.setDate(Util.getCurrentTimestamp());
+                        achievement.setIsNew(false);
+                        achievement.setIsSeen(true);
+                    }
                 } else {
-                    achievement.setIsNew(true);
+                    if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                        achievement.setIsNew(false);
+                        achievement.setIsSeen(true);
+                    } else {
+                        achievement.setIsNew(true);
+                        achievement.setIsSeen(false);
+                    }
+
                 }
             } else {
-                achievement.setIsNew(false);
+                if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                        achievement.setIsNew(false);
+                        achievement.setIsSeen(true);
+                    } else {
+                        achievement.setIsNew(true);
+                        achievement.setIsSeen(false);
+                    }
             }
         }
     }
@@ -94,11 +112,13 @@ public class UserAchievementsPanel extends Panel {
                 UserAchievement achievment = item.getModelObject();
                 UserAchievementsListItem listItem = new UserAchievementsListItem("achievmentItem", achievment);
                 if (achievment.getDate() != null) {
-                    listItem.add(new AttributeAppender("class", "achieved"));
+                    listItem.add(new AttributeAppender("class", new Model<>("achieved"), " "));
                 }
-                if (achievment.getIsNew()) {
-                    achievment.setIsNew(!achievment.getIsNew());
-                    listItem.add(new AttributeAppender("class", "achievedNew"));
+                if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                    if (achievment.getIsNew()) {
+                        achievment.setIsNew(!achievment.getIsNew());
+                        listItem.add(new AttributeAppender("class", new Model<>("achievedNew"), " "));
+                    }
                 }
                 item.add(listItem);
             }

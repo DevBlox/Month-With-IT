@@ -8,6 +8,7 @@ import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.util.MailSender;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.utils.UIUtils;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import com.tieto.it2014.ui.validation.ExistingImeiValidator;
 import org.apache.wicket.Component;
@@ -21,6 +22,9 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.Url;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
 import org.apache.wicket.validation.validator.StringValidator;
@@ -126,7 +130,7 @@ public class RegisterPanel extends Panel {
         saveUser.execute(user);
 
         try {
-            MailSender.Send(user.password, "Do not reply", "Hello, fellow Human!");
+            MailSender.Send(user.email, "Do not reply", "http://192.168.16.7:8081/IRun/activate/" + user.email + "/" + user.getToken());
         } catch (Exception e) {
 
         }

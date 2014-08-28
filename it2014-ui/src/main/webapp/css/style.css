@@ -291,3 +291,11 @@ blockquote cite:before {
     position: relative;
     height: 200px;
 }
+
+.achieved {
+    color: red;
+}
+
+.achieved.achievedNew {
+    color: blue;
+}

@@ -12,18 +12,22 @@ public class UserAchievement implements Serializable {
     private String completeMessage;
     private String imei;
     private Long date;
+    private Boolean isNew;
+    private Boolean isSeen;
 
     public UserAchievement() {
 
     }
 
-    public UserAchievement(int achievmentId, String name, String description, String completeMessage, String imei, Long date) {
+    public UserAchievement(int achievmentId, String name, String description, String completeMessage, String imei, Long date, Boolean isNew, Boolean isSeen) {
         this.achievmentId = achievmentId;
         this.name = name;
         this.description = description;
         this.completeMessage = completeMessage;
         this.imei = imei;
         this.date = date;
+        this.isNew = isNew;
+        this.isSeen = isSeen;
     }
 
     /**
@@ -108,6 +112,34 @@ public class UserAchievement implements Serializable {
      */
     public void setDate(Long date) {
         this.date = date;
+    }
+
+    /**
+     * @return the isNew
+     */
+    public boolean getIsNew() {
+        return isNew;
+    }
+
+    /**
+     * @param isNew the isNew to set
+     */
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
+    }
+
+    /**
+     * @return the isSeen
+     */
+    public boolean getIsSeen() {
+        return isSeen;
+    }
+
+    /**
+     * @param isSeen the isSeen to set
+     */
+    public void setIsSeen(Boolean isSeen) {
+        this.isSeen = isSeen;
     }
 
 }

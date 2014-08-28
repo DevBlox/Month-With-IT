@@ -73,8 +73,9 @@ public class UserAchievementsPanel extends Panel {
         for (UserAchievement achievement : listOfAchievments) {
             if (achievement.getDate() == null) {
                 if (achievementChecker.checksAchievementById(achievement.getAchievmentId(), usableImei)) {
-                    addAchievementQuery.execute(new UserAchievementNoDate(0, achievement.getAchievmentId(), Util.getCurrentTimestamp(), usableImei));
+                    addAchievementQuery.execute(new UserAchievementNoDate(0, achievement.getAchievmentId(), Util.getCurrentTimestamp(), usableImei, achievement.getIsNew(), achievement.getIsSeen()));
                     achievement.setDate(Util.getCurrentTimestamp());
+                    achievement.setIsNew(true);
                 }
             }
         }
@@ -90,6 +91,9 @@ public class UserAchievementsPanel extends Panel {
                 UserAchievementsListItem listItem = new UserAchievementsListItem("achievmentItem", achievment);
                 if (achievment.getDate() != null) {
                     listItem.add(new AttributeAppender("class", "achieved"));
+                }
+                if (achievment.getIsNew()) {
+                    listItem.add(new AttributeAppender("class", "achievedNew"));
                 }
                 item.add(listItem);
             }

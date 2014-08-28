@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class WeatherDao {
 
     private static String jsonSrc;
-    private static final String url = "http://api.openweathermap.org/data/2.5/weather?q=Vilnius";
+    private static final String url = "http://api.openweathermap.org/data/2.5/weather?id=593116";
 
     private static void getJsonFromRemoteApi() {
         try {

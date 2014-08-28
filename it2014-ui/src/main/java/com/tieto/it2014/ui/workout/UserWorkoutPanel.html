@@ -1,6 +1,13 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org" >
     
-    <h3 wicket:id="Heading" class="panel-heading">[heading]</h3>
+    <h3 wicket:id="Heading" class="panel-heading col-md-4">[heading]</h3>
+    <div class="col-md-8" style="display: block;">
+        <img wicket:id="weatherImg"/>
+        <span wicket:id="temp" style="font-family: 'Oswald', sans-serif; font-size: 30px;"></span>
+        <span wicket:id="weather" style="display:none;"></span>
+        <span wicket:id="weatherDescription" style="display:none;"></span>
+        <span class="lastUpdate" wicket:id="lastUpdate"></span>
+    </div>
     <div wicket:id="workoutsList" class="topList"></div>
 
     <a href="#" wicket:id="link" class="btn btn-default btn-small btn-success">Show more</a>

@@ -291,3 +291,11 @@ blockquote cite:before {
     position: relative;
     height: 200px;
 }
+
+.lastUpdate {
+    display: block;
+    position: relative;
+    bottom: 13px;
+    left: 35px;
+    font-size: 0.8em;
+}

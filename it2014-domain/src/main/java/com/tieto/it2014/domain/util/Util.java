@@ -352,7 +352,7 @@ public class Util {
             JSONObject childJsonObject1 = new JSONObject(mainJsonObject.get("weather").toString().replaceAll("\\[", "").replaceAll("\\]",""));
             weather.setMainWeather(childJsonObject1.get("main").toString());
             weather.setWeatherDescription(childJsonObject1.get("description").toString());
-            weather.setIcon("http://openweathermap.org/img/w/" + childJsonObject1.get("icon").toString());
+            weather.setIcon("http://openweathermap.org/img/w/" + childJsonObject1.get("icon").toString() + ".png");
 
             JSONObject childJsonObject2 = new JSONObject(mainJsonObject.get("main").toString().replaceAll("\\[", "").replaceAll("\\]",""));
             weather.setTemp(Double.parseDouble(childJsonObject2.get("temp").toString()));
@@ -365,6 +365,9 @@ public class Util {
 
             JSONObject childJsonObject4 = new JSONObject(mainJsonObject.get("clouds").toString().replaceAll("\\[", "").replaceAll("\\]",""));
             weather.setClouds(Double.parseDouble(childJsonObject4.get("all").toString()));
+
+            weather.setTimestmap(Long.parseLong(mainJsonObject.get("dt").toString()));
+
         } catch (Exception e) {
 
         }

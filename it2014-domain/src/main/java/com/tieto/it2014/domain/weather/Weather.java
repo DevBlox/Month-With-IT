@@ -1,6 +1,7 @@
 package com.tieto.it2014.domain.weather;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * Created by mantas on 28/08/14.
@@ -22,6 +23,16 @@ public class Weather implements Serializable {
     private double windDeg;
 
     private double clouds;
+
+    private Long timestmap;
+
+    public Long getTimestmap() {
+        return timestmap;
+    }
+
+    public void setTimestmap(Long timestmap) {
+        this.timestmap = timestmap;
+    }
 
     public String getMainWeather() {
         return mainWeather;

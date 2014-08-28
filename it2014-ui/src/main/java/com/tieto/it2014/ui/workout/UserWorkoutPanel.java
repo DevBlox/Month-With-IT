@@ -8,6 +8,7 @@ import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
+import com.tieto.it2014.ui.utils.ExternalImageUrl;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -15,9 +16,12 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.security.AccessControlException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class UserWorkoutPanel extends Panel {
@@ -28,6 +32,12 @@ public class UserWorkoutPanel extends Panel {
     private final IModel<String> imei;
     private WorkoutsModel workoutsModel;
     private Weather weather;
+
+    private Model<String> weatherImgModel;
+    private Model<String> temperatureLabelModel;
+    private Model<String> weatherLabelModel;
+    private Model<String> weatherDescriptionLabelModel;
+    private Model<String> lastUpdateLabelModel;
 
     @SpringBean
     private WorkoutsQuery workoutQuery;
@@ -43,8 +53,26 @@ public class UserWorkoutPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        weather = Util.parseJsonToWeather(weather, WeatherDao.getJsonSrc());
+
         workoutsModel = new WorkoutsModel();
+
+        weatherImgModel = new Model<>();
+        temperatureLabelModel = new Model<>();
+        weatherLabelModel = new Model<>();
+        weatherDescriptionLabelModel = new Model<>();
+        lastUpdateLabelModel = new Model<>();
+
+        ExternalImageUrl weatherImg = new ExternalImageUrl("weatherImg", weatherImgModel);
+        Label temperatureLabel = new Label("temp", temperatureLabelModel);
+        Label weatherLabel = new Label("weather", weatherLabelModel);
+        Label weatherDescriptionLabel = new Label("weatherDescription", weatherDescriptionLabelModel);
+        Label lastUpdateLabel = new Label("lastUpdate", lastUpdateLabelModel);
+
+        add(weatherImg);
+        add(temperatureLabel);
+        add(weatherLabel);
+        add(weatherDescriptionLabel);
+        add(lastUpdateLabel);
 
         WorkoutListPanel workoutPanel = new WorkoutListPanel("workoutsList", (IModel<List<Workout>>) workoutsModel);
         Component showMoreLink = initShowMoreLink(workoutPanel);
@@ -66,6 +94,23 @@ public class UserWorkoutPanel extends Panel {
         add(workoutPanel);
         add(showMoreLink);
         add(new Label("Heading", username + " workouts"));
+    }
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+
+        setWeather();
+
+        weatherImgModel.setObject(weather.getIcon());
+        temperatureLabelModel.setObject(weather.getTempInCelsius() + " °C");
+        weatherLabelModel.setObject(weather.getMainWeather());
+        weatherDescriptionLabelModel.setObject(weather.getWeatherDescription());
+        lastUpdateLabelModel.setObject("Last update: " + new SimpleDateFormat("HH:mm:ss").format(weather.getTimestmap()*1000));
+    }
+
+    private void setWeather() {
+        this.weather = Util.parseJsonToWeather(new Weather(), WeatherDao.getJsonSrc());
     }
 
     private class WorkoutsModel extends LoadableDetachableModel<List<Workout>> {

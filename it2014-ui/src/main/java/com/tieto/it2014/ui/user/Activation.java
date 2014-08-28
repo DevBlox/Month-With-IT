@@ -7,7 +7,7 @@ import com.tieto.it2014.domain.util.MailSender;
 import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.ui.BasePage;
 import com.tieto.it2014.ui.HomePage;
-import com.tieto.it2014.ui.utils.UIUtils;
+import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
@@ -40,6 +40,9 @@ public class Activation extends BasePage {
         userMail = params.get("userMail").toString();
         token = params.get("token").toString();
         timestamp = Long.parseLong(token.substring(token.length()-13));
+        if (UserSession.get().isLoggedIn()) {
+            UserSession.get().invalidate();
+        }
         if (activateIfTimestampIsValid()) {
             saveUser.execute(user);
             setResponsePage(withInfoMsg(new HomePage(), "User activated successfully. Now you can log in!"));
@@ -47,7 +50,7 @@ public class Activation extends BasePage {
             user.setToken(UUID.randomUUID().toString() + "-" + currentTimestamp);
             saveUser.execute(user);
             try {
-                MailSender.Send(user.email, "Do not reply", "http://192.168.16.7:8081/IRun/activate/" + user.email + "/" + user.getToken());
+                MailSender.Send(user.email, "Do not reply", user.username, user.getToken());
             } catch (Exception e) {
 
             }

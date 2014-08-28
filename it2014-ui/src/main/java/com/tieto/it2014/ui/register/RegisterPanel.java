@@ -130,7 +130,7 @@ public class RegisterPanel extends Panel {
         saveUser.execute(user);
 
         try {
-            MailSender.Send(user.email, "Do not reply", "http://192.168.16.7:8081/IRun/activate/" + user.email + "/" + user.getToken());
+            MailSender.Send(user.email, "Do not reply", user.username, user.getToken());
         } catch (Exception e) {
 
         }

@@ -421,7 +421,7 @@ blockquote cite:before {
 .achievement_13, 
 .achievement_14, 
 .achievement_15 {
-    background-image: url('./../img/lock.png');
+    content: url('./../img/lock.png');
     background-repeat: no-repeat;
     background-position: center;
 }

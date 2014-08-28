@@ -1,7 +1,6 @@
 package com.tieto.it2014.dao.achievment;
 
 import com.tieto.it2014.dao.JpaEntity;
-import com.tieto.it2014.domain.achievment.entity.UserAchievement;
 import com.tieto.it2014.domain.achievment.entity.UserAchievementNoDate;
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -26,13 +25,13 @@ public class UserAchievmentNoDateJpa implements JpaEntity<UserAchievementNoDate>
 
     @Column(name = "achievmentId")
     private int achievementId;
-    
+
     @Column(name = "date")
     private Long date;
-    
+
     @Column(name = "isSeen")
     private Boolean isSeen;
-    
+
     @Column(name = "isNew")
     private Boolean isNew;
 
@@ -128,6 +127,5 @@ public class UserAchievmentNoDateJpa implements JpaEntity<UserAchievementNoDate>
     public void setIsNew(Boolean isNew) {
         this.isNew = isNew;
     }
-
 
 }

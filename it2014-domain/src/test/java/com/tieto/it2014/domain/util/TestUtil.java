@@ -2,16 +2,16 @@ package com.tieto.it2014.domain.util;
 
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import org.junit.Test;
 
 public class TestUtil {
+
+    private static final String imei = "356871044631608";
 
     @Test
     public void test0SecondsToDurationString() {
@@ -38,10 +38,13 @@ public class TestUtil {
 
     @Test
     public void calculatesWorkoutsCorrectlyWithSameTimestamp() {
+
+        String timeStamp = "1407350762000";
+
         List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.722828, 25.298035, 500.0),
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.721865, 25.296, 501.0)
+                new UserLoc(imei, "Test", Long.parseLong(timeStamp), 54.724767, 25.298105, 502.0),
+                new UserLoc(imei, "Test", Long.parseLong(timeStamp), 54.722828, 25.298035, 500.0),
+                new UserLoc(imei, "Test", Long.parseLong(timeStamp), 54.721865, 25.296, 501.0)
         ));
 
         List<Workout> workouts = Util.getRecentWorkouts(userLoc, 10);
@@ -51,9 +54,9 @@ public class TestUtil {
     @Test
     public void calculatesSingleWorkout() {
         List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350752000"), 54.722828, 25.298035, 500.0),
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350742000"), 54.721865, 25.296, 501.0)
+                new UserLoc(imei, "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
+                new UserLoc(imei, "Test", Long.parseLong("1407350752000"), 54.722828, 25.298035, 500.0),
+                new UserLoc(imei, "Test", Long.parseLong("1407350742000"), 54.721865, 25.296, 501.0)
         ));
 
         List<Workout> workouts = Util.getRecentWorkouts(userLoc, null);
@@ -63,7 +66,7 @@ public class TestUtil {
 
     // Point A Latitude: 54.71722152 Longitude: 25.29514074 Altitude: 120
     // Point B Latitude: 54.72031996 Longitude: 25.30243635 Altitude: 117
-    // Actual Distance: 0.581 km. 
+    // Actual Distance: 0.581 km.
     @Test
     public void checksIfDistanceBetweenTwoPointsCalculatedCorrectly() {
         Double errorRange = 0.01;
@@ -73,13 +76,12 @@ public class TestUtil {
                 && (actualdistance >= calculatedDistance - errorRange), equalTo(true));
     }
 
-
     @Test
     public void calculatesDistanceCorrectly() {
         List<UserLoc> userLoc = new ArrayList<>(Arrays.asList(
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350752000"), 54.722828, 25.298035, 500.0),
-                new UserLoc("356871044631608", "Test", Long.parseLong("1407350742000"), 54.721865, 25.296, 501.0)
+                new UserLoc(imei, "Test", Long.parseLong("1407350762000"), 54.724767, 25.298105, 502.0),
+                new UserLoc(imei, "Test", Long.parseLong("1407350752000"), 54.722828, 25.298035, 500.0),
+                new UserLoc(imei, "Test", Long.parseLong("1407350742000"), 54.721865, 25.296, 501.0)
         ));
         List<Workout> workouts = Util.getRecentWorkouts(userLoc, 1);
         String calculatedDistance = workouts.get(0).getDistance();

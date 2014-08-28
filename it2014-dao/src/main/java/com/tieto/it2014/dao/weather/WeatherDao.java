@@ -9,17 +9,24 @@ import java.util.Scanner;
 public class WeatherDao {
 
     private static String jsonSrc;
-    private static final String url = "http://api.openweathermap.org/data/2.5/weather?id=593116";
+    private static final String URL = "http://api.openweathermap.org/data/2.5/weather?id=593116";
+
+    private WeatherDao() {
+
+    }
 
     private static void getJsonFromRemoteApi() {
         try {
-            URL urlObj = new URL(url);
+            URL urlObj = new URL(URL);
             Scanner scan = new Scanner(urlObj.openStream());
             jsonSrc = "";
-            while (scan.hasNext())
+            while (scan.hasNext()) {
                 jsonSrc += scan.nextLine();
+            }
             scan.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getJsonSrc() {

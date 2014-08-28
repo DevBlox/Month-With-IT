@@ -9,13 +9,20 @@ import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.weight.entity.Weight;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.ajax.json.JSONObject;
-
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Objects;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.ajax.json.JSONObject;
 
 public class Util {
 
@@ -238,7 +245,7 @@ public class Util {
 
         return month;
     }
-    
+
     public static int extractYearFromTimestamp(Long timeStamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(timeStamp));
@@ -251,7 +258,7 @@ public class Util {
         Date date = new Date(timeStamp);
         return date;
     }
-    
+
     public static void printList(List<Weight> printedList) {
         for (Weight listItem : printedList) {
             System.out.println(listItem + " Data: " + getDateFromTimestamp(listItem.timeStamp));
@@ -267,13 +274,13 @@ public class Util {
         Double lastTimeDiff = 0.0;
         Double distanceCounter = 0.5;
         Double addValue;
-        for (int i = 0; i <= uLocs.size()-2; i++) {
+        for (int i = 0; i <= uLocs.size() - 2; i++) {
 
             UserLoc srcLoc = uLocs.get(i);
-            UserLoc destLoc = uLocs.get(i+1);
+            UserLoc destLoc = uLocs.get(i + 1);
 
             Double distanceDiff = Util.calculateDistance(srcLoc, destLoc);
-            Double timeDiff = (double)Util.calculateDuration(srcLoc.timeStamp, destLoc.timeStamp);
+            Double timeDiff = (double) Util.calculateDuration(srcLoc.timeStamp, destLoc.timeStamp);
             lastTimeDiff = timeDiff.equals(0D) ? lastTimeDiff : timeDiff;
 
             Double nextDist;
@@ -284,7 +291,7 @@ public class Util {
                 Double tempDist = dist;
                 while (nextDist > distanceCounter) {
 
-                    time += timeOverDistance*(distanceCounter-tempDist);
+                    time += timeOverDistance * (distanceCounter - tempDist);
                     time = time % 3600 / 60;
                     addValue = Math.floor(time * 100) / 100;
                     data.setSeriesData(addValue);
@@ -293,10 +300,10 @@ public class Util {
                     tempDist = distanceCounter;
                     distanceCounter += 0.5;
                 }
-                time = timeOverDistance*(nextDist-distanceCounter+0.5);
+                time = timeOverDistance * (nextDist - distanceCounter + 0.5);
                 totalTimeDiff += timeDiff;
 
-            } else if (Objects.equals(destLoc, uLocs.get(uLocs.size()-1))) {
+            } else if (Objects.equals(destLoc, uLocs.get(uLocs.size() - 1))) {
 
                 dist += distanceDiff;
                 time += timeDiff;
@@ -310,7 +317,7 @@ public class Util {
                     addValue = Math.floor(addValue * 100) / 100;
                     data.setSeriesData(addValue);
                 }
-                data.setAxisData(Math.round(dist*1000.0)/1000.0);
+                data.setAxisData(Math.round(dist * 1000.0) / 1000.0);
             }
 
             dist += distanceDiff;
@@ -320,6 +327,7 @@ public class Util {
     }
 
     public static class GraphData {
+
         private List<Double> axisData = new ArrayList<>();
         private List<Double> seriesData = new ArrayList<>();
 
@@ -339,38 +347,38 @@ public class Util {
             this.seriesData.add(seriesData);
         }
     }
-    
+
     public static Long getCurrentTimestamp() {
         Calendar cal = Calendar.getInstance();
         return cal.getTimeInMillis();
     }
-    
+
     public static Weather parseJsonToWeather(Weather weather, String jsonSrc) {
         try {
             JSONObject mainJsonObject = new JSONObject(jsonSrc);
 
-            JSONObject childJsonObject1 = new JSONObject(mainJsonObject.get("weather").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+            JSONObject childJsonObject1 = new JSONObject(mainJsonObject.get("weather").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
             weather.setMainWeather(childJsonObject1.get("main").toString());
             weather.setWeatherDescription(childJsonObject1.get("description").toString());
             weather.setIcon("http://openweathermap.org/img/w/" + childJsonObject1.get("icon").toString() + ".png");
             weather.setIconId(Integer.parseInt(childJsonObject1.get("icon").toString().replaceAll("[\\D]", "")));
 
-            JSONObject childJsonObject2 = new JSONObject(mainJsonObject.get("main").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+            JSONObject childJsonObject2 = new JSONObject(mainJsonObject.get("main").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
             weather.setTemp(Double.parseDouble(childJsonObject2.get("temp").toString()));
             weather.setPressure(Integer.parseInt(childJsonObject2.get("pressure").toString()));
             weather.setHumidity(Double.parseDouble(childJsonObject2.get("humidity").toString()));
 
-            JSONObject childJsonObject3 = new JSONObject(mainJsonObject.get("wind").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+            JSONObject childJsonObject3 = new JSONObject(mainJsonObject.get("wind").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
             weather.setWindSpeed(Double.parseDouble(childJsonObject3.get("speed").toString()));
             weather.setWindDeg(Double.parseDouble(childJsonObject3.get("deg").toString()));
 
-            JSONObject childJsonObject4 = new JSONObject(mainJsonObject.get("clouds").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+            JSONObject childJsonObject4 = new JSONObject(mainJsonObject.get("clouds").toString().replaceAll("\\[", "").replaceAll("\\]", ""));
             weather.setClouds(Double.parseDouble(childJsonObject4.get("all").toString()));
 
             weather.setTimestmap(Long.parseLong(mainJsonObject.get("dt").toString()));
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return weather;
     }

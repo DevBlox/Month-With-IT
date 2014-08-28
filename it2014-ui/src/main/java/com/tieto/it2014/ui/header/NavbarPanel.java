@@ -5,6 +5,7 @@ import com.tieto.it2014.ui.user.StatisticsPage;
 import com.tieto.it2014.ui.user.TopPage;
 import com.tieto.it2014.ui.user.WeightPage;
 import java.util.Objects;
+import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -53,13 +54,13 @@ public class NavbarPanel extends Panel {
         achievmentsListItem.add(achievmentsPageLink);
 
         if (Objects.equals(weightPageLink.getPage().getClass(), WeightPage.class)) {
-            weightListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
+            addActiveAttribute(weightListItem);
         } else if (Objects.equals(weightPageLink.getPage().getClass(), StatisticsPage.class)) {
-            statisticsListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
+            addActiveAttribute(statisticsListItem);
         } else if (Objects.equals(weightPageLink.getPage().getClass(), TopPage.class)) {
-            topListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
+            addActiveAttribute(topListItem);
         } else if (Objects.equals(weightPageLink.getPage().getClass(), AchievmentsPage.class)) {
-            achievmentsListItem.add(new AttributeAppender("class", new Model<>("active"), " "));
+            addActiveAttribute(achievmentsListItem);
         }
     }
 
@@ -109,6 +110,10 @@ public class NavbarPanel extends Panel {
             }
 
         };
+    }
+
+    private void addActiveAttribute(Component component) {
+        component.add(new AttributeAppender("class", new Model<>("active"), " "));
     }
 
 }

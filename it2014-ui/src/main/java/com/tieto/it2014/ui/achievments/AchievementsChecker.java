@@ -4,7 +4,6 @@ import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
-import com.tieto.it2014.ui.session.UserSession;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
@@ -16,7 +15,7 @@ public class AchievementsChecker implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final int DISTANCE_KM_ONE_WORKOUT_LIMIT = 1;
-    private static final int DURATION_SEC_ONE_WORKOUT_LIMIT = 900; 
+    private static final int DURATION_SEC_ONE_WORKOUT_LIMIT = 900;
     private static final int SPEED_KM_H_ONE_WORKOUT_LIMIT = 5;
     private static final double DISTANCE_KM_ALL_WORKOUTS_LIMIT = 50;
     private static final int DURATION_SEC_ALL_WORKOUS_LIMIT = 18000;
@@ -45,9 +44,9 @@ public class AchievementsChecker implements Serializable {
                 return haveMoreOrEqualFriends(FRIENDS_NUMBER, userImei);
             case 7:
                 return madeMoreOrEqualWorkouts(WORKOUTS_LIMIT, userImei);
+            default:
+                return false;
         }
-        
-        return false;
     }
 
     public boolean oneWorkoutDistanceAchievement(int distance, String userImei) {

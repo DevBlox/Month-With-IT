@@ -337,4 +337,9 @@ public class Util {
             this.seriesData.add(seriesData);
         }
     }
+    
+    public static Long getCurrentTimestamp() {
+        Calendar cal = Calendar.getInstance();
+        return cal.getTimeInMillis();
+    }
 }

@@ -19,6 +19,12 @@ public class UserAchievementNoDate {
         this.date = date;
         this.userId = userId;
     }
+    
+    public UserAchievementNoDate(int achievmentId, Long date, String userId) {
+        this.achievmentId = achievmentId;
+        this.date = date;
+        this.userId = userId;
+    }
 
     /**
      * @return the id

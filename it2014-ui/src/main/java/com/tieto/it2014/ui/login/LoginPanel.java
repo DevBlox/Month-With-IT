@@ -175,6 +175,9 @@ public class LoginPanel extends Panel {
                     achievCount++;
                     addAchievementQuery.execute(new UserAchievementNoDate(0, achievement.getAchievmentId(), Util.getCurrentTimestamp(), UserSession.get().getUser().imei, true, false));
                     achievement.setDate(Util.getCurrentTimestamp());
+                    achievement.setIsNew(true);
+                } else {
+                    achievement.setIsNew(false);
                 }
             }
         }

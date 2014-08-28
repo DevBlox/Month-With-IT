@@ -296,6 +296,12 @@ blockquote cite:before {
     color: red;
 }
 
+.achievementImage {
+    width: 85px;
+    height: 100px;
+    display: inline-block;
+}
+
 .achieved .achievement_1 {
     background-image: url('/img/ach/1.png');
     background-repeat: no-repeat;

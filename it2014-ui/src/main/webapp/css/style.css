@@ -182,7 +182,7 @@ div.background {
 
 div.background::after {
     content: "";
-    background: url(/img/WhiteCat1.jpg) no-repeat center center;
+    background: url(../img/WhiteCat1.jpg) no-repeat center center;
     opacity: 0.4;
     top: 0;
     left: 0;

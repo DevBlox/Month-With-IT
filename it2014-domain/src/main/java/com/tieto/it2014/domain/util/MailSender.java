@@ -19,6 +19,9 @@ public class MailSender {
     private static String email;
     private static String html;
 
+    private static final String IP_ADDRESS = "http://192.168.16.7";
+    private static final String PORT = "8081";
+
     private MailSender() {
     }
 
@@ -54,12 +57,19 @@ public class MailSender {
             msg.setSubject(subject);
             html = "<html>"
                     + "<body>"
-                    + "<div style=\"background-color: #fff; border: 1px solid transparent; border-radius: 4px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); margin-bottom: 20px; border-color: #bce8f1;\">"
-                    + "<div style=\"border-bottom: 1px solid transparent; border-top-left-radius: 3px; border-top-right-radius: 3px; padding: 10px 15px; background-color: #d9edf7; border-color: #bce8f1; color: #31708f;\">Confirm your registration</div>"
+                    + "<div style=\"background-color: #fff; border: 1px solid"
+                    + "transparent; border-radius: 4px; box-shadow: 0 1px 1px "
+                    + "rgba(0, 0, 0, 0.05); margin-bottom: 20px; border-color: #bce8f1;\">"
+                    + "<div style=\"border-bottom: 1px solid transparent;"
+                    + " border-top-left-radius: 3px; border-top-right-radius: 3px; padding: 10px 15px; background-color: #d9edf7; border-color: #bce8f1; color: #31708f;\">Confirm your registration</div>"
                     + "<div style=\"padding: 15px;\">"
                     + "<p>Hello, " + username + "</p>"
                     + "<br/>"
-                    + "<p>Thank you for registering at IRun, to confirm your registration please click this <a href=\"http://192.168.16.7:8081/IRun/activate/" + email + "/" + token + "\">link</a>.</p>"
+                    + "<p>Thank you for registering at IRun, to confirm your "
+                    + "registration please click this <a href=\""
+                    + IP_ADDRESS + ":"
+                    + PORT
+                    + "/IRun/activate/" + email + "/" + token + "\">link</a>.</p>"
                     + "</div>"
                     + "</div>"
                     + "</body>"

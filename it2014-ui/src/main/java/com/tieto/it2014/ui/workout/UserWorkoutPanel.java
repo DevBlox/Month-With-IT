@@ -1,7 +1,10 @@
 package com.tieto.it2014.ui.workout;
 
+import com.tieto.it2014.dao.weather.WeatherDao;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
+import com.tieto.it2014.domain.util.Util;
+import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
@@ -24,6 +27,7 @@ public class UserWorkoutPanel extends Panel {
     public static final String USER_ID = "userId";
     private final IModel<String> imei;
     private WorkoutsModel workoutsModel;
+    private Weather weather;
 
     @SpringBean
     private WorkoutsQuery workoutQuery;
@@ -39,6 +43,7 @@ public class UserWorkoutPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        weather = Util.parseJsonToWeather(weather, WeatherDao.getJsonSrc());
         workoutsModel = new WorkoutsModel();
 
         WorkoutListPanel workoutPanel = new WorkoutListPanel("workoutsList", (IModel<List<Workout>>) workoutsModel);

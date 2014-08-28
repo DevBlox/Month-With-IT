@@ -7,8 +7,10 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.ajax.json.JSONObject;
 
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -336,5 +338,31 @@ public class Util {
         public void setSeriesData(Double seriesData) {
             this.seriesData.add(seriesData);
         }
+    }
+
+    public static Weather parseJsonToWeather(Weather weather, String jsonSrc) {
+        try {
+            JSONObject mainJsonObject = new JSONObject(jsonSrc);
+
+            JSONObject childJsonObject1 = new JSONObject(mainJsonObject.get("weather").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+            weather.setMainWeather(childJsonObject1.get("main").toString());
+            weather.setWeatherDescription(childJsonObject1.get("description").toString());
+            weather.setIcon("http://openweathermap.org/img/w/" + childJsonObject1.get("icon").toString());
+
+            JSONObject childJsonObject2 = new JSONObject(mainJsonObject.get("main").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+            weather.setTemp(Double.parseDouble(childJsonObject2.get("temp").toString()));
+            weather.setPressure(Integer.parseInt(childJsonObject2.get("pressure").toString()));
+            weather.setHumidity(Double.parseDouble(childJsonObject2.get("humidity").toString()));
+
+            JSONObject childJsonObject3 = new JSONObject(mainJsonObject.get("wind").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+            weather.setWindSpeed(Double.parseDouble(childJsonObject3.get("speed").toString()));
+            weather.setWindDeg(Double.parseDouble(childJsonObject3.get("deg").toString()));
+
+            JSONObject childJsonObject4 = new JSONObject(mainJsonObject.get("clouds").toString().replaceAll("\\[", "").replaceAll("\\]",""));
+            weather.setClouds(Double.parseDouble(childJsonObject4.get("all").toString()));
+        } catch (Exception e) {
+
+        }
+        return weather;
     }
 }

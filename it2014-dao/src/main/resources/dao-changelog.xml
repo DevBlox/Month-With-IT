@@ -18,6 +18,11 @@
             <column name="PASSWORD" type="VARCHAR(64)">
                 <constraints nullable="false" />
             </column>
+            <column name="ACTIVATED" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="TOKEN" type="VARCHAR(64)" defaultValue="null">
+            </column>
         </createTable>
     </changeSet>
 
@@ -27,6 +32,7 @@
             <column name="EMAIL" value="haliucinas@gmail.com" />
             <column name="USERNAME" value="Haliucinas" />
             <column name="PASSWORD" value="32d0548634b42334327cace242d9eb19393595f2a7c8b273d28abba90b7551df" />
+            <column name="ACTIVATED" valueBoolean="true" />
         </insert>
 
         <insert tableName="USER">
@@ -34,6 +40,7 @@
             <column name="EMAIL" value="lukas.praninskas@tietocamp.eu" />
             <column name="USERNAME" value="Lukas Praninskas" />
             <column name="PASSWORD" value="70f65910d6ec86d7a89c843041d3abf7155db9d87f5d3053d14ffeaa5da4e7dc" />
+            <column name="ACTIVATED" valueBoolean="1" />
         </insert>
 
         <insert tableName="USER">
@@ -41,6 +48,7 @@
             <column name="EMAIL" value="audrius.siliunas@tietocamp.eu" />
             <column name="USERNAME" value="Audrius" />
             <column name="PASSWORD" value="59deb13ab1013a738bb08b87d112e504398a4bb094b6590ab62a4c7852493917" />
+            <column name="ACTIVATED" valueBoolean="1" />
         </insert>
 
         <insert tableName="USER">
@@ -48,6 +56,7 @@
             <column name="EMAIL" value="norjuste@gmail.com" />
             <column name="USERNAME" value="norjuste" />
             <column name="PASSWORD" value="37c991c90a014af3ddcf52db8d92ce846b74eb040c8242cb207a3d3666cc6b87" />
+            <column name="ACTIVATED" valueBoolean="1" />
         </insert>
 
         <insert tableName="USER">
@@ -55,6 +64,7 @@
             <column name="EMAIL" value="auste@one.lt" />
             <column name="USERNAME" value="auste" />
             <column name="PASSWORD" value="fbeb6cfabc5d5a5a490c641bdc142d9c9b3ee9b755b9efd04a77d2cf503c4b76" />
+            <column name="ACTIVATED" valueBoolean="1" />
         </insert>
     </changeSet>
 

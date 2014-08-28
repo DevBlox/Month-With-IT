@@ -5,6 +5,7 @@ import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
+import com.tieto.it2014.domain.util.MailSender;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.validation.ExistingEmailValidator;
@@ -117,6 +118,12 @@ public class RegisterPanel extends Panel {
     private void actionRegisterUser() {
         user.password = Hash.sha256(user.password);
         saveUser.execute(user);
+
+        try {
+            MailSender.Send(user.password, "Do not reply", "Hello, fellow Human!");
+        } catch (Exception e) {
+
+        }
 
         // Kad kitakart register langeliuose nebeliktu registravimosi duomenu!!
         user = null;

@@ -5,6 +5,8 @@ import java.util.List;
 
 public class RandomQuote {
 
+    private static final String[] BEAR_QUOTE = new String[]{"A bear, however hard he tries, grows tubby without exercise.", "A.A. Milne, Winnie-the-Pooh"};
+
     private static final List<String[]> positiveQuotes = Arrays.asList(
             new String[]{"Whatever the mind of man can conceive and believe, it can achieve.", "Napoleon Hill"},
             new String[]{"I attribute my success to this: I never gave or took any excuse.", "Florence Nightingale"},
@@ -40,16 +42,15 @@ public class RandomQuote {
             new String[]{"Remember no one can make you feel inferior without your consent.", "Eleanor Roosevelt"},
             new String[]{"When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.", "Henry Ford"},
             new String[]{"It’s not the years in your life that count. It’s the life in your years.", "Abraham Lincoln"},
-            new String[]{"A bear, however hard he tries, grows tubby without exercise.", "A.A. Milne, Winnie-the-Pooh"},
             new String[]{"The human body is the best work of art.", "Jess C. Scott."},
-            new String[]{"A fit, healthy body—that is the best fashion statement.", "Jess C. Scott."}
+            new String[]{"A fit, healthy body—that is the best fashion statement.", "Jess C. Scott."},
+            BEAR_QUOTE
     );
 
     private static final List<String[]> negativeQuotes = Arrays.asList(
             new String[]{"You don't need internet, you're already world wide!", "Somebody famous"},
             new String[]{"Hands up! Drop that burger!", "Somebody famous"},
             new String[]{"Exercise is a dirty word. Every time I hear it I wash my mouth out with chocolate.", "Charles M. Schulz"},
-            new String[]{"A bear, however hard he tries, grows tubby without exercise.", "A.A. Milne, Winnie-the-Pooh"},
             new String[]{"The human body is the best work of art.", "Jess C. Scott"},
             new String[]{"The reason fat men are good natured is they can neither fight nor run.", "Theodore Roosevelt"},
             new String[]{"No one wakes up in the morning and says, 'I want to gain 150 pounds and I will start right now!", "Tricia Cunningham"},
@@ -58,10 +59,11 @@ public class RandomQuote {
             new String[]{"Cricket is only 30 per cent physical and 70 per cent mental. South Africans train 120 per cent physically.", "Boeta Dippenaar"},
             new String[]{"Dieting is the only game where you win when you lose!", "Karl Lagerfeld"},
             new String[]{"If you don’t make mistakes, you aren’t really trying. ", "Somebody famous"},
-            new String[]{"Take care of your body. It's the only place you have to live.", "Jim Rohn"}
+            new String[]{"Take care of your body. It's the only place you have to live.", "Jim Rohn"},
+            BEAR_QUOTE
     );
 
-    private static final List<String> helloMesages = Arrays.asList(
+    private static final List<String> HELLO_MESSAGES = Arrays.asList(
             "Hello, ",
             "Bonjour, ",
             "Shalom, ",
@@ -79,7 +81,7 @@ public class RandomQuote {
     }
 
     public static String getHelloMsg() {
-        return helloMesages.get(randomWithRange(0, helloMesages.size() - 1));
+        return HELLO_MESSAGES.get(randomWithRange(0, HELLO_MESSAGES.size() - 1));
     }
 
     private static int randomWithRange(int min, int max) {

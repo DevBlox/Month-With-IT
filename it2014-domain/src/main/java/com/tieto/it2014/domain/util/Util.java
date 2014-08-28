@@ -9,17 +9,24 @@ import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.weight.entity.Weight;
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Objects;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.json.JSONObject;
 
-import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 public class Util {
 
-    private final static double AVERAGE_RADIUS_OF_EARTH = 6371;
+    private static final double AVERAGE_RADIUS_OF_EARTH = 6371;
 
     public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, Integer workoutLimit) {
         List<Workout> workouts = Lists.newArrayList();
@@ -185,9 +192,8 @@ public class Util {
     public static int extractDayFromTimestamp(Long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(timestamp));
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return cal.get(Calendar.DAY_OF_MONTH);
 
-        return day;
     }
 
     public static Calendar convertToGmt(Calendar cal) {
@@ -226,34 +232,23 @@ public class Util {
         gmtCal.setTime(date);
         gmtCal.add(Calendar.MILLISECOND, offsetFromUTC);
         Date trimedDate = gmtCal.getTime();
-        Long trimedTimestamp = trimedDate.getTime();
-
-        return trimedTimestamp;
+        return trimedDate.getTime();
     }
 
     public static int extractMonthFromTimestamp(Long timeStamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(timeStamp));
-        int month = cal.get(Calendar.MONTH) + 1;
-
-        return month;
+        return cal.get(Calendar.MONTH) + 1;
     }
 
     public static int extractYearFromTimestamp(Long timeStamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(timeStamp));
-        int year = cal.get(Calendar.YEAR);
-
-        return year;
+        return cal.get(Calendar.YEAR);
     }
 
     public static Date getDateFromTimestamp(Long timeStamp) {
-        if (timeStamp == null) {
-            return null;
-        }
-        Date date = new Date(timeStamp);
-
-        return date;
+        return new Date(timeStamp);
     }
 
     public static void printList(List<Weight> printedList) {
@@ -375,7 +370,7 @@ public class Util {
             weather.setTimestmap(Long.parseLong(mainJsonObject.get("dt").toString()));
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return weather;
     }

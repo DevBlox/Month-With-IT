@@ -25,17 +25,17 @@ public class UserAchievmentJpa implements JpaEntity<UserAchievement>, Serializab
     private String description;
 
     @Column(name = "complete_message")
-    private String complete_message;
+    private String completeMessage;
 
     @Column(name = "imei")
     private String imei;
 
     @Column(name = "date")
     private Long date;
-    
+
     @Column(name = "isSeen")
     private Boolean isSeen;
-    
+
     @Column(name = "isNew")
     private Boolean isNew;
 
@@ -46,7 +46,7 @@ public class UserAchievmentJpa implements JpaEntity<UserAchievement>, Serializab
         this.achievmentId = achievment.getAchievmentId();
         this.name = achievment.getName();
         this.description = achievment.getDescription();
-        this.complete_message = achievment.getCompleteMessage();
+        this.completeMessage = achievment.getCompleteMessage();
         this.imei = achievment.getImei();
         this.date = achievment.getDate();
         this.isNew = achievment.getIsNew();
@@ -55,7 +55,7 @@ public class UserAchievmentJpa implements JpaEntity<UserAchievement>, Serializab
 
     @Override
     public UserAchievement toDomain() {
-        return new UserAchievement(this.achievmentId, this.name, this.description, this.complete_message, this.imei, this.date, this.isNew, this.isSeen);
+        return new UserAchievement(this.achievmentId, this.name, this.description, this.completeMessage, this.imei, this.date, this.isNew, this.isSeen);
     }
 
     public int getAchievmentId() {

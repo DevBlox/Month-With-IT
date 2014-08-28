@@ -46,7 +46,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         mountPage("user/stats", StatisticsPage.class);
         mountPage("user/edit", ProfilePage.class);
         mountPage("top", TopPage.class);
-        mountPage("user/achievments/${userImei}", AchievmentsPage.class);
+        mountPage("user/achievments/", AchievmentsPage.class);
     }
 
     protected void initSpring() {

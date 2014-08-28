@@ -1,12 +1,20 @@
 package com.tieto.it2014.ui.login;
 
 import com.tieto.it2014.domain.DomainException;
+import com.tieto.it2014.domain.achievment.command.AddAchievementCommand;
+import com.tieto.it2014.domain.achievment.entity.UserAchievement;
+import com.tieto.it2014.domain.achievment.entity.UserAchievementNoDate;
+import com.tieto.it2014.domain.achievment.query.UserAchievementsQuery;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.ui.HomePage;
+import com.tieto.it2014.ui.achievments.AchievementsChecker;
 import com.tieto.it2014.ui.session.UserSession;
+import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 import com.tieto.it2014.ui.weight.detail.RandomQuote;
+import java.util.List;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -34,12 +42,22 @@ public class LoginPanel extends Panel {
     private Label loggedUserLabel;
     private Model<String> labelModel;
     private User loggedInUser;
+    private List<UserAchievement> listOfAchievments;
 
     @SpringBean
     private LoggedInUserQuery loggedInUserQuery;
+    
+    @SpringBean
+    private UserAchievementsQuery userAchievementsQuery;
 
     @SpringBean
     private AllUsersQuery allUsersQuery;
+    
+    @SpringBean
+    private AchievementsChecker achievementChecker;
+    
+    @SpringBean
+    private AddAchievementCommand addAchievementQuery;
 
     public LoginPanel(String wicketid) {
         super(wicketid);
@@ -77,6 +95,8 @@ public class LoginPanel extends Panel {
                 new ContainerFeedbackMessageFilter(form)));
 
         add(form);
+        
+        
     }
 
     @Override
@@ -104,6 +124,7 @@ public class LoginPanel extends Panel {
             @Override
             public void onSubmit() {
                 buttonAction();
+                
             }
 
         };
@@ -126,13 +147,41 @@ public class LoginPanel extends Panel {
         try {
             loggedInUser = loggedInUserQuery.result(email, password);
             UserSession.get().setUser(loggedInUser);
+            listOfAchievments = userAchievementsQuery.result(UserSession.get().getUser().imei);
             logoutButton.setVisible(true);
-//            setResponsePage(UserWorkoutsPage.class,
-//                    UserWorkoutsPage.parametersWith(loggedInUser.imei));
-            setResponsePage(HomePage.class);
+            int achievCount = getNewUserAchievementsCount();
+            String achievmentStr = "";
+            if (achievCount > 0) {
+                if (achievCount == 1) {
+                    achievmentStr = "achievment";
+                } else {
+                    achievmentStr = "achievments";
+                }
+                
+            setResponsePage(withInfoMsg(new HomePage(), "Congrats! You have "+achievCount+"  new " + achievmentStr));
+            } else {
+                setResponsePage(HomePage.class);
+            }
         } catch (DomainException ex) {
             form.error("Incorrect User Name/Password");
         }
+    }
+    
+    private int getNewUserAchievementsCount () {
+        int achievCount = 0;
+         for (UserAchievement achievement : listOfAchievments) {
+            if (achievement.getDate() == null) {
+                if (achievementChecker.checksAchievementById(achievement.getAchievmentId(), UserSession.get().getUser().imei)) {
+                    achievCount++;
+                    addAchievementQuery.execute(new UserAchievementNoDate(0, achievement.getAchievmentId(), Util.getCurrentTimestamp(), UserSession.get().getUser().imei, true, false));
+                    achievement.setDate(Util.getCurrentTimestamp());
+                    achievement.setIsNew(true);
+                } else {
+                    achievement.setIsNew(false);
+                }
+            }
+        }
+         return achievCount;
     }
 
 }

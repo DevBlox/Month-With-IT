@@ -8,22 +8,28 @@ public class UserAchievementNoDate {
     private int achievmentId;
     private Long date;
     private String userId;
+    private Boolean isNew;
+    private Boolean isSeen;
 
     public UserAchievementNoDate() {
 
     }
 
-    public UserAchievementNoDate(int id, int achievmentId, Long date, String userId) {
+    public UserAchievementNoDate(int id, int achievmentId, Long date, String userId, Boolean isNew, Boolean isSeen) {
         this.id = id;
         this.achievmentId = achievmentId;
         this.date = date;
         this.userId = userId;
+        this.isNew = isNew;
+        this.isSeen = isSeen;
     }
     
-    public UserAchievementNoDate(int achievmentId, Long date, String userId) {
+    public UserAchievementNoDate(int achievmentId, Long date, String userId, Boolean isNew, Boolean isSeen) {
         this.achievmentId = achievmentId;
         this.date = date;
         this.userId = userId;
+        this.isNew = isNew;
+        this.isSeen = isSeen;
     }
 
     /**
@@ -73,6 +79,34 @@ public class UserAchievementNoDate {
      */
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    /**
+     * @return the isNew
+     */
+    public boolean getIsNew() {
+        return isNew;
+    }
+
+    /**
+     * @param isNew the isNew to set
+     */
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
+    }
+
+    /**
+     * @return the isSeen
+     */
+    public boolean getIsSeen() {
+        return isSeen;
+    }
+
+    /**
+     * @param isSeen the isSeen to set
+     */
+    public void setIsSeen(Boolean isSeen) {
+        this.isSeen = isSeen;
     }
 
     

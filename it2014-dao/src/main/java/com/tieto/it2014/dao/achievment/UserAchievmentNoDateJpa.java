@@ -29,6 +29,12 @@ public class UserAchievmentNoDateJpa implements JpaEntity<UserAchievementNoDate>
     
     @Column(name = "date")
     private Long date;
+    
+    @Column(name = "isSeen")
+    private Boolean isSeen;
+    
+    @Column(name = "isNew")
+    private Boolean isNew;
 
     public UserAchievmentNoDateJpa() {
     }
@@ -37,11 +43,13 @@ public class UserAchievmentNoDateJpa implements JpaEntity<UserAchievementNoDate>
         this.achievementId = achievement.getAchievmentId();
         this.imei = achievement.getUserId();
         this.date = achievement.getDate();
+        this.isNew = achievement.getIsNew();
+        this.isSeen = achievement.getIsSeen();
     }
 
     @Override
     public UserAchievementNoDate toDomain() {
-        return new UserAchievementNoDate(this.getId(), this.getAchievementId(), this.getDate(), this.getImei());
+        return new UserAchievementNoDate(this.getId(), this.getAchievementId(), this.getDate(), this.getImei(), this.isNew, this.isSeen);
     }
 
     /**
@@ -91,6 +99,34 @@ public class UserAchievmentNoDateJpa implements JpaEntity<UserAchievementNoDate>
      */
     public void setDate(Long date) {
         this.date = date;
+    }
+
+    /**
+     * @return the isSeen
+     */
+    public boolean getIsSeen() {
+        return isSeen;
+    }
+
+    /**
+     * @param isSeen the isSeen to set
+     */
+    public void setIsSeen(Boolean isSeen) {
+        this.isSeen = isSeen;
+    }
+
+    /**
+     * @return the isNew
+     */
+    public boolean getIsNew() {
+        return isNew;
+    }
+
+    /**
+     * @param isNew the isNew to set
+     */
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
     }
 
 

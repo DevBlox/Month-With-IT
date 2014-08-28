@@ -299,3 +299,125 @@ blockquote cite:before {
     left: 35px;
     font-size: 0.8em;
 }
+.achieved {
+    color: red;
+}
+
+.achievementImage {
+    width: 85px;
+    height: 100px;
+    display: inline-block;
+}
+
+.achieved .achievement_1 {
+    background-image: url('/img/ach/1.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_2 {
+    background-image: url('/img/ach/2.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_3 {
+    background-image: url('/img/ach/3.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_4 {
+    background-image: url('/img/ach/4.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_5 {
+    background-image: url('/img/ach/5.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_6 {
+    background-image: url('/img/ach/6.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_7 {
+    background-image: url('/img/ach/7.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_8 {
+    background-image: url('/img/ach/8.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_9 {
+    background-image: url('/img/ach/9.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_10 {
+    background-image: url('/img/ach/10.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_11 {
+    background-image: url('/img/ach/11.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_12 {
+    background-image: url('/img/ach/12.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_13 {
+    background-image: url('/img/ach/13.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_14 {
+    background-image: url('/img/ach/14.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achieved .achievement_15 {
+    background-image: url('/img/ach/15.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.achievement_1, 
+.achievement_2, 
+.achievement_3, 
+.achievement_4, 
+.achievement_5, 
+.achievement_6, 
+.achievement_7, 
+.achievement_8, 
+.achievement_9, 
+.achievement_10, 
+.achievement_11, 
+.achievement_12, 
+.achievement_13, 
+.achievement_14, 
+.achievement_15 {
+    background-image: url('/img/lock.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.achieved.achievedNew {
+    color: blue;
+}

@@ -2,7 +2,7 @@ package com.tieto.it2014.dao.workout;
 
 import com.tieto.it2014.dao.JpaEntity;
 import com.tieto.it2014.domain.user.entity.UserLoc;
-
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,11 +10,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "UserLoc")
-public class WorkoutJpa implements JpaEntity<UserLoc> {
+public class WorkoutJpa implements JpaEntity<UserLoc>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "Id")
-    private String Id;
+    private String id;
 
     @Column(name = "USERNAME")
     private String uName;

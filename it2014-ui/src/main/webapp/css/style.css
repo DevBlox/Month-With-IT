@@ -290,6 +290,15 @@ blockquote cite:before {
     display: inline-block;
     position: relative;
     height: 200px;
+    text-align: center;
+}
+
+.achievementItem label {
+    font-size: 15px;
+}
+
+.achievementItem p {
+    text-align: justify;
 }
 
 .lastUpdate {
@@ -298,9 +307,6 @@ blockquote cite:before {
     bottom: 13px;
     left: 35px;
     font-size: 0.8em;
-}
-.achieved {
-    color: red;
 }
 
 .achievementImage {
@@ -419,6 +425,6 @@ blockquote cite:before {
     background-repeat: no-repeat;
     background-position: center;
 }
-.achieved.achievedNew {
-    color: blue;
+.achieved.achievedNew panel {
+    border: 2px solid #2c3e50;
 }

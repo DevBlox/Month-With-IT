@@ -13,17 +13,4 @@ public class AddFriendFormPanelTest extends BaseWebTest {
         tester = createWicketTester();
     }
 
-//    @Test
-//    public void throws_error_if_friend_in_list() {
-//        ModalWindow modalWindow = new ModalWindow("modal");
-//
-//        tester.startComponentInPage(
-//                new AddFriendFormPanel(modalWindow.getContentId(), modalWindow));
-//
-//        FormTester formTester = tester.newFormTester(modalWindow.getContentId()
-//                + ":add");
-//        formTester.setValue("inputFriendEmail", "my@friend.yea");
-//        formTester.submit();
-//
-//    }
 }

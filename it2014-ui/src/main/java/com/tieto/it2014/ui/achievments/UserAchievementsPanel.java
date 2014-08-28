@@ -57,7 +57,7 @@ public class UserAchievementsPanel extends Panel {
             name = friend.username;
         }
 
-        add(new Label("headerLabel", name + " achievments"));
+        add(new Label("headerLabel", name + " achievements"));
 
         listOfAchievments = userAchievementsQuery.result(usableImei);
 

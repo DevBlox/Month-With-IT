@@ -425,6 +425,6 @@ blockquote cite:before {
     background-repeat: no-repeat;
     background-position: center;
 }
-.achieved.achievedNew panel {
+.achieved.achievedNew .panel {
     border: 2px solid #2c3e50;
 }

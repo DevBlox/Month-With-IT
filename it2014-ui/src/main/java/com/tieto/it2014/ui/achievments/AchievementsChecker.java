@@ -15,12 +15,20 @@ public class AchievementsChecker implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final int DISTANCE_KM_ONE_WORKOUT_LIMIT = 1;
+    private static final int MEANING_OF_LIFE = 42;
+    private static final int BEND_YOUR_KNEES_LIMIT = 10;
     private static final int DURATION_SEC_ONE_WORKOUT_LIMIT = 900;
     private static final int SPEED_KM_H_ONE_WORKOUT_LIMIT = 5;
+    private static final int COMPETE_WITH_CHESTER = 10;
     private static final double DISTANCE_KM_ALL_WORKOUTS_LIMIT = 50;
+    private static final double AROUND_THE_WORLD = 40000;
+    private static final double SEASIDE = 300;
     private static final int DURATION_SEC_ALL_WORKOUS_LIMIT = 18000;
+    private static final int OLD_RUNNER = 432000;
     private static final int FRIENDS_NUMBER = 5;
+    private static final int FAMILY_RUNNER = 20;
     private static final int WORKOUTS_LIMIT = 10;
+    private static final int USAIN_BOLT_LIMIT = 365;
 
     @Autowired
     private WorkoutsQuery workoutQuery;
@@ -44,6 +52,22 @@ public class AchievementsChecker implements Serializable {
                 return haveMoreOrEqualFriends(FRIENDS_NUMBER, userImei);
             case 7:
                 return madeMoreOrEqualWorkouts(WORKOUTS_LIMIT, userImei);
+            case 8:
+                return oneWorkoutDistanceAchievement(BEND_YOUR_KNEES_LIMIT, userImei);
+            case 9:
+                return oneWorkoutSpeedAchievement(COMPETE_WITH_CHESTER, userImei);
+            case 10:
+                return madeMoreOrEqualWorkouts(USAIN_BOLT_LIMIT, userImei);
+            case 11:
+                return allWorkoutDurationAchievement(OLD_RUNNER, userImei);
+            case 12:
+                return haveMoreOrEqualFriends(FAMILY_RUNNER, userImei);
+            case 13:
+                return allWorkoutDistanceAchievement(SEASIDE, userImei);
+            case 14:
+                return oneWorkoutDistanceAchievement(MEANING_OF_LIFE, userImei);
+            case 15:
+                return allWorkoutDistanceAchievement(AROUND_THE_WORLD, userImei);
             default:
                 return false;
         }

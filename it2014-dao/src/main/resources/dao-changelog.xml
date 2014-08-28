@@ -273,7 +273,7 @@
         </insert>
         <insert tableName="ACHIEVMENT">
             <column name="name" value="Zippidy Doo Dah" />
-            <column name="description" value="Achieve average speeds of 5km/h" />
+            <column name="description" value="Achieve average speed of 5km/h" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
@@ -297,43 +297,43 @@
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="I will finish later" />
-            <column name="description" value="Whatever" />
+            <column name="name" value="Bend your knees" />
+            <column name="description" value="Do a workout of 10 km lenght" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Your workout must last 40 minutes" />
+            <column name="name" value="Compete with a chester" />
+            <column name="description" value="Achieve 10 km/h average speed in one workout" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Your workout must last 50 minutes" />
+            <column name="name" value="Train like Usain Bolt" />
+            <column name="description" value="Do more than 365 workouts" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Achievment 1" />
+            <column name="name" value="Old runner" />
+            <column name="description" value="Run more than 5 days overall" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Achievment 2" />
+            <column name="name" value="Family of runners" />
+            <column name="description" value="Have more than 20 friends" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Achievment 3" />
+            <column name="name" value="Seaside is reached" />
+            <column name="description" value="Run more than 300 km overal" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Achievment 4" />
+            <column name="name" value="Meaning of life" />
+            <column name="description" value="Do a workout of 42 km lenght" />
             <column name="complete_message" value="Congratulations" />
         </insert>
         <insert tableName="ACHIEVMENT">
-            <column name="name" value="Super duper achievment" />
-            <column name="description" value="Achievment 5" />
+            <column name="name" value="Arount the world" />
+            <column name="description" value="Run more than 40 000 km overal" />
             <column name="complete_message" value="Congratulations" />
         </insert>
     </changeSet>

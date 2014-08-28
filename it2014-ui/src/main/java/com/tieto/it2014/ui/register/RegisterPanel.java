@@ -117,7 +117,6 @@ public class RegisterPanel extends Panel {
     private void actionRegisterUser() {
         user.password = Hash.sha256(user.password);
         saveUser.execute(user);
-        UserSession.get().setUser(user);
 
         // Kad kitakart register langeliuose nebeliktu registravimosi duomenu!!
         user = null;

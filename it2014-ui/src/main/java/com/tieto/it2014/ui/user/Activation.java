@@ -8,26 +8,25 @@ import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.ui.BasePage;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
+import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
+import java.util.Date;
+import java.util.UUID;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
-
-import java.util.Date;
-import java.util.UUID;
-
-import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 
 /**
  * Created by mantas on 28/08/14.
  */
 public class Activation extends BasePage {
+
     private static final long serialVersionUID = 1L;
 
     @SpringBean
     private SaveUserCommand saveUser;
 
     @SpringBean
-    private GetUserByEmailQuery getUserByEmailQuery;;
+    private GetUserByEmailQuery getUserByEmailQuery;
 
     private String userMail;
     private String token;
@@ -50,7 +49,7 @@ public class Activation extends BasePage {
             user.setToken(UUID.randomUUID().toString() + "-" + currentTimestamp);
             saveUser.execute(user);
             try {
-                MailSender.Send(user.email, "Do not reply", user.username, user.getToken());
+                MailSender.send(user.email, "Do not reply", user.username, user.getToken());
             } catch (Exception e) {
 
             }
@@ -61,7 +60,7 @@ public class Activation extends BasePage {
     public boolean activateIfTimestampIsValid() {
         user = getUserByEmailQuery.result(userMail);
         userToken = user.getToken();
-        if (Strings.isEqual(userToken, token) && Util.calculateDuration(timestamp, currentTimestamp) <= 60 ) {
+        if (Strings.isEqual(userToken, token) && Util.calculateDuration(timestamp, currentTimestamp) <= 60) {
             user.setActivated(true);
             return true;
         }

@@ -93,12 +93,12 @@ public class UserAchievementsPanel extends Panel {
                 }
             } else {
                 if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
-                        achievement.setIsNew(false);
-                        achievement.setIsSeen(true);
-                    } else {
-                        achievement.setIsNew(true);
-                        achievement.setIsSeen(false);
-                    }
+                    achievement.setIsNew(false);
+                    achievement.setIsSeen(true);
+                } else {
+                    achievement.setIsNew(true);
+                    achievement.setIsSeen(false);
+                }
             }
         }
     }
@@ -112,7 +112,11 @@ public class UserAchievementsPanel extends Panel {
                 UserAchievement achievment = item.getModelObject();
                 UserAchievementsListItem listItem = new UserAchievementsListItem("achievmentItem", achievment);
                 if (achievment.getDate() != null) {
-                    listItem.add(new AttributeAppender("class", new Model<>("achieved"), " "));
+                    if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                        listItem.add(new AttributeAppender("class", new Model<>("achieved"), " "));
+                    } else {
+                        listItem.add(new AttributeAppender("class", new Model<>("achievedFriend"), " "));
+                    }
                 }
                 if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
                     if (achievment.getIsNew()) {

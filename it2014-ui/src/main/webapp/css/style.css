@@ -359,43 +359,43 @@ blockquote cite:before {
 }
 
 .achieved .achievement_8 {
-    background-image: url('./../img/ach/8.png');
+    background-image: url('./../img/ach/8.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_9 {
-    background-image: url('./../img/ach/9.png');
+    background-image: url('./../img/ach/9.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_10 {
-    background-image: url('./../img/ach/10.png');
+    background-image: url('./../img/ach/10.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_11 {
-    background-image: url('./../img/ach/11.png');
+    background-image: url('./../img/ach/11.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_12 {
-    background-image: url('./../img/ach/12.png');
+    background-image: url('./../img/ach/12.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_13 {
-    background-image: url('./../img/ach/13.png');
+    background-image: url('./../img/ach/13.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_14 {
-    background-image: url('./../img/ach/14.png');
+    background-image: url('./../img/ach/14.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -427,4 +427,25 @@ blockquote cite:before {
 }
 .achieved.achievedNew .panel {
     border: 2px solid #2c3e50;
+}
+
+
+.achievedFriend .achievement_1, 
+.achievedFriend .achievement_2,
+.achievedFriend .achievement_3,
+.achievedFriend .achievement_4,
+.achievedFriend .achievement_5,
+.achievedFriend .achievement_6,
+.achievedFriend .achievement_7,
+.achievedFriend .achievement_8,
+.achievedFriend .achievement_9,
+.achievedFriend .achievement_10,
+.achievedFriend .achievement_11,
+.achievedFriend .achievement_12,
+.achievedFriend .achievement_13,
+.achievedFriend .achievement_14,
+.achievedFriend .achievement_15 {
+    background-image: url('./../img/ach/friend.gif');
+    background-repeat: no-repeat;
+    background-position: center;
 }

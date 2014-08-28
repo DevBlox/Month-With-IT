@@ -26,7 +26,7 @@ import org.apache.wicket.ajax.json.JSONObject;
 
 public class Util {
 
-    private final static double AVERAGE_RADIUS_OF_EARTH = 6371;
+    private static final double AVERAGE_RADIUS_OF_EARTH = 6371;
 
     public static List<Workout> getRecentWorkouts(List<UserLoc> userLocs, Integer workoutLimit) {
         List<Workout> workouts = Lists.newArrayList();
@@ -192,9 +192,8 @@ public class Util {
     public static int extractDayFromTimestamp(Long timestamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(timestamp));
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return cal.get(Calendar.DAY_OF_MONTH);
 
-        return day;
     }
 
     public static Calendar convertToGmt(Calendar cal) {
@@ -233,30 +232,23 @@ public class Util {
         gmtCal.setTime(date);
         gmtCal.add(Calendar.MILLISECOND, offsetFromUTC);
         Date trimedDate = gmtCal.getTime();
-        Long trimedTimestamp = trimedDate.getTime();
-
-        return trimedTimestamp;
+        return trimedDate.getTime();
     }
 
     public static int extractMonthFromTimestamp(Long timeStamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(timeStamp));
-        int month = cal.get(Calendar.MONTH) + 1;
-
-        return month;
+        return cal.get(Calendar.MONTH) + 1;
     }
 
     public static int extractYearFromTimestamp(Long timeStamp) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(timeStamp));
-        int year = cal.get(Calendar.YEAR);
-
-        return year;
+        return cal.get(Calendar.YEAR);
     }
 
     public static Date getDateFromTimestamp(Long timeStamp) {
-        Date date = new Date(timeStamp);
-        return date;
+        return new Date(timeStamp);
     }
 
     public static void printList(List<Weight> printedList) {

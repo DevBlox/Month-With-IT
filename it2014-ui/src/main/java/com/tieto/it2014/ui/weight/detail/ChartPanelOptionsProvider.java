@@ -1,23 +1,38 @@
 package com.tieto.it2014.ui.weight.detail;
 
-import com.googlecode.wickedcharts.highcharts.options.*;
+import com.googlecode.wickedcharts.highcharts.options.Axis;
+import com.googlecode.wickedcharts.highcharts.options.AxisType;
+import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
+import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat;
 import com.googlecode.wickedcharts.highcharts.options.DateTimeLabelFormat.DateTimeProperties;
+import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
+import com.googlecode.wickedcharts.highcharts.options.Function;
+import com.googlecode.wickedcharts.highcharts.options.Legend;
+import com.googlecode.wickedcharts.highcharts.options.Options;
+import com.googlecode.wickedcharts.highcharts.options.SeriesType;
+import com.googlecode.wickedcharts.highcharts.options.Title;
+import com.googlecode.wickedcharts.highcharts.options.Tooltip;
 import com.googlecode.wickedcharts.highcharts.options.series.Coordinate;
 import com.googlecode.wickedcharts.highcharts.options.series.CustomCoordinatesSeries;
 import com.tieto.it2014.domain.util.Util;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
-import com.tieto.it2014.domain.weight.query.*;
+import com.tieto.it2014.domain.weight.query.UserWeightOfTheDay;
+import com.tieto.it2014.domain.weight.query.UserWeightOfTheMonth;
+import com.tieto.it2014.domain.weight.query.UserWeightOfTheQuarter;
+import com.tieto.it2014.domain.weight.query.UserWeightOfTheYear;
+import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
-import org.apache.wicket.injection.Injector;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static com.tieto.it2014.domain.weight.WeightChartType.*;
+import org.apache.wicket.injection.Injector;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class ChartPanelOptionsProvider implements Serializable {
 
@@ -233,7 +248,6 @@ public class ChartPanelOptionsProvider implements Serializable {
                 case BUTTON_TYPE_QUARTER:
 
                     cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));
-                    System.out.println("");
                     if (Calendar.getInstance().get(Calendar.MONTH) < 3) {
                         cal.set(Calendar.MONTH, 0);
                     } else if (Calendar.getInstance().get(Calendar.MONTH) < 6) {

@@ -11,7 +11,7 @@ public class WeatherDao {
     private static String jsonSrc;
     private static final String URL = "http://api.openweathermap.org/data/2.5/weather?id=593116";
 
-    public WeatherDao() {
+    private WeatherDao() {
     }
 
     private static void getJsonFromRemoteApi() {
@@ -24,7 +24,6 @@ public class WeatherDao {
             }
             scan.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

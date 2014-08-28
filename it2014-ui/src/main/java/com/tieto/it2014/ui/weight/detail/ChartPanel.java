@@ -383,7 +383,7 @@ public class ChartPanel extends Panel {
 
         cal = Calendar.getInstance();
         List<Weight> userWeightsInMonth = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
-        ArrayList<String> createdListOfDays = new ArrayList<>();
+        List<String> createdListOfDays = new ArrayList<>();
         boolean currentDayIsAdded = false;
         for (Weight userWeightsInMonth1 : userWeightsInMonth) {
 
@@ -521,9 +521,8 @@ public class ChartPanel extends Panel {
 
         cal = Calendar.getInstance();
         Long end = cal.getTimeInMillis();
-        //  Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
         List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_YEAR);
-        ArrayList<String> createdListOfYears = new ArrayList<>();
+        List<String> createdListOfYears = new ArrayList<>();
         for (int i = 0; i < userWeightsInYear.size(); i++) {
             if ((userWeightsInYear.size() - 1) > i) {
                 if (extractYearFromTimestamp(userWeightsInYear.get(i).timeStamp) != extractYearFromTimestamp(userWeightsInYear.get(i + 1).timeStamp)) {
@@ -541,9 +540,7 @@ public class ChartPanel extends Panel {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = day + "/" + month + "/" + year;
         Date date = dateFormat.parse(dateString);
-        long timestamp = date.getTime();
-
-        return timestamp;
+        return date.getTime();
     }
 
     private long getLastDayInMonthInCurrentYearTimestamp(String month) {

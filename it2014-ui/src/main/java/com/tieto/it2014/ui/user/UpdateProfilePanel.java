@@ -1,11 +1,9 @@
 package com.tieto.it2014.ui.user;
 
 import com.google.common.base.Objects;
-import com.tieto.it2014.domain.util.Hash;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
-import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
-import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
+import com.tieto.it2014.domain.util.Hash;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
 import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
@@ -44,12 +42,6 @@ public class UpdateProfilePanel extends Panel {
     @SpringBean
     private SaveUserCommand saveUser;
 
-    @SpringBean
-    private GetUserByEmailQuery getUserByEmailQuery;
-
-    @SpringBean
-    private GetUserByIdQuery getUserByIdQuery;
-
     @Override
     protected void onInitialize() {
 
@@ -84,7 +76,6 @@ public class UpdateProfilePanel extends Panel {
         form.add(new Label("imei", new PropertyModel(user, "imei")));
         form.add(initRegisterButton("updateButton"));
         form.add(initCancelButton("cancelButton"));
-//        form.add(new EqualPasswordInputValidator(newPassword, repeatNewPassword));
 
         form.add(new FeedbackPanel("updateFeedback",
                 new ContainerFeedbackMessageFilter(form)));

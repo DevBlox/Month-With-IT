@@ -3,10 +3,7 @@ package com.tieto.it2014.ui;
 import com.tieto.it2014.ui.achievments.AchievmentsPage;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
-import com.tieto.it2014.ui.user.ProfilePage;
-import com.tieto.it2014.ui.user.StatisticsPage;
-import com.tieto.it2014.ui.user.TopPage;
-import com.tieto.it2014.ui.user.WeightPage;
+import com.tieto.it2014.ui.user.*;
 import com.tieto.it2014.ui.workout.details.Details;
 import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
@@ -47,6 +44,7 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         mountPage("user/edit", ProfilePage.class);
         mountPage("top", TopPage.class);
         mountPage("user/achievments/", AchievmentsPage.class);
+        mountPage("activate/${userMail}/${token}", Activation.class);
     }
 
     protected void initSpring() {

@@ -103,6 +103,10 @@ public class UserAchievementsPanel extends Panel {
         }
     }
 
+    private AttributeAppender setAttributeAppender(String setClass) {
+        return new AttributeAppender("class", new Model<>(setClass), " ");
+    }
+
     private ListView<UserAchievement> initAchievementList() {
         return new ListView<UserAchievement>("achievmentList", listOfAchievments) {
             private static final long serialVersionUID = 1L;
@@ -113,15 +117,15 @@ public class UserAchievementsPanel extends Panel {
                 UserAchievementsListItem listItem = new UserAchievementsListItem("achievmentItem", achievment);
                 if (achievment.getDate() != null) {
                     if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
-                        listItem.add(new AttributeAppender("class", new Model<>("achieved"), " "));
+                        listItem.add(setAttributeAppender("achieved"));
                     } else {
-                        listItem.add(new AttributeAppender("class", new Model<>("achievedFriend"), " "));
+                        listItem.add(setAttributeAppender("achievedFriend"));
                     }
                 }
                 if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
                     if (achievment.getIsNew()) {
                         achievment.setIsNew(!achievment.getIsNew());
-                        listItem.add(new AttributeAppender("class", new Model<>("achievedNew"), " "));
+                        listItem.add(setAttributeAppender("achievedNew"));
                     }
                 }
                 item.add(listItem);

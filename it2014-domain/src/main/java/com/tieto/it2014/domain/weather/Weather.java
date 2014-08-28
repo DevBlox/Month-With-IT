@@ -15,7 +15,7 @@ public class Weather implements Serializable {
     private int iconId;
 
     private double tempInKelvins;
-    private double tempInCelsius;
+    private int tempInCelsius;
 
     private int pressure;
     private double humidity;
@@ -69,10 +69,10 @@ public class Weather implements Serializable {
 
     public void setTemp(double tempInKelvins) {
         this.tempInKelvins = tempInKelvins;
-        this.tempInCelsius = tempInKelvins - 273.15;
+        this.tempInCelsius = (int)(tempInKelvins - 273.15);
     }
 
-    public double getTempInCelsius() {
+    public int getTempInCelsius() {
         return tempInCelsius;
     }
 

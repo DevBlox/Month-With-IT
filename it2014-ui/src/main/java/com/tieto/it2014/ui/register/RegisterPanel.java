@@ -36,9 +36,6 @@ public class RegisterPanel extends Panel {
         super(wicketid);
     }
 
-    private final String ipAddress = "192.168.16.7";
-    private final String port = "8081";
-
     private User user;
     private Form form;
 
@@ -127,7 +124,7 @@ public class RegisterPanel extends Panel {
         saveUser.execute(user);
 
         try {
-            MailSender.send(user.email, "Do not reply", user.email, user.getToken());
+            MailSender.send(user.email, "Do not reply", user.username, user.getToken());
         } catch (Exception e) {
 
         }
@@ -136,7 +133,7 @@ public class RegisterPanel extends Panel {
         user = null;
         user = new User();
 
-        setResponsePage(withInfoMsg(new HomePage(), "Registration was successfull"));
+        setResponsePage(withInfoMsg(new HomePage(), "Registration was successfull. Check your mailbox for confirmation letter."));
 
     }
 

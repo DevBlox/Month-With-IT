@@ -127,8 +127,7 @@ public class RegisterPanel extends Panel {
         saveUser.execute(user);
 
         try {
-            MailSender.send(user.email, "Do not reply", "http://" + ipAddress
-                    + ":" + port + "/IRun/activate/" + user.email + "/" + user.getToken());
+            MailSender.send(user.email, "Do not reply", user.email, user.getToken());
         } catch (Exception e) {
 
         }

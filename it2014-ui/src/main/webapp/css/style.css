@@ -317,91 +317,106 @@ blockquote cite:before {
 
 .achieved .achievement_1 {
     // background-image: url('./../img/ach/1.png');
+    content: url('./../img/ach/1.gif');
     background-image: url('./../img/ach/1.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_2 {
+    content: url('./../img/ach/2.gif');
     background-image: url('./../img/ach/2.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_3 {
+    content: url('./../img/ach/3.gif');
     background-image: url('./../img/ach/3.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_4 {
+    content: url('./../img/ach/4.gif');
     background-image: url('./../img/ach/4.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_5 {
+    content: url('./../img/ach/5.gif');
     background-image: url('./../img/ach/5.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_6 {
+    content: url('./../img/ach/6.gif');
     background-image: url('./../img/ach/6.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_7 {
+    content: url('./../img/ach/7.gif');
     background-image: url('./../img/ach/7.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_8 {
+    content: url('./../img/ach/8.gif');
     background-image: url('./../img/ach/8.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_9 {
+    content: url('./../img/ach/9.gif');
     background-image: url('./../img/ach/9.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_10 {
+    content: url('./../img/ach/10.gif');
     background-image: url('./../img/ach/10.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_11 {
+    content: url('./../img/ach/11.gif');
     background-image: url('./../img/ach/11.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_12 {
+    content: url('./../img/ach/12.gif');
     background-image: url('./../img/ach/12.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_13 {
+    content: url('./../img/ach/13.gif');
     background-image: url('./../img/ach/13.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_14 {
+    content: url('./../img/ach/14.gif');
     background-image: url('./../img/ach/14.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_15 {
-    background-image: url('./../img/ach/15.png');
+    content: url('./../img/ach/15.png');
+    background-image: url('./../img/ach/15.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -422,6 +437,7 @@ blockquote cite:before {
 .achievement_14, 
 .achievement_15 {
     content: url('./../img/lock.png');
+    background-image: url('./../img/lock.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -445,6 +461,7 @@ blockquote cite:before {
 .achievedFriend .achievement_13,
 .achievedFriend .achievement_14,
 .achievedFriend .achievement_15 {
+    content: url('./../img/ach/friend.gif');
     background-image: url('./../img/ach/friend.gif');
     background-repeat: no-repeat;
     background-position: center;

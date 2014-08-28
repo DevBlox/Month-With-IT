@@ -411,3 +411,6 @@ blockquote cite:before {
     background-repeat: no-repeat;
     background-position: center;
 }
+.achieved.achievedNew {
+    color: blue;
+}

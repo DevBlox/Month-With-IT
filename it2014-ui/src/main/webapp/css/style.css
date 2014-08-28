@@ -310,92 +310,92 @@ blockquote cite:before {
 }
 
 .achieved .achievement_1 {
-    // background-image: url('/img/ach/1.png');
-    background-image: url('/img/ach/1.gif');
+    // background-image: url('./../img/ach/1.png');
+    background-image: url('./../img/ach/1.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_2 {
-    background-image: url('/img/ach/2.gif');
+    background-image: url('./../img/ach/2.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_3 {
-    background-image: url('/img/ach/3.gif');
+    background-image: url('./../img/ach/3.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_4 {
-    background-image: url('/img/ach/4.gif');
+    background-image: url('./../img/ach/4.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_5 {
-    background-image: url('/img/ach/5.gif');
+    background-image: url('./../img/ach/5.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_6 {
-    background-image: url('/img/ach/6.gif');
+    background-image: url('./../img/ach/6.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_7 {
-    background-image: url('/img/ach/7.gif');
+    background-image: url('./../img/ach/7.gif');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_8 {
-    background-image: url('/img/ach/8.png');
+    background-image: url('./../img/ach/8.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_9 {
-    background-image: url('/img/ach/9.png');
+    background-image: url('./../img/ach/9.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_10 {
-    background-image: url('/img/ach/10.png');
+    background-image: url('./../img/ach/10.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_11 {
-    background-image: url('/img/ach/11.png');
+    background-image: url('./../img/ach/11.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_12 {
-    background-image: url('/img/ach/12.png');
+    background-image: url('./../img/ach/12.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_13 {
-    background-image: url('/img/ach/13.png');
+    background-image: url('./../img/ach/13.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_14 {
-    background-image: url('/img/ach/14.png');
+    background-image: url('./../img/ach/14.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .achieved .achievement_15 {
-    background-image: url('/img/ach/15.png');
+    background-image: url('./../img/ach/15.png');
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -415,7 +415,7 @@ blockquote cite:before {
 .achievement_13, 
 .achievement_14, 
 .achievement_15 {
-    background-image: url('/img/lock.png');
+    background-image: url('./../img/lock.png');
     background-repeat: no-repeat;
     background-position: center;
 }

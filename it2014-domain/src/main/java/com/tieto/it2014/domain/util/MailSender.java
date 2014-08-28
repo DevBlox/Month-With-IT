@@ -5,9 +5,7 @@ import java.security.Security;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -49,7 +47,7 @@ public class MailSender {
             msg.setText(message, "utf-8");
             msg.setSentDate(new Date());
 
-            SMTPTransport t = (SMTPTransport)session.getTransport("smtps");
+            SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
 
             t.connect("smtp.gmail.com", "mantas.jonytis@tietocamp.eu", "mantas12345");
             t.sendMessage(msg, msg.getAllRecipients());

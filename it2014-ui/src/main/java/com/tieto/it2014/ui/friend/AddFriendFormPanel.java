@@ -114,7 +114,7 @@ public class AddFriendFormPanel extends Panel {
             addFriend.execute(loggedUser.imei, addedFriend.imei);
         } catch (DomainException ex) {
             addFriendForm.error(ex.getMessage());
-            LOGGER.error(ex.getMessage());
+            LOGGER.error(ex.getMessage(), ex);
             return false;
         }
         return true;

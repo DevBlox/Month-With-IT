@@ -38,7 +38,7 @@ public class WeightPagePanel extends Panel {
             add(new WeightInputPanel("weightInput", data));
             add(new ChartPanel("weightChart", data));
         } catch (NullPointerException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
             setResponsePage(ErrorPage404.class);
         }
     }

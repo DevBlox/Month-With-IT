@@ -27,7 +27,7 @@ public class Hash {
 
             result = hexString.toString();
         } catch (Exception ex) {
-            LOGGER.error(ex.getMessage());
+            LOGGER.error(ex.getMessage(), ex);
         }
         return result;
     }

@@ -265,7 +265,7 @@ public class ChartPanelOptionsProvider implements Serializable {
             }
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return number;
     }
@@ -287,23 +287,16 @@ public class ChartPanelOptionsProvider implements Serializable {
 
             switch (this.optionsType) {
                 case BUTTON_TYPE_DAY:
-                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
-                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
-                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+                    cal = getCalendarInstanceWithGivenValues(cal, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
-
                     cal = Util.convertToGmt(cal);
 
                     number = cal.getTimeInMillis();
 
                     break;
                 case BUTTON_TYPE_MONTH:
-                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
+                    cal = getCalendarInstanceWithGivenValues(cal, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
                     cal.add(Calendar.HOUR_OF_DAY, 2);
-                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
-                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
 
                     number = cal.getTimeInMillis();
@@ -322,19 +315,14 @@ public class ChartPanelOptionsProvider implements Serializable {
                         cal.set(Calendar.MONTH, 11);
                     }
 
-                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
-                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
-                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+                    cal = getCalendarInstanceWithGivenValues(cal, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
 
                     number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_YEAR:
-                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMaximum(Calendar.HOUR_OF_DAY));
-                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMaximum(Calendar.MINUTE));
-                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMaximum(Calendar.SECOND));
+                default:
+                    cal = getCalendarInstanceWithGivenValues(cal, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMaximum(Calendar.MILLISECOND));
 
                     number = cal.getTimeInMillis();
@@ -342,7 +330,7 @@ public class ChartPanelOptionsProvider implements Serializable {
             }
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return number;
     }

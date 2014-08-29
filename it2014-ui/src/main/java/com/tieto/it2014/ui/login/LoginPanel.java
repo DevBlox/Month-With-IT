@@ -6,7 +6,7 @@ import com.tieto.it2014.domain.achievment.query.UserAchievementsQuery;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
 import com.tieto.it2014.ui.HomePage;
-import com.tieto.it2014.ui.achievments.AchievementsChecker;
+import com.tieto.it2014.ui.achievements.AchievementsChecker;
 import com.tieto.it2014.ui.session.UserSession;
 import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 import com.tieto.it2014.ui.weight.detail.RandomQuote;

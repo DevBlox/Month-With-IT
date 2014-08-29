@@ -1,4 +1,4 @@
-package com.tieto.it2014.ui.achievments;
+package com.tieto.it2014.ui.achievements;
 
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.entity.Workout;

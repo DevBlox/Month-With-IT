@@ -510,4 +510,17 @@ public class Util {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         return Integer.toString(calendar.get(Calendar.YEAR));
     }
+    
+    public static Long getMinimumTimestampThisYear() {
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
+        cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+        return cal.getTimeInMillis();
+    }
 }

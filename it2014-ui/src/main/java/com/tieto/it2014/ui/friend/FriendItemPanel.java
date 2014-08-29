@@ -2,7 +2,6 @@ package com.tieto.it2014.ui.friend;
 
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.ui.achievments.AchievmentsPage;
-import java.util.Objects;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
@@ -12,6 +11,8 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+
+import java.util.Objects;
 
 public class FriendItemPanel extends Panel {
 

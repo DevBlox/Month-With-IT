@@ -1,10 +1,11 @@
 package com.tieto.it2014.domain.achievment.query;
 
 import com.tieto.it2014.domain.achievment.entity.UserAchievement;
-import java.io.Serializable;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Component
 public class UserAchievementsQuery implements Serializable {

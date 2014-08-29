@@ -1,8 +1,9 @@
 package com.tieto.it2014.domain.util;
 
 import com.tieto.it2014.domain.DomainException;
-import java.security.MessageDigest;
 import org.apache.log4j.Logger;
+
+import java.security.MessageDigest;
 
 public class Hash {
 

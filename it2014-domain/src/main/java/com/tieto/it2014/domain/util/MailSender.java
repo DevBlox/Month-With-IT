@@ -1,14 +1,15 @@
 package com.tieto.it2014.domain.util;
 
 import com.sun.mail.smtp.SMTPTransport;
-import java.security.Security;
-import java.util.Date;
-import java.util.Properties;
+import org.apache.log4j.Logger;
+
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+import java.security.Security;
+import java.util.Date;
+import java.util.Properties;
 
 /**
  * Created by mantas on 28/08/14.

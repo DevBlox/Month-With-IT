@@ -1,7 +1,7 @@
 package com.tieto.it2014.ui.statistics;
 
-import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;

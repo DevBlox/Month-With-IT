@@ -8,13 +8,15 @@ import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.ui.BasePage;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
-import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
-import java.util.Date;
-import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
+
+import java.util.Date;
+import java.util.UUID;
+
+import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 
 /**
  * Created by mantas on 28/08/14.

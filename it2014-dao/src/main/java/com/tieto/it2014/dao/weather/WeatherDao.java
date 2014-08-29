@@ -1,8 +1,9 @@
 package com.tieto.it2014.dao.weather;
 
+import org.apache.log4j.Logger;
+
 import java.net.URL;
 import java.util.Scanner;
-import org.apache.log4j.Logger;
 
 /**
  * Created by mantas on 28/08/14.

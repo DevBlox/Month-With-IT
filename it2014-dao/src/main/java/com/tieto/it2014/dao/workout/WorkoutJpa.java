@@ -2,11 +2,12 @@ package com.tieto.it2014.dao.workout;
 
 import com.tieto.it2014.dao.JpaEntity;
 import com.tieto.it2014.domain.user.entity.UserLoc;
-import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "UserLoc")

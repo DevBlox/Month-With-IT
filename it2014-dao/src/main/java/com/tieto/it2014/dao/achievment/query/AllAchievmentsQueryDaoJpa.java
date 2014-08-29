@@ -4,12 +4,13 @@ import com.tieto.it2014.dao.JpaUtils;
 import com.tieto.it2014.dao.achievment.AchievmentJpa;
 import com.tieto.it2014.domain.achievment.entity.Achievement;
 import com.tieto.it2014.domain.achievment.query.AllAchievementsQuery;
-import java.util.List;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 @Component
 public class AllAchievmentsQueryDaoJpa implements AllAchievementsQuery.Dao {

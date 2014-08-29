@@ -9,21 +9,14 @@ import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.weight.entity.Weight;
-import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Objects;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.json.JSONObject;
+
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Util {
 

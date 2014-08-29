@@ -1,7 +1,7 @@
 package com.tieto.it2014.domain.user.entity;
 
-import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.user.Entity;
+import com.tieto.it2014.domain.util.Util;
 
 /**
  * Created by mantas on 20/08/14.

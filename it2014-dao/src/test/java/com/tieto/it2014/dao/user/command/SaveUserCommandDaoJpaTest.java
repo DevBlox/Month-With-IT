@@ -4,10 +4,11 @@ import com.tieto.it2014.dao.BaseDaoTest;
 import com.tieto.it2014.domain.user.command.SaveUserCommand;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class SaveUserCommandDaoJpaTest extends BaseDaoTest {
 

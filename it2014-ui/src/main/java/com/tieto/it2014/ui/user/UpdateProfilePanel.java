@@ -6,7 +6,6 @@ import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.util.Hash;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.session.UserSession;
-import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
@@ -21,6 +20,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
+
+import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 
 public class UpdateProfilePanel extends Panel {
 

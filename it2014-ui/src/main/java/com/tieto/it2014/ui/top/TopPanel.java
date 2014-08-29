@@ -4,19 +4,13 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.entity.UserStats;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.user.query.AllUsersQuery;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.workout.query.CurrentMonthWorkoutsQuery;
 import com.tieto.it2014.ui.session.UserSession;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
@@ -24,6 +18,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.util.*;
 
 /**
  * Created by mantas on 20/08/14.

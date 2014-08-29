@@ -9,9 +9,6 @@ import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.utils.ExternalImageUrl;
-import java.security.AccessControlException;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -21,6 +18,10 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import java.security.AccessControlException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class UserWorkoutPanel extends Panel {
 

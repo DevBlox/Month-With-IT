@@ -1,8 +1,8 @@
 package com.tieto.it2014.domain.user.query;
 
 import com.tieto.it2014.domain.DomainException;
-import com.tieto.it2014.domain.util.Hash;
 import com.tieto.it2014.domain.user.entity.User;
+import com.tieto.it2014.domain.util.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

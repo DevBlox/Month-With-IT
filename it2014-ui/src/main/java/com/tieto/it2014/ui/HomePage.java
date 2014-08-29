@@ -42,7 +42,7 @@ public class HomePage extends BasePage {
 
     private void updateImeiModel() {
         if (StringUtils.isBlank(imeiParam) && UserSession.get().isLoggedIn()) {
-            imeiParam = UserSession.get().getUser().imei;
+            imeiParam = UserSession.get().getUser().getImei();
         }
         imei.setObject(imeiParam);
     }

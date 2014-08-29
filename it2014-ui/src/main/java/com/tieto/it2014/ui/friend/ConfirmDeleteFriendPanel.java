@@ -44,8 +44,8 @@ public class ConfirmDeleteFriendPanel extends Panel {
 
             @Override
             public void onClick() {
-                deleteFriendCommand.execute(UserSession.get().getUser().imei,
-                        friend.imei);
+                deleteFriendCommand.execute(UserSession.get().getUser().getImei(),
+                        friend.getImei());
                 setResponsePage(HomePage.class);
             }
 

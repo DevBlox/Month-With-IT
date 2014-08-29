@@ -21,7 +21,7 @@ public class UserWorkoutListItemPanel extends BasicWorkoutListItemPanel {
         add(new Link("details") {
             @Override
             public void onClick() {
-                setResponsePage(Details.class, new PageParameters().add("userImei", UserSession.get().getUser().imei).add("imei", workout.getImei()).add("id", workout.getId()));
+                setResponsePage(Details.class, new PageParameters().add("userImei", UserSession.get().getUser().getImei()).add("imei", workout.getImei()).add("id", workout.getId()));
             }
         });
     }

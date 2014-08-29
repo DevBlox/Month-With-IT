@@ -41,7 +41,7 @@ public class AchievmentsPage extends BasePage {
 
     private void configureImei() {
         if (StringUtils.isBlank(imeiParam)) {
-            imei.setObject(UserSession.get().getUser().imei);
+            imei.setObject(UserSession.get().getUser().getImei());
         } else {
             imei.setObject(imeiParam);
         }

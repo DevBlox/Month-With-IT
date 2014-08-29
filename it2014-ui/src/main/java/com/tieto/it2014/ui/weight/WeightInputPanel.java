@@ -6,6 +6,8 @@ import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.weight.detail.ChartPanelOptionsProvider;
+import java.sql.Timestamp;
+import java.util.List;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
@@ -17,9 +19,6 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 public class WeightInputPanel extends Panel {
 
@@ -37,7 +36,7 @@ public class WeightInputPanel extends Panel {
     private TextField weightInputField;
     Timestamp currentTimestamp;
     User user = UserSession.get().getUser();
-    String id = user.imei;
+    String id = user.getImei();
 
     public WeightInputPanel(String id) {
         super(id);
@@ -96,7 +95,7 @@ public class WeightInputPanel extends Panel {
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        weights = weightQuery.result(UserSession.get().getUser().imei);
+        weights = weightQuery.result(UserSession.get().getUser().getImei());
         if (!weights.isEmpty()) {
             weightInputField.add(new AttributeModifier("value", (double) (Math.round(weights.get(weights.size() - 1).weight * 10)) / 10));
         }

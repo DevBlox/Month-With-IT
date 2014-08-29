@@ -5,6 +5,9 @@ import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.ui.HomePage;
 import com.tieto.it2014.ui.achievements.AchievmentsPage;
 import com.tieto.it2014.ui.session.UserSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import org.apache.wicket.Page;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -13,10 +16,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class FriendPanel extends Panel {
 
@@ -45,7 +44,7 @@ public class FriendPanel extends Panel {
         super.onInitialize();
 
         if (UserSession.get().hasUser()) {
-            friendList = allFriendsQuery.result(UserSession.get().getUser().imei);
+            friendList = allFriendsQuery.result(UserSession.get().getUser().getImei());
 
         } else {
             friendList = new ArrayList<>();
@@ -59,13 +58,11 @@ public class FriendPanel extends Panel {
     @Override
     protected void onConfigure() {
         if (Objects.equals(addFriendPanel.getPage().getClass(), AchievmentsPage.class)) {
-          addFriendPanel.setVisible(false);
+            addFriendPanel.setVisible(false);
         }
-        
-        super.onConfigure(); 
+
+        super.onConfigure();
     }
-    
-    
 
     private ListView<User> initListView(String id, List<User> list) {
         return new ListView<User>(id, list) {
@@ -75,7 +72,7 @@ public class FriendPanel extends Panel {
             protected void populateItem(ListItem<User> item) {
                 User friend = item.getModelObject();
                 boolean found = false;
-                if (Objects.equals(friend.imei, imei.getObject())) {
+                if (Objects.equals(friend.getImei(), imei.getObject())) {
                     found = true;
                 }
                 item.add(new FriendItemPanel("friendItem", friend, friendDetailsPage));

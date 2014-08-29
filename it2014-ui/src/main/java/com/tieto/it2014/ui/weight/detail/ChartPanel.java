@@ -13,15 +13,11 @@ import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.WeightPage;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -398,8 +394,7 @@ public class ChartPanel extends Panel {
         return createdListOfDays;
     }
 
-    private List<String> getMonthsInThisYear() {
-
+    private Long getMinimumTimestampThisYear() {
         Calendar cal = new GregorianCalendar();
         cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
         cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
@@ -409,9 +404,13 @@ public class ChartPanel extends Panel {
         cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
         cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
 
-        Long start = cal.getTimeInMillis();
+        return cal.getTimeInMillis();
+    }
 
-        cal = Calendar.getInstance();
+    private List<String> getMonthsInThisYear() {
+        Long start = getMinimumTimestampThisYear();
+
+        Calendar cal = Calendar.getInstance();
         Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
         List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
         ArrayList<String> createdListOfMonths = new ArrayList<>();
@@ -441,19 +440,9 @@ public class ChartPanel extends Panel {
     }
 
     private List<String> getQuartersInThisYear() {
+        Long start = getMinimumTimestampThisYear();
 
-        Calendar cal = new GregorianCalendar();
-        cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
-        cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
-        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
-        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
-
-        Long start = cal.getTimeInMillis();
-
-        cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
         List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
         List<String> createdListOfQuarters = new ArrayList<>();
@@ -551,6 +540,5 @@ public class ChartPanel extends Panel {
         }
         return quarterInt;
     }
-
 
 }

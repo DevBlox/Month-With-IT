@@ -11,6 +11,12 @@ import com.tieto.it2014.domain.user.query.AllUsersQuery;
 import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.workout.query.CurrentMonthWorkoutsQuery;
 import com.tieto.it2014.ui.session.UserSession;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
@@ -18,8 +24,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.*;
 
 /**
  * Created by mantas on 20/08/14.
@@ -65,7 +69,7 @@ public class TopPanel extends Panel {
             @Override
             public int compare(UserStats o1, UserStats o2) {
                 if (o1.getDistance().equals(o2.getDistance())) {
-                    return o1.userName.trim().compareTo(o2.userName.trim());
+                    return o1.getUserName().trim().compareTo(o2.getUserName().trim());
                 }
                 return o2.getDistance().compareTo(o1.getDistance());
             }
@@ -83,7 +87,7 @@ public class TopPanel extends Panel {
         // 5. Assign id to every item.
         int i = 0;
         for (UserStats st : usList) {
-            st.topId = ++i;
+            st.setTopId(++i);
         }
 
         add(new Label("Heading", "Top 10 of "

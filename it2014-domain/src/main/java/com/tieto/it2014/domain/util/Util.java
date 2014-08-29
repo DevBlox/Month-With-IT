@@ -10,7 +10,10 @@ import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -379,5 +382,132 @@ public class Util {
             LOGGER.error(e.getMessage(), e);
         }
         return weather;
+    }
+
+    public static String parseMonthIntToMonthName(int month) {
+        String monthString;
+        switch (month) {
+            case 1:
+                monthString = "January";
+                break;
+            case 2:
+                monthString = "February";
+                break;
+            case 3:
+                monthString = "March";
+                break;
+            case 4:
+                monthString = "April";
+                break;
+            case 5:
+                monthString = "May";
+                break;
+            case 6:
+                monthString = "June";
+                break;
+            case 7:
+                monthString = "July";
+                break;
+            case 8:
+                monthString = "August";
+                break;
+            case 9:
+                monthString = "September";
+                break;
+            case 10:
+                monthString = "October";
+                break;
+            case 11:
+                monthString = "November";
+                break;
+            case 12:
+                monthString = "December";
+                break;
+            default:
+                monthString = "None";
+                break;
+
+        }
+        return monthString;
+    }
+
+    public static String parseMonthNameToMonthString(String month) {
+        String monthString;
+        switch (month) {
+            case "January":
+                monthString = "1";
+                break;
+            case "February":
+                monthString = "2";
+                break;
+            case "March":
+                monthString = "3";
+                break;
+            case "April":
+                monthString = "4";
+                break;
+            case "May":
+                monthString = "5";
+                break;
+            case "June":
+                monthString = "6";
+                break;
+            case "July":
+                monthString = "7";
+                break;
+            case "August":
+                monthString = "8";
+                break;
+            case "September":
+                monthString = "9";
+                break;
+            case "October":
+                monthString = "10";
+                break;
+            case "November":
+                monthString = "11";
+                break;
+            case "December":
+                monthString = "12";
+                break;
+            default:
+                monthString = "0";
+                break;
+        }
+        return monthString;
+    }
+    
+    public static Long createTimeStamp(String year, String month, String day) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = day + "/" + month + "/" + year;
+        Date date = dateFormat.parse(dateString);
+        return date.getTime();
+    }
+    
+    public static long getLastDayInMonthInCurrentYearTimestamp(String month) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, cal.getActualMaximum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, cal.getActualMaximum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, cal.getActualMaximum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, cal.getActualMaximum(Calendar.MILLISECOND));
+        Date date2 = cal.getTime();
+        return date2.getTime();
+    }
+    
+    public static String getDayString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public static String getMonthString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.MONTH) + 1);
+    }
+
+    public static String getYearString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.YEAR));
     }
 }

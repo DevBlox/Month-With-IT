@@ -170,7 +170,7 @@ public class ChartPanel extends Panel {
             protected void onSubmit() {
                 Long start = 0L;
                 try {
-                    start = createTimeStamp(getYearString(), getMonthString(), selectedDay);
+                    start = Util.createTimeStamp(Util.getYearString(), Util.getMonthString(), selectedDay);
                 } catch (ParseException ex) {
                     LOGGER.error(ex.getMessage(), ex);
                 }
@@ -178,7 +178,7 @@ public class ChartPanel extends Panel {
                 String endString = Integer.toString(endInt);
                 Long end = 0L;
                 try {
-                    end = createTimeStamp(getYearString(), getMonthString(), endString);
+                    end = Util.createTimeStamp(Util.getYearString(), Util.getMonthString(), endString);
                 } catch (ParseException ex) {
                     LOGGER.error(ex.getMessage(), ex);
                 }
@@ -195,14 +195,14 @@ public class ChartPanel extends Panel {
             @Override
             protected void onSubmit() {
                 Long start = 0L;
-                String tmpMonth = parseMonthNameToMonthString(selectedMonth);
+                String tmpMonth = Util.parseMonthNameToMonthString(selectedMonth);
                 try {
-                    start = createTimeStamp(getYearString(), tmpMonth, FIRST_DAY);
+                    start = Util.createTimeStamp(Util.getYearString(), tmpMonth, FIRST_DAY);
                 } catch (ParseException ex) {
                     LOGGER.error(ex.getMessage(), ex);
                 }
                 Long end = 0L;
-                end = getLastDayInMonthInCurrentYearTimestamp(tmpMonth);
+                end = Util.getLastDayInMonthInCurrentYearTimestamp(tmpMonth);
                 start = Util.convertToGmtLong(start);
                 end = Util.convertToGmtLong(end);
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
@@ -244,8 +244,8 @@ public class ChartPanel extends Panel {
 
             private void firstQuarter(Long start, Long end) {
                 try {
-                    start = createTimeStamp(getYearString(), FIRST_QUARTER_FIRST_MONTH, FIRST_DAY);
-                    end = getLastDayInMonthInCurrentYearTimestamp(FIRST_QUARTER_LAST_MONTH);
+                    start = Util.createTimeStamp(Util.getYearString(), FIRST_QUARTER_FIRST_MONTH, FIRST_DAY);
+                    end = Util.getLastDayInMonthInCurrentYearTimestamp(FIRST_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
                     LOGGER.error(ex.getMessage(), ex);
@@ -255,8 +255,8 @@ public class ChartPanel extends Panel {
 
             private void secondQuarter(Long start, Long end) {
                 try {
-                    start = createTimeStamp(getYearString(), SECOND_QUARTER_FIRST_MONTH, FIRST_DAY);
-                    end = getLastDayInMonthInCurrentYearTimestamp(SECOND_QUARTER_LAST_MONTH);
+                    start = Util.createTimeStamp(Util.getYearString(), SECOND_QUARTER_FIRST_MONTH, FIRST_DAY);
+                    end = Util.getLastDayInMonthInCurrentYearTimestamp(SECOND_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
                     LOGGER.error(ex.getMessage(), ex);
@@ -266,8 +266,8 @@ public class ChartPanel extends Panel {
 
             private void thirdQuarter(Long start, Long end) {
                 try {
-                    start = createTimeStamp(getYearString(), THIRD_QUARTER_FIRST_MONTH, FIRST_DAY);
-                    end = getLastDayInMonthInCurrentYearTimestamp(THIRD_QUARTER_LAST_MONTH);
+                    start = Util.createTimeStamp(Util.getYearString(), THIRD_QUARTER_FIRST_MONTH, FIRST_DAY);
+                    end = Util.getLastDayInMonthInCurrentYearTimestamp(THIRD_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
                     LOGGER.error(ex.getMessage(), ex);
@@ -277,8 +277,8 @@ public class ChartPanel extends Panel {
 
             private void fourthQuarter(Long start, Long end) {
                 try {
-                    start = createTimeStamp(getYearString(), FORTH_QUARTER_FIRST_MONTH, FIRST_DAY);
-                    end = getLastDayInMonthInCurrentYearTimestamp(FORTH_QUARTER_LAST_MONTH);
+                    start = Util.createTimeStamp(Util.getYearString(), FORTH_QUARTER_FIRST_MONTH, FIRST_DAY);
+                    end = Util.getLastDayInMonthInCurrentYearTimestamp(FORTH_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
                     LOGGER.error(ex.getMessage(), ex);
@@ -378,7 +378,7 @@ public class ChartPanel extends Panel {
 
         Long start = cal.getTimeInMillis();
 
-        Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
+        Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
 
         cal = Calendar.getInstance();
         List<Weight> userWeightsInMonth = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
@@ -398,21 +398,6 @@ public class ChartPanel extends Panel {
         return createdListOfDays;
     }
 
-    private String getDayString() {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        return Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
-    }
-
-    private String getMonthString() {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        return Integer.toString(calendar.get(Calendar.MONTH) + 1);
-    }
-
-    private String getYearString() {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        return Integer.toString(calendar.get(Calendar.YEAR));
-    }
-
     private List<String> getMonthsInThisYear() {
 
         Calendar cal = new GregorianCalendar();
@@ -427,7 +412,7 @@ public class ChartPanel extends Panel {
         Long start = cal.getTimeInMillis();
 
         cal = Calendar.getInstance();
-        Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
+        Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
         List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
         ArrayList<String> createdListOfMonths = new ArrayList<>();
         boolean currentMonthIsAdded = false;
@@ -469,7 +454,7 @@ public class ChartPanel extends Panel {
         Long start = cal.getTimeInMillis();
 
         cal = Calendar.getInstance();
-        Long end = getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
+        Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
         List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
         List<String> createdListOfQuarters = new ArrayList<>();
         for (int i = 0; i < userWeightsInYear.size(); i++) {
@@ -546,25 +531,6 @@ public class ChartPanel extends Panel {
         return createdListOfYears;
     }
 
-    private Long createTimeStamp(String year, String month, String day) throws ParseException {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String dateString = day + "/" + month + "/" + year;
-        Date date = dateFormat.parse(dateString);
-        return date.getTime();
-    }
-
-    private long getLastDayInMonthInCurrentYearTimestamp(String month) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-        cal.set(Calendar.HOUR_OF_DAY, cal.getActualMaximum(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, cal.getActualMaximum(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, cal.getActualMaximum(Calendar.SECOND));
-        cal.set(Calendar.MILLISECOND, cal.getActualMaximum(Calendar.MILLISECOND));
-        Date date2 = cal.getTime();
-        return date2.getTime();
-    }
-
     private int parseQuarterStringToInt(String quarter) {
         int quarterInt = 0;
         switch (quarter) {
@@ -586,50 +552,5 @@ public class ChartPanel extends Panel {
         return quarterInt;
     }
 
-    private String parseMonthNameToMonthString(String month) {
-        String monthString = "";
-        switch (month) {
-            case "January":
-                monthString = "1";
-                break;
-            case "February":
-                monthString = "2";
-                break;
-            case "March":
-                monthString = "3";
-                break;
-            case "April":
-                monthString = "4";
-                break;
-            case "May":
-                monthString = "5";
-                break;
-            case "June":
-                monthString = "6";
-                break;
-            case "July":
-                monthString = "7";
-                break;
-            case "August":
-                monthString = "8";
-                break;
-            case "September":
-                monthString = "9";
-                break;
-            case "October":
-                monthString = "10";
-                break;
-            case "November":
-                monthString = "11";
-                break;
-            case "December":
-                monthString = "12";
-                break;
-            default:
-                monthString = "0";
-                break;
-        }
-        return monthString;
-    }
 
 }

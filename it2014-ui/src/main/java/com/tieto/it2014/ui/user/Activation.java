@@ -42,9 +42,7 @@ public final class Activation extends BasePage {
     public Activation(final PageParameters params) {
         userMail = params.get("userMail").toString();
         token = params.get("token").toString();
-        if (token.length() != 50) {
-            setResponsePage(ErrorPage404.class);
-        }
+
         timestamp = Long.parseLong(token.substring(token.length() - 13));
         if (UserSession.get().isLoggedIn()) {
             UserSession.get().invalidate();
@@ -66,10 +64,6 @@ public final class Activation extends BasePage {
 
     public boolean activateIfTimestampIsValid() {
         user = getUserByEmailQuery.result(userMail);
-
-        if (Objects.equals(user, null)) {
-            setResponsePage(ErrorPage404.class);
-        }
 
         String userToken = user.getToken();
         if (Strings.isEqual(userToken, token) && Util.calculateDuration(timestamp, currentTimestamp) <= 60) {

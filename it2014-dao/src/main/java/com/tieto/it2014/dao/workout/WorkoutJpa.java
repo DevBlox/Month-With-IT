@@ -72,4 +72,18 @@ public class WorkoutJpa implements JpaEntity<UserLoc>, Serializable {
     public UserLoc toDomain() {
         return new UserLoc(this.phoneNumber, this.uName, this.timeStamp, this.latitude, this.longtitude, this.altitude);
     }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 }

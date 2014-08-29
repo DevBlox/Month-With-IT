@@ -79,13 +79,10 @@ public class AchievementsChecker implements Serializable {
         if (workouts.isEmpty()) {
             return false;
         }
-        Calendar cal = Calendar.getInstance();
         for (Workout wo : workouts) {
             if (wo.getDistanceDouble() >= distance) {
                 return true;
             }
-            // galima atiduoti timestamp kuomet jis buvo pasiektas
-            cal.setTimeInMillis(wo.getStartTimeTimestamp());
         }
 
         return false;

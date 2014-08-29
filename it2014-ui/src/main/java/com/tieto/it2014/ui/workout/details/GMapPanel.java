@@ -72,7 +72,7 @@ public class GMapPanel extends Panel {
             uLocs = workoutsModel.getObject().getLocs();
 
             for (UserLoc uLoc : uLocs) {
-                markers.add(new GLatLng(uLoc.latitude, uLoc.longtitude));
+                markers.add(new GLatLng(uLoc.getLatitude(), uLoc.getLongtitude()));
             }
 
             Util.GraphData data = Util.getGraphData(uLocs);

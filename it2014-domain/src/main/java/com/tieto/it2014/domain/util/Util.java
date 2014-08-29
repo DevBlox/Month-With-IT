@@ -45,7 +45,7 @@ public class Util {
         List<UserLoc> filteredUserLocs = Lists.newArrayList(Collections2.filter(userLocs, new Predicate<UserLoc>() {
             @Override
             public boolean apply(UserLoc t) {
-                return StringUtils.isNotBlank(t.id) && t.timeStamp <= now;
+                return StringUtils.isNotBlank(t.id) && t.getTimeStamp() <= now;
             }
         }));
 
@@ -56,7 +56,7 @@ public class Util {
             Optional<Workout> out = Iterables.tryFind(workouts, new Predicate<Workout>() {
                 @Override
                 public boolean apply(Workout t) {
-                    return t.getImei().equals(loc.id) && Math.abs(loc.timeStamp - t.getLastLoc().timeStamp) < 300000;
+                    return t.getImei().equals(loc.id) && Math.abs(loc.getTimeStamp() - t.getLastLoc().getTimeStamp()) < 300000;
                 }
             });
             if (out.isPresent()) {
@@ -104,7 +104,7 @@ public class Util {
     }
 
     public static double calculateDistance(UserLoc srcLoc, UserLoc destLoc) {
-        return calculateDistance(srcLoc.latitude, srcLoc.longtitude, srcLoc.altitude, destLoc.latitude, destLoc.longtitude, destLoc.altitude);
+        return calculateDistance(srcLoc.getLatitude(), srcLoc.getLongtitude(), srcLoc.getAltitude(), destLoc.getLatitude(), destLoc.getLongtitude(), destLoc.getAltitude());
     }
 
     public static double calculateDistance(double userLat, double userLng, double userAlt, double venueLat, double venueLng, double venueAlt) {
@@ -281,7 +281,7 @@ public class Util {
             UserLoc destLoc = uLocs.get(i + 1);
 
             Double distanceDiff = Util.calculateDistance(srcLoc, destLoc);
-            Double timeDiff = (double) Util.calculateDuration(srcLoc.timeStamp, destLoc.timeStamp);
+            Double timeDiff = (double) Util.calculateDuration(srcLoc.getTimeStamp(), destLoc.getTimeStamp());
             lastTimeDiff = timeDiff.equals(0D) ? lastTimeDiff : timeDiff;
 
             Double nextDist;
@@ -476,14 +476,14 @@ public class Util {
         }
         return monthString;
     }
-    
+
     public static Long createTimeStamp(String year, String month, String day) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = day + "/" + month + "/" + year;
         Date date = dateFormat.parse(dateString);
         return date.getTime();
     }
-    
+
     public static long getLastDayInMonthInCurrentYearTimestamp(String month) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, Integer.parseInt(month) - 1);
@@ -495,7 +495,7 @@ public class Util {
         Date date2 = cal.getTime();
         return date2.getTime();
     }
-    
+
     public static String getDayString() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         return Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));

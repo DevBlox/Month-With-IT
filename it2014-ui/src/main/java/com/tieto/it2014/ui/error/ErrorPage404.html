@@ -1,14 +1,65 @@
 <!doctype html>
-<html xmlns:wicket="http://wicket.apache.org">
-    <head>
-        <meta charset="utf-8" />
-        <title wicket:id="title">[Page Title]</title>
-        <link href="css/style.css" rel="stylesheet" media="screen">
-    </head>
-    <body>
-        <div class="background">
-            <div class="404 error_numbers" wicket:id="404"></div>
-            <div class="eText error_text" wicket:id="eText"></div>
+<html>
+    <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>IRun | Doh.</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="http://app.launchrock.com/css/style.css" media="all">
+</head>
+<body>
+<style type="text/css">
+    .initial-body {
+    padding-top: 60px;
+    }
+    .login-box {
+    width: 736px;
+    padding: 16px 20px;
+    }
+    .login-box .cats {
+    width: 336px !important;
+    }
+    .login-box>div>span {
+    float: left;
+    width: 360px;
+    text-align: left;
+    margin: 0 0 0 20px;
+    }
+    .login-box ol {
+    padding: 5px 0 5px 18px;
+    }
+    .login-box ol li {
+    margin: 0 0 4px;
+    }
+    .clear {
+    clear: both;
+    }
+</style>
+<div id="wrapper">
+    <div class="initial" style="height: 100%; ">
+        <div class="initial-body">
+            <div class="login-box">
+                <h2 id="title" style="display: none;"></h2>
+                <div class="message-box">
+                    <a href="."><img src="http://launchrock-assets.s3.amazonaws.com/doh.jpg" class="cats" style="float: left" /></a>
+          <span>
+            <h3 style="font-size: 15px;">It appears that something may be broken.</h3>
+            <br />
+      			You may be seeing this error for one of the following reasons:
+      			<ol>
+                    <li>You may need to clear your cache.</li>
+                    <li>You have  clicked where you should not.</li>
+                    <li>It is our fault and you deserve a cookie.</li>
+                </ol>
+          </span>
+                    <div class="clear"></div>
+                    We apologize for the problem.
+                </div>
+            </div>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

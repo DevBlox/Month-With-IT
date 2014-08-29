@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
+import org.apache.wicket.settings.IExceptionSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -35,6 +36,12 @@ public class WicketApplication extends WebApplication implements ApplicationCont
         // disables wicket ajax debug
         getDebugSettings().setAjaxDebugModeEnabled(false);
         getMarkupSettings().setDefaultMarkupEncoding(UTF);
+
+        getApplicationSettings().setPageExpiredErrorPage(ErrorPage404.class);
+        getApplicationSettings().setAccessDeniedPage(ErrorPage404.class);
+        getApplicationSettings().setInternalErrorPage(ErrorPage404.class);
+        getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
+
         mountPage("error404", ErrorPage404.class);
         mountPage("register", RegisterPage.class);
         mountPage("user/${userImei}/workout/${imei}/${id}", Details.class);

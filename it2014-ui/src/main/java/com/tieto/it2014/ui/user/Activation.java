@@ -7,9 +7,11 @@ import com.tieto.it2014.domain.util.MailSender;
 import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.ui.BasePage;
 import com.tieto.it2014.ui.HomePage;
+import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -34,13 +36,15 @@ public final class Activation extends BasePage {
     private String userMail;
     private String token;
     private Long timestamp;
-    private String userToken;
     private User user;
     Long currentTimestamp = new Date().getTime();
 
     public Activation(final PageParameters params) {
         userMail = params.get("userMail").toString();
         token = params.get("token").toString();
+        if (token.length() != 50) {
+            setResponsePage(ErrorPage404.class);
+        }
         timestamp = Long.parseLong(token.substring(token.length() - 13));
         if (UserSession.get().isLoggedIn()) {
             UserSession.get().invalidate();
@@ -62,12 +66,16 @@ public final class Activation extends BasePage {
 
     public boolean activateIfTimestampIsValid() {
         user = getUserByEmailQuery.result(userMail);
-        userToken = user.getToken();
+
+        if (Objects.equals(user, null)) {
+            setResponsePage(ErrorPage404.class);
+        }
+
+        String userToken = user.getToken();
         if (Strings.isEqual(userToken, token) && Util.calculateDuration(timestamp, currentTimestamp) <= 60) {
             user.setActivated(true);
             return true;
         }
         return false;
     }
-
 }

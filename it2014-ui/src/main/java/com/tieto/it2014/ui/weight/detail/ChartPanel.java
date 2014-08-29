@@ -435,22 +435,22 @@ public class ChartPanel extends Panel {
         for (int i = 0; i < userWeightsInYear.size(); i++) {
             if ((userWeightsInYear.size() - 1) > i) {
                 if (extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp) != extractMonthFromTimestamp(userWeightsInYear.get(i + 1).timeStamp)) {
-                    createdListOfMonths.add(parseMonthIntToMonthName(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+                    createdListOfMonths.add(Util.parseMonthIntToMonthName(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
                     if (extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp) == currentMonth) {
                         currentMonthIsAdded = true;
                     }
                 }
             } else {
                 if ((Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)) != currentMonth) {
-                    createdListOfMonths.add(parseMonthIntToMonthName(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
+                    createdListOfMonths.add(Util.parseMonthIntToMonthName(Util.extractMonthFromTimestamp(userWeightsInYear.get(i).timeStamp)));
                 }
             }
         }
 
         if (!currentMonthIsAdded) {
-            createdListOfMonths.add(parseMonthIntToMonthName(currentMonth));
+            createdListOfMonths.add(Util.parseMonthIntToMonthName(currentMonth));
         }
-        selectedMonth = parseMonthIntToMonthName(currentMonth);
+        selectedMonth = Util.parseMonthIntToMonthName(currentMonth);
 
         return createdListOfMonths;
     }
@@ -584,53 +584,6 @@ public class ChartPanel extends Panel {
                 quarterInt = 0;
         }
         return quarterInt;
-    }
-
-    private String parseMonthIntToMonthName(int month) {
-        String monthString = "";
-        switch (month) {
-            case 1:
-                monthString = "January";
-                break;
-            case 2:
-                monthString = "February";
-                break;
-            case 3:
-                monthString = "March";
-                break;
-            case 4:
-                monthString = "April";
-                break;
-            case 5:
-                monthString = "May";
-                break;
-            case 6:
-                monthString = "June";
-                break;
-            case 7:
-                monthString = "July";
-                break;
-            case 8:
-                monthString = "August";
-                break;
-            case 9:
-                monthString = "September";
-                break;
-            case 10:
-                monthString = "October";
-                break;
-            case 11:
-                monthString = "November";
-                break;
-            case 12:
-                monthString = "December";
-                break;
-            default:
-                monthString = "None";
-                break;
-
-        }
-        return monthString;
     }
 
     private String parseMonthNameToMonthString(String month) {

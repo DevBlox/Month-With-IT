@@ -49,7 +49,7 @@ public class TopPanel extends Panel {
         List<UserStats> usList = new ArrayList<>();
         for (User u : allUsersQuery.result()) {
 
-            WorkoutsModel workoutsModel = new WorkoutsModel(u.imei);
+            WorkoutsModel workoutsModel = new WorkoutsModel(u.getImei());
 
             double totalDist = 0;
             int totalTime = 0;
@@ -61,7 +61,7 @@ public class TopPanel extends Panel {
 
             Double d = (totalDist / ((double) totalTime / 3600));
             d = d.equals(Double.NaN) ? 0 : d;
-            usList.add(new UserStats(u.imei, u.username, totalDist, totalTime, d));
+            usList.add(new UserStats(u.getImei(), u.getUsername(), totalDist, totalTime, d));
 
         }
 
@@ -97,7 +97,7 @@ public class TopPanel extends Panel {
         RepeatingView view = new RepeatingView("topItem");
         for (UserStats us : usList) {
             TopListItemPanel item = new TopListItemPanel(view.newChildId(), us);
-            if (Objects.equals(UserSession.get().getUser().imei, us.id)) {
+            if (Objects.equals(UserSession.get().getUser().getImei(), us.id)) {
                 item.add(new AttributeAppender("class", "active"));
             }
             view.add(item);

@@ -120,14 +120,14 @@ public class RegisterPanel extends Panel {
     }
 
     private void actionRegisterUser() {
-        user.password = Hash.sha256(user.password);
+        user.setPassword(Hash.sha256(user.getPassword()));
         user.setActivated(false);
         Date date = new Date();
         user.setToken(UUID.randomUUID().toString() + "-" + date.getTime());
         saveUser.execute(user);
 
         try {
-            MailSender.send(user.email, "Do not reply", user.username, user.getToken());
+            MailSender.send(user.getEmail(), "Do not reply", user.getUsername(), user.getToken());
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }

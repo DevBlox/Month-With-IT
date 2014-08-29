@@ -33,7 +33,7 @@ public class WeightPagePanel extends Panel {
         add(new Label("quote", ""));
         add(new Label("cite", ""));
         try {
-            imei = UserSession.get().getUser().imei;
+            imei = UserSession.get().getUser().getImei();
             data = weightQuery.result(imei);
             add(new WeightInputPanel("weightInput", data));
             add(new ChartPanel("weightChart", data));

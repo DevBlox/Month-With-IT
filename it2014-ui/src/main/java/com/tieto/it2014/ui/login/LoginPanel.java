@@ -102,8 +102,8 @@ public class LoginPanel extends Panel {
 
         if (UserSession.get().hasUser()) {
             String userNameAndEmail = RandomQuote.getHelloMsg()
-                    + UserSession.get().getUser().username
-                    + " (" + UserSession.get().getUser().email + ")";
+                    + UserSession.get().getUser().getUsername()
+                    + " (" + UserSession.get().getUser().getEmail() + ")";
             labelModel.setObject(userNameAndEmail);
         }
 
@@ -139,7 +139,7 @@ public class LoginPanel extends Panel {
         try {
             loggedInUser = loggedInUserQuery.result(email, password);
             UserSession.get().setUser(loggedInUser);
-            listOfAchievments = userAchievementsQuery.result(UserSession.get().getUser().imei);
+            listOfAchievments = userAchievementsQuery.result(UserSession.get().getUser().getImei());
             logoutButton.setVisible(true);
             int achievCount = getNewUserAchievementsCount();
             String achievmentStr = "";
@@ -164,7 +164,7 @@ public class LoginPanel extends Panel {
         int achievCount = 0;
         for (UserAchievement achievement : listOfAchievments) {
             if (achievement.getDate() == null) {
-                if (achievementChecker.checksAchievementById(achievement.getAchievmentId(), UserSession.get().getUser().imei)) {
+                if (achievementChecker.checksAchievementById(achievement.getAchievmentId(), UserSession.get().getUser().getImei())) {
                     achievCount++;
                 }
             }

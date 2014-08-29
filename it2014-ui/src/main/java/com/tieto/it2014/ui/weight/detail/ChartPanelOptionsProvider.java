@@ -83,34 +83,34 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     public Options getDayOptions() {
         optionsType = BUTTON_TYPE_DAY;
-        setUserImei(UserSession.get().getUser().imei);
-        List<Weight> data = weightQueryDay.result(UserSession.get().getUser().imei);
+        setUserImei(UserSession.get().getUser().getImei());
+        List<Weight> data = weightQueryDay.result(UserSession.get().getUser().getImei());
         return getDefaultOptions(data, CHART_TITLE_DAY, CHART_XAXIS_TITLE_DAY, null, null);
     }
 
     public Options getMonthOptions() {
         optionsType = BUTTON_TYPE_MONTH;
-        setUserImei(UserSession.get().getUser().imei);
-        List<Weight> data = weightQueryMonth.result(UserSession.get().getUser().imei);
+        setUserImei(UserSession.get().getUser().getImei());
+        List<Weight> data = weightQueryMonth.result(UserSession.get().getUser().getImei());
         return getDefaultOptions(data, CHART_TITLE_MONTH, CHART_XAXIS_TITLE_MONTH, null, null);
     }
 
     public Options getYearOptions() {
         optionsType = BUTTON_TYPE_YEAR;
-        setUserImei(UserSession.get().getUser().imei);
-        List<Weight> data = weightQueryYear.result(UserSession.get().getUser().imei);
+        setUserImei(UserSession.get().getUser().getImei());
+        List<Weight> data = weightQueryYear.result(UserSession.get().getUser().getImei());
         return getDefaultOptions(data, CHART_TITLE_YEAR, CHART_XAXIS_TITLE_YEAR, null, null);
     }
 
     public Options getQuaterOptions() {
         optionsType = BUTTON_TYPE_QUARTER;
-        setUserImei(UserSession.get().getUser().imei);
-        List<Weight> data = weightQueryQuarter.result(UserSession.get().getUser().imei);
+        setUserImei(UserSession.get().getUser().getImei());
+        List<Weight> data = weightQueryQuarter.result(UserSession.get().getUser().getImei());
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER, null, null);
     }
 
     public Options getGivenTimeOptions(long start, long finish) {
-        List<Weight> data = weightOverPeriod.result(start, finish, UserSession.get().getUser().imei, optionsType);
+        List<Weight> data = weightOverPeriod.result(start, finish, UserSession.get().getUser().getImei(), optionsType);
         return getDefaultOptions(data, CHART_TITLE_QUATER, CHART_XAXIS_TITLE_QUATER, start, finish);
     }
 
@@ -153,7 +153,7 @@ public class ChartPanelOptionsProvider implements Serializable {
 
     public Options getOptions() {
         if (userImei != null) {
-            if (UserSession.get().getUser().imei.equals(userImei)) {
+            if (UserSession.get().getUser().getImei().equals(userImei)) {
                 return options;
             } else {
                 return getMonthOptions();

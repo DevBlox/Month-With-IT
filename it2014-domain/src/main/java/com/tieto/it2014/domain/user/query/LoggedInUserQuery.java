@@ -35,7 +35,7 @@ public class LoggedInUserQuery implements Serializable {
 
         String newPassword = Hash.sha256(password);
 
-        if (user.password.equals(newPassword)) {
+        if (user.getPassword().equals(newPassword)) {
             return user;
         } else {
             throw new DomainException("Incorrect User Name/Password");

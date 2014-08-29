@@ -35,11 +35,11 @@ public class SaveUserCommandDaoJpaTest extends BaseDaoTest {
         saveUserCommand.execute(savedUser);
 
         User foundUser = getUserById.resultOrNull(IMEI2);
-        foundUser.username = USER_NAME;
+        foundUser.setUsername(USER_NAME);
         saveUserCommand.execute(foundUser);
 
         foundUser = getUserById.resultOrNull(IMEI2);
-        assertEquals(USER_NAME, foundUser.username);
+        assertEquals(USER_NAME, foundUser.getUsername());
     }
 
 }

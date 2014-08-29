@@ -18,7 +18,7 @@ public class Details extends BasePage {
 
     public Details(final PageParameters params) {
         userImei = params.get("userImei").toString();
-        if (userImei.compareTo(UserSession.get().getUser().imei) != 0) {
+        if (userImei.compareTo(UserSession.get().getUser().getImei()) != 0) {
             setResponsePage(ErrorPage404.class);
         }
 

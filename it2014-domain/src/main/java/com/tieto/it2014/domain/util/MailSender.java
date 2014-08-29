@@ -61,7 +61,7 @@ public class MailSender {
             html = "<html>"
                     + "<body>"
                     + "<div style=\"background-color: #fff; border: 1px solid"
-                    + "transparent; border-radius: 4px; box-shadow: 0 1px 1px "
+                    + " transparent; border-radius: 4px; box-shadow: 0 1px 1px "
                     + "rgba(0, 0, 0, 0.05); margin-bottom: 20px; border-color: #bce8f1;\">"
                     + "<div style=\"border-bottom: 1px solid transparent;"
                     + " border-top-left-radius: 3px; border-top-right-radius: 3px; padding: 10px 15px; background-color: #d9edf7; border-color: #bce8f1; color: #31708f;\">Confirm your registration</div>"

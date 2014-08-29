@@ -50,9 +50,9 @@ public class UserAchievementsPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
 
-        if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+        if (Objects.equal(usableImei, UserSession.get().getUser().getImei())) {
             name = "My";
-            usableImei = UserSession.get().getUser().imei;
+            usableImei = UserSession.get().getUser().getImei();
         } else {
             friend = getUserByIdQuery.resultOrNull(usableImei);
 
@@ -60,7 +60,7 @@ public class UserAchievementsPanel extends Panel {
                 setResponsePage(ErrorPage404.class);
             }
 
-            name = friend.username;
+            name = friend.getUsername();
         }
 
         add(new Label("headerLabel", name + " achievements"));
@@ -77,7 +77,7 @@ public class UserAchievementsPanel extends Panel {
         for (UserAchievement achievement : listOfAchievments) {
             if (achievement.getDate() == null) {
                 if (achievementChecker.checksAchievementById(achievement.getAchievmentId(), usableImei)) {
-                    if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                    if (Objects.equal(usableImei, UserSession.get().getUser().getImei())) {
                         addAchievementQuery.execute(new UserAchievementNoDate(0, achievement.getAchievmentId(), Util.getCurrentTimestamp(), usableImei, true, false));
                         achievement.setDate(Util.getCurrentTimestamp());
                         achievement.setIsNew(true);
@@ -88,7 +88,7 @@ public class UserAchievementsPanel extends Panel {
                         achievement.setIsSeen(true);
                     }
                 } else {
-                    if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                    if (Objects.equal(usableImei, UserSession.get().getUser().getImei())) {
                         achievement.setIsNew(false);
                         achievement.setIsSeen(true);
                     } else {
@@ -98,7 +98,7 @@ public class UserAchievementsPanel extends Panel {
 
                 }
             } else {
-                if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                if (Objects.equal(usableImei, UserSession.get().getUser().getImei())) {
                     achievement.setIsNew(false);
                     achievement.setIsSeen(true);
                 } else {
@@ -122,13 +122,13 @@ public class UserAchievementsPanel extends Panel {
                 UserAchievement achievment = item.getModelObject();
                 UserAchievementsListItem listItem = new UserAchievementsListItem("achievmentItem", achievment);
                 if (achievment.getDate() != null) {
-                    if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                    if (Objects.equal(usableImei, UserSession.get().getUser().getImei())) {
                         listItem.add(setAttributeAppender("achieved"));
                     } else {
                         listItem.add(setAttributeAppender("achievedFriend"));
                     }
                 }
-                if (Objects.equal(usableImei, UserSession.get().getUser().imei)) {
+                if (Objects.equal(usableImei, UserSession.get().getUser().getImei())) {
                     if (achievment.getIsNew()) {
                         achievment.setIsNew(!achievment.getIsNew());
                         listItem.add(setAttributeAppender("achievedNew"));

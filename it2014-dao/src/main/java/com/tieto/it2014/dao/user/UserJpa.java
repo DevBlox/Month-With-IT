@@ -2,7 +2,6 @@ package com.tieto.it2014.dao.user;
 
 import com.tieto.it2014.dao.JpaEntity;
 import com.tieto.it2014.domain.user.entity.User;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -35,10 +34,10 @@ public class UserJpa implements JpaEntity<User> {
     }
 
     public UserJpa(User user) {
-        this.imei = user.imei;
-        this.email = user.email;
-        this.username = user.username;
-        this.password = user.password;
+        this.imei = user.getImei();
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
         this.token = user.getToken();
         this.activated = user.isActivated();
     }

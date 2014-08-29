@@ -2,6 +2,7 @@ package com.tieto.it2014.ui.friend;
 
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.ui.achievements.AchievmentsPage;
+import java.util.Objects;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
@@ -11,8 +12,6 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-
-import java.util.Objects;
 
 public class FriendItemPanel extends Panel {
 
@@ -34,12 +33,12 @@ public class FriendItemPanel extends Panel {
         super.onInitialize();
 
         PageParameters parameters = new PageParameters();
-        parameters.add("userImei", friend.imei);
+        parameters.add("userImei", friend.getImei());
 
         BookmarkablePageLink link = new BookmarkablePageLink(
                 "friendLink", friendDetailsPage, parameters);
 
-        link.add(new Label("friendLabel", friend.username));
+        link.add(new Label("friendLabel", friend.getUsername()));
         deleteFriendButton = (AjaxFallbackLink) initDeleteButton("friendDelete");
         add(deleteFriendButton);
 
@@ -67,11 +66,9 @@ public class FriendItemPanel extends Panel {
     protected void onConfigure() {
         super.onConfigure();
         if (Objects.equals(deleteFriendButton.getPage().getClass(), AchievmentsPage.class)) {
-          deleteFriendButton.setVisible(false);
+            deleteFriendButton.setVisible(false);
         }
     }
-    
-    
 
     private Link initDeleteButton(String wicketId) {
         return new AjaxFallbackLink(wicketId) {

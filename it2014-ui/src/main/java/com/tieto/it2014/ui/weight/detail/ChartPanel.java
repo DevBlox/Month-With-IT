@@ -344,30 +344,26 @@ public class ChartPanel extends Panel {
     private void hideForms(int type) {
         switch (type) {
             case BUTTON_TYPE_DAY:
-                daysForm.setVisible(true);
-                monthForm.setVisible(false);
-                quarterForm.setVisible(false);
-                yearForm.setVisible(false);
-                break;
-            case BUTTON_TYPE_MONTH:
-                monthForm.setVisible(true);
-                daysForm.setVisible(false);
-                quarterForm.setVisible(false);
-                yearForm.setVisible(false);
+                setFormVisibility(true, false, false, false);
                 break;
             case BUTTON_TYPE_QUARTER:
-                monthForm.setVisible(false);
-                daysForm.setVisible(false);
-                quarterForm.setVisible(true);
-                yearForm.setVisible(false);
+                setFormVisibility(false, false, true, false);
                 break;
             case BUTTON_TYPE_YEAR:
-                monthForm.setVisible(false);
-                daysForm.setVisible(false);
-                quarterForm.setVisible(false);
-                yearForm.setVisible(true);
+                setFormVisibility(false, false, false, true);
+                break;
+            case BUTTON_TYPE_MONTH:
+            default:
+                setFormVisibility(false, true, false, false);
                 break;
         }
+    }
+
+    private void setFormVisibility(boolean days, boolean month, boolean quarter, boolean year) {
+        daysForm.setVisible(days);
+        monthForm.setVisible(month);
+        quarterForm.setVisible(quarter);
+        yearForm.setVisible(year);
     }
 
     private List<String> getDaysInThisMonth() {

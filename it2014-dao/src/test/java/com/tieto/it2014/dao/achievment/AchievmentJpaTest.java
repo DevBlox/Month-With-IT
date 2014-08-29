@@ -7,9 +7,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-/**
- * Created by mantas on 29/08/14.
- */
 public class AchievmentJpaTest extends BaseDaoTest {
 
     @Test

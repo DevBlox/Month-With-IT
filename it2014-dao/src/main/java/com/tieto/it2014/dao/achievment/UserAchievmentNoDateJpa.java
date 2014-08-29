@@ -77,13 +77,6 @@ public class UserAchievmentNoDateJpa implements JpaEntity<UserAchievementNoDate>
     }
 
     /**
-     * @param achievementId the achievementId to set
-     */
-    public void setAchievementId(int achievementId) {
-        this.achievementId = achievementId;
-    }
-
-    /**
      * @return the date
      */
     public Long getDate() {
@@ -95,34 +88,6 @@ public class UserAchievmentNoDateJpa implements JpaEntity<UserAchievementNoDate>
      */
     public void setDate(Long date) {
         this.date = date;
-    }
-
-    /**
-     * @return the isSeen
-     */
-    public boolean getIsSeen() {
-        return isSeen;
-    }
-
-    /**
-     * @param isSeen the isSeen to set
-     */
-    public void setIsSeen(Boolean isSeen) {
-        this.isSeen = isSeen;
-    }
-
-    /**
-     * @return the isNew
-     */
-    public boolean getIsNew() {
-        return isNew;
-    }
-
-    /**
-     * @param isNew the isNew to set
-     */
-    public void setIsNew(Boolean isNew) {
-        this.isNew = isNew;
     }
 
 }

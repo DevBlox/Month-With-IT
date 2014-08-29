@@ -1,6 +1,5 @@
 package com.tieto.it2014.domain.util;
 
-import com.tieto.it2014.domain.DomainException;
 import java.security.MessageDigest;
 import org.apache.log4j.Logger;
 
@@ -12,6 +11,7 @@ public class Hash {
     }
 
     public static String sha256(String base) {
+        String result = "";
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(base.getBytes("UTF-8"));
@@ -25,10 +25,10 @@ public class Hash {
                 hexString.append(hex);
             }
 
-            return hexString.toString();
+            result = hexString.toString();
         } catch (Exception ex) {
-            throw new DomainException(ex);
+            LOGGER.error(ex.getMessage());
         }
+        return result;
     }
-
 }

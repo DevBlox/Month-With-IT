@@ -453,3 +453,29 @@ blockquote cite:before {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.initial-body {
+    padding-top: 60px;
+}
+    .login-box {
+        width: 736px;
+        padding: 16px 20px;
+    }
+    .login-box .cats {
+        width: 336px !important;
+    }
+    .login-box>div>span {
+        float: left;
+        width: 360px;
+        text-align: left;
+        margin: 0 0 0 20px;
+    }
+    .login-box ol {
+        padding: 5px 0 5px 18px;
+    }
+    .login-box ol li {
+        margin: 0 0 4px;
+    }
+    .clear {
+        clear: both;
+    }

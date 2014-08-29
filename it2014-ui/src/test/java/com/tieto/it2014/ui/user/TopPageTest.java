@@ -6,12 +6,10 @@ import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-@Ignore
 public class TopPageTest extends BaseWebTest {
     
     private WicketTester tester;
@@ -25,12 +23,7 @@ public class TopPageTest extends BaseWebTest {
         tester = createWicketTester();
         MockitoAnnotations.initMocks(this);
     }
-
-    @Test
-    public void rendersSuccessfullyWithNoLoggedInUser() {
-        tester.startPage(TopPage.class);
-        tester.assertRenderedPage(ErrorPage404.class);
-    }
+    
     
     @Test
     public void rendersSuccessfullyWithLoggedInUser() {

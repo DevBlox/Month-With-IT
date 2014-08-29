@@ -6,12 +6,11 @@ import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.weight.detail.ChartPanel;
 import com.tieto.it2014.ui.weight.detail.RandomQuote;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.List;
 
 public class WeightPagePanel extends Panel {
 
@@ -19,7 +18,7 @@ public class WeightPagePanel extends Panel {
     private List<Weight> data;
     private String imei;
 
-    private static final Logger logger = Logger.getLogger(WeightPagePanel.class);
+    private static final Logger LOGGER = Logger.getLogger(WeightPagePanel.class);
 
     public WeightPagePanel(String id) {
         super(id);
@@ -39,7 +38,7 @@ public class WeightPagePanel extends Panel {
             add(new WeightInputPanel("weightInput", data));
             add(new ChartPanel("weightChart", data));
         } catch (NullPointerException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             setResponsePage(ErrorPage404.class);
         }
     }

@@ -42,7 +42,7 @@ import org.wicketstuff.gmap.api.GPolyline;
  */
 public class GMapPanel extends Panel {
 
-    private static final Logger logger = Logger.getLogger(GMapPanel.class);
+    private static final Logger LOGGER = Logger.getLogger(GMapPanel.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -152,7 +152,7 @@ public class GMapPanel extends Panel {
             add(initInfoPanel("infoPanel", workoutsModel.getObject()));
 
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             setResponsePage(ErrorPage404.class);
         }
     }
@@ -178,7 +178,7 @@ public class GMapPanel extends Panel {
                 list = workoutQuery.result(userImei, workoutToFindImei, workoutId);
                 return list.get(workoutId - 1);
             } catch (AccessControlException e) {
-                logger.error(e.getMessage());
+                LOGGER.error(e.getMessage());
                 setResponsePage(ErrorPage404.class);
             }
             return null;

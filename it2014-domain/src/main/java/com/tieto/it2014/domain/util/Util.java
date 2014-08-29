@@ -9,20 +9,27 @@ import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.weight.entity.Weight;
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Objects;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.json.JSONObject;
-
-import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class Util {
 
     private static final double AVERAGE_RADIUS_OF_EARTH = 6371;
 
-    private static final Logger logger = Logger.getLogger(Util.class);
+    private static final Logger LOGGER = Logger.getLogger(Util.class);
 
     private Util() {
     }
@@ -369,7 +376,7 @@ public class Util {
             weather.setTimestmap(Long.parseLong(mainJsonObject.get("dt").toString()));
 
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return weather;
     }

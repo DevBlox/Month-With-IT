@@ -37,7 +37,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class ChartPanelOptionsProvider implements Serializable {
 
-    private static final Logger logger = Logger.getLogger(ChartPanelOptionsProvider.class);
+    private static final Logger LOGGER = Logger.getLogger(ChartPanelOptionsProvider.class);
 
     private static ChartPanelOptionsProvider instance = null;
     private static final long serialVersionUID = 1L;
@@ -282,7 +282,7 @@ public class ChartPanelOptionsProvider implements Serializable {
             }
 
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return number;
     }
@@ -350,7 +350,7 @@ public class ChartPanelOptionsProvider implements Serializable {
             }
 
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return number;
     }

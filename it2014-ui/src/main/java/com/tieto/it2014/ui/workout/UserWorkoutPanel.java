@@ -27,7 +27,7 @@ public class UserWorkoutPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(UserWorkoutPanel.class);
+    private static final Logger LOGGER = Logger.getLogger(UserWorkoutPanel.class);
 
     public static final String USER_ID = "userId";
     private final IModel<String> imei;
@@ -81,7 +81,7 @@ public class UserWorkoutPanel extends Panel {
         try {
             username = userById.resultOrNull(imei.getObject()).username;
         } catch (NullPointerException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             setResponsePage(ErrorPage404.class);
         }
 
@@ -136,7 +136,7 @@ public class UserWorkoutPanel extends Panel {
                     list = list.subList(0, workoutsToShow);
                 }
             } catch (AccessControlException e) {
-                logger.error(e.getMessage());
+                LOGGER.error(e.getMessage());
                 setResponsePage(ErrorPage404.class);
             }
             return list;

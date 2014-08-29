@@ -41,7 +41,7 @@ public class ChartPanel extends Panel {
     private static final String THIRD_QUARTER_STRING = "Jul-Aug-Sep";
     private static final String FOURTH_QUARTER_STRING = "Oct-Nov-Dec";
 
-    private static final Logger logger = Logger.getLogger(ChartPanel.class);
+    private static final Logger LOGGER = Logger.getLogger(ChartPanel.class);
 
     @SpringBean
     private UserWeightOverPeriod weightOverPeriod;
@@ -172,7 +172,7 @@ public class ChartPanel extends Panel {
                 try {
                     start = createTimeStamp(getYearString(), getMonthString(), selectedDay);
                 } catch (ParseException ex) {
-                    logger.error(ex.getMessage());
+                    LOGGER.error(ex.getMessage());
                 }
                 int endInt = Integer.parseInt(selectedDay) + 1;
                 String endString = Integer.toString(endInt);
@@ -180,7 +180,7 @@ public class ChartPanel extends Panel {
                 try {
                     end = createTimeStamp(getYearString(), getMonthString(), endString);
                 } catch (ParseException ex) {
-                    logger.error(ex.getMessage());
+                    LOGGER.error(ex.getMessage());
                 }
                 start = Util.convertToGmtLong(start);
                 end = Util.convertToGmtLong(end);
@@ -199,7 +199,7 @@ public class ChartPanel extends Panel {
                 try {
                     start = createTimeStamp(getYearString(), tmpMonth, FIRST_DAY);
                 } catch (ParseException ex) {
-                    logger.error(ex.getMessage());
+                    LOGGER.error(ex.getMessage());
                 }
                 Long end = 0L;
                 end = getLastDayInMonthInCurrentYearTimestamp(tmpMonth);
@@ -248,7 +248,7 @@ public class ChartPanel extends Panel {
                     end = getLastDayInMonthInCurrentYearTimestamp(FIRST_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
-                    logger.error(ex.getMessage());
+                    LOGGER.error(ex.getMessage());
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
             }
@@ -259,7 +259,7 @@ public class ChartPanel extends Panel {
                     end = getLastDayInMonthInCurrentYearTimestamp(SECOND_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
-                    logger.error(ex.getMessage());
+                    LOGGER.error(ex.getMessage());
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
             }
@@ -270,7 +270,7 @@ public class ChartPanel extends Panel {
                     end = getLastDayInMonthInCurrentYearTimestamp(THIRD_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
-                    logger.error(ex.getMessage());
+                    LOGGER.error(ex.getMessage());
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
             }
@@ -281,7 +281,7 @@ public class ChartPanel extends Panel {
                     end = getLastDayInMonthInCurrentYearTimestamp(FORTH_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
-                    logger.error(ex.getMessage());
+                    LOGGER.error(ex.getMessage());
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
             }

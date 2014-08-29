@@ -28,7 +28,7 @@ public class AddFriendFormPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger logger = Logger.getLogger(AddFriendFormPanel.class);
+    private static final Logger LOGGER = Logger.getLogger(AddFriendFormPanel.class);
 
     private Form addFriendForm;
     private String friendEmail;
@@ -114,7 +114,7 @@ public class AddFriendFormPanel extends Panel {
             addFriend.execute(loggedUser.imei, addedFriend.imei);
         } catch (DomainException ex) {
             addFriendForm.error(ex.getMessage());
-            logger.error(ex.getMessage());
+            LOGGER.error(ex.getMessage());
             return false;
         }
         return true;

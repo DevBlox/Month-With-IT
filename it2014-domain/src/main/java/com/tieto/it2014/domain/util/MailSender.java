@@ -8,6 +8,7 @@ import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.apache.log4j.Logger;
 
 /**
  * Created by mantas on 28/08/14.
@@ -21,6 +22,8 @@ public class MailSender {
 
     private static final String IP_ADDRESS = "http://192.168.16.7";
     private static final String PORT = "8081";
+
+    private static final Logger logger = Logger.getLogger(MailSender.class);
 
     private MailSender() {
     }
@@ -84,6 +87,7 @@ public class MailSender {
             t.close();
 
         } catch (Exception e) {
+            logger.error(e.getMessage());
         }
     }
 }

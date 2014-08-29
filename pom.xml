@@ -23,6 +23,7 @@
         <spring.version>3.2.10.RELEASE</spring.version>
         <it2014.devEnv>local</it2014.devEnv>
         <it2014.devEnv.dir>../dev-env/${it2014.devEnv}</it2014.devEnv.dir>
+        <slf4j.version>1.7.7</slf4j.version>
     </properties>
 
     <profiles>
@@ -133,6 +134,11 @@
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
                 <version>1.4.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

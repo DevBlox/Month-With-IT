@@ -22,10 +22,13 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.jboss.logging.Logger;
 
 public class AddFriendFormPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Logger logger = Logger.getLogger(AddFriendFormPanel.class);
 
     private Form addFriendForm;
     private String friendEmail;
@@ -113,6 +116,7 @@ public class AddFriendFormPanel extends Panel {
             addFriend.execute(loggedUser.imei, addedFriend.imei);
         } catch (DomainException ex) {
             addFriendForm.error(ex.getMessage());
+            logger.error(ex.getMessage());
             return false;
         }
         return true;

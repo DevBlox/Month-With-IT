@@ -11,6 +11,7 @@ import com.tieto.it2014.ui.session.UserSession;
 import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 import java.util.Date;
 import java.util.UUID;
+import org.apache.log4j.Logger;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
@@ -18,9 +19,11 @@ import org.apache.wicket.util.string.Strings;
 /**
  * Created by mantas on 28/08/14.
  */
-public class Activation extends BasePage {
+public final class Activation extends BasePage {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Logger logger = Logger.getLogger(Activation.class);
 
     @SpringBean
     private SaveUserCommand saveUser;
@@ -38,7 +41,7 @@ public class Activation extends BasePage {
     public Activation(final PageParameters params) {
         userMail = params.get("userMail").toString();
         token = params.get("token").toString();
-        timestamp = Long.parseLong(token.substring(token.length()-13));
+        timestamp = Long.parseLong(token.substring(token.length() - 13));
         if (UserSession.get().isLoggedIn()) {
             UserSession.get().invalidate();
         }
@@ -51,7 +54,7 @@ public class Activation extends BasePage {
             try {
                 MailSender.send(user.email, "Do not reply", user.username, user.getToken());
             } catch (Exception e) {
-
+                logger.error(e.getMessage());
             }
             setResponsePage(withInfoMsg(new HomePage(), "Link is invalid! Check your mailbox for new one"));
         }

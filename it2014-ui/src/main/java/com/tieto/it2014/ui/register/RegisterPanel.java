@@ -13,6 +13,7 @@ import com.tieto.it2014.ui.validation.ExistingEmailValidator;
 import com.tieto.it2014.ui.validation.ExistingImeiValidator;
 import java.util.Date;
 import java.util.UUID;
+import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.form.Button;
@@ -31,6 +32,8 @@ import org.apache.wicket.validation.validator.StringValidator;
 public class RegisterPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Logger logger = Logger.getLogger(RegisterPanel.class);
 
     public RegisterPanel(String wicketid) {
         super(wicketid);
@@ -126,7 +129,7 @@ public class RegisterPanel extends Panel {
         try {
             MailSender.send(user.email, "Do not reply", user.username, user.getToken());
         } catch (Exception e) {
-
+            logger.error(e.getMessage());
         }
 
         // Kad kitakart register langeliuose nebeliktu registravimosi duomenu!!

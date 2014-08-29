@@ -87,7 +87,7 @@ public class MailSender {
             t.close();
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

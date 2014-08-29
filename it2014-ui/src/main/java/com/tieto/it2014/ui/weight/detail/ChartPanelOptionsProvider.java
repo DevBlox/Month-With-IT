@@ -265,7 +265,7 @@ public class ChartPanelOptionsProvider implements Serializable {
             }
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return number;
     }
@@ -330,7 +330,7 @@ public class ChartPanelOptionsProvider implements Serializable {
             }
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return number;
     }

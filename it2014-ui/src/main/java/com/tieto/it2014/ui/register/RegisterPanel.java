@@ -129,7 +129,7 @@ public class RegisterPanel extends Panel {
         try {
             MailSender.send(user.email, "Do not reply", user.username, user.getToken());
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
 
         // Kad kitakart register langeliuose nebeliktu registravimosi duomenu!!

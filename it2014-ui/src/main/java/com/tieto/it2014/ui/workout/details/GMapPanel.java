@@ -152,7 +152,7 @@ public class GMapPanel extends Panel {
             add(initInfoPanel("infoPanel", workoutsModel.getObject()));
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
             setResponsePage(ErrorPage404.class);
         }
     }
@@ -178,7 +178,7 @@ public class GMapPanel extends Panel {
                 list = workoutQuery.result(userImei, workoutToFindImei, workoutId);
                 return list.get(workoutId - 1);
             } catch (AccessControlException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error(e.getMessage(), e);
                 setResponsePage(ErrorPage404.class);
             }
             return null;

@@ -27,7 +27,7 @@ public class WeatherDao {
             }
             scan.close();
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

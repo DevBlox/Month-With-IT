@@ -5,12 +5,11 @@ import com.tieto.it2014.domain.user.query.GetUserByEmailQuery;
 import com.tieto.it2014.ui.BaseWebTest;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 
 public class RegisterPanelTest extends BaseWebTest {
 
@@ -41,7 +40,7 @@ public class RegisterPanelTest extends BaseWebTest {
     public void checksIfEmailsAreEqual() {
 
         User user = getUserByEmailQuery.result(EMAIL);
-        assertThat(EMAIL, equalTo(user.email));
+        assertThat(EMAIL, equalTo(user.getEmail()));
     }
 
     @Test

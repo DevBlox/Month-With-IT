@@ -79,14 +79,14 @@ public class UserWorkoutPanel extends Panel {
         Component showMoreLink = initShowMoreLink(workoutPanel);
         String username = null;
         try {
-            username = userById.resultOrNull(imei.getObject()).username;
+            username = userById.resultOrNull(imei.getObject()).getUsername();
         } catch (NullPointerException e) {
             LOGGER.error(e.getMessage(), e);
             setResponsePage(ErrorPage404.class);
         }
 
         if (UserSession.get().isLoggedIn()) {
-            if (UserSession.get().getUser().imei.equals(imei.getObject())) {
+            if (UserSession.get().getUser().getImei().equals(imei.getObject())) {
                 username = "My";
             }
         }
@@ -126,11 +126,11 @@ public class UserWorkoutPanel extends Panel {
         protected List<Workout> load() {
             if (workoutsToShow == ALL_WORKOUTS) {
                 hasMoreWorkouts = false;
-                return workoutQuery.result(UserSession.get().getUser().imei, imei.getObject(), ALL_WORKOUTS);
+                return workoutQuery.result(UserSession.get().getUser().getImei(), imei.getObject(), ALL_WORKOUTS);
             }
             List<Workout> list = null;
             try {
-                list = workoutQuery.result(UserSession.get().getUser().imei, imei.getObject(), workoutsToShow + 1);
+                list = workoutQuery.result(UserSession.get().getUser().getImei(), imei.getObject(), workoutsToShow + 1);
                 hasMoreWorkouts = (list.size() > workoutsToShow);
                 if (hasMoreWorkouts) {
                     list = list.subList(0, workoutsToShow);

@@ -6,15 +6,14 @@ import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.WeightQuery;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.session.UserSession;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  * Created by mantas on 20/08/14.
@@ -46,7 +45,7 @@ public class StatsPanel extends Panel {
         Set<Integer> monthCount = new LinkedHashSet<>();
         Set<Integer> daysCount = new LinkedHashSet<>();
 
-        List<Weight> weights = weightQuery.result(UserSession.get().getUser().imei);
+        List<Weight> weights = weightQuery.result(UserSession.get().getUser().getImei());
 
         for (Workout wo : workoutsModel.getObject()) {
             totalDist += wo.getDistanceDouble();
@@ -83,7 +82,7 @@ public class StatsPanel extends Panel {
 
         private static final long serialVersionUID = 1L;
         private final Integer ALL_WORKOUTS = null;
-        String userImei = UserSession.get().getUser().imei;
+        String userImei = UserSession.get().getUser().getImei();
 
         @Override
         protected List<Workout> load() {

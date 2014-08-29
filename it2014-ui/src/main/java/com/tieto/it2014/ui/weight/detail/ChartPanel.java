@@ -377,7 +377,7 @@ public class ChartPanel extends Panel {
         Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
 
         cal = Calendar.getInstance();
-        List<Weight> userWeightsInMonth = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
+        List<Weight> userWeightsInMonth = weightOverPeriod.result(start, end, UserSession.get().getUser().getImei(), BUTTON_TYPE_MONTH);
         List<String> createdListOfDays = new ArrayList<>();
         boolean currentDayIsAdded = false;
         for (Weight userWeightsInMonth1 : userWeightsInMonth) {
@@ -399,7 +399,7 @@ public class ChartPanel extends Panel {
 
         Calendar cal = Calendar.getInstance();
         Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
-        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
+        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().getImei(), BUTTON_TYPE_MONTH);
         ArrayList<String> createdListOfMonths = new ArrayList<>();
         boolean currentMonthIsAdded = false;
         int currentMonth = cal.get(Calendar.MONTH) + 1;
@@ -431,7 +431,7 @@ public class ChartPanel extends Panel {
 
         Calendar cal = Calendar.getInstance();
         Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
-        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_MONTH);
+        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().getImei(), BUTTON_TYPE_MONTH);
         List<String> createdListOfQuarters = new ArrayList<>();
         for (int i = 0; i < userWeightsInYear.size(); i++) {
             if ((userWeightsInYear.size() - 1) > i) {
@@ -487,7 +487,7 @@ public class ChartPanel extends Panel {
 
         cal = Calendar.getInstance();
         Long end = cal.getTimeInMillis();
-        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().imei, BUTTON_TYPE_YEAR);
+        List<Weight> userWeightsInYear = weightOverPeriod.result(start, end, UserSession.get().getUser().getImei(), BUTTON_TYPE_YEAR);
         List<String> createdListOfYears = new ArrayList<>();
         for (int i = 0; i < userWeightsInYear.size(); i++) {
             if ((userWeightsInYear.size() - 1) > i) {

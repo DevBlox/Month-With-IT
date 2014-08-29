@@ -108,10 +108,10 @@ public class AddFriendFormPanel extends Panel {
                 throw new DomainException("Friend not found");
             }
             User loggedUser = UserSession.get().getUser();
-            if (Objects.equals(addedFriend.email, loggedUser.email)) {
+            if (Objects.equals(addedFriend.getEmail(), loggedUser.getEmail())) {
                 throw new DomainException("Dude, you can not be friend of yourself ");
             }
-            addFriend.execute(loggedUser.imei, addedFriend.imei);
+            addFriend.execute(loggedUser.getImei(), addedFriend.getImei());
         } catch (DomainException ex) {
             LOGGER.error(ex.getMessage(), ex);
             addFriendForm.error(ex.getMessage());
@@ -124,10 +124,10 @@ public class AddFriendFormPanel extends Panel {
         if (!UserSession.get().hasUser()) {
             return false;
         }
-        String imei = UserSession.get().getUser().imei;
+        String imei = UserSession.get().getUser().getImei();
         List<User> friendList = allFriendsQuery.result(imei);
         for (User friend : friendList) {
-            if (Objects.equals(friend.email, friendEmail)) {
+            if (Objects.equals(friend.getEmail(), friendEmail)) {
                 return true;
             }
         }

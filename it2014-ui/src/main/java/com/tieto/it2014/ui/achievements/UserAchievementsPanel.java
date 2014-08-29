@@ -7,7 +7,9 @@ import com.tieto.it2014.domain.achievment.query.UserAchievementsQuery;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.GetUserByIdQuery;
 import com.tieto.it2014.domain.util.Util;
+import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
+import java.util.List;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -17,8 +19,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Objects;
-
-import java.util.List;
 
 public class UserAchievementsPanel extends Panel {
 
@@ -55,6 +55,11 @@ public class UserAchievementsPanel extends Panel {
             usableImei = UserSession.get().getUser().imei;
         } else {
             friend = getUserByIdQuery.resultOrNull(usableImei);
+
+            if (Objects.equal(friend, null)) {
+                setResponsePage(ErrorPage404.class);
+            }
+
             name = friend.username;
         }
 

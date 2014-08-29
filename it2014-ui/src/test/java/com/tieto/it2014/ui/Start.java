@@ -29,14 +29,9 @@ public class Start {
         bb.setWar("src/main/webapp");
         server.setHandler(bb);
         try {
-            System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
             server.start();
-            System.out.println();
-            System.out.println("    http://localhost:" + port + contextPath);
-            System.out.println();
-            System.out.println("Press ENTER to stop Jetty ...");
+            System.out.println("<<< Started Jetty server, press any key to stop. >>>");
             System.in.read();
-            System.out.println(">>> STOPPING EMBEDDED JETTY SERVER");
             server.stop();
             server.join();
         } catch (Exception e) {

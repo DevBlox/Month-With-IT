@@ -3,10 +3,26 @@ package com.tieto.it2014.ui.weight.detail;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
 import com.tieto.it2014.domain.util.Util;
+import static com.tieto.it2014.domain.util.Util.extractMonthFromTimestamp;
+import static com.tieto.it2014.domain.util.Util.extractYearFromTimestamp;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_DAY;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_MONTH;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_QUARTER;
+import static com.tieto.it2014.domain.weight.WeightChartType.BUTTON_TYPE_YEAR;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import com.tieto.it2014.domain.weight.query.UserWeightOverPeriod;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.WeightPage;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.TimeZone;
+import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -17,17 +33,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static com.tieto.it2014.domain.util.Util.extractMonthFromTimestamp;
-import static com.tieto.it2014.domain.util.Util.extractYearFromTimestamp;
-import static com.tieto.it2014.domain.weight.WeightChartType.*;
-
 public class ChartPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
@@ -35,6 +40,8 @@ public class ChartPanel extends Panel {
     private static final String SECOND_QUARTER_STRING = "Apr-May-Jun";
     private static final String THIRD_QUARTER_STRING = "Jul-Aug-Sep";
     private static final String FOURTH_QUARTER_STRING = "Oct-Nov-Dec";
+
+    private static final Logger logger = Logger.getLogger(ChartPanel.class);
 
     @SpringBean
     private UserWeightOverPeriod weightOverPeriod;
@@ -165,7 +172,7 @@ public class ChartPanel extends Panel {
                 try {
                     start = createTimeStamp(getYearString(), getMonthString(), selectedDay);
                 } catch (ParseException ex) {
-                    Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
                 int endInt = Integer.parseInt(selectedDay) + 1;
                 String endString = Integer.toString(endInt);
@@ -173,7 +180,7 @@ public class ChartPanel extends Panel {
                 try {
                     end = createTimeStamp(getYearString(), getMonthString(), endString);
                 } catch (ParseException ex) {
-                    Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
                 start = Util.convertToGmtLong(start);
                 end = Util.convertToGmtLong(end);
@@ -183,6 +190,8 @@ public class ChartPanel extends Panel {
         };
 
         monthForm = new Form<Void>("dropDownFormMonth") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected void onSubmit() {
                 Long start = 0L;
@@ -190,7 +199,7 @@ public class ChartPanel extends Panel {
                 try {
                     start = createTimeStamp(getYearString(), tmpMonth, FIRST_DAY);
                 } catch (ParseException ex) {
-                    Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
                 Long end = 0L;
                 end = getLastDayInMonthInCurrentYearTimestamp(tmpMonth);
@@ -239,7 +248,7 @@ public class ChartPanel extends Panel {
                     end = getLastDayInMonthInCurrentYearTimestamp(FIRST_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
-                    Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
             }
@@ -250,7 +259,7 @@ public class ChartPanel extends Panel {
                     end = getLastDayInMonthInCurrentYearTimestamp(SECOND_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
-                    Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
             }
@@ -261,7 +270,7 @@ public class ChartPanel extends Panel {
                     end = getLastDayInMonthInCurrentYearTimestamp(THIRD_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
-                    Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
             }
@@ -272,7 +281,7 @@ public class ChartPanel extends Panel {
                     end = getLastDayInMonthInCurrentYearTimestamp(FORTH_QUARTER_LAST_MONTH);
 
                 } catch (ParseException ex) {
-                    Logger.getLogger(ChartPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
                 ChartPanelOptionsProvider.getInstance().getGivenTimeOptions(start, end);
             }

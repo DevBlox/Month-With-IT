@@ -20,7 +20,7 @@ public class MailSender {
     private static String email;
     private static String html;
 
-    private static final String IP_ADDRESS = "http://192.168.16.7";
+    private static final String IP_ADDRESS = "192.168.16.7";
     private static final String PORT = "8081";
 
     private static final Logger LOGGER = Logger.getLogger(MailSender.class);
@@ -70,7 +70,7 @@ public class MailSender {
                     + "<br/>"
                     + "<p>Thank you for registering at IRun, to confirm your "
                     + "registration please click this <a href=\""
-                    + IP_ADDRESS + ":"
+                    + "http://" + IP_ADDRESS + ":"
                     + PORT
                     + "/IRun/activate/" + email + "/" + token + "\">link</a>.</p>"
                     + "</div>"

@@ -7,7 +7,7 @@ public class RandomQuote {
 
     private static final String[] BEAR_QUOTE = new String[]{"A bear, however hard he tries, grows tubby without exercise.", "A.A. Milne, Winnie-the-Pooh"};
 
-    private static final List<String[]> positiveQuotes = Arrays.asList(
+    private static final List<String[]> POSITIVE_QUOTES = Arrays.asList(
             new String[]{"Whatever the mind of man can conceive and believe, it can achieve.", "Napoleon Hill"},
             new String[]{"I attribute my success to this: I never gave or took any excuse.", "Florence Nightingale"},
             new String[]{"You miss 100% of the shots you don’t take.", "Wayne Gretzky"},
@@ -47,7 +47,7 @@ public class RandomQuote {
             BEAR_QUOTE
     );
 
-    private static final List<String[]> negativeQuotes = Arrays.asList(
+    private static final List<String[]> NEGATIVE_QUOTES = Arrays.asList(
             new String[]{"You don't need internet, you're already world wide!", "Somebody famous"},
             new String[]{"Hands up! Drop that burger!", "Somebody famous"},
             new String[]{"Exercise is a dirty word. Every time I hear it I wash my mouth out with chocolate.", "Charles M. Schulz"},
@@ -73,11 +73,11 @@ public class RandomQuote {
     );
 
     public static String[] getPositive() {
-        return positiveQuotes.get(randomWithRange(0, positiveQuotes.size() - 1));
+        return POSITIVE_QUOTES.get(randomWithRange(0, POSITIVE_QUOTES.size() - 1));
     }
 
     public static String[] getNegative() {
-        return negativeQuotes.get(randomWithRange(0, negativeQuotes.size() - 1));
+        return NEGATIVE_QUOTES.get(randomWithRange(0, NEGATIVE_QUOTES.size() - 1));
     }
 
     public static String getHelloMsg() {

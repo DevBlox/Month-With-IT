@@ -143,7 +143,6 @@ public class ChartPanelOptionsProvider implements Serializable {
     }
 
     private String getUtcStringFromTimestamp(Long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c1 = Calendar.getInstance();
         c1.setTimeInMillis(timestamp);
 
@@ -270,6 +269,7 @@ public class ChartPanelOptionsProvider implements Serializable {
                     number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_YEAR:
+                default:
                     cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
                     cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
                     cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));

@@ -11,7 +11,6 @@ public class UserAchievementsListItem extends Panel {
     private static final long serialVersionUID = 1L;
 
     private final UserAchievement achievement;
-    private Label image;
 
     public UserAchievementsListItem(String id, UserAchievement achievement) {
         super(id);
@@ -23,7 +22,7 @@ public class UserAchievementsListItem extends Panel {
         super.onInitialize();
 
         add(new Label("achievementLabel", achievement.getName()));
-        image = new Label("achievementImage");
+        Label image = new Label("achievementImage");
         image.add(new AttributeAppender("class", new Model<>("achievement_"
                 + achievement.getAchievmentId()), " "));
         add(image);

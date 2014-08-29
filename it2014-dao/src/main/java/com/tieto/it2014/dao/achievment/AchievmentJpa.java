@@ -28,16 +28,6 @@ public class AchievmentJpa implements JpaEntity<Achievement>, Serializable {
     @Column(name = "COMPLETE_MESSAGE")
     private String completeMessage;
 
-    public AchievmentJpa() {
-    }
-
-    public AchievmentJpa(Achievement achievment) {
-        this.name = achievment.getName();
-        this.description = achievment.getDescription();
-        this.completeMessage = achievment.getCompleteMessage();
-        this.id = achievment.getId();
-    }
-
     @Override
     public Achievement toDomain() {
         return new Achievement(this.name, this.description, this.completeMessage, this.id);
@@ -48,20 +38,6 @@ public class AchievmentJpa implements JpaEntity<Achievement>, Serializable {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @return the completeMessage
-     */
-    public String getCompleteMessage() {
-        return completeMessage;
     }
 
 }

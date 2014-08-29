@@ -3,10 +3,9 @@ package com.tieto.it2014.domain.user.query;
 import com.tieto.it2014.domain.DomainException;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.util.Hash;
+import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.Serializable;
 
 @Component
 public class LoggedInUserQuery implements Serializable {
@@ -34,9 +33,9 @@ public class LoggedInUserQuery implements Serializable {
             throw new DomainException("This user is not activated!");
         }
 
-        password = Hash.sha256(password);
+        String newPassword = Hash.sha256(password);
 
-        if (user.password.equals(password)) {
+        if (user.password.equals(newPassword)) {
             return user;
         } else {
             throw new DomainException("Incorrect User Name/Password");

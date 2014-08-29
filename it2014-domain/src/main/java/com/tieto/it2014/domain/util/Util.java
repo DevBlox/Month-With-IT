@@ -10,7 +10,10 @@ import com.tieto.it2014.domain.user.entity.Workout;
 import com.tieto.it2014.domain.weather.Weather;
 import com.tieto.it2014.domain.weight.entity.Weight;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -42,7 +45,7 @@ public class Util {
         List<UserLoc> filteredUserLocs = Lists.newArrayList(Collections2.filter(userLocs, new Predicate<UserLoc>() {
             @Override
             public boolean apply(UserLoc t) {
-                return StringUtils.isNotBlank(t.id) && t.timeStamp <= now;
+                return StringUtils.isNotBlank(t.id) && t.getTimeStamp() <= now;
             }
         }));
 
@@ -53,7 +56,7 @@ public class Util {
             Optional<Workout> out = Iterables.tryFind(workouts, new Predicate<Workout>() {
                 @Override
                 public boolean apply(Workout t) {
-                    return t.getImei().equals(loc.id) && Math.abs(loc.timeStamp - t.getLastLoc().timeStamp) < 300000;
+                    return t.getImei().equals(loc.id) && Math.abs(loc.getTimeStamp() - t.getLastLoc().getTimeStamp()) < 300000;
                 }
             });
             if (out.isPresent()) {
@@ -101,7 +104,7 @@ public class Util {
     }
 
     public static double calculateDistance(UserLoc srcLoc, UserLoc destLoc) {
-        return calculateDistance(srcLoc.latitude, srcLoc.longtitude, srcLoc.altitude, destLoc.latitude, destLoc.longtitude, destLoc.altitude);
+        return calculateDistance(srcLoc.getLatitude(), srcLoc.getLongtitude(), srcLoc.getAltitude(), destLoc.getLatitude(), destLoc.getLongtitude(), destLoc.getAltitude());
     }
 
     public static double calculateDistance(double userLat, double userLng, double userAlt, double venueLat, double venueLng, double venueAlt) {
@@ -278,7 +281,7 @@ public class Util {
             UserLoc destLoc = uLocs.get(i + 1);
 
             Double distanceDiff = Util.calculateDistance(srcLoc, destLoc);
-            Double timeDiff = (double) Util.calculateDuration(srcLoc.timeStamp, destLoc.timeStamp);
+            Double timeDiff = (double) Util.calculateDuration(srcLoc.getTimeStamp(), destLoc.getTimeStamp());
             lastTimeDiff = timeDiff.equals(0D) ? lastTimeDiff : timeDiff;
 
             Double nextDist;
@@ -376,8 +379,148 @@ public class Util {
             weather.setTimestmap(Long.parseLong(mainJsonObject.get("dt").toString()));
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return weather;
+    }
+
+    public static String parseMonthIntToMonthName(int month) {
+        String monthString;
+        switch (month) {
+            case 1:
+                monthString = "January";
+                break;
+            case 2:
+                monthString = "February";
+                break;
+            case 3:
+                monthString = "March";
+                break;
+            case 4:
+                monthString = "April";
+                break;
+            case 5:
+                monthString = "May";
+                break;
+            case 6:
+                monthString = "June";
+                break;
+            case 7:
+                monthString = "July";
+                break;
+            case 8:
+                monthString = "August";
+                break;
+            case 9:
+                monthString = "September";
+                break;
+            case 10:
+                monthString = "October";
+                break;
+            case 11:
+                monthString = "November";
+                break;
+            case 12:
+                monthString = "December";
+                break;
+            default:
+                monthString = "None";
+                break;
+
+        }
+        return monthString;
+    }
+
+    public static String parseMonthNameToMonthString(String month) {
+        String monthString;
+        switch (month) {
+            case "January":
+                monthString = "1";
+                break;
+            case "February":
+                monthString = "2";
+                break;
+            case "March":
+                monthString = "3";
+                break;
+            case "April":
+                monthString = "4";
+                break;
+            case "May":
+                monthString = "5";
+                break;
+            case "June":
+                monthString = "6";
+                break;
+            case "July":
+                monthString = "7";
+                break;
+            case "August":
+                monthString = "8";
+                break;
+            case "September":
+                monthString = "9";
+                break;
+            case "October":
+                monthString = "10";
+                break;
+            case "November":
+                monthString = "11";
+                break;
+            case "December":
+                monthString = "12";
+                break;
+            default:
+                monthString = "0";
+                break;
+        }
+        return monthString;
+    }
+
+    public static Long createTimeStamp(String year, String month, String day) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = day + "/" + month + "/" + year;
+        Date date = dateFormat.parse(dateString);
+        return date.getTime();
+    }
+
+    public static long getLastDayInMonthInCurrentYearTimestamp(String month) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, cal.getActualMaximum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, cal.getActualMaximum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, cal.getActualMaximum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, cal.getActualMaximum(Calendar.MILLISECOND));
+        Date date2 = cal.getTime();
+        return date2.getTime();
+    }
+
+    public static String getDayString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public static String getMonthString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.MONTH) + 1);
+    }
+
+    public static String getYearString() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        return Integer.toString(calendar.get(Calendar.YEAR));
+    }
+    
+    public static Long getMinimumTimestampThisYear() {
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
+        cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
+        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
+        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
+
+        return cal.getTimeInMillis();
     }
 }

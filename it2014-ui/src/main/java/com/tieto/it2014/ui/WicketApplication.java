@@ -1,6 +1,6 @@
 package com.tieto.it2014.ui;
 
-import com.tieto.it2014.ui.achievments.AchievmentsPage;
+import com.tieto.it2014.ui.achievements.AchievmentsPage;
 import com.tieto.it2014.ui.error.ErrorPage404;
 import com.tieto.it2014.ui.session.UserSession;
 import com.tieto.it2014.ui.user.*;

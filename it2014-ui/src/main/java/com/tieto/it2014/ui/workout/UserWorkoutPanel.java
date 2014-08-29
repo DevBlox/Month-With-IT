@@ -81,7 +81,7 @@ public class UserWorkoutPanel extends Panel {
         try {
             username = userById.resultOrNull(imei.getObject()).username;
         } catch (NullPointerException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
             setResponsePage(ErrorPage404.class);
         }
 
@@ -136,7 +136,7 @@ public class UserWorkoutPanel extends Panel {
                     list = list.subList(0, workoutsToShow);
                 }
             } catch (AccessControlException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error(e.getMessage(), e);
                 setResponsePage(ErrorPage404.class);
             }
             return list;

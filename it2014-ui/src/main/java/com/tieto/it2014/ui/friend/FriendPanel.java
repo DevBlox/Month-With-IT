@@ -3,7 +3,7 @@ package com.tieto.it2014.ui.friend;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.AllFriendsQuery;
 import com.tieto.it2014.ui.HomePage;
-import com.tieto.it2014.ui.achievments.AchievmentsPage;
+import com.tieto.it2014.ui.achievements.AchievmentsPage;
 import com.tieto.it2014.ui.session.UserSession;
 import org.apache.wicket.Page;
 import org.apache.wicket.behavior.AttributeAppender;

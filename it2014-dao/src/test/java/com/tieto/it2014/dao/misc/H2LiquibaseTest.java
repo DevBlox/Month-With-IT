@@ -1,11 +1,10 @@
 package com.tieto.it2014.dao.misc;
 
 import com.tieto.it2014.dao.BaseDaoTest;
+import java.sql.ResultSet;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.sql.ResultSet;
 
 public class H2LiquibaseTest extends BaseDaoTest {
 
@@ -13,7 +12,7 @@ public class H2LiquibaseTest extends BaseDaoTest {
     private org.apache.commons.dbcp.BasicDataSource dataSource;
 
     @Test
-    public void liquibase_has_run() throws Exception {
+    public void liquibaseHasRun() throws Exception {
         ResultSet results = dataSource
                 .getConnection()
                 .createStatement()

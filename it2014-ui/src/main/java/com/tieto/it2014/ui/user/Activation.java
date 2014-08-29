@@ -58,7 +58,7 @@ public final class Activation extends BasePage {
             try {
                 MailSender.send(user.email, "Do not reply", user.username, user.getToken());
             } catch (Exception e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error(e.getMessage(), e);
             }
             setResponsePage(withInfoMsg(new HomePage(), "Link is invalid! Check your mailbox for new one"));
         }

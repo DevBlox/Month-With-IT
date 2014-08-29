@@ -2,7 +2,6 @@ package com.tieto.it2014.domain.user.entity;
 
 import com.google.common.collect.Lists;
 import com.tieto.it2014.domain.util.Util;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -40,15 +39,15 @@ public class Workout implements Serializable {
     }
 
     public String getStartTime() {
-        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(0).timeStamp);
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(0).getTimeStamp());
     }
 
     public Long getStartTimeTimestamp() {
-        return locs.get(0).timeStamp;
+        return locs.get(0).getTimeStamp();
     }
 
     public String getFinishTime() {
-        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(locs.size() - 1).timeStamp);
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(locs.get(locs.size() - 1).getTimeStamp());
     }
 
     public List<UserLoc> getLocs() {
@@ -62,12 +61,12 @@ public class Workout implements Serializable {
             for (UserLoc l : locs) {
                 if (previous != null) {
                     d += Util.calculateDistance(
-                            previous.latitude,
-                            previous.longtitude,
-                            previous.altitude,
-                            l.latitude,
-                            l.longtitude,
-                            l.altitude);
+                            previous.getLatitude(),
+                            previous.getLongtitude(),
+                            previous.getAltitude(),
+                            l.getLatitude(),
+                            l.getLongtitude(),
+                            l.getAltitude());
                 }
                 previous = l;
             }
@@ -82,12 +81,12 @@ public class Workout implements Serializable {
             for (UserLoc l : locs) {
                 if (previous != null) {
                     d += Util.calculateDistance(
-                            previous.latitude,
-                            previous.longtitude,
-                            previous.altitude,
-                            l.latitude,
-                            l.longtitude,
-                            l.altitude);
+                            previous.getLatitude(),
+                            previous.getLongtitude(),
+                            previous.getAltitude(),
+                            l.getLatitude(),
+                            l.getLongtitude(),
+                            l.getAltitude());
                 }
                 previous = l;
             }
@@ -101,7 +100,7 @@ public class Workout implements Serializable {
             UserLoc previous = null;
             for (UserLoc l : locs) {
                 if (previous != null) {
-                    d += Util.calculateDuration(previous.timeStamp, l.timeStamp);
+                    d += Util.calculateDuration(previous.getTimeStamp(), l.getTimeStamp());
                 }
                 previous = l;
             }
@@ -115,7 +114,7 @@ public class Workout implements Serializable {
             UserLoc previous = null;
             for (UserLoc l : locs) {
                 if (previous != null) {
-                    d += Util.calculateDuration(previous.timeStamp, l.timeStamp);
+                    d += Util.calculateDuration(previous.getTimeStamp(), l.getTimeStamp());
                 }
                 previous = l;
             }

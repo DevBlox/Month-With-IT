@@ -2,12 +2,11 @@ package com.tieto.it2014.dao.workout;
 
 import com.tieto.it2014.dao.JpaEntity;
 import com.tieto.it2014.domain.user.entity.UserLoc;
-
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "UserLoc")
@@ -42,10 +41,10 @@ public class WorkoutJpa implements JpaEntity<UserLoc>, Serializable {
 
     public WorkoutJpa(UserLoc userLoc) {
         this.phoneNumber = userLoc.id;
-        this.timeStamp = userLoc.timeStamp;
-        this.latitude = userLoc.latitude;
-        this.longtitude = userLoc.longtitude;
-        this.altitude = userLoc.altitude;
+        this.timeStamp = userLoc.getTimeStamp();
+        this.latitude = userLoc.getLatitude();
+        this.longtitude = userLoc.getLongtitude();
+        this.altitude = userLoc.getAltitude();
     }
 
     public String getPhoneNumber() {
@@ -71,5 +70,19 @@ public class WorkoutJpa implements JpaEntity<UserLoc>, Serializable {
     @Override
     public UserLoc toDomain() {
         return new UserLoc(this.phoneNumber, this.uName, this.timeStamp, this.latitude, this.longtitude, this.altitude);
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

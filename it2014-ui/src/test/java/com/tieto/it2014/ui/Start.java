@@ -1,11 +1,14 @@
 package com.tieto.it2014.ui;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.util.time.Duration;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class Start {
+
+    private static final Logger LOGGER = Logger.getLogger(Start.class);
 
     private Start() {
     }
@@ -35,6 +38,7 @@ public class Start {
             server.stop();
             server.join();
         } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
             System.exit(1);
         }
     }

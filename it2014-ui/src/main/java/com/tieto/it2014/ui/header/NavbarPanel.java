@@ -1,6 +1,6 @@
 package com.tieto.it2014.ui.header;
 
-import com.tieto.it2014.ui.achievments.AchievmentsPage;
+import com.tieto.it2014.ui.achievements.AchievmentsPage;
 import com.tieto.it2014.ui.user.StatisticsPage;
 import com.tieto.it2014.ui.user.TopPage;
 import com.tieto.it2014.ui.user.WeightPage;

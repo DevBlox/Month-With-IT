@@ -6,9 +6,11 @@ import com.tieto.it2014.domain.achievment.query.UserAchievementsQuery;
 import com.tieto.it2014.domain.user.entity.User;
 import com.tieto.it2014.domain.user.query.LoggedInUserQuery;
 import com.tieto.it2014.ui.HomePage;
-import com.tieto.it2014.ui.achievments.AchievementsChecker;
+import com.tieto.it2014.ui.achievements.AchievementsChecker;
 import com.tieto.it2014.ui.session.UserSession;
+import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
 import com.tieto.it2014.ui.weight.detail.RandomQuote;
+import java.util.List;
 import org.apache.wicket.feedback.ContainerFeedbackMessageFilter;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -21,14 +23,13 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.List;
-
-import static com.tieto.it2014.ui.utils.UIUtils.withInfoMsg;
+import org.jboss.logging.Logger;
 
 public class LoginPanel extends Panel {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Logger LOGGER = Logger.getLogger(LoginPanel.class);
 
     private String email;
     private String password;
@@ -154,6 +155,7 @@ public class LoginPanel extends Panel {
                 setResponsePage(HomePage.class);
             }
         } catch (DomainException ex) {
+            LOGGER.error(ex.getMessage(), ex);
             form.error(ex.getMessage());
         }
     }

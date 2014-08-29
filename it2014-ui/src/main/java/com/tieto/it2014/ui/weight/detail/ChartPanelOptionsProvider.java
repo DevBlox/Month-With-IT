@@ -226,25 +226,15 @@ public class ChartPanelOptionsProvider implements Serializable {
 
             switch (this.optionsType) {
                 case BUTTON_TYPE_DAY:
-                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR));
-                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
-                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                    cal = getCalendarInstanceWithGivenValues(cal, Calendar.DAY_OF_MONTH, Calendar.HOUR, Calendar.MINUTE, Calendar.SECOND);
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
-
                     cal = Util.convertToGmt(cal);
-
                     number = cal.getTimeInMillis();
-
                     break;
                 case BUTTON_TYPE_MONTH:
                     cal.set(Calendar.MONTH, Calendar.getInstance().get(Calendar.MONTH));
-                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
-                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
-                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                    cal = getCalendarInstanceWithGivenValues(cal, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
-
                     number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_QUARTER:
@@ -260,22 +250,15 @@ public class ChartPanelOptionsProvider implements Serializable {
                         cal.set(Calendar.MONTH, 9);
                     }
 
-                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
-                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
-                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                    cal = getCalendarInstanceWithGivenValues(cal, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
-
                     number = cal.getTimeInMillis();
                     break;
                 case BUTTON_TYPE_YEAR:
                 default:
                     cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
                     cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
-                    cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-                    cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
-                    cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
-                    cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
+                    cal = getCalendarInstanceWithGivenValues(cal, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND);
                     cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
                     number = cal.getTimeInMillis();
                     break;
@@ -285,6 +268,15 @@ public class ChartPanelOptionsProvider implements Serializable {
             LOGGER.error(e.getMessage(), e);
         }
         return number;
+    }
+
+    private Calendar getCalendarInstanceWithGivenValues(Calendar cal, int dayOfMonth, int hourOfDay, int minute, int second) {
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().get(dayOfMonth));
+        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(hourOfDay));
+        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(minute));
+        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(second));
+
+        return cal;
     }
 
     private long getMaxXDependingOnType() {

@@ -394,21 +394,8 @@ public class ChartPanel extends Panel {
         return createdListOfDays;
     }
 
-    private Long getMinimumTimestampThisYear() {
-        Calendar cal = new GregorianCalendar();
-        cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
-        cal.set(Calendar.MONTH, Calendar.getInstance().getActualMinimum(Calendar.MONTH));
-        cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-        cal.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().getActualMinimum(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, Calendar.getInstance().getActualMinimum(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, Calendar.getInstance().getActualMinimum(Calendar.SECOND));
-        cal.set(Calendar.MILLISECOND, Calendar.getInstance().getActualMinimum(Calendar.MILLISECOND));
-
-        return cal.getTimeInMillis();
-    }
-
     private List<String> getMonthsInThisYear() {
-        Long start = getMinimumTimestampThisYear();
+        Long start = Util.getMinimumTimestampThisYear();
 
         Calendar cal = Calendar.getInstance();
         Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));
@@ -440,7 +427,7 @@ public class ChartPanel extends Panel {
     }
 
     private List<String> getQuartersInThisYear() {
-        Long start = getMinimumTimestampThisYear();
+        Long start = Util.getMinimumTimestampThisYear();
 
         Calendar cal = Calendar.getInstance();
         Long end = Util.getLastDayInMonthInCurrentYearTimestamp(String.valueOf(cal.get(Calendar.MONTH) + 1));

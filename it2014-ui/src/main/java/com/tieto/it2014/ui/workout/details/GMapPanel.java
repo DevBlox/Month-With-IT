@@ -1,15 +1,28 @@
 package com.tieto.it2014.ui.workout.details;
 
-import com.googlecode.wickedcharts.highcharts.options.*;
+import com.googlecode.wickedcharts.highcharts.options.Axis;
+import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
+import com.googlecode.wickedcharts.highcharts.options.ExportingOptions;
+import com.googlecode.wickedcharts.highcharts.options.Function;
+import com.googlecode.wickedcharts.highcharts.options.Legend;
+import com.googlecode.wickedcharts.highcharts.options.Options;
+import com.googlecode.wickedcharts.highcharts.options.PlotLine;
+import com.googlecode.wickedcharts.highcharts.options.SeriesType;
+import com.googlecode.wickedcharts.highcharts.options.Title;
+import com.googlecode.wickedcharts.highcharts.options.Tooltip;
 import com.googlecode.wickedcharts.highcharts.options.color.HexColor;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
 import com.googlecode.wickedcharts.highcharts.options.series.SimpleSeries;
 import com.googlecode.wickedcharts.wicket6.highcharts.Chart;
-import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.user.entity.UserLoc;
 import com.tieto.it2014.domain.user.entity.Workout;
+import com.tieto.it2014.domain.util.Util;
 import com.tieto.it2014.domain.workout.query.WorkoutsQuery;
 import com.tieto.it2014.ui.error.ErrorPage404;
+import java.security.AccessControlException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -17,12 +30,11 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.gmap.GMap;
-import org.wicketstuff.gmap.api.*;
-
-import java.security.AccessControlException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.wicketstuff.gmap.api.GIcon;
+import org.wicketstuff.gmap.api.GLatLng;
+import org.wicketstuff.gmap.api.GMarker;
+import org.wicketstuff.gmap.api.GMarkerOptions;
+import org.wicketstuff.gmap.api.GPolyline;
 
 /**
  * Created by mantas on 18/08/14.
@@ -79,7 +91,7 @@ public class GMapPanel extends Panel {
                 array[index] = value.toString();
                 index++;
             }
-            if (data.getAxisData().get(data.getAxisData().size()-1) > 20) {
+            if (data.getAxisData().get(data.getAxisData().size() - 1) > 20) {
                 xAxis.setTickInterval(8f);
             }
 
@@ -127,7 +139,6 @@ public class GMapPanel extends Panel {
             map.setScrollWheelZoomEnabled(true);
             map.fitMarkers(markers);
 
-            //TODO: Find a proper way to load images
             map.addOverlay(new GMarker(new GMarkerOptions(map, markers.get(0), "Start", new GIcon("http://haliucinas.eu/images/start.png"), null)));
 
             map.addOverlay(new GPolyline("red", 1, (float) 1, markers.toArray(new GLatLng[markers.size() - 1])));

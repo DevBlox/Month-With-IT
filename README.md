@@ -1,4 +1,4 @@
-﻿Project details
+Project details
 =====================
 This application was developed in one month time at Tieto Lietuva by a team of students.
 It was as a part of "Menuo su IT" project in August 2014.
